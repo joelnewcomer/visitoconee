@@ -1,0 +1,20 @@
+{
+	"name": "Drum Dashboard",
+	"version": "1.4.4",
+	"download_url": "https://bitbucket.org/drumcreative/drum-dashboard/get/master.zip",
+
+	"homepage": "https://bitbucket.org/drumcreative/drum-dashboard/overview",
+	"requires": "4.0",
+	"tested": "4.8.2",
+	"last_updated": "2017-06-08 16:00:00",
+	"upgrade_notice": "We have up added WP Rest API integration!!",
+
+	"author": "Drum Creative",
+	"author_homepage": "http://drumcreative.com/",
+
+	"sections": {
+		"description": "This plugin adds a set of panels in the dashboard for the client.",
+		"installation": "<ol><li>Upload the entire <code>drum-dashboard</code> folder to the <code>/wp-content/plugins/</code> directory.</li><li>Activate the plugin through the ‘Plugins’ menu in WordPress.</li></ol>",
+		"changelog": "<ul><li> v1.0 - fist release of plugin</li><li> v.1.1 - We have up added WP Rest API integration for the Account Managers</li><li> v1.1.2 - Cleaned up the code to make it more </li></ul>"
+	}
+}

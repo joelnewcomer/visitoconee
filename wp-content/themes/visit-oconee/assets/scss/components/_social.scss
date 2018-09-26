@@ -1,0 +1,16 @@
+.social {
+	display: inline-block;
+	a {
+		display: inline-block;
+	}
+	svg {
+		margin: 0 8px;
+		height: 24px;
+		width: 24px;
+		fill: #fff;
+		vertical-align: middle;
+	}
+	a:first-child svg {
+		margin-left: 0;
+	}	
+}

@@ -1,0 +1,32 @@
+.ie9 {
+	// 	Form Emements
+	label {
+		&.label-floatlabel {
+		    display:none!important;
+		}
+	}
+	input {
+		padding: 7px!important;
+	}
+	select {
+	  background: #FFFFFF !important;
+	  border:2px solid #888;
+	  color:#999 !important;
+	  height:44px;
+	}
+	
+	//Footer
+	#footer-container {
+		margin-top: 0!important;
+	}
+}
+
+.gf_browser_ie.gform_wrapper .gform_footer input.button {
+	padding: 1.375rem 2.75rem !important;
+}
+
+
+
+
+
+

@@ -1,0 +1,158 @@
+.woocommerce {
+	a.button,
+	button.button,
+	input.button {
+		//@include button();
+		padding: 15px;
+		&.alt {
+
+			background: lighten($secondary-color, 15%);
+			padding: 10px;
+			&:hover {
+				background: $secondary-color;
+			}
+		}
+	}
+
+	.quantity .qty {
+	    padding: 0px;
+	    height: 37px;
+	}
+
+	// Sale Pages and Items
+	span.onsale {
+		width: 4em;
+		height: 4em;
+		padding: 0.4em;
+	}
+	.sale {
+		a.button,
+		button.button,
+		input.button {
+			//@include button();
+			padding: 15px;
+			&.alt {
+
+				background: lighten($secondary-color, 15%);
+				padding: 10px;
+				&:hover {
+					background: $secondary-color;
+				}
+			}
+		}
+	}
+
+	table.variations {
+		tr {
+			select {
+				width: 3.631em;
+			    text-align: center;
+			    padding: 0px;
+			    height: 37px!important;
+			}
+		}
+	}
+
+
+	.comment-respond {
+		 .form-submit {
+		 	input#submit {
+				padding: 12px;
+			    border: 2px solid #cacaca;
+			    border-radius: 0px;
+			    line-height: normal;
+			    height: 44px;
+			    display: block;
+			    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+			    background-color: lighten($secondary-color, 15%);
+			    color:$white!important;
+				&:hover {
+					background: $secondary-color;
+				}
+			}
+		}
+	}
+
+
+
+	//My Account
+
+
+
+	// Edit Account
+	form.edit-account {
+		legend {
+		    border: 0;
+		    padding: 10px;
+		    color: #aaa !important;
+		    font-weight: 600;
+		}
+
+	}
+}
+
+.woocommerce-cart {
+	table.cart {
+		td.actions {
+			.coupon {
+				.input-text {
+				    float: left;
+				    -webkit-box-sizing: border-box;
+				    -moz-box-sizing: border-box;
+				    box-sizing: border-box;
+				    border: 1px solid #d3ced2;
+				    padding: 6px 6px 5px;
+				    margin: 0 4px 0 0;
+				    outline: 0;
+				    line-height: 1;
+				    width: 150px;
+				}
+			}
+		}
+	}
+}
+
+.view-cart-container {
+	position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: 600;
+    @include breakpoint(small only) {
+        width: 60px;
+        height: $topbar-mobile-height;
+    }
+    svg.icon {
+		fill: $white;
+		width: 60px;
+		padding: 7px 10px;
+
+		@include breakpoint(medium) {
+			fill: $primary-color;
+		}
+	}
+	a.view-cart-icon {
+	    color: white;
+	    position: absolute;
+	    z-index: 5;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+
+
+
+	}
+	span {
+		display: block;
+		margin-top: 12px;
+		position: absolute;
+		left: 50%;
+		font-weight: 700;
+		@include breakpoint(small only) {
+			margin-top: 0;
+		    top:20%;
+		    color: $primary-color;
+		}
+	}
+  }

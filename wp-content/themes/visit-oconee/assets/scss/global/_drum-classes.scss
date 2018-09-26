@@ -1,0 +1,196 @@
+/****************************************/
+/*             Drum Classes             */
+/****************************************/
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0,0,0,0);
+	border: 0;
+}
+
+.no-padding {
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+}
+
+.no-border {
+	border: none !important;
+}
+
+a.read-more, .no-wrap, .no-break {
+	white-space: nowrap;
+}
+
+.logged-in .hide-logged-in {
+	display: none;
+}
+
+.clear {
+	clear: left;
+}
+
+.transition, a, input.button {
+	transition: all .4s ease;
+}
+
+/* This is required to pass Theme Check */
+.sticky, .wp-caption-text, .bypostauthor {}
+
+@media only screen and (max-width: 40.063em) {
+	.hide-for-small, .hide-inline-small  {
+		display: none !important;
+	}
+	.small-text-center {
+		text-align: center;
+	}
+}
+
+@media only screen and (min-width: 40.063em) {
+	.show-for-small {
+		display: none !important;
+	}
+}
+
+// Safari bug fix
+body.safari a.logo {
+	transition: none;
+}
+
+blockquote {
+	margin: $blockquote-margin;
+	p {
+		font-size: $blockquote-font-size;
+	}
+}
+
+.entry-content .grid-container {
+	padding-top: 30px;
+	padding-bottom: 15px;
+}
+
+.entry-content section, .parallax-container, main.container, .grid-wrapper {
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+.entry-content section:last-child {
+	padding-bottom: 40px;
+}
+
+.grid-container.entry-content {
+	background: #fff;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.entry-content section.default-background {
+	background:$default-section;
+}
+
+.entry-content section.default-background:nth-child(even) {
+	background:$primary-section;
+}
+
+.entry-content section.primary-background {
+	background:$primary-section;
+}
+
+.entry-content section.secondary-background {
+	background: $secondary-section;
+}
+
+.slider-container {
+	overflow: hidden;
+}
+
+#page, #single-post {
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+.password-protected-page #page > article {
+	padding: 40px 0;
+}
+
+.widget #searchsubmit {
+	padding: 16px 20px 15px 20px;
+}
+
+.white-bg {
+	background: #fff;
+}
+
+.white-text {
+	color: #fff;
+	p, a, h1, h2, h3, h4, h5, h6, blockquote {
+		color: #fff;
+	}
+}
+
+p {
+	color: $paragraph-color;
+}
+
+iframe {
+	max-width: 100%;
+}
+
+h1.entry-title, h2.entry-title {
+	color: $primary-color;	
+}
+
+h1.entry-title {
+	font-size: 48px;
+	font-weight: 300;
+	@media only screen and (max-width: 700px) {	
+		font-size: 40px;
+	}
+	@media only screen and (max-width: 40.063em) {
+		font-size: 32px;	
+	}
+}
+
+// Fix for bxSlider Edge, loader doesn't go away
+body.edge .bx-loading {
+	display: none;
+}
+
+// Center-align cells in grid-x
+.grid-x.align-center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+// Flexbox fallbacks for IE10
+body.ie10 {
+	.grid-container {
+		overflow: auto;
+	}
+	.cell {
+		float: left;
+	}
+	@media only screen and (min-width: 64.063em) {
+		.large-6:nth-child(2n+1) {
+			clear: left;
+		}
+	}
+	@media only screen and (min-width: 40.063em) and (max-width: 64.063em) {
+		.medium-6:nth-child(2n+1) {
+			clear: left;
+		}
+	}
+	@media only screen and (max-width: 40.063em) {
+		.small-6:nth-child(2n+1)   {
+			clear: left;
+		}
+	}
+}

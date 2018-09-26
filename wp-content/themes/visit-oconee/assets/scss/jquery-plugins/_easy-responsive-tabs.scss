@@ -1,0 +1,206 @@
+ul.resp-tabs-list {
+    margin: 0px;
+    padding: 0px;
+    overflow: visible;
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.entry-content .tabs-container > div:not(.resp-vtabs) ul.resp-tabs-list {
+    border-bottom: solid 2px $primary-color;
+}
+
+.entry-content ul.resp-tabs-list li {
+    font-size: $et-tab-font-size;
+    display: inline-block;
+    padding: 13px 40px;
+    margin: 0 4px 0 0;
+    color: #595959;
+    list-style: none;
+    cursor: pointer;
+    float: left;
+}
+
+.resp-tabs-container {
+    padding: 0px;
+    clear: left;
+}
+
+h2.resp-accordion {
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+
+.resp-tab-content {
+	display: none;
+	padding: 15px;
+}
+
+.resp-tab-content-active {
+	display: block;
+}
+
+.resp-tab-active {
+	border: 1px solid $primary-color !important;
+	border-bottom: none;
+	margin-bottom: -1px !important;
+	border-top: 1px solid $primary-color !important;
+	border-bottom: 0px #fff solid !important;
+}
+
+li.resp-tab-item {
+    background: rgba($primary-color, .15) !important;
+    svg {
+	    display: none;
+    }
+}
+
+.entry-content ul.resp-tabs-list li.resp-tab-active {
+    border-bottom: none;
+    background-color: $primary-color !important;
+    color: #fff !important;
+    margin-top: -2px !important;
+    padding-top: 15px !important;
+}
+
+.resp-content-active, .resp-accordion-active {
+    display: block;
+}
+
+h2.resp-accordion {
+    font-size: $et-tab-font-size;
+    margin: 0 0 2px 0;
+    padding: 14px 15px;
+    position: relative;
+    transition: all .5s;
+    background: rgba($primary-color, .15) !important;
+    -webkit-transition: all .5s; /* Safari and Chrome */
+    -ms-transition: all .5s; /* Opera */
+    color: #595959;
+}
+
+div.resp-easy-accordion {
+	max-width: 792px;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+h2.resp-tab-active {
+    border-bottom: 0px solid $primary-color !important;
+    margin-bottom: 0px !important;
+}
+
+h2.resp-tab-title:last-child {
+    background: blue;
+}
+
+/*-----------Vertical tabs-----------*/
+.resp-vtabs ul.resp-tabs-list {
+    float: left;
+    width: 30%;
+    border-left: solid 2px $primary-color;
+    padding-top: 2px;
+}
+
+.entry-content .resp-vtabs ul.resp-tabs-list li {
+    display: block;
+    width: 100%;
+    padding: 15px 15px !important;
+    margin: 0 0 2px !important;
+    cursor: pointer;
+    float: none;
+}
+
+.resp-vtabs .resp-tabs-container {
+    padding: 0px;
+    float: left;
+    width: 68%;
+    min-height: 250px;
+    border-radius: 4px;
+    clear: none;
+}
+
+.resp-vtabs .resp-tab-content {
+    border: none;
+    padding-left: 40px;
+}
+
+.resp-vtabs li.resp-tab-active {
+	position: relative;
+	z-index: 1;
+	margin-bottom: 4px !important;
+}
+
+/*-----------Accordion styles-----------*/
+h2.resp-tab-active {
+    background: $primary-color !important;
+    color: #fff;
+    svg .acc-arrow-1 {
+	    fill: #fff;
+    }
+}
+
+.resp-easy-accordion h2.resp-accordion {
+    display: block;
+}
+
+h2.resp-accordion {
+    text-align: center;
+    font-size: $et-tab-font-size;
+    svg {
+	    transition: all .5s;
+	    width: 16px;
+	    height: 9px;
+	    position: absolute;
+	    right: 16px;
+	    top: 20px;
+		transform: rotate(180deg);
+		.acc-arrow-1 {
+			fill: $primary-color;
+		}
+    }
+    &.resp-tab-active svg {
+		transform: rotate(0deg);
+    	.acc-arrow-1 {
+		    fill: #fff;
+		}
+    }
+}
+
+.resp-jfit {
+    width: 100%;
+    margin: 0px;
+}
+
+/*Here your can change the breakpoint to set the accordion, when screen resolution changed*/
+@media only screen and (max-width: 768px) {
+    ul.resp-tabs-list {
+        display: none;
+    }
+    h2.resp-accordion {
+        display: block;
+    }
+    .resp-vtabs .resp-tabs-container {
+        border: none;
+        float: none;
+        width: 100%;
+        min-height: 100px;
+        clear: none;
+    }
+    .resp-accordion-closed {
+        display: none !important;
+    }
+}
+
+// Accordion Styling
+.resp-easy-accordion {
+	.resp-tab-content {
+		background: rgba($primary-color, .05);
+	}
+}
+
+.resp-tab-content {
+	margin-bottom: 2px;
+}

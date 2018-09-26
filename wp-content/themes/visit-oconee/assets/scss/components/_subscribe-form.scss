@@ -1,0 +1,49 @@
+.subscribe-form {
+	.gform_body, .gform_footer {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	.gform_body, .gform_footer, .ginput_container {
+		margin: 0 !important;
+		padding: 0 !important;		
+	}
+	.gfield {
+		padding-right: 0 !important;
+	}
+	.gform_body {
+		width: 217px !important;
+	}
+	.gform_footer {
+		margin-left: -4px !important;
+		width: 98px !important;
+	}
+	.gform_wrapper input[type="text"] {
+		border-radius: $global-radius 0 0 $global-radius;
+		background: rgba(255,255,255,0.20);
+		border: 1px solid rgba(255,255,255,0.60);
+		box-shadow: none;
+		height: 40px;
+	    &::-webkit-input-placeholder {
+		    color: #fff;
+		}		
+	}
+	.gform_button {
+		width: 100% !important;
+		margin: 0 !important;
+		font-size: 14px !important;
+		text-transform: none;
+		font-weight: bold;
+		padding: 11px 4px;
+		border-radius: 0 $global-radius $global-radius 0;
+		background: #FFFFFF;
+		box-shadow: 0 6px 12px 0 rgba(0,0,0,0.20);
+		color: $primary-color;
+		border: none;
+		text-shadow: none;
+		height: 40px;				
+	}
+}
+
+.menu-container .subscribe-form .gform_body {
+	width: 179px !important;
+}

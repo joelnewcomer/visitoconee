@@ -1,0 +1,205 @@
+.menu-collapser {
+    position: relative;
+	display: block;
+    float: left;
+}
+
+div.collapse-button {
+	background: $primary-color;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 14px;
+    height: $topbar-mobile-height;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+div.collapse-button:before {
+    content: 'Menu';
+    display: block;
+    line-height: 64px;
+}
+
+.collapse-button:hover,
+.collapse-button:focus {
+    background-color: $secondary-color;
+}
+
+.collapse-button .icon-bar {
+	display: none;
+}
+
+ul.slimmenu {
+    margin: 0;
+    padding: 0;
+    list-style-type: none
+}
+
+ul.slimmenu:before,
+ul.slimmenu:after {
+    content: '';
+    display: table
+}
+
+ul.slimmenu:after {
+    clear: both
+}
+
+ul.slimmenu.collapsed li {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box
+}
+
+ul.slimmenu.collapsed li>ul {
+    position: static;
+    display: none
+}
+
+ul.slimmenu.collapsed li a {
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box
+}
+
+ul.slimmenu.collapsed li .sub-toggle {
+    height: 49px;
+    width: 51px;
+}
+
+ul.slimmenu li {
+    position: relative;
+    float: left;
+    display: inline-block;
+}
+
+ul.slimmenu li ul {
+    margin: 0;
+    list-style-type: none
+}
+
+@media only screen and (max-width: 40.062em) {
+	ul.slimmenu li ul li {
+    	background: #f1f1f1;
+	}
+	ul.slimmenu {
+		width: 100%;
+	}
+}
+
+ul.slimmenu li>ul {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 999;
+    display: none;
+    width: auto;
+    background: #FAFAFA;
+    padding: 16px 0;
+    border-bottom: solid 4px $primary-color;
+}
+
+ul.slimmenu li>ul li {
+	width: 100%;
+}
+
+ul.slimmenu li>ul>li ul {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    z-index: 999;
+    display: none;
+    width: 100%
+}
+
+ul.slimmenu li a {
+    display: block;
+    white-space: nowrap;
+    color: $dark-gray;
+    font-size: $menu-font-size;
+    font-weight: 400;
+    transition: all 0.5s ease-out;
+}
+
+ul.slimmenu li > a {
+    padding: 30px 20px 31px 20px;	
+}
+
+ul.slimmenu li > ul > li a {
+	padding: 12px 20px;	
+}
+
+body.home .header-wrapper.transparent {
+	a {
+		color: #fff;
+	}
+	svg path {
+		fill: #fff;
+	}
+}
+
+@media only screen and (max-width: 40.062em) {
+	ul.slimmenu ul.sub-menu li a {
+		width: auto;
+	}
+}
+
+ul.slimmenu > li a:hover {
+    color: $primary-color;
+	background-image: linear-gradient(-180deg, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.10) 100%);
+}
+
+ul.slimmenu li ul li a:hover {
+	background: $primary-color;
+	color: #FFFFFF;
+	text-shadow: 0 1px 4px rgba(0,0,0,0.20);
+}
+
+ul.slimmenu li .sub-toggle {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.075);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    width: 48px;
+    height: 100%;
+    text-align: center;
+    cursor: pointer
+}
+
+@media only screen and (min-width: 40em) {
+	ul.slimmenu li .sub-toggle {
+		display: none;
+	}
+}
+
+ul.slimmenu li .sub-toggle:before {
+	display: none;
+}
+
+ul.slimmenu li .sub-toggle>svg {
+    display: inline-block;
+    fill: #333;
+	width: 46px;
+    height: 20px;
+    margin-top: 14px;
+}
+
+@media only screen and (min-width: 40.063em) {
+	ul.slimmenu {
+		display: inline-block !important;
+		vertical-align: middle;
+	}
+}
+
+@media only screen and (max-width: 40.062em) {
+	ul.slimmenu {
+		z-index: 999;
+		background: #fff;
+	}
+}

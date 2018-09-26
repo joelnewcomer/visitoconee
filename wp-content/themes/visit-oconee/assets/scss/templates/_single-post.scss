@@ -1,0 +1,46 @@
+#single-post {
+	.single-title-ul {
+		position: relative;
+		margin-bottom: 60px;
+		max-width: 1010px;
+		display: inline-block;
+	}
+	.single-cats-container {
+		display: inline-block;
+		width: 100%;
+	}
+	header .single-cats-container {
+		margin-bottom: 40px;
+	}
+	.single-title-ul:after {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: -28px;
+		left: 50%;
+		height: 1px;
+		width: 472px;
+		margin-left: -236px;
+		background: #fff;
+	}
+	.single-container {
+		display: block;
+		float: left;
+		width: 100%;
+	}
+	article {
+		padding-bottom: 40px;
+	}
+	a.header-cat {
+		background: $primary-color;
+		display: inline-block;
+		border-radius: 4px;
+		margin: 0 4px;
+		font-size: 13px;
+		padding: 2px 12px;
+		color: #fff;
+	}
+	header a.header-cat {
+		background: #9E9E9E;
+	}
+}

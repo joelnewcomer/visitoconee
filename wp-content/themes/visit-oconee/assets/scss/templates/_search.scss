@@ -1,0 +1,27 @@
+.search-results-container {
+	display: block;
+	float: left;
+	width: 100%;
+	h2 {
+		margin-bottom: 30px;
+		@media only screen and (max-width: 40.063em) {
+			margin-bottom: 16px;	
+		}
+	}
+}
+
+.blog-card-wide {
+	width: 100%;
+	@media only screen and (min-width: 40.063em) {
+		img {
+			width: 296px;
+			float: left;
+			margin-right: 24px;
+		}
+	}
+	.blog-card-content {
+		@media only screen and (min-width: 40.063em) {
+			padding: 18px 30px 6px 30px;
+		}
+	}
+}

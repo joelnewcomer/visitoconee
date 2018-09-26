@@ -1,0 +1,63 @@
+.gallery {
+	margin: auto;
+	display:block;
+	width:100%;
+	float:left;
+}
+.gallery-item {
+   	float: left;
+   	margin: 1%;
+    @media only screen and (max-width: 40.063em) {
+		margin: 1% 0;   
+   	}
+   	text-align: center;
+   	width: 32.333%;
+   	img {
+		width: 100%;
+	}
+}
+.gallery-caption {
+	text-align: center;
+	font-size: 14px;
+	margin-left: 0;
+	margin-top: 5px; 
+}
+ .gallery-columns-2 .gallery-item {
+	width: 48%;
+	@include breakpoint(small down) {
+	    width: 100%;
+	}
+ }
+ .gallery-columns-3 .gallery-item {
+	width: 31.333%;
+	@include breakpoint(small down) {
+	    width: 100%;
+	}
+ }
+ .gallery-columns-4 .gallery-item {
+	width: 23%;
+	@include breakpoint(medium down) {
+	    width: 48%;
+	}
+	@include breakpoint(small down) {
+	    width: 100%;
+	}
+ }
+ .gallery-columns-5 .gallery-item {
+	width: 18%;
+	@include breakpoint(medium down) {
+	    width: 31.333%;
+	}
+	@include breakpoint(small down) {
+	    width: 100%;
+	}
+ }
+.gallery-columns-6 .gallery-item {
+	width: 14.6%;
+	@include breakpoint(medium down) {
+	    width: 31.333%;
+	}
+	@include breakpoint(small down) {
+	    width: 100%;
+	}
+}

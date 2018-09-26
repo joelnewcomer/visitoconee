@@ -1,0 +1,75 @@
+.button a, input.button, .faux-button, button {
+	display: inline-block;
+	position: relative;
+	margin-bottom: 10px;
+	background: $primary-color;
+	border: solid $button-border-width $primary-color;
+	border-radius: $global-radius;
+	color: $white;
+	padding: 12px 30px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	transition: all .5s;
+	-webkit-transition: all .5s; /* Safari and Chrome */
+	-ms-transition: all .5s; /* Opera */
+	box-shadow: 0 6px 12px 0 rgba($primary-color,0.30);
+	text-shadow: 0 1px 4px rgba(0,0,0,0.20);
+	@include breakpoint(medium ) {
+	    margin-right: 15px;
+	}
+	&:last-child {
+		margin-right: 0;
+	}	
+	&:hover {
+		background: transparent;
+		color: $primary-color;
+	}
+}
+
+.button.small a, .faux-button.small, button.small {
+	padding: 8px 16px;
+	font-size: 16px;
+}
+
+.button.arrow a, .faux-button.arrow, button.arrow {
+	padding-right: 36px;
+}
+
+.faux-button.arrow.small {
+	svg {
+		width: 9px;
+		height: 16px;
+		position: absolute;
+		right: 16px;
+		top: 10px;
+	}
+}
+
+.button.large a, button.large {
+	padding: 20px 50px;
+	font-size: 25px;
+}
+
+.button.full-width a, button.full-width {
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 25px;
+}
+
+.button.reverse a, .faux-button.reverse, button.reverse {
+	border-color: #fff;
+	color: #fff;
+	background: rgba(0,0,0,.15);
+	font-weight: bold;
+	svg path {
+		fill: #fff;
+	}	
+	&:hover {
+		background: #fff;
+		color: $primary-color;
+		svg path {
+			fill: $primary-color;
+		}		
+	}
+}

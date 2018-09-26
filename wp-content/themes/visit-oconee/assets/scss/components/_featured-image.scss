@@ -1,0 +1,27 @@
+.featured-image {
+    & > .row {
+	 	padding: 60px 0 60px 0;
+	}	
+	.featured-image-overlay {
+	    h1, h2, h3, h4, p {
+		    color: #fff;
+			text-shadow: 4px 4px 6px rgba(0,0,0,.2);
+    	}
+    }
+    img {
+		width: 100%;
+	}
+}
+
+.parallax-featured {
+	height: 480px;
+	.grid-container, .cell {
+		height: 100%;
+	}
+}
+
+.featured-image, .parallax-window {
+	background-size: 100% auto !important;
+	position: relative;
+	z-index: 2;
+}

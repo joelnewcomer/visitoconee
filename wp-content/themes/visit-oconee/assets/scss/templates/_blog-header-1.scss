@@ -1,0 +1,22 @@
+.blog-header-1 {
+	@media only screen and (max-width: 40.063em) {
+		padding-top: 20px;	
+	}
+}
+
+h1.entry-title-ul {
+	display: inline-block;
+	@media only screen and (min-width: 40.063em) {
+		padding: 0 10% 30px 10%;
+		border-bottom: solid 1px rgba(255,255,255,.5);
+		margin-bottom: 35px;
+	}
+	@media only screen and (max-width: 40.063em) {
+		margin-bottom: 16px;	
+	}
+}
+
+.search-and-cats {
+	display: inline-block;
+	width: 100%;
+}

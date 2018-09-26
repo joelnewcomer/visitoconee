@@ -1,0 +1,3 @@
+<svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="17" height="10" viewBox="0 0 17 10">
+  <polygon fill="#FFF" fill-rule="evenodd" points=".955 4.167 -.167 5.167 7.833 13.167 15.833 5.167 14.874 4.167 7.833 11.167" transform="translate(1 -4)"/>
+</svg>

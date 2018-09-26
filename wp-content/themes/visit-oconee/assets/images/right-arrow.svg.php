@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 40"><defs><style>.right-arrow-1{fill:#fff;}</style></defs><title>right-arrow</title><path class="right-arrow-1" d="M19.71,19.29l-18-19A1,1,0,1,0,.29,1.71L17.62,20,.29,38.29a1,1,0,1,0,1.41,1.41l18-19a1,1,0,0,0,0-1.41Z"/></svg>

@@ -1,0 +1,36 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-12-06 17:09+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: 1-click-rm.php:30
+msgid "Are you really want to remove menu item?"
+msgstr ""
+
+#. Name of the plugin
+msgid "One Click Remove Menu"
+msgstr ""
+
+#. Description of the plugin
+msgid "One click remove menu in dashboard helps you save a lot of time."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "http://blogk.xyz"
+msgstr ""
+
+#. Author of the plugin
+msgid "Max"
+msgstr ""

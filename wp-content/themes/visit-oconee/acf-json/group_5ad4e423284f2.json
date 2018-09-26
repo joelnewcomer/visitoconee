@@ -1,0 +1,43 @@
+{
+    "key": "group_5ad4e423284f2",
+    "title": "Featured Image Toggle",
+    "fields": [
+        {
+            "key": "field_5ad4e482bef77",
+            "label": "Do not show Featured Image in header",
+            "name": "featured_not_in_header",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "Don't Show",
+            "ui_off_text": "Show"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "side",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1523901674
+}

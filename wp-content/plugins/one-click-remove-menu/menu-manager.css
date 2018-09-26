@@ -1,0 +1,20 @@
+#menu-to-edit .menu-item:hover .item-controls:before {
+    display: inline-block;
+}
+
+#menu-to-edit .item-controls:hover:before {
+    cursor: pointer;
+}
+
+#menu-to-edit .item-controls:before {
+    content: "\f182";
+    font-family: Dashicons;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 6px;
+    left: -20px;
+    z-index: 1;
+    display: none;
+}

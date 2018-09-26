@@ -1,0 +1,45 @@
+.main-footer, .sub-footer {
+	display: block;
+	float: left;
+	width: 100%;
+	h2, h3, p, a {
+		color: #fff;
+		text-shadow: 0 1px 4px rgba(0,0,0,0.20);
+	}
+}
+
+.main-footer {
+	background: $primary-color;
+	padding: 65px 0;
+	a.logo {
+		margin-bottom: 20px;
+	}
+	.social {
+		margin-bottom: 10px;
+		svg {
+			fill: #fff;
+		}
+	}
+	.social-subscribe h3 {
+		font-size: 18px;
+		margin-bottom: 20px;
+	}
+}
+
+.sub-footer {
+	padding: 24px 0 10px 0;
+	background: $primary-dim;
+	p, a {
+		font-size: 12px;
+	}
+}
+
+.footer-menu {
+	li {
+		list-style: none;
+		margin-bottom: 8px;
+		a {
+			font-size: 18px;
+		}
+	}
+}

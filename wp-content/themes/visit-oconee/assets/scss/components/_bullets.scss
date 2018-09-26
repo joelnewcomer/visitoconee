@@ -1,0 +1,40 @@
+.entry-content > ul, section.section ul {
+	> li {
+		list-style: none;
+		position: relative;
+		padding-left: 18px;
+		margin-bottom: 7px;
+		color: $paragraph-color;
+		&:before {
+		    content: "";
+		    width: 7px;
+		    height: 7px;
+		    position: absolute;
+		    left: 0;
+		    top: 7px;
+		    background-color: $primary-color;
+		    border-radius: 4px;
+		}
+	}
+}
+
+.entry-content > ol, section.section ol {
+	counter-reset: item;
+	> li {
+		display: block;
+		margin-bottom: 7px;
+		color: $paragraph-color;
+		&:before {
+			content: counter(item) ". ";
+			counter-increment: item;
+			display: block;
+			position: relative;
+			max-width: 0px;
+			max-height: 0px;
+			left: -1.3em;
+			top: .05em;
+			color: $primary-color;
+			font-weight: bold;
+		}
+	}
+}

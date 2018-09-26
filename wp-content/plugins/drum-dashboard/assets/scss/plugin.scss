@@ -1,0 +1,171 @@
+$red:#ba0c2f;
+.welcome-panel-column-container {
+    display: block;
+    width: 100%;
+    float: left;
+    padding: 25px 0;
+}
+
+.welcome-panel {
+    padding: 23px 10px 25px !important;
+    box-sizing: border-box;
+    font-size: 100%;
+    h1 {
+        font-size: 30px !important;
+        line-height: 32px;
+        /* Large Up */
+        @media only screen and (min-width: 64.0625em) {
+            font-size: 40px !important;
+            line-height: 42px;
+        }
+    }
+    p {
+        font-size: 16px !important;
+    }
+    *,
+     :after,
+     :before {
+        box-sizing: inherit
+    }
+}
+
+.welcome-panel-content {
+    max-width: 100% !important;
+}
+
+.panel-1 img {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    /* Medium Only */
+    @media only screen and (min-width: 40.0625em) and (max-width: 64em) {
+        width: 50%
+    }
+}
+
+.panel-2 {
+    .button__alone {
+        /* Small only */
+        @media only screen and (max-width: 40em) {
+            margin-top: 10%;
+        }
+        /* Medium Up */
+        @media only screen and (min-width: 40.063em) {
+            width: 100%;
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.panel-2,
+.panel-3 {
+    /* Medium Down */
+    @media only screen and (max-width: 1259px) {
+        text-align: center;
+    }
+    a.button.button-hero {
+        margin: 15px 0 15px 2px !important;
+        /* Medium Down */
+        @media only screen and (max-width: 64em) {
+            margin: 0 auto 25px auto !important;
+        }
+    }
+    h1 {
+        font-size: 30px !important;
+        text-transform: uppercase;
+        /* Medium Down */
+        @media only screen and (max-width: 64em) {
+            font-size: 20px !important;
+        }
+    }
+    p {
+        margin: 0 0 5px;
+        strong {
+            font-weight: 600;
+        }
+    }
+}
+
+.vid-panel {
+    height: 270px !important;
+}
+
+.tut-video {
+    float: left!important;
+    /* Medium Down */
+    @media only screen and (max-width: 64em) {
+        margin-bottom: 30px;
+    }
+    .video-title,
+    .loom-video-title,
+    .youtube-video-title {
+        margin: 8px 0px 16px;
+        text-align: center;
+    }
+    .loom-video-title {
+        margin-top: 0px;
+    }
+}
+
+
+/*
+#drum-welcome {
+
+	background: lighten($red, 10%);
+
+	p, a, p a {
+			color: white;
+	}
+
+	#manager p a {
+		padding-bottom: 2px;
+		border-bottom: solid 1px white;
+	}
+}
+*/
+
+iframe {
+    border-radius: 6px;
+    &.vid-iframe {
+        height: 218px;
+        margin: 5px 0;
+    }
+}
+
+#drum-ad {
+    padding: 0 !important;
+    .welcome-panel-content {
+        margin: 0 !important;
+        border: 0px solid #e5e5e5;
+        a {
+            display: block;
+            width: 100%;
+            float: left;
+            img {
+                display: block;
+                width: 100%;
+                float: left;
+            }
+        }
+    }
+}
+
+.no-wrap,
+.no-break {
+    white-space: nowrap;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.float-left {
+    float: left!important;
+}
+
+.ytp-title-text {
+    display: none !important;
+}
