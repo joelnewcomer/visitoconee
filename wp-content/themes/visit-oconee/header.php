@@ -36,6 +36,8 @@
 				});
 			})
 		</script>
+		
+		<link rel="stylesheet" href="https://use.typekit.net/umi7ged.css">
 
 	</head>
 	<body <?php body_class(); ?>>
@@ -43,24 +45,24 @@
 		<a class="skip-link sr-only" href="#content"><?php _e( 'Skip to content', 'drumroll' ); ?></a>
 		<!-- NOTE: Remove "transparent" class for white relative header (rather than semi-transparent absolute header) -->
 		<div class="header-wrapper transparent">
-			<header id="top-header" role="banner">
-				<nav id="top-navigation" class="main-navigation top-menu grid-container" role="navigation">
-					<?php drumroll_top_menu(); ?>
-				</nav>
-			</header>
 			<header id="masthead" class="site-header"  role="banner">
+				<div id="top-header">
+					<nav id="top-navigation" class="main-navigation top-menu grid-container" role="navigation">
+						<?php drumroll_top_menu(); ?>
+					</nav>
+				</div>
 				<nav id="site-navigation" class="main-navigation top-bar grid-container" role="navigation">
 					<div class="top-bar-left">
 						<?php get_template_part('template-parts/site-logo','link'); ?>
 					</div> <!-- top-bar-left -->
 					<div class="top-bar-right hide-for-print">
+						<?php drumroll_main_menu(); ?>
 						<div class="icon-wrapper search-icon-wrapper">
 							<a href="#" class="search-button" data-featherlight="#search-modal">
-								<?php get_template_part('assets/images/search.svg'); ?> <span class="hide-inline-small">Search</span>
+								<?php get_template_part('assets/images/search.svg'); ?>
 							</a>
 						</div> <!-- icon-wrapper -->
-						<?php drumroll_main_menu(); ?>
-						<a href="#" class="menu hide-for-small" aria-controls="site-navigation"><?php get_template_part('assets/images/hamburger.svg'); ?> <?php _e( 'Menu', 'drumroll' ); ?></a>
+
 					</div> <!-- top-bar-right -->
 				</nav> <!-- #site-navigation -->
 			</header> <!-- #masthead -->

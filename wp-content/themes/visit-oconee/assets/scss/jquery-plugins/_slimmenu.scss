@@ -120,14 +120,16 @@ ul.slimmenu li>ul>li ul {
 ul.slimmenu li a {
     display: block;
     white-space: nowrap;
-    color: $dark-gray;
+    color: #fff;
     font-size: $menu-font-size;
-    font-weight: 400;
+    font-weight: 600;
+    text-transform: uppercase;
     transition: all 0.5s ease-out;
+    border: solid 3px transparent;
 }
 
 ul.slimmenu li > a {
-    padding: 30px 20px 31px 20px;	
+    padding: 8px 20px 7px 20px;
 }
 
 ul.slimmenu li > ul > li a {
@@ -149,9 +151,9 @@ body.home .header-wrapper.transparent {
 	}
 }
 
-ul.slimmenu > li a:hover {
+ul.slimmenu > li a:hover, ul.slimmenu > li.active a {
     color: $primary-color;
-	background-image: linear-gradient(-180deg, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.10) 100%);
+    border: solid 3px #fff;
 }
 
 ul.slimmenu li ul li a:hover {

@@ -74,7 +74,7 @@ $global-font-size: 100%;
 $global-width: rem-calc(1386);
 $global-lineheight: 1.5;
 $foundation-palette: (
-  primary: #10C6CB,
+  primary: #598F9B,
   secondary: #E6D245,
   tertiary: #245CAD,
   quaternary: #DC8D29,
@@ -98,7 +98,7 @@ $secondary-section: lighten($secondary-color, 40%);
 
 $body-background: none;
 $body-font-color: $black;
-$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$body-font-family: 	"proxima-nova", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -349,14 +349,14 @@ $titlebar-icon-spacing: 0.25rem;
 // 12. Top Bar
 // -----------
 
-$topbar-padding: 0 2.9375rem;
+$topbar-padding: 0;
 $topbar-background: none;
 $topbar-submenu-background: $topbar-background;
 $topbar-link-color: #fff;
 $topbar-input-width: 200px;
 $topbar-unstack-breakpoint: medium;
 $topbar-mobile-height: 64px;
-$menu-font-size: 18px;
+$menu-font-size: 30px;
 
 
 // 13. Easy Resposive Tabs

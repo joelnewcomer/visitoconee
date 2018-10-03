@@ -22,9 +22,6 @@
 							<?php get_template_part('template-parts/locations'); ?>
 						</div> <!-- address -->
 					</div>
-					<div class="large-3 medium-3 cell hide-for-print small-text-center">
-						<?php drumroll_footer_menu(); ?>
-					</div>
 					<div class="large-5 medium-5 cell hide-for-print small-text-center social-subscribe">
 						<h3><?php _e( 'Follow Us', 'drumroll' ); ?></h3>
 						<?php get_template_part('template-parts/social'); ?>
@@ -62,7 +59,6 @@
 	</footer>
 	
 	<?php get_template_part( 'template-parts/search-modal' ); ?>
-	<?php get_template_part( 'template-parts/fullscreen-menu' ); ?>	
 	<a class="cd-top"><?php _e( 'Top', 'textdomain' ); ?></a>
 
 <?php wp_footer(); ?>
