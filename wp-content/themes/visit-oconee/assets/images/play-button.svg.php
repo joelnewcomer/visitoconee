@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78.014 78.283"><defs><style>.play-button{fill:#fdf8f8;fill-rule:evenodd;}</style></defs><path class="play-button" d="M56.189,39.005,28.095,60.554v-43.1L56.189,39.005ZM39.005,78.283A39.142,39.142,0,1,1,78.01,39.005,39.056,39.056,0,0,1,39.005,78.283Z"/></svg>

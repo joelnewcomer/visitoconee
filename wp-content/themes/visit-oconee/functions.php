@@ -110,3 +110,7 @@ register_post_type('events', array(	'label' => 'Events','description' => '','pub
   'not_found_in_trash' => 'No Events Found in Trash',
   'parent' => 'Parent Event',
 ),) );
+
+// Custom Image Sizes
+add_image_size( 'home-video', 414, 297, true );
+add_image_size( 'home-block', 635, 428, true );

@@ -3157,7 +3157,7 @@ body.ie10 .cell {
 .top-bar-right {
   padding-top: 40px; }
 
-body.home .header-wrapper {
+body.home .header-wrapper #masthead:not(.headroom--pinned) {
   top: -500px; }
 
 body.home .header-wrapper.transparent {
@@ -4294,6 +4294,76 @@ h1.entry-title-ul {
       text-transform: none;
       font-weight: normal;
       -webkit-font-smoothing: antialiased; }
+
+section.videos {
+  display: block;
+  float: left;
+  width: 100%;
+  background: url(../../images/video-bg.png);
+  padding-bottom: 30px; }
+  section.videos .home-video {
+    margin-top: -80px;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative; }
+    section.videos .home-video a {
+      margin-bottom: 20px; }
+    section.videos .home-video img {
+      border: solid 10px #fff;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.88); }
+    section.videos .home-video svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -39px;
+      margin-left: -39px;
+      width: 78px;
+      height: 78px; }
+  section.videos .quote-wrapper {
+    display: inline-block;
+    padding: 0 182px;
+    position: relative; }
+  section.videos h2, section.videos p {
+    color: #664D39;
+    font-weight: 600; }
+  section.videos h2 {
+    font-size: 38px;
+    margin-top: 60px;
+    margin-bottom: 24px; }
+  section.videos p {
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+  section.videos .home-quote {
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 0 auto;
+    position: relative; }
+    section.videos .home-quote img {
+      float: right;
+      margin-right: -182px; }
+
+section.home-blocks {
+  display: block;
+  float: left;
+  width: 100%; }
+  section.home-blocks .home-block {
+    position: relative; }
+    section.home-blocks .home-block .home-block-overlay {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      line-height: 1; }
 
 #single-post .single-title-ul {
   position: relative;
