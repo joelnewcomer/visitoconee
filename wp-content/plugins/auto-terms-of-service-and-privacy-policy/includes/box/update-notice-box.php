@@ -3,6 +3,7 @@
 namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
+use wpautoterms\cpt\CPT;
 use wpautoterms\option;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -53,7 +54,7 @@ class Update_Notice_Box extends Box {
 	function define_options( $page_id, $section_id ) {
 		new option\Checkbox_Option( $this->id(), __( 'Enabled', WPAUTOTERMS_SLUG ), '', $page_id, $section_id );
 
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( CPT::edit_cap() ) ) {
 //			new option\Checkbox_Option( $this->id() . '_test_mode', __( 'Test mode', WPAUTOTERMS_SLUG ),
 //				__( 'Show sample box to admin', WPAUTOTERMS_SLUG ), $page_id, $section_id );
 		}

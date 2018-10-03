@@ -1,10 +1,10 @@
 === ShortPixel Image Optimizer ===
 Contributors: ShortPixel 
-Tags: compress, image, compression, optimize, image optimizer, image optimiser, image compression, resize, compress pdf, compress jpg, compress png, image compression
+Tags: compressor, image, compression, optimize, image optimizer, image optimiser, image compression, resize, compress pdf, compress jpg, compress png, image compression
 Requires at least: 3.2.0
 Tested up to: 4.9
 Requires PHP: 5.2
-Stable tag: 4.11.2
+Stable tag: 4.11.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -241,10 +241,24 @@ The ShortPixel Image Optimiser plugin calls the following actions and filters:
 
 == Changelog ==
 
+= 4.11.3 =
+
+Release date: 27th September 2018
+
+* fix error when metadata is returned as string by wp_get_attachment_metadata (happens to PDFs when using PDF Image Generator)
+* remove the configurable Affiliate code as per new WP Themes rules.
+
 = 4.11.2 =
+
+Release date: 20th August 2018
+
+* Fix "Image files are missing" warning when thumbails optimization is activated but all the thumbnails are excepted from optimization and the bulk is ran a second time.
 * Fix not saving properly the metadata on some situations
 
 = 4.11.1 =
+
+Release date: 28th August 2018
+
 * compatibility with the MediaPress plugin
 * new action to be called by when thumbnails are regenerated: shortpixel-thumbnails-regenerated
 * accept '+' inside the e-mail address
@@ -261,6 +275,9 @@ The ShortPixel Image Optimiser plugin calls the following actions and filters:
 * fix admin when domain is internationalized but the setting in admin uses the punycode-encrypted version
 
 = 4.11.0 =
+
+Release date: 3rd July 2018
+
 * add bulk menu options: restore, reoptimize
 * filter the media list by optimization status
 * sort the media list by optimization status

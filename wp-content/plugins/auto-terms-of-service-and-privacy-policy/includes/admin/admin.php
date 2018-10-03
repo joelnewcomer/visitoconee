@@ -13,6 +13,7 @@ use wpautoterms\api\License;
 use wpautoterms\api\Query;
 use wpautoterms\Countries;
 use wpautoterms\cpt\Admin_Columns;
+use wpautoterms\cpt\CPT;
 use wpautoterms\Upgrade;
 use wpautoterms\Wpautoterms;
 
@@ -50,11 +51,11 @@ abstract class Admin {
 
 		Notices::init( WPAUTOTERMS_OPTION_PREFIX . 'notices' );
 
-		$recheck_action = new Recheck_License( 'manage_options', null, '', null, __( 'Access denied', WPAUTOTERMS_SLUG ) );
+		$recheck_action = new Recheck_License( CPT::edit_cap(), null, '', null, __( 'Access denied', WPAUTOTERMS_SLUG ) );
 		$recheck_action->set_license_query( static::$_license );
 
 		// TODO: extract warnings class
-		static::$_warning_action = new Set_Option( 'manage_options', null, 'settings_warning_disable' );
+		static::$_warning_action = new Set_Option( CPT::edit_cap(), null, 'settings_warning_disable' );
 		static::$_warning_action->set_option_name( 'settings_warning_disable' );
 
 		Admin_Columns::init();
@@ -65,7 +66,7 @@ abstract class Admin {
 	public static function add_meta_boxes() {
 		global $post;
 
-		if ( empty( $post ) || ( $post->post_type != WPAUTOTERMS_CPT ) ) {
+		if ( empty( $post ) || ( $post->post_type != CPT::type() ) ) {
 			return;
 		}
 
@@ -73,7 +74,7 @@ abstract class Admin {
 	}
 
 	public static function remove_permalink( $permalink, $post_id, $new_title, $new_slug, $post ) {
-		if ( $post->post_type != WPAUTOTERMS_CPT ) {
+		if ( $post->post_type != CPT::type() ) {
 			return $permalink;
 		}
 
@@ -81,7 +82,7 @@ abstract class Admin {
 	}
 
 	public static function edit_form_top( $post ) {
-		if ( $post->post_type != WPAUTOTERMS_CPT ) {
+		if ( $post->post_type != CPT::type() ) {
 			return;
 		}
 
@@ -97,7 +98,7 @@ abstract class Admin {
 				}
 				if ( $page === false ) {
 					global $wpdb;
-					$cpt = WPAUTOTERMS_CPT;
+					$cpt = CPT::type();
 					$cases = array();
 					foreach ( Wpautoterms::get_legal_pages() as $page ) {
 						$id = $page->id();
@@ -125,7 +126,7 @@ abstract class Admin {
 	}
 
 	public static function row_actions( $actions, $post ) {
-		if ( ( WPAUTOTERMS_CPT == get_post_type( $post ) ) && ( $post->post_status == 'publish' ) ) {
+		if ( ( CPT::type() == get_post_type( $post ) ) && ( $post->post_status == 'publish' ) ) {
 			$link = get_post_permalink( $post->ID );
 			$short_link = preg_replace( '/https?:\/\//i', '', trim( $link, '/' ) );
 			$info = '<a href="' . $link . '">' . $short_link . '</a>';
@@ -137,7 +138,7 @@ abstract class Admin {
 
 	public static function enqueue_scripts( $page ) {
 		global $post;
-		if ( ! empty( $post ) && ( $post->post_type == WPAUTOTERMS_CPT ) ) {
+		if ( ! empty( $post ) && ( $post->post_type == CPT::type() ) ) {
 			// NOTE: load media scripts in case 3-rd party plugin fails to enqueue them properly.
 			$scripts = wp_scripts();
 			if ( ! empty( $scripts->queue ) ) {

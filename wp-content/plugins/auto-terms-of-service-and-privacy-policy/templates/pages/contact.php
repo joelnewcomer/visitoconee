@@ -49,7 +49,7 @@ if ( ! empty( $data ) ) {
                 <input type="hidden" name="site_info" value=""/>
                 <input type="hidden" name="locale" value="<?php echo esc_attr( get_locale() ); ?>"/>
                 <input type="hidden" name="ret_url" value="<?php
-				echo esc_url( admin_url( 'edit.php?post_type=' . WPAUTOTERMS_CPT . '&page=' . $page->id() ) ); ?>">
+				echo esc_url( admin_url( 'edit.php?post_type=' . \wpautoterms\cpt\CPT::type() . '&page=' . $page->id() ) ); ?>">
                 <table class="form-table">
                     <tbody>
                     <tr>

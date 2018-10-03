@@ -4,6 +4,7 @@ namespace wpautoterms\box;
 
 use wpautoterms\admin\action\Toggle_Action;
 use wpautoterms\admin\page;
+use wpautoterms\cpt\CPT;
 use wpautoterms\option\Text_Option;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +19,7 @@ abstract class Box {
 
 	public function __construct( $id, $title, $infotip ) {
 		$this->_id = $id;
-		$this->_action = new Toggle_Action( 'manage_options', null, $this->enable_action_id() );
+		$this->_action = new Toggle_Action( CPT::edit_cap(), null, $this->enable_action_id() );
 		$this->_action->set_option_name( $this->_enabled_option() );
 		$this->_title = $title;
 		$this->_infotip = $infotip;

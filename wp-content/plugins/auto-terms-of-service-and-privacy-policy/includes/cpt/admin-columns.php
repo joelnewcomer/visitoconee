@@ -14,13 +14,13 @@ abstract class Admin_Columns {
 	const COL_DATE = 'date';
 
 	static function init() {
-		add_filter( 'manage_edit-' . WPAUTOTERMS_CPT . '_columns', array( __CLASS__, 'edit_columns' ) );
-		add_filter( 'manage_edit-' . WPAUTOTERMS_CPT . '_sortable_columns', array(
+		add_filter( 'manage_edit-' . CPT::type() . '_columns', array( __CLASS__, 'edit_columns' ) );
+		add_filter( 'manage_edit-' . CPT::type() . '_sortable_columns', array(
 			__CLASS__,
 			'sortable_columns'
 		) );
 		add_filter( 'display_post_states', array( __CLASS__, 'display_post_states' ), 10, 2 );
-		add_action( 'manage_' . WPAUTOTERMS_CPT . '_posts_custom_column',
+		add_action( 'manage_' . CPT::type() . '_posts_custom_column',
 			array( __CLASS__, 'manage_columns' ),
 			10,
 			2 );
@@ -58,7 +58,7 @@ abstract class Admin_Columns {
 	}
 
 	static function display_post_states( $post_states, $post ) {
-		if ( $post->post_type == WPAUTOTERMS_CPT ) {
+		if ( $post->post_type == CPT::type() ) {
 			return array();
 		}
 

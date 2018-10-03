@@ -30,7 +30,9 @@ class Links_Box extends Box {
 		new option\Color_Option( $this->id() . '_links_color', __( 'Links color', WPAUTOTERMS_SLUG ), '', $page_id, $section_id );
 		new option\Text_Option( $this->id() . '_separator', __( 'Links separator', WPAUTOTERMS_SLUG ), '',
 			$page_id, $section_id );
-		$this->_custom_css_options($page_id, $section_id);
+		new option\Checkbox_Option( $this->id() . '_target_blank', __( 'Links to open in a new page', WPAUTOTERMS_SLUG ),
+			'', $page_id, $section_id );
+		$this->_custom_css_options( $page_id, $section_id );
 	}
 
 	public function defaults() {
@@ -43,6 +45,7 @@ class Links_Box extends Box {
 			$this->id() . '_text_align' => 'center',
 			$this->id() . '_links_color' => '#000000',
 			$this->id() . '_separator' => '-',
+			$this->id() . '_target_blank' => false,
 		);
 	}
 }

@@ -9,12 +9,43 @@ use wpautoterms\admin\page\Settings_Base;
 use wpautoterms\cpt\CPT;
 
 class Upgrade {
+	protected $_activate = false;
+	protected $_update_legacy = false;
+
 	public function __construct() {
-		add_action( 'init', array( $this, 'run' ) );
+		add_action( 'init', array( $this, 'run' ), 0 );
 	}
 
 	public function run() {
 		if ( ! get_option( WPAUTOTERMS_OPTION_PREFIX . WPAUTOTERMS_OPTION_ACTIVATED ) ) {
+			flush_rewrite_rules();
+			update_option( WPAUTOTERMS_OPTION_PREFIX . WPAUTOTERMS_OPTION_ACTIVATED, true );
+			CPT::register_role();
+			$activated = true;
+			$this->_activate = true;
+		} else {
+			$activated = false;
+		}
+		$version = get_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION, false );
+		if ( $version !== WPAUTOTERMS_VERSION ) {
+			if ( $version === false ) {
+				$this->_update_legacy = true;
+			}
+			$this->_add_slug_option();
+			if ( ! $activated ) {
+				CPT::register_role();
+			}
+			update_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION, WPAUTOTERMS_VERSION );
+		}
+		if ( did_action( 'admin_init' ) ) {
+			$this->run_translated();
+		} else {
+			add_action( 'admin_init', array( $this, 'run_translated' ) );
+		}
+	}
+
+	public function run_translated() {
+		if ( $this->_activate ) {
 			/**
 			 * @var $page \wpautoterms\admin\page\Base
 			 */
@@ -28,26 +59,13 @@ class Upgrade {
 					}
 				}
 			}
-			flush_rewrite_rules();
-			CPT::add_caps();
-			update_option( WPAUTOTERMS_OPTION_PREFIX . WPAUTOTERMS_OPTION_ACTIVATED, true );
 		}
-		$version = get_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION );
-		if ( $version !== WPAUTOTERMS_VERSION ) {
+		if ( $this->_update_legacy ) {
 			$this->_upgrade_from_tos_pp();
-			$this->_add_slug_option();
-			update_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION, WPAUTOTERMS_VERSION );
 		}
 	}
 
 	protected function _upgrade_from_tos_pp() {
-		$version = get_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION );
-		if ( ! empty( $version ) ) {
-			$v = explode( '.', $version );
-			if ( intval( $v[0] ) > 1 ) {
-				return;
-			}
-		}
 		$options = get_option( Menu::AUTO_TOS_OPTIONS, false );
 		update_option( WPAUTOTERMS_OPTION_PREFIX . Menu::LEGACY_OPTIONS, $options !== false );
 		if ( $options === false ) {

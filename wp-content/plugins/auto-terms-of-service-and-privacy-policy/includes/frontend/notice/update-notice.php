@@ -2,6 +2,8 @@
 
 namespace wpautoterms\frontend\notice;
 
+use wpautoterms\cpt\CPT;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -21,7 +23,7 @@ class Update_Notice extends Base_Notice {
 
 	protected function get_posts() {
 		$args = array(
-			'post_type' => WPAUTOTERMS_CPT,
+			'post_type' => CPT::type(),
 			'post_status' => 'publish',
 			'orderby' => 'post_modified',
 			'date_query' => array(

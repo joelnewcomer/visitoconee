@@ -4,7 +4,7 @@ Tags: gdpr, privacy policy, terms and conditions, terms of service, terms of use
 Requires at least: 4.2
 Tested up to: 4.9.7
 Requires PHP: 5.3
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -112,6 +112,12 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.1.9 =
+* Sep 23, 2018
+* Add z-index values to prevent theme issues
+* Add a new option for Links to Legal Pages Compliance Kit: open in a new tab
+* Various bugfixes under the hood
 
 = Version 2.1.8 =
 * Sep 9, 2018

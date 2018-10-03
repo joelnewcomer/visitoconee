@@ -2,6 +2,7 @@
 
 namespace wpautoterms\frontend;
 
+use wpautoterms\cpt\CPT;
 use wpautoterms\gen_css\Attr;
 use wpautoterms\gen_css\Document;
 use wpautoterms\gen_css\Record;
@@ -13,16 +14,27 @@ class Links {
 		add_action( 'wp_print_styles', array( $this, 'print_styles' ) );
 	}
 
+	protected static function _option_prefix() {
+		return WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID;
+	}
+
 	public function links_box() {
 		if ( ! get_option( WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID ) ) {
 			return;
 		}
-		\wpautoterms\print_template( static::MODULE_ID );
+		$args = array(
+			'post_type' => CPT::type(),
+			'post_status' => 'publish',
+			'orderby' => 'post_modified',
+		);
+
+		$posts = get_posts( $args );
+		$new_page = $custom = get_option( static::_option_prefix() . '_target_blank' );
+		\wpautoterms\print_template( static::MODULE_ID, compact( 'posts', 'new_page' ) );
 	}
 
 	public function print_styles() {
-		$option_prefix = WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID;
-
+		$option_prefix = static::_option_prefix();
 		if ( ! get_option( $option_prefix ) ) {
 			return;
 		}
@@ -46,7 +58,7 @@ class Links {
 		$text = $d->text();
 		$custom = get_option( $option_prefix . '_custom_css' );
 		if ( ! empty( $custom ) ) {
-			$text .= "\n" . strip_tags($custom);
+			$text .= "\n" . strip_tags( $custom );
 		}
 		echo Document::style( $text ) . "\n";
 	}

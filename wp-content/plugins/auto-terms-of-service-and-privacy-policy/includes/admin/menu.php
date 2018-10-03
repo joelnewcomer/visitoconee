@@ -11,6 +11,7 @@ use wpautoterms\admin\page\License_Settings;
 use wpautoterms\admin\page\Settings_Page;
 use wpautoterms\admin\page;
 use wpautoterms\api;
+use wpautoterms\cpt\CPT;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -57,7 +58,7 @@ abstract class Menu {
 			__( 'License', WPAUTOTERMS_SLUG ) );
 		$ls->set_license( $license );
 		$contact = new page\Contact( static::PAGE_CONTACT, __( 'Contact', WPAUTOTERMS_SLUG ) );
-		$sm = new Send_Message( 'manage_options', null, $contact->id(), null,
+		$sm = new Send_Message( CPT::edit_cap(), null, $contact->id(), null,
 			__( 'Access denied', WPAUTOTERMS_SLUG ), true );
 		$contact->action = $sm;
 		$sp = new Settings_Page( static::PAGE_SETTINGS, __( 'Settings', WPAUTOTERMS_SLUG ) );
@@ -90,7 +91,7 @@ abstract class Menu {
 	}
 
 	public static function enqueue_scripts( $page ) {
-		$prefix = WPAUTOTERMS_CPT . '_page_';
+		$prefix = CPT::type() . '_page_';
 		if ( 0 != strncmp( $page, $prefix, strlen( $prefix ) ) ) {
 			return;
 		}
