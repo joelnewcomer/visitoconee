@@ -1148,6 +1148,13 @@
                 "operator": "==",
                 "value": "default"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "poi"
+            }
         ]
     ],
     "menu_order": 0,
@@ -1158,5 +1165,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1533309073
+    "modified": 1538659293
 }

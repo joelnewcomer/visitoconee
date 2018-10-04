@@ -4295,11 +4295,15 @@ h1.entry-title-ul {
       font-weight: normal;
       -webkit-font-smoothing: antialiased; }
 
-section.videos {
+section.videos, section.home-cats {
+  background: url(../../images/video-bg.png); }
+
+#page > section {
   display: block;
   float: left;
-  width: 100%;
-  background: url(../../images/video-bg.png);
+  width: 100%; }
+
+section.videos {
   padding-bottom: 30px; }
   section.videos .home-video {
     margin-top: -80px;
@@ -4345,25 +4349,79 @@ section.videos {
       float: right;
       margin-right: -182px; }
 
-section.home-blocks {
-  display: block;
-  float: left;
-  width: 100%; }
-  section.home-blocks .home-block {
-    position: relative; }
-    section.home-blocks .home-block .home-block-overlay {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      text-transform: uppercase;
-      color: #fff;
-      font-size: 32px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      line-height: 1; }
+section.home-blocks .home-block {
+  position: relative; }
+  section.home-blocks .home-block .home-block-overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    line-height: 1; }
+
+section.home-cats {
+  padding: 200px 0 150px 0; }
+  section.home-cats a {
+    font-size: 45px;
+    font-weight: 600;
+    text-transform: lowercase;
+    margin-bottom: 30px;
+    color: #664D39; }
+    section.home-cats a svg {
+      width: 87px;
+      height: 87px; }
+      section.home-cats a svg path {
+        transition: all .5s; }
+    section.home-cats a:hover {
+      color: #E67002; }
+      section.home-cats a:hover svg path {
+        fill: #E67002; }
+
+section.destinations {
+  background: url(../../images/destinations-bg.jpg) center center no-repeat;
+  background-size: cover !important; }
+  section.destinations h2, section.destinations h3, section.destinations h4, section.destinations p {
+    color: #fff; }
+
+section.tips {
+  background: #dce7ea; }
+  section.tips h2, section.tips h3, section.tips h4, section.tips p {
+    color: #598F9B; }
+
+section.destinations, section.tips {
+  padding: 140px 0 110px 0; }
+  section.destinations h2, section.tips h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 50px; }
+    section.destinations h2 span, section.tips h2 span {
+      font-weight: normal;
+      font-size: 72px;
+      text-transform: lowercase;
+      letter-spacing: 0; }
+  section.destinations .dest-cell img, section.tips .dest-cell img {
+    margin-bottom: 16px; }
+  section.destinations .dest-cell h3, section.tips .dest-cell h3 {
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: 28px; }
+  section.destinations .dest-cell h4, section.tips .dest-cell h4 {
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 22px; }
+  section.destinations .dest-cell p, section.tips .dest-cell p {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2; }
 
 #single-post .single-title-ul {
   position: relative;

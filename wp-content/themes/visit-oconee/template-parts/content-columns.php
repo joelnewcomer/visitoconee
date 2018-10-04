@@ -50,7 +50,7 @@ if( have_rows('content') ):
 			<!-- One Column -->
         	<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>" <?php echo $section_parallax; ?>">
 	        	<div class="grid-container">
-    	    		<div div class="grid-x grid-padding-x">
+    	    		<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 						   		<h2><?php echo $section_header; ?></h2>
@@ -88,7 +88,7 @@ if( have_rows('content') ):
 			 <!-- Three Columns -->
 			<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>">
 				<div class="grid-container">
-					<div div class="grid-x grid-padding-x">
+					<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 								<h2><?php echo $section_header; ?></h2>
@@ -111,7 +111,7 @@ if( have_rows('content') ):
         	<!-- Four Columns -->
         	<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>">
 	        	<div class="grid-container">
-		        	<div div class="grid-x grid-padding-x">
+		        	<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 								<h2><?php echo $section_header; ?></h2>
@@ -137,7 +137,7 @@ if( have_rows('content') ):
 			<!-- Right Sidebar -->
         	<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>">
 	        	<div class="grid-container">
-		        	<div div class="grid-x grid-padding-x">
+		        	<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 								<h2><?php echo $section_header; ?></h2>
@@ -157,7 +157,7 @@ if( have_rows('content') ):
 			<!-- Left Sidebar -->
 			<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>">
 				<div class="grid-container">
-					<div div class="grid-x grid-padding-x">
+					<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 								<h2><?php echo $section_header; ?></h2>
@@ -179,7 +179,7 @@ if( have_rows('content') ):
         	<?php $type = get_sub_field('type'); ?>
 			<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>">
 				<div class="grid-container">
-					<div div class="grid-x grid-padding-x">
+					<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>
 							<div class="large-12 cell text-center">
 								<h2><?php echo $section_header; ?></h2>

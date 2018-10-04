@@ -67,7 +67,6 @@ abstract class Frontend {
 			// NOTE: HTML is not well formed, we can only detect a closing body
 			$ret .= $buf;
 			$ret .= static::$_body_top;
-			error_log( 'WPAutoTerms: Body opening tag not found' );
 		} else {
 			$ret .= $m[1];
 			$ret .= static::$_body_top;

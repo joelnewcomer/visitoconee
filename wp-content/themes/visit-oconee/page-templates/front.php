@@ -77,6 +77,127 @@ get_header(); ?>
 			<?php endif; ?>
 	   	</div>
 	</section> <!-- home-blocks -->
+	
+	<section class="home-cats">
+		<div class="grid-container">
+	   		<div class="grid-x">
+		   		<?php	
+			   	$play_cat_id = 28;
+		   		$args = array( 
+				    'hide_empty' => 0,
+				    'exclude' => $play_cat_id
+				);
+				$terms = get_terms( 'poi_cats', $args );
+				foreach ( $terms as $term ) {
+					$icon = get_field('product_feature_image', $term );
+					?>
+					<div class="large-3 medium-3 cell text-center">
+					    <a class="transition" href="<?php echo get_term_link( $term ); ?>" title="View all <?php echo $term->name; ?>">
+						    <?php echo file_get_contents(get_field('category_icon', $term)); ?><br />
+						    <?php echo $term->name; ?>
+						</a>
+					</div>
+				<?php } ?>
+	   		</div>
+		</div>
+	</section> <!-- home-cats -->
+	
+	<section class="destinations">
+		<div class="grid-container">
+	   		<div class="grid-x grid-padding-x">
+		   		<div class="large-12 cell text-center">
+			   		<h2>Seasonal Trending<br /><span>Destinations</span></h2>		
+		   		</div>
+		   		<?php if(get_field('seasonal_destinations')): ?>
+		   			<?php while(has_sub_field('seasonal_destinations')): ?>
+		   				<?php
+			   			$title = get_sub_field('title');
+			   			$subtitle = get_sub_field('subtitle');
+			   			$image = get_sub_field('image');
+			   			$blurb = get_sub_field('blurb');
+			   			$link_array = get_sub_field('link');
+			   			$target = "";
+		   				$dest = get_sub_field('select_destination');
+		   				$dest_id = $dest->ID;
+		   				if (!$link_array) {
+			   				$link = get_permalink($dest_id);
+		   				} else {
+			   				$link = $link['url'];
+			   				$target = $link['target'];
+		   				}
+		   				if (!$title) {
+			   				$title = get_the_title($dest_id);
+		   				}
+		   				if (!$subtitle) {
+			   				$subtitle = get_field('subtitle', $dest_id);
+		   				}
+		   				if (!$image) {
+			   				$image = get_post_thumbnail_id( $dest_id );
+		   				}
+		   				?>
+		   				<div class="large-4 medium-4 cell dest-cell">
+		   					<a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
+			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
+			   					<h3><?php echo $title; ?></h3>
+			   					<h4><?php echo $subtitle; ?></h4>
+								<p><?php echo $blurb; ?></p>	
+		   					</a>
+		   				</div>
+		   				
+		   			<?php endwhile; ?>
+		   		<?php endif; ?>
+	   		</div>
+		</div>
+	</section> <!-- destinations -->
+
+	<section class="tips">
+		<div class="grid-container">
+	   		<div class="grid-x grid-padding-x">
+		   		<div class="large-12 cell text-center">
+			   		<h2>Explore Curated<br /><span>Travel Tips</span></h2>		
+		   		</div>
+		   		<?php if(get_field('travel_tips')): ?>
+		   			<?php while(has_sub_field('travel_tips')): ?>
+		   				<?php
+			   			$title = get_sub_field('title');
+			   			$subtitle = get_sub_field('subtitle');
+			   			$image = get_sub_field('image');
+			   			$blurb = get_sub_field('blurb');
+			   			$link_array = get_sub_field('link');
+			   			$target = "";
+		   				$dest = get_sub_field('tip');
+		   				$dest_id = $dest->ID;
+		   				if (!$link_array) {
+			   				$link = get_permalink($dest_id);
+		   				} else {
+			   				$link = $link['url'];
+			   				$target = $link['target'];
+		   				}
+		   				if (!$title) {
+			   				$title = get_the_title($dest_id);
+		   				}
+		   				if (!$subtitle) {
+			   				$subtitle = get_field('subtitle', $dest_id);
+		   				}
+		   				if (!$image) {
+			   				$image = get_post_thumbnail_id( $dest_id );
+		   				}
+		   				?>
+		   				<div class="large-4 medium-4 cell dest-cell">
+		   					<a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
+			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
+			   					<h3><?php echo $title; ?></h3>
+			   					<h4><?php echo $subtitle; ?></h4>
+								<p><?php echo $blurb; ?></p>	
+		   					</a>
+		   				</div>
+		   				
+		   			<?php endwhile; ?>
+		   		<?php endif; ?>
+	   		</div>
+		</div>
+	</section> <!-- tips -->
+
 
 </div> <!-- #page -->
 
