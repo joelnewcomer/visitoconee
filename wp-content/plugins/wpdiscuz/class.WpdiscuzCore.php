@@ -3,7 +3,7 @@
 /*
  * Plugin Name: wpDiscuz
  * Description: Better comment system. Wordpress post comments and discussion plugin. Allows your visitors discuss, vote for comments and share.
- * Version: 5.2.1
+ * Version: 5.2.2
  * Author: gVectors Team (A. Chakhoyan, G. Zakaryan, H. Martirosyan)
  * Author URI: https://gvectors.com/
  * Plugin URI: http://wpdiscuz.com/
@@ -843,7 +843,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
     public function getWPComments($args = array()) {
         global $post;
         $currentUser = WpdiscuzHelper::getCurrentUser();
-        $postId = $post && $post->ID ? $post->ID : '';
+        $postId = $post && $post->ID ? $post->ID : $args['post_id'];
         $defaults = $this->getDefaultCommentsArgs($postId);
         $this->commentsArgs = wp_parse_args($args, $defaults);
         do_action('wpdiscuz_before_getcomments', $this->commentsArgs, $currentUser, $args);
@@ -905,25 +905,36 @@ class WpdiscuzCore implements WpDiscuzConstants {
                 $commentList = $parentComments;
             }
 
-            $commentList = $this->getStickyComments(true, $commentList);
+            $this->getStickyComments(true, $commentList, $commentListArgs);
         } else {
             $this->commentsArgs['comment__in'] = $this->dbManager->getRootCommentIds($this->commentsArgs);
             $commentData['last_parent_id'] = $this->commentsArgs['comment__in'] ? $this->commentsArgs['comment__in'][count($this->commentsArgs['comment__in']) - 1] : 0;
             $commentData['is_show_load_more'] = $this->dbManager->isShowLoadMore;
             if ($this->optionsSerialized->wordpressThreadComments) {
                 if ($this->commentsArgs['comment__in']) {
-                    if ($this->optionsSerialized->isLoadOnlyParentComments) {
-                        $commentListArgs = $this->dbManager->getChildrenCount($this->commentsArgs['comment__in'], $commentListArgs);
-                    } else {
-                        $this->commentsArgs['comment__in'] = array_merge($this->commentsArgs['comment__in'], $this->dbManager->getChildrenIds($this->commentsArgs['comment__in']));
+                    $parentComments = get_comments($this->commentsArgs);
+                    foreach ($parentComments as $parentComment) {
+                        $commentList[] = $parentComment;
+                        $children = $parentComment->get_children(array(
+                            'format' => 'flat',
+                            'status' => $this->commentsArgs['status'],
+                            'orderby' => $this->commentsArgs['orderby']
+                        ));
+                        $countChildren = count($children);
+                        if ($countChildren) {
+                            if ($this->optionsSerialized->isLoadOnlyParentComments) {
+                                $commentListArgs['wpdiscuz_child_count_' . $parentComment->comment_ID] = $countChildren;
+                            } else {
+                                $commentList = array_merge($commentList, $children);
+                            }
+                        }
                     }
-                    $commentList = get_comments($this->commentsArgs);
                 }
             } else {
                 $commentList = get_comments($this->commentsArgs);
             }
 
-            $commentList = $this->getStickyComments(false, $commentList);
+            $this->getStickyComments(false, $commentList, $commentListArgs);
             $commentListArgs['page'] = 1;
             $commentListArgs['last_parent_id'] = $commentData['last_parent_id'];
         }
@@ -1102,9 +1113,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
     public function frontEndStylesScripts() {
         global $post;
         $this->isWpdiscuzLoaded = $this->helper->isLoadWpdiscuz($post);
-        if (!$this->optionsSerialized->disableFontAwesome) {
-            wp_register_style('wpdiscuz-font-awesome', plugins_url(WPDISCUZ_DIR_NAME . '/assets/third-party/font-awesome-5.0.6/css/fontawesome-all.min.css'), null, $this->version);
-        }
+        wp_register_style('wpdiscuz-font-awesome', plugins_url(WPDISCUZ_DIR_NAME . '/assets/third-party/font-awesome-5.0.6/css/fontawesome-all.min.css'), null, $this->version);
 
         if (!$this->isWpdiscuzLoaded && $this->optionsSerialized->ratingCssOnNoneSingular) {
             if (!$this->optionsSerialized->disableFontAwesome) {
@@ -1249,7 +1258,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
             $this->optionsSerialized->disableFontAwesome = 0;
             $oldOptions['disableFontAwesome'] = 0;
         }
-        
+
         if (version_compare($this->version, '5.2.1', '<=')) {
             $oldOptions['isNativeAjaxEnabled'] = 1;
         }
@@ -1382,7 +1391,6 @@ class WpdiscuzCore implements WpDiscuzConstants {
                 'orderby' => $cArgs['orderby'],
             ));
             $countChildren = count($children);
-            $commentListArgs['wpdiscuz_root_comment_' . $comment->comment_ID] = $countChildren;
             $commentListArgs['wpdiscuz_child_count_' . $comment->comment_ID] = $countChildren;
             $commentListArgs['wpdiscuz_hide_child_count_' . $comment->comment_ID] = 'wpdiscuz-hidden';
             $comments = array_merge(array($comment), $children);
@@ -1473,7 +1481,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
         wp_die(json_encode($response));
     }
 
-    private function getStickyComments($isPaginate, $commentList = array()) {
+    private function getStickyComments($isPaginate, &$commentList, &$commentListArgs) {
         if (isset($this->commentsArgs['first_load']) && $this->commentsArgs['first_load']) {
             $this->commentsArgs['sticky'] = 1;
             $this->commentsArgs['comment__in'] = '';
@@ -1508,7 +1516,6 @@ class WpdiscuzCore implements WpDiscuzConstants {
                 $commentList = ($isPaginate && $this->optionsSerialized->wordpressCommentOrder == 'desc') ? array_merge($commentList, $stickyComments) : array_merge($stickyComments, $commentList);
             }
         }
-        return $commentList;
     }
 
 }

@@ -12,36 +12,34 @@
 				
 	<footer id="footer" role="contentinfo">
 		<div class="main-footer">
-			<div class="grid-container">
-				<div class="grid-x">
-					<div class="large-4 medium-4 cell">
-						<div class="copyright small-text-center">						
-							<?php get_template_part('template-parts/site-logo','link'); ?>
+			<img src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.jpg"> 
+			<div class="footer-overlay">
+				<div class="grid-container">
+					<div class="grid-x">
+						<div class="large-3 medium-3 cell hide-for-print small-text-center social-subscribe">
+							<?php get_template_part('template-parts/social'); ?>
 						</div>
-						<div class="address">
-							<?php get_template_part('template-parts/locations'); ?>
-						</div> <!-- address -->
-					</div>
-					<div class="large-5 medium-5 cell hide-for-print small-text-center social-subscribe">
-						<h3><?php _e( 'Follow Us', 'drumroll' ); ?></h3>
-						<?php get_template_part('template-parts/social'); ?>
-						<?php get_template_part('template-parts/subscribe-form'); ?>
-					</div>
-				</div> <!-- grid-x -->
-			</div> <!-- grid-container -->
+						<div class="large-6 medium-6 cell hide-for-print small-text-center social-subscribe">
+							<?php get_template_part('template-parts/subscribe-form'); ?>
+						</div>
+					</div> <!-- grid-x -->
+				</div> <!-- grid-container -->
+			</div>
 		</div> <!-- main-footer -->
 		<div class="sub-footer">
 			<div class="grid-container">
-				<div class="grid-x">
-					<div class="large-7 medium-7 cell drum hide-on-print small-text-center">
-						<p>&copy;<?php echo date('Y'); ?> <?php bloginfo('name'); ?>.  <span class="no-break"><?php _e( 'All rights reserved.', 'textdomain' ); ?></span>
+				<div class="grid-x grid-padding-x">
+					<div class="large-4 medium-4 cell footer-logo hide-on-print small-text-center">
+						<?php get_template_part('template-parts/site-logo','link'); ?>
+						<p class="copyright">Copyright &copy; <?php echo date('Y'); ?> Visit Oconee SC.  <span class="no-break"><?php _e( 'All rights reserved.', 'textdomain' ); ?></span>
 							<?php
 							$terms_page = get_theme_mod( 'terms_page' );
 							$privacy_page = get_theme_mod( 'privacy_page' );
 							?>
+							<br />
 							<span class="hide-for-print">
 							<?php if ($terms_page) : ?>
-								&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
+								<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
 							<?php endif; ?>
 							<?php if ($privacy_page) : ?>
 								&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_permalink($privacy_page); ?>"><?php _e( 'Privacy', 'drumroll' ); ?></a>
@@ -50,8 +48,15 @@
 							</span> <!-- hide-for-print -->
 						</p>
 					</div>
-					<div class="large-5 medium-5 cell drum hide-on-print text-right small-text-center">
-						<p><a href="http://www.drumcreative.com" target="_blank"><?php _e( 'Web Design by: Drum Creative' ); ?></a> &nbsp;| &nbsp; Icons provided by FlatIcon.com</p>
+					<div class="large-4 medium-4 cell text-center small-text-center footer-about">
+						<p>Oconee County is located in the northwestern corner of Upstate SC and borders the mountains of NC and Northeast GA.</p>
+					</div>
+					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center">
+						<a class="footer-brochure" "#">
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/footer-brochure.jpg" alt="Visit Oconee Visitor's Guide">
+							Download our brochure
+						</a>
+						<p class="drum"><a href="http://www.drumcreative.com" target="_blank"><?php _e( 'Web Design by: Drum Creative' ); ?></a></p>
 					</div>					
 				</div> <!-- grid-x -->
 			</div> <!-- grid-container -->			

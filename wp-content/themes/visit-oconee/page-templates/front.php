@@ -224,6 +224,11 @@ if (typeof bxSlider === "function") {
 	});
 }
 
+jQuery(document).one('scroll', function() {
+	jQuery('#masthead').addClass('scrolled');
+	jQuery('.slider-overlay img').addClass('fade-out');
+});
+
 </script>
 
 <?php get_footer(); ?>

@@ -223,7 +223,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
             private function _spoiler($matches) {
                 $html = '<div class="wpdiscuz-spoiler-wrap">';
                 $title = __('Spoiler', 'wpdiscuz');
-                $matches[3] = str_replace(array('&#8221;', '&#8220;'), '"', $matches[3]);
+                $matches[3] = str_replace(array('&#8221;', '&#8220;', '&#8243;', '&#8242;'), '"', $matches[3]);
                 if (preg_match('@title[^\S]*=[^\S]*"*([^\"]+)"@is', $matches[3], $titleMatch)) {
                     $title = trim($titleMatch[1]) ? trim($titleMatch[1]) : __('Spoiler', 'wpdiscuz');
                 }

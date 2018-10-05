@@ -36,7 +36,6 @@ class WpdiscuzHelperOptimization implements WpDiscuzConstants {
                 }
             }
         }
-        return $tree;
     }
 
     public function isReplyInAuthorTree($commentId, $authorComments) {

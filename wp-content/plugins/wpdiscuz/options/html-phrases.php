@@ -64,12 +64,7 @@ if (!defined('ABSPATH')) {
                     Cookies.set('phrasesActiveTabIndex', activeTabIndex, {expires: 30});
                 });
                 var savedIndex = Cookies.get('phrasesActiveTabIndex') >= 0 ? Cookies.get('phrasesActiveTabIndex') : 0;
-                $('.resp-tabs-list.phrases_tab_id li').removeClass('resp-tab-active');
-                $('.resp-tabs-container.phrases_tab_id > div').removeClass('resp-tab-content-active');
-                $('.resp-tabs-container.phrases_tab_id > div').css('display', 'none');
-                $('.resp-tabs-list.phrases_tab_id li').eq(savedIndex).addClass('resp-tab-active');
-                $('.resp-tabs-container.phrases_tab_id > div').eq(savedIndex).addClass('resp-tab-content-active');
-                $('.resp-tabs-container.phrases_tab_id > div').eq(savedIndex).css('display', 'block');
+                $('.resp-tabs-list.phrases_tab_id li').eq(savedIndex).click();
             });
         </script>
         <table class="form-table wc-form-table">

@@ -45,10 +45,14 @@
 }
 
 .top-bar-right {
-	padding-top: 40px;
+	padding-top: 27px;
 }
 
-body.home .header-wrapper #masthead:not(.headroom--pinned) {
+body.home .header-wrapper #masthead {
+	transition: all .5s;
+}
+
+body.home .header-wrapper #masthead:not(.scrolled) {
 	top: -500px;
 }
 
@@ -68,7 +72,7 @@ a.logo {
 	display: inline-block;
 	img {
 		float: left;
-		width: 547px;
+		width: 350px;
 		@media only screen and (max-width: 40.063em) {
 			width: 144px;
 		}

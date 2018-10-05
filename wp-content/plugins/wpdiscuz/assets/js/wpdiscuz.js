@@ -297,7 +297,7 @@ jQuery(document).ready(function ($) {
                             $('.wpd-stat-authors-count').html(r.authorsCount);
                         }
                         if (isMain) {
-                            $('.wc-thread-wrapper').prepend(message);
+                            addCommentsAfterSticky(message);
                         } else {
                             $('#wc-secondary-form-wrapper-' + messageKey).slideToggle(700);
                             if (r.is_in_same_container == 1) {
@@ -782,6 +782,10 @@ jQuery(document).ready(function ($) {
                     }
                     $('.wpdiscuz-loading-bar').fadeOut(250);
                 });
+            } else {
+                $('html, body').animate({
+                    scrollTop: $('#comment-' + commentId).parents('[id^=wc-comm-]').offset().top - 32
+                }, 1000);
             }
         }
     }
@@ -994,7 +998,7 @@ jQuery(document).ready(function ($) {
 
     function addCommentToTree(parentId, comment) {
         if (parentId == 0) {
-            $('.wc-thread-wrapper').prepend(comment);
+            addCommentsAfterSticky(comment);
         } else {
             var parentUniqueId = getUniqueID($('#comment-' + parentId), 0);
             $('#wpdiscuz_form_anchor-' + parentUniqueId).after(comment);
@@ -1365,5 +1369,41 @@ jQuery(document).ready(function ($) {
             processData: false,
         });
     }
+
+    function addCommentsAfterSticky(comment) {
+        if ($('.wc-sticky-comment').last()[0]) {
+            $(comment).insertAfter($('.wc-sticky-comment').last()[0]);
+        } else {
+            $('.wc-thread-wrapper').prepend(comment);
+        }
+    }
+
+    function showHideNotificationType(current) {
+        if (current) {
+            if (!current.prop('required')) {
+                if (current.val()) {
+                    current.parents('form').find('[name=wpdiscuz_notification_type]').parent().css('display', 'inline-block');
+                } else {
+                    current.parents('form').find('[name=wpdiscuz_notification_type]').parent().css('display', 'none');
+                }
+            }
+        } else {
+            $.each($('.wc_email'), function (i, val) {
+                var obj = $(val);
+                if (!obj.prop('required')) {
+                    if (obj.val()) {
+                        obj.parents('form').find('[name=wpdiscuz_notification_type]').parent().css('display', 'inline-block');
+                    } else {
+                        obj.parents('form').find('[name=wpdiscuz_notification_type]').parent().css('display', 'none');
+                    }
+                }
+            });
+        }
+    }
+    showHideNotificationType();
+
+    $(document).delegate('.wc_email', 'keyup', function () {
+        showHideNotificationType($(this));
+    });
 
 });

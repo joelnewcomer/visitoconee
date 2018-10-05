@@ -3,7 +3,7 @@ Contributors: gVectors Team
 Tags: comment, comments, ajax comments, custom comment form, custom comment field
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 5.2.1
+Stable tag: 5.2.2
 Requires PHP: 5.4 and higher
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -174,16 +174,14 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 == Changelog ==
 
-= Comments - wpDiscuz v5.2.0 / v5.2.1 =
+= Comments - wpDiscuz v5.2.2 =
 
-* Fixed Bug: Comment replies not displaying
-
-* Boosted: Revolutionary changes in core made for rocket speed.
-* Boosted: Database queries with custom AJAX processor (disabled by default)
-* Fixed Bug: Guests commenting issue
-* Fixed Bug: Avatar displaying issue
-* Fixed Bug: Comment editing issue for high level of users
-* Fixed Bug: Issue with Rating custom comment field
+* Added: Asterisk in required fields placeholder
+* Added: Hide "Notify of new replies to this comment" button when email field is not required and not filled
+* Optimized: Avoiding CPU and Memory overloading on very busy websites
+* Fixed Bug: Child count of sticky comments when only parent comments are enabled to load
+* Fixed Bug: Comment position issue if there is a sticky
+* Fixed Bug: Reloading page after deleting comments
 
 
 IMPORTANT!
@@ -196,6 +194,16 @@ IMPORTANT!
 - If you have a Cache Plugin, please delete all caches after wpDiscuz update.
 - If you use CDN and found some issue please purge it.
 - If your server PHP version is lower than 5.4, [please change it to higher](https://wordpress.org/support/topic/wpdiscuz-4-requires-php-5-4-and-higher/)
+
+= Comments - wpDiscuz v5.2.0 / v5.2.1 =
+
+* Fixed Bug: Comment replies not displaying
+* Boosted: Revolutionary changes in core made for rocket speed.
+* Boosted: Database queries with custom AJAX processor (disabled by default)
+* Fixed Bug: Guests commenting issue
+* Fixed Bug: Avatar displaying issue
+* Fixed Bug: Comment editing issue for high level of users
+* Fixed Bug: Issue with Rating custom comment field
 
 
 = Comments - wpDiscuz v5.1.6 / v5.1.7 =

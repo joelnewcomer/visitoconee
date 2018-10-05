@@ -1,5 +1,6 @@
 ;
 jQuery(document).ready(function ($) {
+    var refreshAfterDeleting = 0;
     var isNativeAjaxEnabled = wpdiscuzAjaxObj.wpdiscuz_options.isNativeAjaxEnabled;
     $(document).delegate('.wpd-info,.wpd-page-link,.wpd-delete-content,.wpd-user-email-delete-links', 'click', function (e) {
         e.preventDefault();
@@ -102,8 +103,19 @@ jQuery(document).ready(function ($) {
                 btn.addClass('wpd-not-clicked');
                 icon.removeClass().addClass(oldClass);
                 $('.wpd-content-item.wpd-active').html(response);
+                if (action == 'wpdDeleteComment' || action == 'wpdCancelFollow') {
+                    refreshAfterDeleting = 1;
+                }
             });
 
+        }
+    });
+
+    $(document).delegate('[data-lity-close]', 'click', function (e) {
+        if ($(e.target).is('[data-lity-close]')) {
+            if (refreshAfterDeleting) {
+                window.location.reload(true);
+            }
         }
     });
 

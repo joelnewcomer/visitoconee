@@ -385,16 +385,17 @@ class WpdiscuzWalker extends Walker_Comment implements WpDiscuzConstants {
         }
         if ($depth < $this->optionsSerialized->wordpressThreadCommentsDepth && $this->optionsSerialized->wordpressThreadComments) {
             $output .= '<div class="wc-toggle">';
-            $countChildren = isset($args['wpdiscuz_child_count_' . $comment->comment_ID]) ? $args['wpdiscuz_child_count_' . $comment->comment_ID] : 0;
-            if ($countChildren) {
-                $chevron = '<a href="#" title="' . $this->optionsSerialized->phrases['wc_show_replies_text'] . '">';
-                $chevron .= '<span class="wcsep">|</span> <span class="wpdiscuz-children"><span class="wpdiscuz-children-button-text">' . $this->optionsSerialized->phrases['wc_show_replies_text'] . '</span> (<span class="wpdiscuz-children-count">' . $countChildren . '</span>)</span> ';
-                $chevron .= '<i class="fas fa-chevron-down wpdiscuz-show-replies"></i>';
-                $chevron .= '</a>';
+            if (isset($args['wpdiscuz_child_count_' . $comment->comment_ID])) {
+                $countChildren = $args['wpdiscuz_child_count_' . $comment->comment_ID];
+                if ($countChildren) {
+                    $chevron = '<a href="#" title="' . $this->optionsSerialized->phrases['wc_show_replies_text'] . '">';
+                    $chevron .= '<span class="wcsep">|</span> <span class="wpdiscuz-children"><span class="wpdiscuz-children-button-text">' . $this->optionsSerialized->phrases['wc_show_replies_text'] . '</span> (<span class="wpdiscuz-children-count">' . $countChildren . '</span>)</span> ';
+                    $chevron .= '<i class="fas fa-chevron-down wpdiscuz-show-replies"></i>';
+                    $chevron .= '</a>';
+                }
             } else {
                 $chevron = $comment->get_children() ? '<i class="fas fa-chevron-up" title="' . $this->optionsSerialized->phrases['wc_hide_replies_text'] . '"></i>' : '';
             }
-
             $output .= $chevron;
             $output .= '</div>';
         }

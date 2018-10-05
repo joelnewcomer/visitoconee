@@ -134,12 +134,7 @@ if (!defined('ABSPATH')) {
                     Cookies.set('optionsActiveTabIndex', activeTabIndex, {expires: 30});
                 });
                 var savedIndex = Cookies.get('optionsActiveTabIndex') >= 0 ? Cookies.get('optionsActiveTabIndex') : 0;
-                $('.resp-tabs-list.options_tab_id li').removeClass('resp-tab-active');
-                $('.resp-tabs-container.options_tab_id > div').removeClass('resp-tab-content-active');
-                $('.resp-tabs-container.options_tab_id > div').css('display', 'none');
-                $('.resp-tabs-list.options_tab_id li').eq(savedIndex).addClass('resp-tab-active');
-                $('.resp-tabs-container.options_tab_id > div').eq(savedIndex).addClass('resp-tab-content-active');
-                $('.resp-tabs-container.options_tab_id > div').eq(savedIndex).css('display', 'block');
+                $('.resp-tabs-list.options_tab_id li').eq(savedIndex).click();
             });
         </script>
         <table class="form-table wc-form-table">

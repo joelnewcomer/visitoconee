@@ -2,13 +2,21 @@
 	display: inline-block;
 	a {
 		display: inline-block;
-	}
-	svg {
-		margin: 0 8px;
-		height: 24px;
-		width: 24px;
-		fill: #fff;
-		vertical-align: middle;
+		svg {
+			margin: 0 12px;
+			height: 37px;
+			width: 37px;
+			fill: #fff;
+			vertical-align: middle;
+			path {
+				transition: all .5s;
+			}
+		}
+		&:hover svg {
+			path {
+				fill: $orange;
+			}
+		}
 	}
 	a:first-child svg {
 		margin-left: 0;

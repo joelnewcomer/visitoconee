@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: wpDiscuz\n"
-"POT-Creation-Date: 2018-09-14 11:52+0000\n"
+"POT-Creation-Date: 2018-10-03 15:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,65 +41,65 @@ msgstr ""
 msgid "This is closed comment thread"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1025 class.WpdiscuzCore.php:1261
+#: class.WpdiscuzCore.php:1036 class.WpdiscuzCore.php:1270
 msgid "Settings"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1027 class.WpdiscuzCore.php:1263
+#: class.WpdiscuzCore.php:1038 class.WpdiscuzCore.php:1272
 msgid "Phrases"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1029
+#: class.WpdiscuzCore.php:1040
 msgid "Tools"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1030 options/html-options.php:22
+#: class.WpdiscuzCore.php:1041 options/html-options.php:22
 #: options/html-options.php:64 options/options-layouts/settings-addons.php:14
 msgid "Addons"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1042
+#: class.WpdiscuzCore.php:1053
 msgid "Do you really want to reset all options?"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1043
+#: class.WpdiscuzCore.php:1054
 msgid "Do you really want to remove voting data?"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1044
+#: class.WpdiscuzCore.php:1055
 msgid "Do you really want to reset phrases?"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1045
+#: class.WpdiscuzCore.php:1056
 msgid "Do you really want to delete gravatars cache?"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1046
+#: class.WpdiscuzCore.php:1057
 msgid "Do you really want to delete statistics cache?"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1083
+#: class.WpdiscuzCore.php:1094
 msgid "Please check one of reasons before sending feedback!"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1084 utils/deactivation-reason-modal.php:58
+#: class.WpdiscuzCore.php:1095 utils/deactivation-reason-modal.php:58
 msgid "Please provide more information"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1350 options/phrases-layouts/phrases-comment.php:56
+#: class.WpdiscuzCore.php:1359 options/phrases-layouts/phrases-comment.php:56
 msgid "Admin"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1352 class.WpdiscuzCore.php:1361
+#: class.WpdiscuzCore.php:1361 class.WpdiscuzCore.php:1370
 #: options/phrases-layouts/phrases-comment.php:58
 msgid "Author"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1356 options/phrases-layouts/phrases-comment.php:64
+#: class.WpdiscuzCore.php:1365 options/phrases-layouts/phrases-comment.php:64
 msgid "Member"
 msgstr ""
 
-#: class.WpdiscuzCore.php:1362 options/phrases-layouts/phrases-comment.php:62
+#: class.WpdiscuzCore.php:1371 options/phrases-layouts/phrases-comment.php:62
 msgid "Guest"
 msgstr ""
 
@@ -1357,15 +1357,15 @@ msgstr ""
 msgid "Integrations"
 msgstr ""
 
-#: options/html-options.php:154
+#: options/html-options.php:149
 msgid "Reset Options"
 msgstr ""
 
-#: options/html-options.php:156
+#: options/html-options.php:151
 msgid "Remove vote data"
 msgstr ""
 
-#: options/html-options.php:157 options/html-phrases.php:82
+#: options/html-options.php:152 options/html-phrases.php:77
 msgid "Save Changes"
 msgstr ""
 
@@ -1402,7 +1402,7 @@ msgstr ""
 msgid "Errors"
 msgstr ""
 
-#: options/html-phrases.php:81
+#: options/html-phrases.php:76
 msgid "Reset Phrases"
 msgstr ""
 

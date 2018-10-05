@@ -67,7 +67,7 @@ if (!defined('ABSPATH')) {
                 <td colspan="3"><input type="text" value="<?php echo $this->optionsSerialized->phrases['wc_held_for_moderate']; ?>" name="wc_held_for_moderate" id="wc_held_for_moderate" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row"><label for="wc_msg_required_fields"><?php _e('Message if commenting disabled by user role', 'wpdiscuz'); ?></label></th>
+                <th scope="row"><label for="wc_roles_cannot_comment_message"><?php _e('Message if commenting disabled by user role', 'wpdiscuz'); ?></label></th>
                 <td colspan="3"><input type="text" value="<?php echo $this->optionsSerialized->phrases['wc_roles_cannot_comment_message']; ?>" name="wc_roles_cannot_comment_message" id="wc_roles_cannot_comment_message" /></td>
             </tr>
         </tbody>

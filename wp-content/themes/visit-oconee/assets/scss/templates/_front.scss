@@ -20,6 +20,10 @@
 	img {
 		width: 313px;
 		margin-bottom: 30px;
+		transition: opacity .5s;
+		&.fade-out {
+			opacity: 0;
+		}
 	}
 	h1 {
 		font-size: 37px;
@@ -201,8 +205,4 @@ section.destinations, section.tips {
 			line-height: 1.2;
 		}
 	}
-}
-
-section.tips {
-	
 }

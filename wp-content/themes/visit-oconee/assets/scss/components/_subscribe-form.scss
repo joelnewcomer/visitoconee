@@ -1,4 +1,5 @@
 .subscribe-form {
+	margin-top: -12px;
 	.gform_body, .gform_footer {
 		display: inline-block;
 		vertical-align: middle;
@@ -11,36 +12,40 @@
 		padding-right: 0 !important;
 	}
 	.gform_body {
-		width: 217px !important;
+		width: 363px !important;
 	}
 	.gform_footer {
 		margin-left: -4px !important;
-		width: 98px !important;
+		width: 173px !important;
 	}
 	.gform_wrapper input[type="text"] {
-		border-radius: $global-radius 0 0 $global-radius;
-		background: rgba(255,255,255,0.20);
-		border: 1px solid rgba(255,255,255,0.60);
+		border-radius: 0;
+		font-size: 24px !important;
+		background: rgba(255,255,255,0.80);
+		border: none;
 		box-shadow: none;
-		height: 40px;
+		height: 51px;
 	    &::-webkit-input-placeholder {
-		    color: #fff;
+		    color: $brown;
 		}		
 	}
 	.gform_button {
 		width: 100% !important;
 		margin: 0 !important;
-		font-size: 14px !important;
+		font-size: 24px !important;
 		text-transform: none;
 		font-weight: bold;
 		padding: 11px 4px;
-		border-radius: 0 $global-radius $global-radius 0;
-		background: #FFFFFF;
-		box-shadow: 0 6px 12px 0 rgba(0,0,0,0.20);
-		color: $primary-color;
+		border-radius: 0;
+		background: $orange;
+		color: #fff !important;
 		border: none;
 		text-shadow: none;
-		height: 40px;				
+		height: 51px;
+		box-shadow: none;
+		&:hover {
+			background: $primary-color;
+		}	
 	}
 }
 

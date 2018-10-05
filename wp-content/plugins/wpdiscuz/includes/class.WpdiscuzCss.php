@@ -112,7 +112,7 @@ class WpdiscuzCss {
                     #comments{ background: url(<?php echo plugins_url(WPDISCUZ_DIR_NAME . '/assets/img/dark.png') ?>) #222222; padding: 3%; box-sizing: border-box; } #respond{background: url(<?php echo plugins_url(WPDISCUZ_DIR_NAME . '/assets/img/dark.png') ?>) #222222; padding: 3%; box-sizing: border-box;} .comments-area{background: url(<?php echo plugins_url(WPDISCUZ_DIR_NAME . '/assets/img/dark.png') ?>) #222222; padding: 3%; box-sizing: border-box; ba}
                 <?php } ?>
                 .wpd-wrapper .wpd-list-item.wpd-active{border-top: 3px solid <?php echo $this->optionsSerialized->primaryColor; ?>;}
-                <?php do_action('wpdiscuz_dynamic_css'); ?>
+                <?php do_action('wpdiscuz_dynamic_css', $this->optionsSerialized); ?>
                 <?php echo stripslashes($this->optionsSerialized->customCss); ?>
 
             </style>
