@@ -101,7 +101,7 @@ get_header(); ?>
 					<div class="cat-modal" id="?php echo $term->slug; ?>">
 						<div class="modal-inner">
 							<div class="row">
-								<?php if(get_field('ads' $term)): ?>
+								<?php if(get_field('ads', $term)): ?>
 									<div class="large-5 medium-5 columns"
 										<?php while(has_sub_field('ads'), $term): ?>
 											<a href="<?php echo get_sub_field('ad_link'); ?>">
