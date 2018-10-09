@@ -103,9 +103,9 @@ get_header(); ?>
 							<div class="row">
 								<?php if(get_field('ads', $term)): ?>
 									<div class="large-5 medium-5 columns"
-										<?php while(has_sub_field('ads'), $term): ?>
+										<?php while(has_sub_field('ads', $term)): ?>
 											<a href="<?php echo get_sub_field('ad_link'); ?>">
-												<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full')); ?>
+												<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full'); ?>
 											</a>
 										<?php endwhile; ?>
 									</div>
