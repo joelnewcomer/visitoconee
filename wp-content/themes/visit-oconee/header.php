@@ -46,7 +46,7 @@
 		<!-- NOTE: Remove "transparent" class for white relative header (rather than semi-transparent absolute header) -->
 		<div class="header-wrapper transparent">
 			<header id="masthead" class="site-header"  role="banner">
-				<div id="top-header">
+				<div id="top-header" class="hide-for-small">
 					<nav id="top-navigation" class="main-navigation top-menu grid-container" role="navigation">
 						<?php drumroll_top_menu(); ?>
 					</nav>

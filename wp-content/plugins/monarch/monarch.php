@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Monarch Plugin
  * Plugin URI: http://www.elegantthemes.com
- * Version: 1.4.5
+ * Version: 1.4.7
  * Description: Social Media Plugin
  * Author: Elegant Themes
  * Author URI: http://www.elegantthemes.com
@@ -17,7 +17,7 @@ define( 'ET_MONARCH_PLUGIN_DIR', trailingslashit( dirname(__FILE__) ) );
 define( 'ET_MONARCH_PLUGIN_URI', plugins_url('', __FILE__) );
 
 class ET_Monarch {
-	var $plugin_version = '1.4.5';
+	var $plugin_version = '1.4.7';
 	var $db_version = '1.3';
 	var $monarch_options;
 	var $_options_pagename = 'et_monarch_options';
@@ -135,6 +135,8 @@ class ET_Monarch {
 		add_action( 'admin_init', array( $this, 'include_options' ) );
 
 		$this->maybe_load_core();
+		// Create stats table if needed
+		$this->db_install( false );
 
 		et_core_enable_automatic_updates( ET_MONARCH_PLUGIN_URI, $this->plugin_version );
 	}
@@ -728,10 +730,15 @@ class ET_Monarch {
 		global $wpdb;
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			die( -1 );
+			return;
 		}
 
 		$table_name = sanitize_text_field( $wpdb->prefix ) . 'et_social_stats';
+
+		// Table already exist and upgrade is not needed
+		if ( ! $need_upgrade && $table_name === $wpdb->get_var("SHOW TABLES LIKE '$table_name'" ) ) {
+			return;
+		}
 
 		/*
 		 * We'll set the default character set and collation for this table.
@@ -2287,7 +2294,7 @@ class ET_Monarch {
 
 				break;
 			case 'facebook':
-				$authorization_url = 'https://www.facebook.com/dialog/oauth?response_type=code&scope=public_profile&state=%1$s&client_id=%2$s&redirect_uri=%3$s';
+				$authorization_url = 'https://www.facebook.com/dialog/oauth?response_type=code&scope=public_profile,manage_pages&state=%1$s&client_id=%2$s&redirect_uri=%3$s';
 
 				break;
 		}
@@ -2443,7 +2450,7 @@ class ET_Monarch {
 
 					break;
 				case 'facebook':
-					$access_token_url = 'https://graph.facebook.com/v2.9/oauth/access_token';
+					$access_token_url = 'https://graph.facebook.com/v3.1/oauth/access_token';
 
 					break;
 			}
@@ -3630,7 +3637,7 @@ class ET_Monarch {
 			switch ( $social_network ) {
 				case 'facebook' :
 					if ( isset( $monarch_options['access_tokens']['facebook'] ) ) {
-						$request_url = sprintf( 'https://graph.facebook.com/v2.9/?access_token=%1$s&fields=engagement&id=', esc_attr( $monarch_options['access_tokens']['facebook'] ) );
+						$request_url = sprintf( 'https://graph.facebook.com/v3.1/?access_token=%1$s&fields=engagement&id=', esc_attr( $monarch_options['access_tokens']['facebook'] ) );
 					}
 
 					break;
@@ -4677,7 +4684,7 @@ class ET_Monarch {
 			case 'facebook' :
 				if ( isset( $settings['access_tokens']['facebook'] ) && isset( $settings['follow_networks_networks_sorting']['client_id'][ $index ] ) ) {
 					$url = sprintf(
-						'https://graph.facebook.com/v2.9/?id=%1$s&access_token=%2$s&fields=fan_count',
+						'https://graph.facebook.com/v3.1/%1$s/?access_token=%2$s&fields=fan_count',
 						esc_attr( $settings['follow_networks_networks_sorting']['client_id'][ $index ] ),
 						esc_attr( $settings['access_tokens']['facebook'] )
 					);

@@ -1,3 +1,20 @@
+version 1.4.7 ( updated 10-05-2018 )
+- Fixed the Facebook follower count.
+	* monarch.php
+
+version 1.4.6 ( updated 10-04-2018 )
+- Fixed a slightly outdated React version being loaded.
+- Updated custom fields retrieval and processing functions for Mailchimp to make it work with custom field names.
+- Fixed the Subscription error shown when using Custom fields in the Email Optin module with MailPoet service provider.
+- Fixed "et_social_stats" table missing error.
+	* .github/PULL_REQUEST_TEMPLATE.md
+	* core/admin/js/react-dom.production.min.js
+	* core/admin/js/react.production.min.js
+	* core/components/api/email/MailChimp.php
+	* core/components/api/email/_MailPoet3.php
+	* core/components/data/Utils.php
+	* monarch.php
+
 version 1.4.5 ( updated 08-13-2018 )
 - Fixed WSOD that occurred in some cases.
 	* monarch.php

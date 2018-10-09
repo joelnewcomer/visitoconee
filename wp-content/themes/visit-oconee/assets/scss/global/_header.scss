@@ -40,12 +40,18 @@
 }
 
 .top-bar-left {
-	padding-top: 3px;
+	padding-top: 8px;
 	padding-bottom: 3px;
 }
 
 .top-bar-right {
-	padding-top: 27px;
+	padding-top: 28px;
+	@media only screen and (max-width: 990px) {
+		padding-top: 20px;
+	}
+	@media only screen and (max-width: 820px) {
+		padding-top: 14px;
+	}
 }
 
 body.home .header-wrapper #masthead {
@@ -73,6 +79,12 @@ a.logo {
 	img {
 		float: left;
 		width: 350px;
+		@media only screen and (max-width: 990px) {
+			width: 250px;	
+		}
+		@media only screen and (max-width: 820px) {
+			width: 200px;	
+		}
 		@media only screen and (max-width: 40.063em) {
 			width: 144px;
 		}
@@ -82,6 +94,7 @@ a.logo {
 @media only screen and (max-width: 40.063em) {
 	.top-bar-right, .top-bar-left {
 		height: $topbar-mobile-height;
+		padding-top: 0;
 	}	
 }
 
@@ -146,6 +159,9 @@ header#masthead {
 .icon-wrapper {
 	display: inline-block;
 	padding: 0 20px;
+	@media only screen and (max-width: 820px) {
+		padding: 0 10px;	
+	}
 	svg {
 		vertical-align: middle;
 	}

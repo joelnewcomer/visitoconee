@@ -122,6 +122,9 @@ ul.slimmenu li a {
     white-space: nowrap;
     color: #fff;
     font-size: $menu-font-size;
+    @media only screen and (max-width: 990px) {
+	 	font-size: 18px;   
+	} 
     font-weight: 600;
     text-transform: uppercase;
     transition: all 0.5s ease-out;
@@ -130,6 +133,9 @@ ul.slimmenu li a {
 
 ul.slimmenu li > a {
     padding: 8px 20px 7px 20px;
+    @media only screen and (max-width: 820px) {
+		padding: 8px 10px 7px 10px;	
+	}
 }
 
 ul.slimmenu li > ul > li a {
@@ -152,8 +158,11 @@ body.home .header-wrapper.transparent {
 }
 
 ul.slimmenu > li a:hover, ul.slimmenu > li.active a {
-    color: $primary-color;
-    border: solid 3px #fff;
+	color: $orange !important;
+	@media only screen and (min-width: 40em) {
+		color: $primary-color;
+		border: solid 3px #fff;
+	}
 }
 
 ul.slimmenu li ul li a:hover {
@@ -161,6 +170,7 @@ ul.slimmenu li ul li a:hover {
 	color: #FFFFFF;
 	text-shadow: 0 1px 4px rgba(0,0,0,0.20);
 }
+
 
 ul.slimmenu li .sub-toggle {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.075);
@@ -202,6 +212,8 @@ ul.slimmenu li .sub-toggle>svg {
 @media only screen and (max-width: 40.062em) {
 	ul.slimmenu {
 		z-index: 999;
-		background: #fff;
+		li {
+			background: rgba(36, 41, 42, 0.6);
+		}
 	}
 }
