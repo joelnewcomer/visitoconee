@@ -13,10 +13,22 @@
 	}
 	.gform_body {
 		width: 363px !important;
+		@media only screen and (max-width: 1170px) {
+			width: 263px !important;	
+		}
+		@media only screen and (max-width: 760px) {
+			width: 200px !important;	
+		}
 	}
 	.gform_footer {
 		margin-left: -4px !important;
 		width: 173px !important;
+		@media only screen and (max-width: 1170px) {
+			width: 123px !important;	
+		}
+		@media only screen and (max-width: 760px) {
+			width: 110px !important;	
+		}
 	}
 	.gform_wrapper input[type="text"] {
 		border-radius: 0;
@@ -30,6 +42,7 @@
 		}		
 	}
 	.gform_button {
+		line-height: 1.15 !important;
 		width: 100% !important;
 		margin: 0 !important;
 		font-size: 24px !important;
@@ -51,4 +64,10 @@
 
 .menu-container .subscribe-form .gform_body {
 	width: 179px !important;
+}
+
+@media only screen and (max-width: 40.063em) {
+	#gform_4 {
+		text-align: center;
+	}	
 }

@@ -3331,20 +3331,25 @@ main.container > section > .grid-container {
   .sub-footer .footer-about p {
     font-size: 24px;
     max-width: 495px;
-    margin-top: 64px; }
+    display: inline-block; }
+    @media only screen and (min-width: 40.063em) {
+      .sub-footer .footer-about p {
+        margin-top: 64px; } }
   .sub-footer a.footer-brochure {
     display: inline-block;
     text-align: center;
     font-size: 20px;
     max-width: 189px;
-    margin-top: -167px;
     line-height: 1.1;
     margin-bottom: 20px; }
+    @media only screen and (min-width: 40.063em) {
+      .sub-footer a.footer-brochure {
+        margin-top: -167px; } }
     .sub-footer a.footer-brochure img {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
       margin-bottom: 16px; }
-  .sub-footer .drum.cell {
-    background: url(../../images/sc-map.png) left 20px no-repeat; }
+  .sub-footer .grid-container {
+    background: url(../../images/sc-map.png) 80% 20px no-repeat; }
   .sub-footer p.drum {
     opacity: 0.3; }
 
@@ -3919,7 +3924,8 @@ section.breadcrumbs {
 .social {
   display: inline-block; }
   .social a {
-    display: inline-block; }
+    display: inline-block;
+    margin-bottom: 24px; }
     .social a svg {
       margin: 0 12px;
       height: 37px;
@@ -3954,9 +3960,21 @@ ul.pagination li.current a {
     padding-right: 0 !important; }
   .subscribe-form .gform_body {
     width: 363px !important; }
+    @media only screen and (max-width: 1170px) {
+      .subscribe-form .gform_body {
+        width: 263px !important; } }
+    @media only screen and (max-width: 760px) {
+      .subscribe-form .gform_body {
+        width: 200px !important; } }
   .subscribe-form .gform_footer {
     margin-left: -4px !important;
     width: 173px !important; }
+    @media only screen and (max-width: 1170px) {
+      .subscribe-form .gform_footer {
+        width: 123px !important; } }
+    @media only screen and (max-width: 760px) {
+      .subscribe-form .gform_footer {
+        width: 110px !important; } }
   .subscribe-form .gform_wrapper input[type="text"] {
     border-radius: 0;
     font-size: 24px !important;
@@ -3967,6 +3985,7 @@ ul.pagination li.current a {
     .subscribe-form .gform_wrapper input[type="text"]::-webkit-input-placeholder {
       color: #664D39; }
   .subscribe-form .gform_button {
+    line-height: 1.15 !important;
     width: 100% !important;
     margin: 0 !important;
     font-size: 24px !important;
@@ -3985,6 +4004,10 @@ ul.pagination li.current a {
 
 .menu-container .subscribe-form .gform_body {
   width: 179px !important; }
+
+@media only screen and (max-width: 40.063em) {
+  #gform_4 {
+    text-align: center; } }
 
 ul.post-meta {
   margin-left: 0;
@@ -4429,6 +4452,9 @@ section.videos {
     display: inline-block;
     padding: 0 182px;
     position: relative; }
+    @media only screen and (max-width: 40.063em) {
+      section.videos .quote-wrapper {
+        padding: 0 182px 0 20px; } }
   section.videos h2, section.videos p {
     color: #664D39;
     font-weight: 600; }
@@ -4436,10 +4462,16 @@ section.videos {
     font-size: 38px;
     margin-top: 60px;
     margin-bottom: 24px; }
+    @media only screen and (max-width: 40.063em) {
+      section.videos h2 {
+        font-size: 28px; } }
   section.videos p {
     font-size: 20px;
     letter-spacing: 2px;
     text-transform: uppercase; }
+    @media only screen and (max-width: 40.063em) {
+      section.videos p {
+        font-size: 16px; } }
   section.videos .home-quote {
     display: block;
     float: left;
@@ -4448,7 +4480,14 @@ section.videos {
     position: relative; }
     section.videos .home-quote img {
       float: right;
-      margin-right: -182px; }
+      margin-right: -182px;
+      margin-top: 10px; }
+      @media only screen and (max-width: 960px) {
+        section.videos .home-quote img {
+          margin-top: 40px; } }
+      @media only screen and (max-width: 790px) {
+        section.videos .home-quote img {
+          margin-top: 60px; } }
 
 section.home-blocks .home-block {
   position: relative; }
@@ -4464,16 +4503,27 @@ section.home-blocks .home-block {
     font-size: 32px;
     font-weight: 600;
     letter-spacing: 3px;
-    line-height: 1; }
+    line-height: 1;
+    padding: 0 10px; }
+    @media only screen and (max-width: 960px) {
+      section.home-blocks .home-block .home-block-overlay {
+        font-size: 24px; } }
 
 section.home-cats {
   padding: 200px 0 150px 0; }
+  @media only screen and (max-width: 690px) {
+    section.home-cats {
+      padding: 80px 0 60px 0; } }
   section.home-cats a {
+    display: inline-block;
     font-size: 45px;
     font-weight: 600;
     text-transform: lowercase;
     margin-bottom: 30px;
     color: #664D39; }
+    @media only screen and (max-width: 690px) {
+      section.home-cats a {
+        font-size: 36px; } }
     section.home-cats a svg {
       width: 87px;
       height: 87px; }
@@ -4497,32 +4547,50 @@ section.tips {
 
 section.destinations, section.tips {
   padding: 140px 0 110px 0; }
+  @media only screen and (max-width: 790px) {
+    section.destinations, section.tips {
+      padding: 80px 0 50px 0; } }
   section.destinations h2, section.tips h2 {
     font-size: 36px;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 600;
     margin-bottom: 50px; }
+    @media only screen and (max-width: 790px) {
+      section.destinations h2, section.tips h2 {
+        font-size: 24px; } }
     section.destinations h2 span, section.tips h2 span {
       font-weight: normal;
       font-size: 72px;
       text-transform: lowercase;
       letter-spacing: 0; }
+      @media only screen and (max-width: 790px) {
+        section.destinations h2 span, section.tips h2 span {
+          font-size: 48px; } }
   section.destinations .dest-cell img, section.tips .dest-cell img {
     margin-bottom: 16px; }
   section.destinations .dest-cell h3, section.tips .dest-cell h3 {
     font-weight: 600;
     margin-bottom: 0;
     font-size: 28px; }
+    @media only screen and (max-width: 790px) {
+      section.destinations .dest-cell h3, section.tips .dest-cell h3 {
+        font-size: 24px; } }
   section.destinations .dest-cell h4, section.tips .dest-cell h4 {
     font-size: 22px;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 22px; }
+    @media only screen and (max-width: 790px) {
+      section.destinations .dest-cell h4, section.tips .dest-cell h4 {
+        font-size: 18px; } }
   section.destinations .dest-cell p, section.tips .dest-cell p {
     font-weight: 600;
     font-size: 20px;
     line-height: 1.2; }
+    @media only screen and (max-width: 790px) {
+      section.destinations .dest-cell p, section.tips .dest-cell p {
+        font-size: 18px; } }
 
 #single-post .single-title-ul {
   position: relative;
@@ -5071,7 +5139,7 @@ ul.slimmenu li > a {
   padding: 8px 20px 7px 20px; }
   @media only screen and (max-width: 820px) {
     ul.slimmenu li > a {
-      padding: 8px 10px 7px 10px; } }
+      padding: 8px 9px 7px 9px; } }
 
 ul.slimmenu li > ul > li a {
   padding: 12px 20px; }

@@ -37,7 +37,7 @@ get_header(); ?>
 	   		<div class="grid-x">
 	   			<?php if(get_field('videos')): ?>
 	   				<?php while(has_sub_field('videos')): ?>
-	   					<div class="large-4 medium-4 cell home-video">
+	   					<div class="large-4 medium-4 cell home-video text-center">
 		   					<a href="<?php echo get_sub_field('video_url'); ?>?autoplay=1&modestbranding=1&showinfo=0&rel=0" data-featherlight="iframe" data-featherlight-iframe-width="960" data-featherlight-iframe-height="540">
 		   						<?php echo wp_get_attachment_image(get_sub_field('video_thumbnail'), 'home-video'); ?>
 		   						<?php get_template_part('assets/images/play', 'button.svg'); ?>
@@ -85,17 +85,39 @@ get_header(); ?>
 			   	$play_cat_id = 28;
 		   		$args = array( 
 				    'hide_empty' => 0,
+				    'parent' => 0,
 				    'exclude' => $play_cat_id
 				);
 				$terms = get_terms( 'poi_cats', $args );
 				foreach ( $terms as $term ) {
 					$icon = get_field('product_feature_image', $term );
 					?>
-					<div class="large-3 medium-3 cell text-center">
-					    <a class="transition" href="<?php echo get_term_link( $term ); ?>" title="View all <?php echo $term->name; ?>">
+					<div class="large-3 medium-3 small-6 cell text-center">
+					    <a class="transition cat-link" href="#<?php echo $term->slug; ?>" title="View all <?php echo $term->name; ?>">
 						    <?php echo file_get_contents(get_field('category_icon', $term)); ?><br />
 						    <?php echo $term->name; ?>
 						</a>
+					</div>
+					<div class="cat-modal" id="?php echo $term->slug; ?>">
+						<div class="modal-inner">
+							<div class="row">
+								<?php if(get_field('ads' $term)): ?>
+									<div class="large-5 medium-5 columns"
+										<?php while(has_sub_field('ads'), $term): ?>
+											<a href="<?php echo get_sub_field('ad_link'); ?>">
+												<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full')); ?>
+											</a>
+										<?php endwhile; ?>
+									</div>
+									<div class="large-7 medium-7 columns">
+								<?php else: ?>
+									<div class="large-12 columns">	
+								<?php endif; ?>
+								<h2><?php echo $term->name; ?></h2>
+								
+								</div>
+							</div>
+						</div>
 					</div>
 				<?php } ?>
 	   		</div>

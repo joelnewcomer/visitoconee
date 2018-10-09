@@ -128,6 +128,9 @@ section.videos {
 	.quote-wrapper {
 		display: inline-block;
 		padding: 0 182px;
+		@media only screen and (max-width: 40.063em) {
+			padding: 0 182px 0 20px;	
+		}
 		position: relative;
 	}
 	h2, p {
@@ -138,9 +141,15 @@ section.videos {
 		font-size: 38px;
 		margin-top: 60px;
 		margin-bottom: 24px;
+		@media only screen and (max-width: 40.063em) {
+			font-size: 28px;	
+		}
 	}
 	p {
 		font-size: 20px;
+		@media only screen and (max-width: 40.063em) {
+			font-size: 16px;	
+		}
 		letter-spacing: 2px;
 		text-transform: uppercase;
 	}
@@ -153,6 +162,13 @@ section.videos {
 		img {
 			float: right;
 			margin-right: -182px;
+			margin-top: 10px;
+			@media only screen and (max-width: 960px) {
+				margin-top: 40px;
+			}
+			@media only screen and (max-width: 790px) {
+				margin-top: 60px;
+			}
 		}
 	}
 }
@@ -170,17 +186,28 @@ section.home-blocks {
 			text-transform: uppercase;
 			color: #fff;
 			font-size: 32px;
+			@media only screen and (max-width: 960px) {
+				font-size: 24px;	
+			}
 			font-weight: 600;
 			letter-spacing: 3px;
 			line-height: 1;
+			padding: 0 10px;
 		}
 	}
 }
 
 section.home-cats {
 	padding: 200px 0 150px 0;
+	@media only screen and (max-width: 690px) {
+		padding: 80px 0 60px 0;	
+	}
 	a {
+		display: inline-block;
 		font-size: 45px;
+		@media only screen and (max-width: 690px) {
+			font-size: 36px;	
+		}
 		font-weight: 600;
 		text-transform: lowercase;
 		margin-bottom: 30px;
@@ -220,8 +247,14 @@ section.tips {
 
 section.destinations, section.tips {
 	padding: 140px 0 110px 0;
+	@media only screen and (max-width: 790px) {
+		padding: 80px 0 50px 0;
+	}
 	h2 {
 		font-size: 36px;
+		@media only screen and (max-width: 790px) {
+			font-size: 24px;	
+		}
 		text-transform: uppercase;
 		letter-spacing: 4px;
 		font-weight: 600;
@@ -229,6 +262,9 @@ section.destinations, section.tips {
 		span {
 			font-weight: normal;
 			font-size: 72px;
+			@media only screen and (max-width: 790px) {
+				font-size: 48px;	
+			}
 			text-transform: lowercase;
 			letter-spacing: 0;
 		}
@@ -241,9 +277,15 @@ section.destinations, section.tips {
 			font-weight: 600;
 			margin-bottom: 0;
 			font-size: 28px;
+			@media only screen and (max-width: 790px) {
+				font-size: 24px;	
+			}
 		}
 		h4 {
 			font-size: 22px;
+			@media only screen and (max-width: 790px) {
+				font-size: 18px;	
+			}
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			margin-bottom: 22px;
@@ -251,6 +293,9 @@ section.destinations, section.tips {
 		p {
 			font-weight: 600;
 			font-size: 20px;
+			@media only screen and (max-width: 790px) {
+				font-size: 18px;	
+			}
 			line-height: 1.2;
 		}
 	}
