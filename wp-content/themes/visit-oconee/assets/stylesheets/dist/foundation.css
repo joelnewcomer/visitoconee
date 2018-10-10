@@ -4592,6 +4592,24 @@ section.destinations, section.tips {
       section.destinations .dest-cell p, section.tips .dest-cell p {
         font-size: 18px; } }
 
+.cat-modal {
+  display: block;
+  position: fixed;
+  opacity: 0;
+  z-index: -9999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%; }
+  .cat-modal.active {
+    z-index: 9999999;
+    opacity: 1; }
+  .cat-modal .modal-inner {
+    background: url(../../images/video-bg.png); }
+    .cat-modal .modal-inner svg {
+      width: 80px;
+      height: 80px; }
+
 #single-post .single-title-ul {
   position: relative;
   margin-bottom: 60px;

@@ -98,31 +98,57 @@ get_header(); ?>
 						    <?php echo $term->name; ?>
 						</a>
 					</div>
-					<div class="cat-modal" id="?php echo $term->slug; ?>">
-						<div class="modal-inner">
-							<div class="row">
-								<?php if(get_field('ads', $term)): ?>
-									<div class="large-5 medium-5 columns"
-										<?php while(has_sub_field('ads', $term)): ?>
-											<a href="<?php echo get_sub_field('ad_link'); ?>">
-												<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full'); ?>
-											</a>
-										<?php endwhile; ?>
-									</div>
-									<div class="large-7 medium-7 columns">
-								<?php else: ?>
-									<div class="large-12 columns">	
-								<?php endif; ?>
-								<h2><?php echo $term->name; ?></h2>
-								
-								</div>
+					<div class="cat-modal transition" id="<?php echo $term->slug; ?>">
+						<div style="display:table;width:100%;height:100%;">
+							<div style="display:table-cell;vertical-align:middle;">
+								<div style="text-align:center;">
+									<div class="modal-inner">
+										<div class="grid-x">
+											<?php if(get_field('ads', $term)): ?>
+												<div class="large-5 medium-5 cell">
+													<?php while(has_sub_field('ads', $term)): ?>
+														<?php $link = get_sub_field('ad_link'); ?>
+														<a href="<?php echo $link['url']; ?>">
+															<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full'); ?>
+														</a><br />
+													<?php endwhile; ?>
+												</div>
+												<div class="large-7 medium-7 cell">
+											<?php else: ?>
+												<div class="large-12 cell">	
+											<?php endif; ?>
+												<div class="close-modal"><?php get_template_part('assets/images/close', 'icon.svg'); ?></div>
+												<h2><?php echo $term->name; ?></h2>
+												<?php
+													$args = array( 
+													    'hide_empty' => 0,
+													    'child_of' => $term->term_ID,
+													);
+													$child_terms = get_terms( 'poi_cats', $args );
+													foreach ( $child_terms as $child_term ) {
+														echo $child_term->name;
+													}
+												?>									
+											</div>
+										</div> <!-- row -->
+									</div> <!-- modal-inner -->
+								</div> 
 							</div>
 						</div>
-					</div>
+					</div> <!-- cat-modal -->
 				<?php } ?>
 	   		</div>
 		</div>
 	</section> <!-- home-cats -->
+	
+	<script>
+		jQuery("a.cat-link").on( "click", function(e) {
+			e.preventDefault();
+			var modalID = jQuery(this).attr('href');
+			jQuery('.cat-modal').removeClass('active');
+			jQuery(modalID).addClass('active');
+		});
+	</script>
 	
 	<section class="destinations">
 		<div class="grid-container">

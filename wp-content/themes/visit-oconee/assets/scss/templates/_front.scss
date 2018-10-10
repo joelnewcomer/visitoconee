@@ -300,3 +300,25 @@ section.destinations, section.tips {
 		}
 	}
 }
+
+.cat-modal {
+	display: block;
+	position: fixed;
+	opacity: 0;
+	z-index: -9999;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	&.active {
+		z-index: 9999999;
+		opacity: 1;
+	}
+	.modal-inner {
+		background: url(../images/video-bg.png);
+		svg {
+			width: 80px;
+			height: 80px;
+		}
+	}
+}
