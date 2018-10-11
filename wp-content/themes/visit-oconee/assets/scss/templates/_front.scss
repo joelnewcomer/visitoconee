@@ -202,7 +202,7 @@ section.home-cats {
 	@media only screen and (max-width: 690px) {
 		padding: 80px 0 60px 0;	
 	}
-	a {
+	a.cat-link {
 		display: inline-block;
 		font-size: 45px;
 		@media only screen and (max-width: 690px) {
@@ -310,15 +310,59 @@ section.destinations, section.tips {
 	top: 0;
 	height: 100%;
 	width: 100%;
+	overflow: scroll;
 	&.active {
 		z-index: 9999999;
 		opacity: 1;
 	}
 	.modal-inner {
+		position: relative;
 		background: url(../images/video-bg.png);
+		width: 90%;
+		max-width: 1272px;
+		margin: 0 auto;
+		box-shadow: 0 0 70px rgba(0,0,0,.60);
+		padding: 40px 25px;
 		svg {
 			width: 80px;
 			height: 80px;
+		}
+		h2 {
+			font-weight: 600;
+			color: $orange;
+			text-transform: lowercase;
+			font-size: 50px;
+			margin-bottom: 30px;
+		}
+	}
+	.cat-ads {
+		a {
+			display: inline-block;
+		}
+		a + a {
+			margin-top: 24px;
+		}
+	}
+	.close-modal {
+		cursor: pointer;
+		display: block;
+		position: absolute;
+		right: 40px;
+		top: 40px;
+	}
+	.sub-cats {
+		column-count: 2;
+		a {
+			font-size: 28px;
+			@media only screen and (max-width: 40.063em) {
+				font-size: 24px;	
+			}
+			color: #664D39;
+			display: inline-block;
+			margin-bottom: 10px;
+			&:hover {
+				color: $orange;
+			}
 		}
 	}
 }

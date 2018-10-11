@@ -41,7 +41,7 @@ jQuery( document ).ready(function() {
         },
     });
     
-    jQuery(window).paroller();
+    // jQuery(window).paroller();
 	
 	var currentTime = new Date();
 	jQuery("li.gfield.date input").each(function() {

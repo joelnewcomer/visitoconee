@@ -147,13 +147,14 @@ h1.entry-title, h2.entry-title {
 }
 
 h1.entry-title {
-	font-size: 48px;
-	font-weight: 300;
+	font-family: "gizmo";
+	font-size: 160px;
+	text-transform: lowercase;
 	@media only screen and (max-width: 700px) {	
-		font-size: 40px;
+		font-size: 120px;
 	}
 	@media only screen and (max-width: 40.063em) {
-		font-size: 32px;	
+		font-size: 80px;	
 	}
 }
 
@@ -193,4 +194,13 @@ body.ie10 {
 			clear: left;
 		}
 	}
+}
+
+@media only screen and (max-width: 40.063em) {
+	.small-order-1 {
+		order: 1;
+	}	
+	.small-order-2 {
+		order: 2;
+	}	
 }

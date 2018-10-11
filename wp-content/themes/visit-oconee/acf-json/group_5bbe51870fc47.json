@@ -1,0 +1,496 @@
+{
+    "key": "group_5bbe51870fc47",
+    "title": "Points of Interest",
+    "fields": [
+        {
+            "key": "field_5bbe5576bed80",
+            "label": "Additional Photos & Videos",
+            "name": "additional_photos",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "row",
+            "button_label": "Add Photo or Video",
+            "sub_fields": [
+                {
+                    "key": "field_5bbf887f2d07c",
+                    "label": "Media Type",
+                    "name": "media_type",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "Photo": "Photo",
+                        "Video": "Video"
+                    },
+                    "default_value": [
+                        "Photo"
+                    ],
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0,
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_5bbf889b2d07d",
+                    "label": "Photo",
+                    "name": "photo",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5bbf887f2d07c",
+                                "operator": "==",
+                                "value": "Photo"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "show_column": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbf88a92d07e",
+                    "label": "Video",
+                    "name": "video",
+                    "type": "oembed",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5bbf887f2d07c",
+                                "operator": "==",
+                                "value": "Video"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "width": "",
+                    "height": "",
+                    "show_column": 0,
+                    "show_column_weight": 1000
+                }
+            ]
+        },
+        {
+            "key": "field_5bbe52021d462",
+            "label": "Address",
+            "name": "address",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5bbe52121d463",
+            "label": "Phone",
+            "name": "phone",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": "",
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5bbe5554d2486",
+            "label": "Website",
+            "name": "website",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5bbe521a1d464",
+            "label": "Hours",
+            "name": "hours",
+            "type": "group",
+            "instructions": "Keep format consistent similar to this: 11am-8pm",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5bbe53141d465",
+                    "label": "Sunday",
+                    "name": "sunday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54a31ddc8",
+                    "label": "Monday",
+                    "name": "monday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54c21ddc9",
+                    "label": "Tuesday",
+                    "name": "tuesday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54ce1ddca",
+                    "label": "Wednesday",
+                    "name": "wednesday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54dc1ddcb",
+                    "label": "Thursday",
+                    "name": "thursday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54e61ddcc",
+                    "label": "Friday",
+                    "name": "friday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe54ef1ddcd",
+                    "label": "Saturday",
+                    "name": "saturday",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "14",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                }
+            ]
+        },
+        {
+            "key": "field_5bbe58ac465fe",
+            "label": "Social",
+            "name": "social",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5bbe58c2465ff",
+                    "label": "Instagram",
+                    "name": "instagram",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe58d246600",
+                    "label": "Facebook",
+                    "name": "facebook",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bbe58e446601",
+                    "label": "Twitter",
+                    "name": "twitter",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                }
+            ]
+        },
+        {
+            "key": "field_5bbe5c2ad07ff",
+            "label": "Pop-Up Content",
+            "name": "pop-up_content",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 4,
+            "new_lines": "",
+            "show_column": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "poi"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1539279199
+}

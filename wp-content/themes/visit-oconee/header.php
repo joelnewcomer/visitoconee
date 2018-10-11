@@ -41,6 +41,18 @@
 
 	</head>
 	<body <?php body_class(); ?>>
+		
+		
+	<!-- Load Basil -->
+    <script>
+    jQuery( document ).ready(function() {
+        options = {
+            expireDays: 365
+        };
+        basil = new window.Basil(options);
+    });
+    </script>
+		
 		<?php // get_template_part('template-parts/preloader'); ?>
 		<a class="skip-link sr-only" href="#content"><?php _e( 'Skip to content', 'drumroll' ); ?></a>
 		<!-- NOTE: Remove "transparent" class for white relative header (rather than semi-transparent absolute header) -->
@@ -51,20 +63,24 @@
 						<?php drumroll_top_menu(); ?>
 					</nav>
 				</div>
-				<nav id="site-navigation" class="main-navigation top-bar grid-container" role="navigation">
-					<div class="top-bar-left">
-						<?php get_template_part('template-parts/site-logo','link'); ?>
-					</div> <!-- top-bar-left -->
-					<div class="top-bar-right hide-for-print">
-						<?php drumroll_main_menu(); ?>
-						<div class="icon-wrapper search-icon-wrapper">
-							<a href="#" class="search-button" data-featherlight="#search-modal">
-								<?php get_template_part('assets/images/search.svg'); ?>
-							</a>
-						</div> <!-- icon-wrapper -->
-
-					</div> <!-- top-bar-right -->
-				</nav> <!-- #site-navigation -->
+				<div class="nav-wrapper">
+					<div class="nav-wrapper-inner">
+						<nav id="site-navigation" class="main-navigation top-bar grid-container" role="navigation">
+							<div class="top-bar-left">
+								<?php get_template_part('template-parts/site-logo','link'); ?>
+							</div> <!-- top-bar-left -->
+							<div class="top-bar-right hide-for-print">
+								<?php drumroll_main_menu(); ?>
+								<div class="icon-wrapper search-icon-wrapper">
+									<a href="#" class="search-button" data-featherlight="#search-modal">
+										<?php get_template_part('assets/images/search.svg'); ?>
+									</a>
+								</div> <!-- icon-wrapper -->
+						
+							</div> <!-- top-bar-right -->
+						</nav> <!-- #site-navigation -->
+					</div> <!-- nav-wrapper-inner -->
+				</div> <!-- nav-wrapper -->
 			</header> <!-- #masthead -->
 		</div> <!-- header-wrapper -->
 		

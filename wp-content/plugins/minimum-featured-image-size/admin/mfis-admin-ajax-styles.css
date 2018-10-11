@@ -1,4 +1,0 @@
-/* Only hide this if Ajax is enabled */
-.js #publishing-action input[type="submit"] {
-	display: none;
-}

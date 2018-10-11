@@ -103,32 +103,33 @@ get_header(); ?>
 							<div style="display:table-cell;vertical-align:middle;">
 								<div style="text-align:center;">
 									<div class="modal-inner">
-										<div class="grid-x">
+										<div class="grid-x grid-padding-x">
 											<?php if(get_field('ads', $term)): ?>
-												<div class="large-5 medium-5 cell">
+												<div class="large-5 medium-5 small-push-7 cell small-order-2 cat-ads">
 													<?php while(has_sub_field('ads', $term)): ?>
 														<?php $link = get_sub_field('ad_link'); ?>
 														<a href="<?php echo $link['url']; ?>">
 															<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full'); ?>
-														</a><br />
+														</a>
 													<?php endwhile; ?>
 												</div>
-												<div class="large-7 medium-7 cell">
+												<div class="large-7 medium-7 small-order-1 cell text-left">
 											<?php else: ?>
-												<div class="large-12 cell">	
+												<div class="large-12 cell text-left">	
 											<?php endif; ?>
 												<div class="close-modal"><?php get_template_part('assets/images/close', 'icon.svg'); ?></div>
 												<h2><?php echo $term->name; ?></h2>
+												<div class="sub-cats">
 												<?php
 													$args = array( 
-													    'hide_empty' => 0,
-													    'child_of' => $term->term_ID,
+													    'hide_empty' => false,
+													    'child_of' => $term->term_id,
 													);
 													$child_terms = get_terms( 'poi_cats', $args );
-													foreach ( $child_terms as $child_term ) {
-														echo $child_term->name;
-													}
-												?>									
+													foreach ( $child_terms as $child_term ) { ?>
+														<a href="<?php echo get_term_link($term); ?>#<?php echo $child_term->slug; ?>"><?php echo $child_term->name; ?></a><br />
+													<?php } ?>
+												</div> <!-- sub-cats -->							
 											</div>
 										</div> <!-- row -->
 									</div> <!-- modal-inner -->
@@ -147,6 +148,9 @@ get_header(); ?>
 			var modalID = jQuery(this).attr('href');
 			jQuery('.cat-modal').removeClass('active');
 			jQuery(modalID).addClass('active');
+		});
+		jQuery(".close-modal").on( "click", function(e) {
+			jQuery('.cat-modal').removeClass('active');	
 		});
 	</script>
 	
