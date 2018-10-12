@@ -4845,6 +4845,8 @@ body.error404 .entry-content h2 {
       padding: 40px 25px; }
       .poi-card .poi-modal .modal-inner h3 {
         font-size: 28px; }
+      .poi-card .poi-modal .modal-inner p {
+        color: #fff; }
     .poi-card .poi-modal .close-modal {
       cursor: pointer;
       display: block;

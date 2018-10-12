@@ -137,6 +137,9 @@
 			h3 {
 				font-size: 28px;	
 			}
+			p {
+				color: #fff;
+			}			
 		}
 		.close-modal {
 			cursor: pointer;
@@ -154,7 +157,6 @@
 				circle {
 					stroke: #fff;
 				}
-			}			
 		}
 		.carousel-container {
 			display: block;
@@ -184,7 +186,6 @@
 			.bx-wrapper .bx-next {
 				right: -55px !important;
 			}			
-			
 		}
 	}	
 }

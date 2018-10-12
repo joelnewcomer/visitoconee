@@ -249,6 +249,16 @@ get_header(); ?>
 	   		</div>
 		</div>
 	</section> <!-- tips -->
+	
+	<section class="instagram">
+		<div class="grid-container">
+	   		<div class="grid-x grid-padding-x">
+		   		<div class="large-12 cell text-center">
+		   			<?php echo do_shortcode('[instagram-feed]'); ?>
+		   		</div>
+	   		</div>
+		</div>
+	</section> <!-- instagram -->
 
 
 </div> <!-- #page -->
