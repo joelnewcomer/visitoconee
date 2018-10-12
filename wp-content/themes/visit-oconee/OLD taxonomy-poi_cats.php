@@ -97,25 +97,15 @@ date_default_timezone_set(get_option('timezone_string'));
 		    		    $terms = wp_get_post_terms( $post->ID, 'poi_cats', array("fields" => "slugs") );
 		    		    $classes = implode(" ", $terms);
 		    		    ?>
-						<div class="large-4 medium-6 cell poi-card transition <?php echo $classes; ?>">
+						<div class="large-4 medium-6 cell poi-card transition <?php echo $classes; ?>" data-pop="<?php echo $post->post_name; ?>">
 							<div class="clickable">
 								<?php the_post_thumbnail( 'thumbnail' ); ?>
 							</div>
 							<div class="poi-card-content">
-								<h3><?php the_title(); ?></h3>
-								<?php
-								$address = get_field('address');
-								$detect = new Mobile_Detect;
-								$clean_address = urlencode( strip_tags($address) );
-								if( $detect->isiOS() ) : ?>
-								    <a class="address" href="http://maps.apple.com/?daddr=<?php echo $clean_address; ?>">
-								<?php else : ?>
-								    <a class="address" href="http://maps.google.com/?q=<?php echo $clean_address; ?>" target="_blank">
-								<?php endif; ?>
-								    <?php echo $address; ?>
-								</a>
+								<h3 class="clickable"><?php the_title(); ?></h3>
+								<p class="clickable"><?php echo wp_trim_words( get_field('pop-up_content'), 20, '...' ); ?></p>
 								<div class="poi-links">
-									<a href="<?php echo get_field('google_business_url'); ?>" target="_blank" class="poi-link poi-more">More Info</a>
+									<span class="clickable poi-link poi-more">More Info</span>
 									<?php if ($website != '') : ?>
 										<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
 									<?php endif; ?>
@@ -129,11 +119,59 @@ date_default_timezone_set(get_option('timezone_string'));
 									?>
 								<?php endforeach; ?>
 								</div> <!-- poi-social -->
-								<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
+								<div class="poi-itinerary">
 									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
-									<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
+									<div><span class="caps">Add</span> to my itinerary</div>
 								</div>
 							</div> <!-- poi-card-content -->
+							<div class="poi-modal transition">
+								<div style="display:table;width:100%;height:100%;">
+									<div style="display:table-cell;vertical-align:middle;">
+										<div class="modal-inner">
+											<div class="close-modal"><?php get_template_part('assets/images/close', 'icon.svg'); ?></div>
+											<div class="poi-gallery" data-featherlight-gallery data-featherlight-filter="a">
+												<?php if(get_field('additional_photos')): ?>
+
+
+													    <div class="carousel-container">
+															<div class="bxslider">
+													<?php while(has_sub_field('additional_photos')): ?>
+													
+
+														<div>
+														<?php if (get_sub_field('media_type') == 'Photo') : ?>
+															<?php $src = wp_get_attachment_image_src(get_sub_field('photo'), 'full'); ?>
+															<a href="<?php echo $src[0]; ?>">
+																<?php echo wp_get_attachment_image(get_sub_field('photo'), 'carousel'); ?>
+															</a>
+														<?php else : ?>
+															<?php
+															$video = get_sub_field('video'); // OEmbed Code
+															$video_url = get_sub_field('video', FALSE, FALSE); // URL
+															$video_thumb_url = get_video_thumbnail_uri($video_url); // thumbnail URL
+															?>
+															<a class="video" href="<?php echo $video_url; ?>?autoplay=1&modestbranding=1&showinfo=0&rel=0" data-featherlight="iframe" data-featherlight-iframe-width="960" data-featherlight-iframe-height="540">
+																<img src="<?php echo $video_thumb_url; ?>"/>
+															    <div class="play-overlay">
+															        <?php get_template_part('assets/images/play', 'button.svg'); ?><br />
+															    </div>
+															</a>
+														<?php endif; ?>
+														</div>
+																												
+													<?php endwhile; ?>
+
+														    </div> <!-- bxcarousel -->
+    													</div> <!-- carousel-container -->
+
+												<?php endif; ?>
+											</div> <!-- gallery -->
+											<h3><?php the_title(); ?></h3>
+											<p><?php echo get_field('pop-up_content'); ?></p>
+										</div> <!-- modal-inner -->
+									</div>
+								</div>
+							</div> <!-- poi-modal -->
 						</div> <!-- poi-card -->
 					<?php endwhile; ?>
         		<?php else : ?>
@@ -145,7 +183,8 @@ date_default_timezone_set(get_option('timezone_string'));
 </div> <!-- #page blog-grid -->
 
 <script>
-
+var carousel = '';	
+	
 jQuery( document ).ready(function() {
 	var hash = window.location.hash;
 	if (hash != '') {
@@ -154,28 +193,32 @@ jQuery( document ).ready(function() {
 	}
 });
 
-jQuery( document ).ready(function() {
-	// Reset
-	// itinerary = new Array();
-	// basil.set('itinerary', itinerary);
-    var itinerary = basil.get('itinerary');
-    for (var i = 0; i < itinerary.length; i++) {
-    	jQuery(".poi-itinerary[data-itinerary='" + itinerary[i] + "']").addClass('added');
-	}
+jQuery(".poi-card .clickable").on( "click", function() {
+	jQuery('poi-modal').removeClass('active');
+	jQuery(this).parents('.poi-card').find('.poi-modal').addClass('active');
+	
+    carousel = jQuery('.poi-modal.active .bxslider').bxSlider({
+        auto: false,
+        pager: false,
+        controls: true,
+        mode: 'horizontal',
+        speed: 1000,
+        pause: 7000,
+        minSlides: 1,
+        maxSlides: 3,
+        slideWidth: 350,
+        slideMargin: 16,
+        moveSlides: 1,
+        shrinkItems: true,
+    });	
+	
 });
 
-jQuery(".poi-itinerary:not(.added)").on( "click", function() {
-	var poiID = jQuery(this).data('itinerary');
-	var itinerary = basil.get('itinerary');
-	if (itinerary == null) {
-		itinerary = new Array();
-	}
-	jQuery(this).addClass('added');
-	itinerary.push(poiID);
-	basil.set('itinerary', itinerary);
+jQuery(".close-modal").on( "click", function(e) {
+	jQuery('.poi-modal').removeClass('active');
+	// Wait till animation completes before destroying slider
+	setTimeout(function(){ carousel.destroySlider(); }, 1000);
 });
-
-
 </script>
 
 <?php get_footer(); ?>

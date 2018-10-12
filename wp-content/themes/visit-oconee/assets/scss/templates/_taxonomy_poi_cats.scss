@@ -36,7 +36,7 @@
 .poi-card {
 	background: rgba($brown, .10);
 	.poi-card-content {
-		p, .poi-link, .poi-itinerary {
+		p, .poi-link, .poi-itinerary, a {
 			color: $brown;
 			transition: color .5s;
 		}
@@ -50,7 +50,7 @@
 		background: $brown;
 		box-shadow: 0 0 55px rgba(0,0,0,.60);		
 		.poi-card-content {
-			p, .poi-link, .poi-itinerary {
+			p, .poi-link, .poi-itinerary, a {
 				color: #fff;
 			}
 			svg path {
@@ -62,6 +62,7 @@
 	h3 {
 		color: $orange;
 		font-weight: bold;
+		margin-bottom: 0;
 	}
 	.poi-card-content {
 		display: block;
@@ -70,11 +71,15 @@
 		padding: 30px 40px;
 	}
 	
-	p {
+	p, a {
 		font-size: 18px;
 	}
 	.clickable {
 		cursor: pointer;
+	}
+	a.address{
+		display: inline-block;
+		margin-bottom: 15px;
 	}
 	.poi-link {
 		font-size: 18px;
@@ -92,16 +97,17 @@
 		}
 	}
 	.poi-itinerary {
+		cursor: pointer;
 		float: right;
-		margin-top: 20px;
-		width: 110px;
+		margin-top: 15px;
+		width: 138px;
 		font-weight: bold;
 		span {
 			text-transform: uppercase;
 		}
 		div {
 			display: inline-block;
-			width: 70px;
+			width: 98px;
 			line-height: 1;
 			font-size: 18px;
 		}
@@ -111,8 +117,23 @@
 			margin-right: 8px;
 			vertical-align: top;
 		}
+		.added {
+			display: none;
+		}
+		&.added .added {
+			display: inline;
+		}
+		&.added {
+			pointer-events: none;
+			cursor: default;
+			color: $orange !important;
+			svg path {
+				fill: $orange;
+				stroke: $orange;
+			}
+		}
 	}
-	.poi-modal {
+	/* .poi-modal {
 		display: block;
 		position: fixed;
 		opacity: 0;
@@ -188,10 +209,5 @@
 				right: -55px !important;
 			}			
 		}
-	}	
-}
-
-.featherlight-content iframe {
-	width: 960px;
-	height: 540px;
+	} */	
 }

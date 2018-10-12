@@ -498,12 +498,12 @@ img {
 textarea {
   height: auto;
   min-height: 50px;
-  border-radius: 4px; }
+  border-radius: 0; }
 
 select {
   box-sizing: border-box;
   width: 100%;
-  border-radius: 4px; }
+  border-radius: 0; }
 
 .map_canvas img,
 .map_canvas embed,
@@ -517,7 +517,7 @@ button {
   padding: 0;
   appearance: none;
   border: 0;
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   line-height: 1;
   cursor: auto; }
@@ -2392,8 +2392,7 @@ kbd {
   padding: 0.125rem 0.25rem 0;
   background-color: #EBEBEB;
   font-family: Consolas, "Liberation Mono", Courier, monospace;
-  color: #0a0a0a;
-  border-radius: 4px; }
+  color: #0a0a0a; }
 
 .subheader {
   margin-top: 0.2rem;
@@ -2515,7 +2514,7 @@ textarea {
   margin: 0 0 1rem;
   padding: 0.5rem;
   border: 1px solid #cacaca;
-  border-radius: 4px;
+  border-radius: 0;
   background-color: #fff;
   box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
   font-family: inherit;
@@ -2551,7 +2550,7 @@ textarea[readonly] {
 [type='submit'],
 [type='button'] {
   appearance: none;
-  border-radius: 4px; }
+  border-radius: 0; }
 
 input[type='search'] {
   box-sizing: border-box; }
@@ -2601,9 +2600,9 @@ label {
   width: 100%;
   margin-bottom: 1rem; }
   .input-group > :first-child {
-    border-radius: 4px 0 0 4px; }
+    border-radius: 0 0 0 0; }
   .input-group > :last-child > * {
-    border-radius: 0 4px 4px 0; }
+    border-radius: 0 0 0 0; }
 
 .input-group-label, .input-group-field, .input-group-button, .input-group-button a,
 .input-group-button input,
@@ -2674,7 +2673,7 @@ select {
   padding: 0.5rem;
   appearance: none;
   border: 1px solid #cacaca;
-  border-radius: 4px;
+  border-radius: 0;
   background-color: #fff;
   font-family: inherit;
   font-size: 1rem;
@@ -2763,7 +2762,7 @@ select {
     clear: both; }
   .pagination li {
     margin-right: 0.0625rem;
-    border-radius: 4px;
+    border-radius: 0;
     font-size: 0.875rem;
     display: none; }
     .pagination li:last-child, .pagination li:first-child {
@@ -2775,7 +2774,7 @@ select {
   .pagination button {
     display: block;
     padding: 0.1875rem 0.625rem;
-    border-radius: 4px;
+    border-radius: 0;
     color: #0a0a0a; }
     .pagination a:hover,
     .pagination button:hover {
@@ -3400,29 +3399,27 @@ main.container > section > .grid-container {
   display: inline-block;
   position: relative;
   margin-bottom: 10px;
-  background: #598F9B;
-  border: solid 1px #598F9B;
-  border-radius: 4px;
-  color: #fff;
+  background: transparent;
+  border: solid 2px #664D39;
+  border-radius: 0;
+  color: #664D39;
   padding: 12px 30px;
   text-align: center;
   font-size: 20px;
-  font-weight: bold;
+  text-transform: uppercase;
   transition: all .5s;
   -webkit-transition: all .5s;
   /* Safari and Chrome */
   -ms-transition: all .5s;
-  /* Opera */
-  box-shadow: 0 6px 12px 0 rgba(89, 143, 155, 0.3);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); }
+  /* Opera */ }
   @media print, screen and (min-width: 40em) {
     .button a, input.button, .faux-button {
       margin-right: 15px; } }
   .button a:last-child, input.button:last-child, .faux-button:last-child {
     margin-right: 0; }
   .button a:hover, input.button:hover, .faux-button:hover {
-    background: transparent;
-    color: #598F9B; }
+    background: #664D39;
+    color: #fff; }
 
 .button.small a, .faux-button.small, button.small {
   padding: 8px 16px;
@@ -3439,7 +3436,7 @@ main.container > section > .grid-container {
   top: 10px; }
 
 .button.large a, button.large {
-  padding: 20px 50px;
+  padding: 10px 50px;
   font-size: 25px; }
 
 .button.full-width a, button.full-width {
@@ -3787,7 +3784,7 @@ main.container > section > .grid-container {
   margin: 0;
   border-radius: 0; }
   .search-popup input#s {
-    border-radius: 4px 0 0 4px;
+    border-radius: 0 0 0 0;
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: none;
@@ -4124,7 +4121,7 @@ ul.post-meta {
   vertical-align: top; }
 
 #blog-search {
-  border-radius: 4px;
+  border-radius: 0;
   position: relative;
   margin-bottom: 8px;
   width: 713px;
@@ -4559,51 +4556,51 @@ section.tips {
   section.tips h2, section.tips h3, section.tips h4, section.tips p {
     color: #598F9B; }
 
-section.destinations, section.tips {
+section.destinations, section.tips, section.instagram {
   padding: 140px 0 110px 0; }
   @media only screen and (max-width: 790px) {
-    section.destinations, section.tips {
+    section.destinations, section.tips, section.instagram {
       padding: 80px 0 50px 0; } }
-  section.destinations h2, section.tips h2 {
+  section.destinations h2, section.tips h2, section.instagram h2 {
     font-size: 36px;
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 600;
     margin-bottom: 50px; }
     @media only screen and (max-width: 790px) {
-      section.destinations h2, section.tips h2 {
+      section.destinations h2, section.tips h2, section.instagram h2 {
         font-size: 24px; } }
-    section.destinations h2 span, section.tips h2 span {
+    section.destinations h2 span, section.tips h2 span, section.instagram h2 span {
       font-weight: normal;
       font-size: 72px;
       text-transform: lowercase;
       letter-spacing: 0; }
       @media only screen and (max-width: 790px) {
-        section.destinations h2 span, section.tips h2 span {
+        section.destinations h2 span, section.tips h2 span, section.instagram h2 span {
           font-size: 48px; } }
-  section.destinations .dest-cell img, section.tips .dest-cell img {
+  section.destinations .dest-cell img, section.tips .dest-cell img, section.instagram .dest-cell img {
     margin-bottom: 16px; }
-  section.destinations .dest-cell h3, section.tips .dest-cell h3 {
+  section.destinations .dest-cell h3, section.tips .dest-cell h3, section.instagram .dest-cell h3 {
     font-weight: 600;
     margin-bottom: 0;
     font-size: 28px; }
     @media only screen and (max-width: 790px) {
-      section.destinations .dest-cell h3, section.tips .dest-cell h3 {
+      section.destinations .dest-cell h3, section.tips .dest-cell h3, section.instagram .dest-cell h3 {
         font-size: 24px; } }
-  section.destinations .dest-cell h4, section.tips .dest-cell h4 {
+  section.destinations .dest-cell h4, section.tips .dest-cell h4, section.instagram .dest-cell h4 {
     font-size: 22px;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 22px; }
     @media only screen and (max-width: 790px) {
-      section.destinations .dest-cell h4, section.tips .dest-cell h4 {
+      section.destinations .dest-cell h4, section.tips .dest-cell h4, section.instagram .dest-cell h4 {
         font-size: 18px; } }
-  section.destinations .dest-cell p, section.tips .dest-cell p {
+  section.destinations .dest-cell p, section.tips .dest-cell p, section.instagram .dest-cell p {
     font-weight: 600;
     font-size: 20px;
     line-height: 1.2; }
     @media only screen and (max-width: 790px) {
-      section.destinations .dest-cell p, section.tips .dest-cell p {
+      section.destinations .dest-cell p, section.tips .dest-cell p, section.instagram .dest-cell p {
         font-size: 18px; } }
 
 .cat-modal {
@@ -4658,6 +4655,15 @@ section.destinations, section.tips {
           font-size: 24px; } }
       .cat-modal .sub-cats a:hover {
         color: #E67002; }
+
+section.instagram {
+  padding-bottom: 0; }
+  section.instagram h2 {
+    color: #598F9B; }
+    section.instagram h2 span {
+      text-transform: none; }
+  section.instagram #sb_instagram {
+    margin-bottom: 60px; }
 
 #single-post .single-title-ul {
   position: relative;
@@ -4767,8 +4773,85 @@ body.error404 .entry-content h2 {
         color: #E67002; }
 
 .poi-card {
-  background: rgba(102, 77, 57, 0.1); }
-  .poi-card .poi-card-content p, .poi-card .poi-card-content .poi-link, .poi-card .poi-card-content .poi-itinerary {
+  background: rgba(102, 77, 57, 0.1);
+  /* .poi-modal {
+		display: block;
+		position: fixed;
+		opacity: 0;
+		z-index: -9999;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		overflow: scroll;
+		&.active {
+			z-index: 9999999;
+			opacity: 1;
+		}
+		.modal-inner {
+			background: $brown;
+			position: relative;
+			width: 90%;
+			max-width: 1272px;
+			margin: 0 auto;
+			box-shadow: 0 0 70px rgba(0,0,0,.60);
+			padding: 40px 25px;
+			h3 {
+				font-size: 28px;	
+			}
+			p {
+				color: #fff;
+			}			
+		}
+		.close-modal {
+			cursor: pointer;
+			display: block;
+			position: absolute;
+			right: 40px;
+			top: 40px;
+			svg {
+				width: 80px;
+				height: 80px;
+				opacity: .2;
+				path {
+					fill: #fff;
+				}
+				circle {
+					stroke: #fff;
+				}
+			}		
+		}
+		.carousel-container {
+			display: block;
+			margin: 0 auto;
+			width: 80%;
+		}
+		.poi-gallery {
+			a.video {
+				display: inline-block;
+				position: relative;
+				.play-overlay {
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					margin-top: -32px;
+					margin-left: -32px;
+					svg {
+						width: 64px;
+						height: 64px;
+					}
+				}
+			}
+			.bx-wrapper .bx-prev {
+				left: -55px !important;
+			}
+			
+			.bx-wrapper .bx-next {
+				right: -55px !important;
+			}			
+		}
+	} */ }
+  .poi-card .poi-card-content p, .poi-card .poi-card-content .poi-link, .poi-card .poi-card-content .poi-itinerary, .poi-card .poi-card-content a {
     color: #664D39;
     transition: color .5s; }
   .poi-card .poi-card-content svg path {
@@ -4778,23 +4861,27 @@ body.error404 .entry-content h2 {
   .poi-card:hover {
     background: #664D39;
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.6); }
-    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary {
+    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary, .poi-card:hover .poi-card-content a {
       color: #fff; }
     .poi-card:hover .poi-card-content svg path {
       fill: #fff;
       stroke: #fff; }
   .poi-card h3 {
     color: #E67002;
-    font-weight: bold; }
+    font-weight: bold;
+    margin-bottom: 0; }
   .poi-card .poi-card-content {
     display: block;
     float: left;
     width: 100%;
     padding: 30px 40px; }
-  .poi-card p {
+  .poi-card p, .poi-card a {
     font-size: 18px; }
   .poi-card .clickable {
     cursor: pointer; }
+  .poi-card a.address {
+    display: inline-block;
+    margin-bottom: 15px; }
   .poi-card .poi-link {
     font-size: 18px;
     font-weight: bold; }
@@ -4806,15 +4893,16 @@ body.error404 .entry-content h2 {
     .poi-card .poi-social a {
       margin-right: 10px; }
   .poi-card .poi-itinerary {
+    cursor: pointer;
     float: right;
-    margin-top: 20px;
-    width: 110px;
+    margin-top: 15px;
+    width: 138px;
     font-weight: bold; }
     .poi-card .poi-itinerary span {
       text-transform: uppercase; }
     .poi-card .poi-itinerary div {
       display: inline-block;
-      width: 70px;
+      width: 98px;
       line-height: 1;
       font-size: 18px; }
     .poi-card .poi-itinerary svg {
@@ -4822,69 +4910,17 @@ body.error404 .entry-content h2 {
       height: 39px;
       margin-right: 8px;
       vertical-align: top; }
-  .poi-card .poi-modal {
-    display: block;
-    position: fixed;
-    opacity: 0;
-    z-index: -9999;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: scroll; }
-    .poi-card .poi-modal.active {
-      z-index: 9999999;
-      opacity: 1; }
-    .poi-card .poi-modal .modal-inner {
-      background: #664D39;
-      position: relative;
-      width: 90%;
-      max-width: 1272px;
-      margin: 0 auto;
-      box-shadow: 0 0 70px rgba(0, 0, 0, 0.6);
-      padding: 40px 25px; }
-      .poi-card .poi-modal .modal-inner h3 {
-        font-size: 28px; }
-      .poi-card .poi-modal .modal-inner p {
-        color: #fff; }
-    .poi-card .poi-modal .close-modal {
-      cursor: pointer;
-      display: block;
-      position: absolute;
-      right: 40px;
-      top: 40px; }
-      .poi-card .poi-modal .close-modal svg {
-        width: 80px;
-        height: 80px;
-        opacity: .2; }
-        .poi-card .poi-modal .close-modal svg path {
-          fill: #fff; }
-        .poi-card .poi-modal .close-modal svg circle {
-          stroke: #fff; }
-    .poi-card .poi-modal .carousel-container {
-      display: block;
-      margin: 0 auto;
-      width: 80%; }
-    .poi-card .poi-modal .poi-gallery a.video {
-      display: inline-block;
-      position: relative; }
-      .poi-card .poi-modal .poi-gallery a.video .play-overlay {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-top: -32px;
-        margin-left: -32px; }
-        .poi-card .poi-modal .poi-gallery a.video .play-overlay svg {
-          width: 64px;
-          height: 64px; }
-    .poi-card .poi-modal .poi-gallery .bx-wrapper .bx-prev {
-      left: -55px !important; }
-    .poi-card .poi-modal .poi-gallery .bx-wrapper .bx-next {
-      right: -55px !important; }
-
-.featherlight-content iframe {
-  width: 960px;
-  height: 540px; }
+    .poi-card .poi-itinerary .added {
+      display: none; }
+    .poi-card .poi-itinerary.added .added {
+      display: inline; }
+    .poi-card .poi-itinerary.added {
+      pointer-events: none;
+      cursor: default;
+      color: #E67002 !important; }
+      .poi-card .poi-itinerary.added svg path {
+        fill: #E67002;
+        stroke: #E67002; }
 
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider

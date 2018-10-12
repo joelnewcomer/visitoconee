@@ -86,7 +86,6 @@ get_header(); ?>
 		   		$args = array( 
 				    'hide_empty' => 0,
 				    'parent' => 0,
-				    'exclude' => $play_cat_id
 				);
 				$terms = get_terms( 'poi_cats', $args );
 				foreach ( $terms as $term ) {
@@ -254,7 +253,11 @@ get_header(); ?>
 		<div class="grid-container">
 	   		<div class="grid-x grid-padding-x">
 		   		<div class="large-12 cell text-center">
+			   		<h2>Follow Us On<br /><span>@VisitOconeeSC</span></h2>		
+		   		</div>		   		
+		   		<div class="large-12 cell text-center">
 		   			<?php echo do_shortcode('[instagram-feed]'); ?>
+		   			<div class="button large"><a href="https://www.instagram.com/visitoconeesc/" target="_blank">View All</a></div>
 		   		</div>
 	   		</div>
 		</div>

@@ -245,7 +245,7 @@ section.tips {
 	}	
 }
 
-section.destinations, section.tips {
+section.destinations, section.tips, section.instagram {
 	padding: 140px 0 110px 0;
 	@media only screen and (max-width: 790px) {
 		padding: 80px 0 50px 0;
@@ -364,5 +364,18 @@ section.destinations, section.tips {
 				color: $orange;
 			}
 		}
+	}
+}
+
+section.instagram {
+	padding-bottom: 0;
+	h2  {
+		color: $primary-color;
+		span {
+			text-transform: none;
+		}
+	}
+	#sb_instagram {
+		margin-bottom: 60px;
 	}
 }

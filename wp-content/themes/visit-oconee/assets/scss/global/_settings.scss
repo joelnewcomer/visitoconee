@@ -105,7 +105,7 @@ $global-margin: 1rem;
 $global-padding: 1rem;
 $global-weight-normal: normal;
 $global-weight-bold: bold;
-$global-radius: 4px;
+$global-radius: 0;
 $global-text-direction: ltr;
 $global-flexbox: false;
 $print-transparent-backgrounds: true;
@@ -248,7 +248,7 @@ $button-fill: solid;
 $button-background: $primary-color;
 $button-background-hover: scale-color($button-background, $lightness: -15%);
 $button-color: #fff;
-$button-border-width: 1px;
+$button-border-width: 2px;
 $button-color-alt: #000;
 $button-radius: $global-radius;
 $button-sizes: (
