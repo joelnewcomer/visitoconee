@@ -121,7 +121,7 @@ date_default_timezone_set(get_option('timezone_string'));
 								</div> <!-- poi-social -->
 								<div class="poi-itinerary">
 									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
-									<div><span class="caps">Add</span> to itinerary</div>
+									<div><span class="caps">Add</span> to my itinerary</div>
 								</div>
 							</div> <!-- poi-card-content -->
 							<div class="poi-modal transition">
