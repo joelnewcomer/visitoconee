@@ -94,7 +94,7 @@ register_taxonomy('poi_cats',array (
   0 => 'poi',
 ),array( 'hierarchical' => true, 'label' => 'Categories','show_ui' => true,'query_var' => true,'rewrite' => array('slug' => 'visit'),'singular_label' => 'Category') );
 
-register_post_type('events', array(	'label' => 'Events','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => ''),'query_var' => true,'exclude_from_search' => false,'supports' => array('title','editor','excerpt','revisions','thumbnail','page-attributes',),'has_archive' => true, 'labels' => array (
+register_post_type('events', array(	'label' => 'Events','description' => '','public' => true,'menu_icon' => 'dashicons-calendar','show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => ''),'query_var' => true,'exclude_from_search' => false,'supports' => array('title','editor','excerpt','revisions','thumbnail','page-attributes',),'has_archive' => true, 'labels' => array (
   'name' => 'Events',
   'singular_name' => 'Event',
   'menu_name' => 'Events',
@@ -271,3 +271,16 @@ function pippin_add_taxonomy_filters() {
     }
 }
 add_action( 'restrict_manage_posts', 'pippin_add_taxonomy_filters' );
+
+register_taxonomy('events_cats',array (
+  0 => 'events',
+),array( 'hierarchical' => true, 'label' => 'Events Categories','show_ui' => true,'query_var' => true,'rewrite' => array('slug' => ''),'singular_label' => 'Category') );
+
+
+// Display points of interest in random order
+function order_poi( $query ) {
+  if ( !is_admin() && $query->is_main_query() && is_tax( 'poi_cats' ) ) {
+    $query->set( 'orderby', 'rand' );
+  }
+}
+add_action( 'pre_get_posts', 'order_poi' );
