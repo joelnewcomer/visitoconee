@@ -82,8 +82,6 @@ date_default_timezone_set(get_option('timezone_string'));
 		    		    $website = get_field('website');
 		    		    $address = get_field('address');
 		    		    $phone = get_field('phone');
-		    		    $day_of_week = strtolower(date('l', time()));
-		    		    $hours = get_field('hours_' . $day_of_week);
 		    		    $social = array();
 		    		    if (get_field('social_instagram') != '') {
 			    		    $social['instagram'] = get_field('social_instagram');

@@ -1,13 +1,57 @@
 {
-    "key": "group_5bbe51870fc47",
-    "title": "Points of Interest",
+    "key": "group_5bc4f32eb07d6",
+    "title": "Events",
     "fields": [
         {
-            "key": "field_5bbe52021d462",
-            "label": "Address",
-            "name": "address",
-            "type": "text",
+            "key": "field_5bc4f34b83ee4",
+            "label": "Start Date",
+            "name": "start_date",
+            "type": "date_picker",
             "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "F j, Y",
+            "return_format": "F j, Y",
+            "first_day": 0,
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5bc4f3742adc6",
+            "label": "End Date",
+            "name": "end_date",
+            "type": "date_picker",
+            "instructions": "If different than start date.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "F j, Y",
+            "return_format": "F j, Y",
+            "first_day": 0,
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5bc4f39176697",
+            "label": "More Info Link",
+            "name": "more_info_link",
+            "type": "url",
+            "instructions": "Optional.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -17,9 +61,6 @@
             },
             "default_value": "",
             "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
             "show_column": 0,
             "show_column_sortable": 0,
             "show_column_weight": 1000,
@@ -27,52 +68,7 @@
             "allow_bulkedit": 0
         },
         {
-            "key": "field_5bbe52121d463",
-            "label": "Phone",
-            "name": "phone",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": "",
-            "show_column": 0,
-            "show_column_sortable": 0,
-            "show_column_weight": 1000,
-            "allow_quickedit": 0,
-            "allow_bulkedit": 0
-        },
-        {
-            "key": "field_5bbe5554d2486",
-            "label": "Website",
-            "name": "website",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "show_column": 0,
-            "show_column_sortable": 0,
-            "show_column_weight": 1000,
-            "allow_quickedit": 0,
-            "allow_bulkedit": 0
-        },
-        {
-            "key": "field_5bbe58ac465fe",
+            "key": "field_5bc4f32ec73b9",
             "label": "Social",
             "name": "social",
             "type": "group",
@@ -87,7 +83,7 @@
             "layout": "block",
             "sub_fields": [
                 {
-                    "key": "field_5bbe58c2465ff",
+                    "key": "field_5bc4f32eef273",
                     "label": "Instagram",
                     "name": "instagram",
                     "type": "url",
@@ -108,7 +104,7 @@
                     "allow_bulkedit": 0
                 },
                 {
-                    "key": "field_5bbe58d246600",
+                    "key": "field_5bc4f32eef29e",
                     "label": "Facebook",
                     "name": "facebook",
                     "type": "url",
@@ -129,7 +125,7 @@
                     "allow_bulkedit": 0
                 },
                 {
-                    "key": "field_5bbe58e446601",
+                    "key": "field_5bc4f32eef2d4",
                     "label": "Twitter",
                     "name": "twitter",
                     "type": "url",
@@ -150,27 +146,6 @@
                     "allow_bulkedit": 0
                 }
             ]
-        },
-        {
-            "key": "field_5bc4f2b7bbbe9",
-            "label": "Google Business URL",
-            "name": "google_business_url",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "show_column": 0,
-            "show_column_sortable": 0,
-            "show_column_weight": 1000,
-            "allow_quickedit": 0,
-            "allow_bulkedit": 0
         }
     ],
     "location": [
@@ -178,7 +153,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "poi"
+                "value": "events"
             }
         ]
     ],
@@ -190,5 +165,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1539633922
+    "modified": 1539634093
 }
