@@ -4758,6 +4758,9 @@ body.error404 .entry-content h2 {
     .tax-sub-cats .cat-filter svg {
       width: 60px;
       height: 60px; }
+      .tax-sub-cats .cat-filter svg path {
+        fill: #664D39;
+        stroke: #664D39; }
     .tax-sub-cats .cat-filter h3 {
       text-transform: lowercase;
       font-weight: 600;

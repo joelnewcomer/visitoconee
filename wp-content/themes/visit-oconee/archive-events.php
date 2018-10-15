@@ -14,31 +14,17 @@
  * @package DrumRoll
  * @since DrumRoll 1.0.0
  */
-get_header();
-date_default_timezone_set(get_option('timezone_string'));
-?>
+get_header(); ?>
 
 <div class="featured-container">
-	<?php
-	$term = get_queried_object();
-	$image_id = get_field('feature_image', $term);
-	// Default Featured Image
-	if ($image_id == null) {
-		$image_id = get_theme_mod( 'default_featured' );
-	}
-	?>	
 	<div class="featured-image blog-landing-featured">
-		<?php echo wp_get_attachment_image($image_id,'featured'); ?>
+		<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/events-featured.jpg" alt="Events Image">
 		<div class="overlay">
 			<div class="blog-header blog-header-1 text-center">
 				<div style="display:table;width:100%;height:100%;">
 					<div style="display:table-cell;vertical-align:middle;">
 				    	<div style="text-align:center;">
-					    	<?php
-						    global $title;
-							$title = single_term_title("", false);
-						    ?>
-					    	<h1 class="entry-title"><?php echo $title; ?></h1>
+					    	<h1 class="entry-title">Events</h1>
 				    	</div>
 					</div>
 				</div>
@@ -52,15 +38,15 @@ date_default_timezone_set(get_option('timezone_string'));
 		<div class="grid-x grid-margin-x clear">
 			<div class="large-12 cell text-center">
 				<div class="cat-filter active" data-filter="all">
-					<?php get_template_part('assets/images/eat', 'all-icon.svg'); ?><br />
+					<?php get_template_part('assets/images/events', 'all-icon.svg'); ?><br />
 					<h3>All</h3>
 				</div>
 				<?php
 				$args = array( 
 				    'hide_empty' => false,
-				    'child_of' => $term->term_id,
+				    'parent' => 0,
 				);
-				$child_terms = get_terms( 'poi_cats', $args );
+				$child_terms = get_terms( 'events_cats', $args );
 				foreach ( $child_terms as $child_term ) { ?>
 					<div class="cat-filter" id="<?php echo $child_term->slug; ?>-filter" data-filter="<?php echo $child_term->slug; ?>">
 						<?php echo file_get_contents(get_field('category_icon', $child_term)); ?>
@@ -70,7 +56,8 @@ date_default_timezone_set(get_option('timezone_string'));
 			</div>
 		</div> <!-- grid-x -->
 	</div> <!-- grid-container -->
-</div> <!-- tax-sub-cats -->	
+</div> <!-- tax-sub-cats -->
+
 
 <div id="page" role="main" class="blog-grid">
 	<div class="grid-container">
@@ -79,11 +66,6 @@ date_default_timezone_set(get_option('timezone_string'));
         		<?php if ( have_posts() ) : ?>
 	    		    <?php while ( have_posts() ) : the_post(); ?>
 	    		    	<?
-		    		    $website = get_field('website');
-		    		    $address = get_field('address');
-		    		    $phone = get_field('phone');
-		    		    $day_of_week = strtolower(date('l', time()));
-		    		    $hours = get_field('hours_' . $day_of_week);
 		    		    $social = array();
 		    		    if (get_field('social_instagram') != '') {
 			    		    $social['instagram'] = get_field('social_instagram');
@@ -103,22 +85,8 @@ date_default_timezone_set(get_option('timezone_string'));
 							</div>
 							<div class="poi-card-content">
 								<h3><?php the_title(); ?></h3>
-								<?php
-								$address = get_field('address');
-								$detect = new Mobile_Detect;
-								$clean_address = urlencode( strip_tags($address) );
-								if( $detect->isiOS() ) : ?>
-								    <a class="address" href="http://maps.apple.com/?daddr=<?php echo $clean_address; ?>">
-								<?php else : ?>
-								    <a class="address" href="http://maps.google.com/?q=<?php echo $clean_address; ?>" target="_blank">
-								<?php endif; ?>
-								    <?php echo $address; ?>
-								</a>
 								<div class="poi-links">
 									<a href="<?php echo get_field('google_business_url'); ?>" target="_blank" class="poi-link poi-more">More Info</a>
-									<?php if ($website != '') : ?>
-										<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
-									<?php endif; ?>
 								</div> <!-- poi-links -->
 								<div class="poi-social">
 								<?php foreach( $social as $social_name => $social_url ) : ?>
@@ -129,10 +97,6 @@ date_default_timezone_set(get_option('timezone_string'));
 									?>
 								<?php endforeach; ?>
 								</div> <!-- poi-social -->
-								<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
-									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
-									<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
-								</div>
 							</div> <!-- poi-card-content -->
 						</div> <!-- poi-card -->
 					<?php endwhile; ?>
@@ -169,28 +133,6 @@ jQuery(".cat-filter").on( "click", function() {
 		jQuery('.poi-card.' + filter).fadeIn();
 	}
 });
-
-jQuery( document ).ready(function() {
-	// Reset
-	// itinerary = new Array();
-	// basil.set('itinerary', itinerary);
-    var itinerary = basil.get('itinerary');
-    for (var i = 0; i < itinerary.length; i++) {
-    	jQuery(".poi-itinerary[data-itinerary='" + itinerary[i] + "']").addClass('added');
-	}
-});
-
-jQuery(".poi-itinerary:not(.added)").on( "click", function() {
-	var poiID = jQuery(this).data('itinerary');
-	var itinerary = basil.get('itinerary');
-	if (itinerary == null) {
-		itinerary = new Array();
-	}
-	jQuery(this).addClass('added');
-	itinerary.push(poiID);
-	basil.set('itinerary', itinerary);
-});
-
 
 </script>
 
