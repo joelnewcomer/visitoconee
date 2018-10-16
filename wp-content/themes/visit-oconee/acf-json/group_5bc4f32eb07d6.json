@@ -47,6 +47,29 @@
             "allow_bulkedit": 0
         },
         {
+            "key": "field_5bc5d5048f99f",
+            "label": "Short Description",
+            "name": "short_description",
+            "type": "textarea",
+            "instructions": "120 character limit.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": 120,
+            "rows": 2,
+            "new_lines": "",
+            "show_column": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
+        },
+        {
             "key": "field_5bc4f39176697",
             "label": "More Info Link",
             "name": "more_info_link",
@@ -165,5 +188,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1539634093
+    "modified": 1539691934
 }

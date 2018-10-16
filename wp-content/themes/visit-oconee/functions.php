@@ -148,6 +148,43 @@ function order_poi( $query ) {
 }
 add_action( 'pre_get_posts', 'order_poi' );
 
+// Display events in date order and exclude past events
+function order_events( $query ) {
+	if ( !is_admin() && $query->is_main_query() && is_post_type_archive('events') ) {	
+    	$query->set( 'orderby', 'meta_value_num' );
+    	$query->set( 'meta_key', 'start_date' );
+    	$query->set( 'order', 'ASC' );
+		$query->set( 'meta_query', array(
+		    array(
+		        'key' => 'end_date',
+		        'value' => strtotime('today midnight'),
+		        'compare' => '>=',
+		        	'type' => 'numeric'
+		        )
+		));    
+  	}
+}
+add_action( 'pre_get_posts', 'order_events' );
+
+// Save Date field as Unix timestamp
+add_filter('acf/update_value/type=date_picker', 'my_update_value_date_picker', 10, 3);
+function my_update_value_date_picker( $value, $post_id, $field ) {
+    return strtotime($value);
+}
+
+// Automatically set event end date to match start date if end date is blank
+function update_end_date( $post_id ) {
+    $post_type = get_post_type($post_id);
+    if ($post_type == 'events') {
+	    $end_date = get_post_meta($post_id, "end_date", true);
+	    if ($end_date == '') {
+	        $start_date = get_post_meta($post_id, "start_date", true);
+	        update_post_meta( $post_id, 'end_date', $start_date );
+	    }   		    
+    }
+}
+add_action( 'save_post', 'update_end_date' );
+
 // Custom Image Sizes
 add_image_size( 'home-video', 414, 297, true );
 add_image_size( 'home-block', 635, 428, true );

@@ -4925,6 +4925,87 @@ body.error404 .entry-content h2 {
         fill: #E67002;
         stroke: #E67002; }
 
+.event-card {
+  background: #EBF0F3 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNzc0IDEwMS43NzMiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjYmQ0ZDg7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjEzLjM3NCwxMjMuNCwxMTEuNiwyMjUuMTc0di03My41NkEyOC4zODUsMjguMzg1LDAsMCwxLDEzOS44MTUsMTIzLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTExLjYgLTEyMy40MDEpIi8+PC9zdmc+) bottom right no-repeat;
+  background-size: 80px 80px;
+  border-radius: 12px;
+  position: relative; }
+  .event-card:nth-child(3n+1) {
+    clear: left; }
+  .event-card .event-card-month {
+    display: block;
+    float: left;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    font-size: 32px;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px; }
+  .event-card .event-card-content {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 20px 30px; }
+    .event-card .event-card-content p {
+      color: #664D39;
+      font-size: 18px; }
+  .event-card .date-range {
+    display: block;
+    float: left;
+    max-width: 40px;
+    margin-right: 16px;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 16px; }
+  .event-card .event-social {
+    float: left; }
+    .event-card .event-social a {
+      margin-right: 10px; }
+      .event-card .event-social a svg path {
+        fill: #664D39;
+        transition: all .5s; }
+      .event-card .event-social a:hover svg path {
+        fill: #E67002; }
+  .event-card h3 {
+    color: #664D39;
+    font-weight: bold;
+    margin-bottom: 16px; }
+  .event-card .description-container {
+    display: block;
+    float: left;
+    width: 100%; }
+  .event-card .event-link {
+    font-size: 18px;
+    font-weight: bold; }
+  .event-card .event-links {
+    margin-bottom: 30px; }
+  .event-card .corner-link {
+    display: block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    bottom: 0;
+    right: 0; }
+
+.month-1 .event-card-month, .month-4 .event-card-month, .month-7 .event-card-month, .month-10 .event-card-month {
+  background: #598F9B; }
+
+.month-1 .date-range, .month-4 .date-range, .month-7 .date-range, .month-10 .date-range {
+  color: #598F9B; }
+
+.month-2 .event-card-month, .month-5 .event-card-month, .month-8 .event-card-month, .month-11 .event-card-month {
+  background: #99A53B; }
+
+.month-2 .date-range, .month-5 .date-range, .month-8 .date-range, .month-11 .date-range {
+  color: #99A53B; }
+
+.month-3 .event-card-month, .month-6 .event-card-month, .month-9 .event-card-month, .month-12 .event-card-month {
+  background: #E67002; }
+
+.month-3 .date-range, .month-6 .date-range, .month-9 .date-range, .month-12 .date-range {
+  color: #E67002; }
+
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider
  * http://bxslider.com

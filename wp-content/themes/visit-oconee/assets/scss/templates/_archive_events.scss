@@ -1,0 +1,107 @@
+.event-card {
+	background: #EBF0F3 url(../images/event-corner.svg) bottom right no-repeat;
+	background-size: 80px 80px;
+	border-radius: 12px;
+	position: relative;
+	&:nth-child(3n+1) {
+		clear: left;
+	}
+	.event-card-month {
+		display: block;
+		float: left;
+		width: 100%;
+		border-radius: 12px 12px 0 0;
+		font-size: 32px;
+		color: #fff;
+		font-weight: bold;
+		padding: 8px;
+	}
+	.event-card-content {
+		display: block;
+		float: left;
+		width: 100%;
+		padding: 20px 30px;
+		p {
+			color: $brown;
+			font-size: 18px;
+		}
+	}
+	.date-range {
+		display: block;
+		float: left;
+		max-width: 40px;
+		margin-right: 16px;
+		font-size: 32px;
+		font-weight: bold;
+		line-height: 1;
+		margin-bottom: 16px;
+	}
+	.event-social {
+		float: left;
+		a {
+			margin-right: 10px;
+			svg path {
+				fill: $brown;
+				transition: all .5s;
+			}
+			&:hover svg path {
+				fill: $orange;
+			}
+		}
+	}	
+	h3 {
+		color: $brown;
+		font-weight: bold;
+		margin-bottom: 16px;
+	}
+	.description-container {
+		display: block;
+		float: left;
+		width: 100%;
+	}
+	.event-link {
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.event-links {
+		margin-bottom: 30px;
+	}
+	.corner-link {
+		display: block;
+		position: absolute;
+		width: 80px;
+		height: 80px;
+		bottom: 0;
+		right: 0;
+	}
+}
+
+// Blue
+.month-1, .month-4, .month-7, .month-10 {
+	.event-card-month {
+		background: $blue;
+	}
+	.date-range {
+		color: $blue;
+	}
+}
+
+// Green
+.month-2, .month-5, .month-8, .month-11 {
+	.event-card-month {
+		background: $green;
+	}
+	.date-range {
+		color: $green;
+	}
+}
+
+// Orange
+.month-3, .month-6, .month-9, .month-12 {
+	.event-card-month {
+		background: $orange;
+	}
+	.date-range {
+		color: $orange;
+	}
+}
