@@ -199,11 +199,22 @@ add_action( 'wp_ajax_load_itinerary', 'load_itinerary');
 add_action( 'wp_ajax_nopriv_load_itinerary', 'load_itinerary');
 function load_itinerary() {
 
-	require_once 'library/dompdf/lib/html5lib/Parser.php';
-	require_once 'library/dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
-	require_once 'library/dompdf/lib/php-svg-lib/src/autoload.php';
-	require_once 'library/dompdf/src/Autoloader.php';
-	Dompdf\Autoloader::register();
+require_once('library/dompdf/dompdf_config.inc.php');
+
+$dompdf = new DOMPDF();
+
+$html = <<<'ENDHTML'
+<html>
+ <body>
+  <h1>Hello Dompdf</h1>
+ </body>
+</html>
+ENDHTML;
+
+$dompdf->load_html($html);
+$dompdf->render();
+
+$dompdf->stream("hello.pdf");
 
     if( isset( $_POST['itinerary'] ) ) {
         $itinerary = $_POST['itinerary'];
