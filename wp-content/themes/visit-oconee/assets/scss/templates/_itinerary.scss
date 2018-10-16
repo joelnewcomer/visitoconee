@@ -5,6 +5,15 @@
 	margin: 40px auto;
 }
 
+.itinerary-buttons {
+	padding-top: 80px;
+	padding-bottom: 80px;
+	.button {
+		display: inline-block;
+		margin: 0 30px;
+	}	
+}
+
 #itinerary {
 	.poi-card {
 		position: relative;
@@ -12,7 +21,21 @@
 		.poi-image {
 			float: left;
 		}
-	}	
+		.poi-itinerary.button {
+			text-align: center;
+			font-weight: normal;
+			width: auto;
+		}
+		&:hover {
+			.poi-itinerary.button {
+				color: $brown;
+				background: #fff;	
+			}
+		}
+	}
+	.itinerary-card .poi-card-content {
+		padding-bottom: 0;
+	}
 	.reorder {
 		display: block;
 		position: absolute;

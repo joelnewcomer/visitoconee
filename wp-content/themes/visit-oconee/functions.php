@@ -198,72 +198,76 @@ function add_ajax_library() {
 add_action( 'wp_ajax_load_itinerary', 'load_itinerary');
 add_action( 'wp_ajax_nopriv_load_itinerary', 'load_itinerary');
 function load_itinerary() {
+
+	require_once 'library/dompdf/lib/html5lib/Parser.php';
+	require_once 'library/dompdf/lib/php-font-lib/src/FontLib/Autoloader.php';
+	require_once 'library/dompdf/lib/php-svg-lib/src/autoload.php';
+	require_once 'library/dompdf/src/Autoloader.php';
+	Dompdf\Autoloader::register();
+
     if( isset( $_POST['itinerary'] ) ) {
         $itinerary = $_POST['itinerary'];
         foreach ($itinerary as $post_id) {
 			$post = get_post( $post_id );
-			// print_r($post);
-		    		    $website = get_field('website', $post_id);
-		    		    $address = get_field('address', $post_id);
-		    		    $phone = get_field('phone', $post_id);
-		    		    $social = array();
-		    		    if (get_field('social_instagram', $post_id) != '') {
-			    		    $social['instagram'] = get_field('social_instagram', $post_id);
-			    		}
-			    		if (get_field('social_facebook', $post_id) != '') {
-			    		    $social['facebook'] = get_field('social_facebook', $post_id);
-			    		}
-			    		if (get_field('social_twitter', $post_id) != '') {
-			    		    $social['twitter'] = get_field('social_twitter', $post_id);
-			    		}
-		    		    $terms = wp_get_post_terms( $post_id, 'poi_cats', array("fields" => "slugs") );
-		    		    $classes = implode(" ", $terms);			
+		    $website = get_field('website', $post_id);
+		    $address = get_field('address', $post_id);
+		    $phone = get_field('phone', $post_id);
+		    $social = array();
+		    if (get_field('social_instagram', $post_id) != '') {
+			    $social['instagram'] = get_field('social_instagram', $post_id);
+			}
+			if (get_field('social_facebook', $post_id) != '') {
+			    $social['facebook'] = get_field('social_facebook', $post_id);
+			}
+			if (get_field('social_twitter', $post_id) != '') {
+			    $social['twitter'] = get_field('social_twitter', $post_id);
+			}
+		    $terms = wp_get_post_terms( $post_id, 'poi_cats', array("fields" => "slugs") );
+		    $classes = implode(" ", $terms);			
 			?>
-						<div id="poi-<?php echo $post_id; ?>" class="grid-x poi-card transition <?php echo $classes; ?>">
-							<div class="large-4 medium-4 cell clickable poi-image">
-								<?php echo get_the_post_thumbnail( $post_id, 'thumbnail' ); ?>
-							</div>
-							<div class="large-8 medium-8 cell">
-								<div class="poi-card-content">
-									<h3><?php echo get_the_title($post_id); ?></h3>
-									<?php
-									$address = get_field('address', $post_id);
-									$detect = new Mobile_Detect;
-									$clean_address = urlencode( strip_tags($address) );
-									if( $detect->isiOS() ) : ?>
-									    <a class="address" href="http://maps.apple.com/?daddr=<?php echo $clean_address; ?>">
-									<?php else : ?>
-									    <a class="address" href="http://maps.google.com/?q=<?php echo $clean_address; ?>" target="_blank">
-									<?php endif; ?>
-									    <?php echo $address; ?>
-									</a>
-									<div class="poi-links">
-										<a href="<?php echo get_field('google_business_url', $post_id); ?>" target="_blank" class="poi-link poi-more">More Info</a>
-										<?php if ($website != '') : ?>
-											<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
-										<?php endif; ?>
-									</div> <!-- poi-links -->
-									<div class="poi-social">
-									<?php foreach( $social as $social_name => $social_url ) : ?>
-										<?php
-										echo '<a href="' . $social_url . '" class="' . $social_name . '" target="_blank">';
-										get_template_part('assets/images/social/' . $social_name , 'official.svg');
-										echo '</a>';
-										?>
-									<?php endforeach; ?>
-									</div> <!-- poi-social -->
-									<div class="poi-itinerary button" data-itinerary="<?php echo $post->ID; ?>">
-										Remove
-									</div>
-										
-								</div> <!-- poi-card-content -->
-									<div class="reorder">
-										<div class="up"><?php get_template_part('assets/images/up', 'arrow.svg'); ?></div>
-										<div class="down"><?php get_template_part('assets/images/down', 'arrow.svg'); ?></div>
-									</div> <!-- reorder -->
-								
-							</div> <!-- cell -->
-						</div> <!-- poi-card -->
+			<div id="poi-<?php echo $post_id; ?>" class="grid-x poi-card itinerary-card sort-scroll-element transition <?php echo $classes; ?>">
+				<div class="large-4 medium-4 cell clickable poi-image">
+					<?php echo get_the_post_thumbnail( $post_id, 'thumbnail' ); ?>
+				</div>
+				<div class="large-8 medium-8 cell">
+					<div class="poi-card-content">
+						<h3><?php echo get_the_title($post_id); ?></h3>
+						<?php
+						$address = get_field('address', $post_id);
+						$detect = new Mobile_Detect;
+						$clean_address = urlencode( strip_tags($address) );
+						if( $detect->isiOS() ) : ?>
+						    <a class="address" href="http://maps.apple.com/?daddr=<?php echo $clean_address; ?>">
+						<?php else : ?>
+						    <a class="address" href="http://maps.google.com/?q=<?php echo $clean_address; ?>" target="_blank">
+						<?php endif; ?>
+						    <?php echo $address; ?>
+						</a>
+						<div class="poi-links">
+							<a href="<?php echo get_field('google_business_url', $post_id); ?>" target="_blank" class="poi-link poi-more">More Info</a>
+							<?php if ($website != '') : ?>
+								<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
+							<?php endif; ?>
+						</div> <!-- poi-links -->
+						<div class="poi-social">
+						<?php foreach( $social as $social_name => $social_url ) : ?>
+							<?php
+							echo '<a href="' . $social_url . '" class="' . $social_name . '" target="_blank">';
+							get_template_part('assets/images/social/' . $social_name , 'official.svg');
+							echo '</a>';
+							?>
+						<?php endforeach; ?>
+						</div> <!-- poi-social -->
+						<div class="poi-itinerary button remove" data-itinerary="<?php echo $post->ID; ?>">
+							Remove
+						</div>
+					</div> <!-- poi-card-content -->
+					<div class="reorder">
+						<div class="up sort-scroll-button-up"><?php get_template_part('assets/images/up', 'arrow.svg'); ?></div>
+						<div class="down sort-scroll-button-down"><?php get_template_part('assets/images/down', 'arrow.svg'); ?></div>
+					</div> <!-- reorder -->
+				</div> <!-- cell -->
+			</div> <!-- poi-card -->
 			<?php
         }
     } 

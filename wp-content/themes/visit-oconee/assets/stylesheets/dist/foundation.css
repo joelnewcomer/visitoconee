@@ -3395,7 +3395,7 @@ main.container > section > .grid-container {
 .gf_browser_ie.gform_wrapper .gform_footer input.button {
   padding: 1.375rem 2.75rem !important; }
 
-.button a, input.button, .faux-button {
+.button a, input.button, .faux-button, .poi-itinerary.button {
   display: inline-block;
   position: relative;
   margin-bottom: 10px;
@@ -3413,11 +3413,11 @@ main.container > section > .grid-container {
   -ms-transition: all .5s;
   /* Opera */ }
   @media print, screen and (min-width: 40em) {
-    .button a, input.button, .faux-button {
+    .button a, input.button, .faux-button, .poi-itinerary.button {
       margin-right: 15px; } }
-  .button a:last-child, input.button:last-child, .faux-button:last-child {
+  .button a:last-child, input.button:last-child, .faux-button:last-child, .poi-itinerary.button:last-child {
     margin-right: 0; }
-  .button a:hover, input.button:hover, .faux-button:hover {
+  .button a:hover, input.button:hover, .faux-button:hover, .poi-itinerary.button:hover {
     background: #664D39;
     color: #fff; }
 
@@ -5023,11 +5023,28 @@ a.submit-event {
 .load-awesome {
   margin: 40px auto; }
 
+.itinerary-buttons {
+  padding-top: 80px;
+  padding-bottom: 80px; }
+  .itinerary-buttons .button {
+    display: inline-block;
+    margin: 0 30px; }
+
 #itinerary .poi-card {
   position: relative;
   margin-bottom: 30px; }
   #itinerary .poi-card .poi-image {
     float: left; }
+  #itinerary .poi-card .poi-itinerary.button {
+    text-align: center;
+    font-weight: normal;
+    width: auto; }
+  #itinerary .poi-card:hover .poi-itinerary.button {
+    color: #664D39;
+    background: #fff; }
+
+#itinerary .itinerary-card .poi-card-content {
+  padding-bottom: 0; }
 
 #itinerary .reorder {
   display: block;

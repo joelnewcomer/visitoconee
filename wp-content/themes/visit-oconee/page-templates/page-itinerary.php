@@ -11,7 +11,7 @@ get_header(); ?>
 <div id="page" role="main">
 	<div class="grid-container">
 		<div class="grid-x grid-padding-x">
-			<div class="large-12 cell text-center">
+			<div class="large-12 cell text-center itinerary-buttons">
 				<div class="button"><a href="">Print</a></div>
 				<div class="button"><a href="">Email</a></div>
 				<div class="load-awesome la-ball-clip-rotate la-2x"><div></div></div>
@@ -24,6 +24,19 @@ get_header(); ?>
 </div> <!-- #page -->
 
 <script>
+// Function to change index of array item
+function array_move(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+};
+
+// When the page loads, pull in the itinerary using AJAX
 jQuery( document ).ready(function() {
     var itinerary = basil.get('itinerary');
     jQuery.post(ajaxurl, {
@@ -35,21 +48,41 @@ jQuery( document ).ready(function() {
     });
 });
 
+// Initialize sortScroll - http://jadus.github.io/jquery-sortScroll/
+jQuery( document ).ready(function() {
+	// showing default options here
+	jQuery("#itinerary").sortScroll({
+	    animationDuration: 1000,// duration of the animation in ms
+	    cssEasing: "ease-in-out",// easing type for the animation
+	    keepStill: true,// if false the page doesn't scroll to follow the element
+	    fixedElementsSelector: ""// a jQuery selector so that the plugin knows your fixed elements (like the fixed nav on the left)
+	});
+});
 
-	
+// Update array order when order is changed on itinerary
+jQuery("#itinerary").on("sortScroll.sortStart", function(event, element, initialOrder, destinationOrder){
+	var itinerary = basil.get('itinerary');
+	itinerary = array_move(itinerary, initialOrder, destinationOrder);
+	basil.set('itinerary', itinerary);
+});
 
-    jQuery(document).on( "click", ".reorder .up", function() {
-        var thisID = jQuery(this).parents('.poi-card').attr('id');
-        var prevID = jQuery(this).parents('.poi-card').prev().attr('id');
-        jQuery('#' + prevID).swap({  
-            target: thisID, // Mandatory. The ID of the element we want to swap with  
-            opacity: "0.5", // Optional. If set will give the swapping elements a translucent effect while in motion  
-            speed: 1000, // Optional. The time taken in milliseconds for the animation to occur  
-            callback: function() { // Optional. Callback function once the swap is complete  
-                // alert("Swap Complete");  
-            }  
-        });  
-    });  
+// Remove from basil and from screen
+jQuery(document).on( "click", ".remove", function() {
+	var r = confirm("Are you sure?");
+	if (r == true) {
+		poiID = jQuery(this).data('itinerary');
+		var itinerary = basil.get('itinerary');
+		var index = itinerary.indexOf(poiID);    // <-- Not supported in <IE9
+		if (index !== -1) {
+    		itinerary.splice(index, 1);
+		}
+		basil.set('itinerary', itinerary);
+		jQuery(this).parents(".poi-card").fadeOut( "slow", function() {
+			jQuery(this).parents(".poi-card").remove();
+		});
+	}
+});
+
 </script> 
 
 <?php get_footer(); ?>
