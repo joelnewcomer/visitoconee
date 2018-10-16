@@ -1,0 +1,25 @@
+.la-ball-clip-rotate {
+    color: $blue !important;
+}
+.load-awesome {
+	margin: 40px auto;
+}
+
+#itinerary {
+	.poi-card {
+		position: relative;
+		margin-bottom: 30px;
+		.poi-image {
+			float: left;
+		}
+	}	
+	.reorder {
+		position: absolute;
+		left: 100%;
+		margin-left: 20px;
+		top: 50%;
+		margin-top: -35px;
+		width: 35px;
+		
+	}
+}

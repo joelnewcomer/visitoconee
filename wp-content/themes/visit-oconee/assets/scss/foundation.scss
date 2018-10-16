@@ -77,6 +77,7 @@
 @import "templates/error-404";
 @import "templates/taxonomy_poi_cats";
 @import "templates/archive_events";
+@import "templates/itinerary";
 
 // jQuery Plugins
 @import "jquery-plugins/bxslider"; // Remove if you don't have a slider.
@@ -87,7 +88,8 @@
 @import "jquery-plugins/featherlight"; // This is required for the search modal even if the WP Featherlight plugin is activated.
 
 // Loader
-@import "load-awesome/timer";
+// @import "load-awesome/timer";
+@import "load-awesome/ball-clip-rotate";
 
 // Wordpress Plugins
 @import "wp-plugins/gravity-forms";

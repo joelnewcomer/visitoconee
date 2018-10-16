@@ -13,4 +13,5 @@ require('./originals/readingTime.min'); // Remove if there is no blog.
 require('./originals/headroom.min');
 require('./originals/datedropper.min'); // Remove if there are no forms with date fields.
 require('./originals/basil.min');
+require('./originals/jquery-swapsies');
 require('./originals/01_initalizer.all');

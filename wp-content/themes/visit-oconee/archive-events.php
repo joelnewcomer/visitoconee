@@ -122,6 +122,9 @@ get_header(); ?>
         		<?php else : ?>
         		    <?php get_template_part( 'template-parts/content', 'none' ); ?>
         		<?php endif; // End have_posts() check. ?>
+        		<div class="large-12 cell text-center">
+	        		<a class="submit-event" href="<?php echo get_site_url(); ?>/submit-an-event">Submit a New Event</a>
+        		</div>
         	</article>
 	    </div> <!-- grid-wrapper -->
     </div> <!-- grid-container -->
