@@ -34,6 +34,22 @@ jQuery( document ).ready(function() {
         jQuery('#itinerary').append(data);
     });
 });
-</script>  
+
+
+	
+
+    jQuery(document).on( "click", ".reorder .up", function() {
+        var thisID = jQuery(this).parents('.poi-card').attr('id');
+        var prevID = jQuery(this).parents('.poi-card').prev().attr('id');
+        jQuery('#' + prevID).swap({  
+            target: thisID, // Mandatory. The ID of the element we want to swap with  
+            opacity: "0.5", // Optional. If set will give the swapping elements a translucent effect while in motion  
+            speed: 1000, // Optional. The time taken in milliseconds for the animation to occur  
+            callback: function() { // Optional. Callback function once the swap is complete  
+                // alert("Swap Complete");  
+            }  
+        });  
+    });  
+</script> 
 
 <?php get_footer(); ?>

@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73.496 40.394"><defs><style>.a{fill:none;stroke:#664d39;stroke-miterlimit:10;stroke-width:5.082px;fill-rule:evenodd;opacity:0.098;}</style></defs><path class="a" d="M1.8,1.8l35,35L1.8,71.7" transform="translate(-0.003 40.396) rotate(-90)"/></svg>

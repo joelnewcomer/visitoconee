@@ -219,7 +219,7 @@ function load_itinerary() {
 		    		    $terms = wp_get_post_terms( $post_id, 'poi_cats', array("fields" => "slugs") );
 		    		    $classes = implode(" ", $terms);			
 			?>
-						<div class="grid-x poi-card transition <?php echo $classes; ?>">
+						<div id="poi-<?php echo $post_id; ?>" class="grid-x poi-card transition <?php echo $classes; ?>">
 							<div class="large-4 medium-4 cell clickable poi-image">
 								<?php echo get_the_post_thumbnail( $post_id, 'thumbnail' ); ?>
 							</div>
@@ -255,12 +255,13 @@ function load_itinerary() {
 									<div class="poi-itinerary button" data-itinerary="<?php echo $post->ID; ?>">
 										Remove
 									</div>
+										
+								</div> <!-- poi-card-content -->
 									<div class="reorder">
 										<div class="up"><?php get_template_part('assets/images/up', 'arrow.svg'); ?></div>
 										<div class="down"><?php get_template_part('assets/images/down', 'arrow.svg'); ?></div>
 									</div> <!-- reorder -->
-										
-								</div> <!-- poi-card-content -->
+								
 							</div> <!-- cell -->
 						</div> <!-- poi-card -->
 			<?php

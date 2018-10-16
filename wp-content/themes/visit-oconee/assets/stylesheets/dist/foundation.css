@@ -5030,12 +5030,24 @@ a.submit-event {
     float: left; }
 
 #itinerary .reorder {
+  display: block;
   position: absolute;
   left: 100%;
   margin-left: 20px;
   top: 50%;
   margin-top: -35px;
   width: 35px; }
+  #itinerary .reorder .up, #itinerary .reorder .down {
+    display: block;
+    float: left;
+    width: 100%;
+    cursor: pointer; }
+  #itinerary .reorder svg {
+    float: left; }
+  #itinerary .reorder .up {
+    margin-bottom: 8px; }
+  #itinerary .reorder .down {
+    margin-top: 8px; }
 
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider
