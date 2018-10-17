@@ -61,6 +61,9 @@ require_once('library/customizer.php');
 /** Add button shortcode button to TinyMCE */
 require_once( 'library/editor-buttons/tinymce-buttons.php' );
 
+/** Include DomPDF */
+include 'library/dompdf/autoload.inc.php';
+
 /** Add TGM Plugin Activation - http://tgmpluginactivation.com/ */
 require_once('library/class-tgm-plugin-activation.php');
 
@@ -198,9 +201,6 @@ function add_ajax_library() {
 add_action( 'wp_ajax_load_itinerary', 'load_itinerary');
 add_action( 'wp_ajax_nopriv_load_itinerary', 'load_itinerary');
 function load_itinerary() {
-
-
-
     if( isset( $_POST['itinerary'] ) ) {
         $itinerary = $_POST['itinerary'];
         foreach ($itinerary as $post_id) {
@@ -239,13 +239,13 @@ function load_itinerary() {
 						<?php endif; ?>
 						    <?php echo $address; ?>
 						</a>
-						<div class="poi-links">
+						<div class="poi-links hide-for-print">
 							<a href="<?php echo get_field('google_business_url', $post_id); ?>" target="_blank" class="poi-link poi-more">More Info</a>
 							<?php if ($website != '') : ?>
 								<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
 							<?php endif; ?>
 						</div> <!-- poi-links -->
-						<div class="poi-social">
+						<div class="poi-social hide-for-print">
 						<?php foreach( $social as $social_name => $social_url ) : ?>
 							<?php
 							echo '<a href="' . $social_url . '" class="' . $social_name . '" target="_blank">';
@@ -254,7 +254,7 @@ function load_itinerary() {
 							?>
 						<?php endforeach; ?>
 						</div> <!-- poi-social -->
-						<div class="poi-itinerary button remove" data-itinerary="<?php echo $post->ID; ?>">
+						<div class="poi-itinerary button remove hide-for-print" data-itinerary="<?php echo $post->ID; ?>">
 							Remove
 						</div>
 					</div> <!-- poi-card-content -->

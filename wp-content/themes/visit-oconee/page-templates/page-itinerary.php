@@ -11,15 +11,20 @@ get_header(); ?>
 <div id="page" role="main">
 	<div class="grid-container">
 		<div class="grid-x grid-padding-x">
-			<div class="large-12 cell text-center itinerary-buttons">
-				<div class="button"><a href="">Print</a></div>
+			<div class="large-12 cell text-center itinerary-buttons hide-for-print">
+				<div class="button"><a href="javascript:window.print()">Print</a></div>
 				<div class="button"><a href="">Email</a></div>
 				<div class="load-awesome la-ball-clip-rotate la-2x"><div></div></div>
 			</div>
 		</div> <!-- grid-x -->
-		<div id="itinerary">
-			
-		</div>
+		<div id="itinerary"></div>
+		<div class="grid-x grid-padding-x">
+			<div class="large-12 cell text-center itinerary-buttons hide-for-print">
+				<div class="button"><a href="javascript:window.print()">Print</a></div>
+				<div class="button"><a href="">Email</a></div>
+			</div>
+		</div> <!-- grid-x -->
+
 	</div> <!-- grid-container -->
 </div> <!-- #page -->
 
@@ -46,6 +51,18 @@ jQuery( document ).ready(function() {
 	    jQuery('.load-awesome').hide();
         jQuery('#itinerary').append(data);
     });
+    
+    // Generate PDF
+    jQuery.ajax({
+        url: '<?php echo get_stylesheet_directory_uri(); ?>/ajax-pdf.php',
+        type: 'POST',
+        data: { itinerary : itinerary },
+        success: function(data) {
+        	console.log(data);
+        }
+    });
+
+    
 });
 
 // Initialize sortScroll - http://jadus.github.io/jquery-sortScroll/

@@ -368,7 +368,7 @@ class Dompdf
 
             $ext = strtolower(pathinfo($realfile, PATHINFO_EXTENSION));
             if (!in_array($ext, $this->allowedLocalFileExtensions)) {
-                throw new Exception("Permission denied on $file. This file extension is forbidden");
+                throw new Exception("Permission denied on $file.");
             }
 
             if (!$realfile) {
@@ -945,7 +945,7 @@ class Dompdf
      *
      * @param array $options options (see above)
      *
-     * @return string|null
+     * @return string
      */
     public function output($options = array())
     {

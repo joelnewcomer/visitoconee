@@ -32,6 +32,12 @@
 				background: #fff;	
 			}
 		}
+		&:first-child .up {
+			display: none;
+		}
+		&:last-child .down {
+			display: none;
+		}
 	}
 	.itinerary-card .poi-card-content {
 		padding-bottom: 0;

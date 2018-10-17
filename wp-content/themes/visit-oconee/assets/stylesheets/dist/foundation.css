@@ -5042,6 +5042,10 @@ a.submit-event {
   #itinerary .poi-card:hover .poi-itinerary.button {
     color: #664D39;
     background: #fff; }
+  #itinerary .poi-card:first-child .up {
+    display: none; }
+  #itinerary .poi-card:last-child .down {
+    display: none; }
 
 #itinerary .itinerary-card .poi-card-content {
   padding-bottom: 0; }

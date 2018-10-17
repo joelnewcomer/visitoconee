@@ -12,11 +12,14 @@ if (is_home() && get_option('page_for_posts') ) {
 if ($image_id == null || get_field('featured_not_in_header')) {
 	$image_id = get_theme_mod( 'default_featured' );
 }
+$attr = array(
+    'class' => "hide-for-print",
+);
 ?>
 
 	<div class="featured-container">
 		<div class="featured-image blog-landing-featured">
-			<?php echo wp_get_attachment_image($image_id, 'featured'); ?>
+			<?php echo wp_get_attachment_image($image_id, 'featured', false, $attr); ?>
 			<div class="overlay">
 				<div class="blog-header single-header text-center">
 					<div style="display:table;width:100%;height:100%;">

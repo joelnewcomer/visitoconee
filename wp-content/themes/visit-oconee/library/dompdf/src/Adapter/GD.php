@@ -978,11 +978,6 @@ class GD implements Canvas
         // N/A
     }
 
-    public function page_line()
-    {
-        // N/A
-    }
-
     /**
      * Streams the image to the client.
      *
