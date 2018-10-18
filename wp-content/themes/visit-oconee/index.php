@@ -23,7 +23,6 @@ if ($image_id == null) {
 ?>
 
 <div class="featured-container">	
-	<div class="grid-container">
 		<div class="featured-image blog-landing-featured">
 			<?php echo wp_get_attachment_image($image_id,'featured'); ?>
 			<div class="overlay">
@@ -38,12 +37,11 @@ if ($image_id == null) {
 						</div> <!-- grid-container -->
 					</div>
 				</section>
-				<?php // get_template_part('template-parts/blog', 'header-1'); ?>
+				<?php get_template_part('template-parts/blog', 'header-1'); ?>
 				<!-- Header Version 2 has featured article and featured categories -->
-				<?php get_template_part('template-parts/blog', 'header-2'); ?>
+				<?php // get_template_part('template-parts/blog', 'header-2'); ?>
 			</div> <!-- overlay -->
 		</div> <!-- blog-landing-featured -->
-	</div> <!-- grid-container -->
 </div> <!-- featured-container -->
 
 <div id="page" role="main" class="blog-grid">

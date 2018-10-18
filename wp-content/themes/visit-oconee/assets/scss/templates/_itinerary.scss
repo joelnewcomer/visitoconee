@@ -80,5 +80,11 @@
 	h2 {
 		font-size: 32px;
 		margin-bottom: 0;
+		@media only screen and (max-width: 40.063em) {
+			font-size: 24px;	
+		}
+	}
+	#gform_confirmation_message_6 {
+		margin: 40px 0;
 	}
 }

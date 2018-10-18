@@ -4118,17 +4118,19 @@ ul.post-meta {
   vertical-align: top; }
 
 #blog-search {
-  border-radius: 0;
-  position: relative;
   margin-bottom: 8px;
-  width: 713px;
+  /*
+	border-radius: $input-radius;
+	position: relative;
+	width: 713px;
+	@media only screen and (max-width: 800px) {
+		width: 500px;	
+	}
+	@media only screen and (max-width: 600px) {
+		width: 360px;	
+	}
+	*/
   max-width: 100%; }
-  @media only screen and (max-width: 800px) {
-    #blog-search {
-      width: 500px; } }
-  @media only screen and (max-width: 600px) {
-    #blog-search {
-      width: 360px; } }
   #blog-search .search-icon {
     width: 16px;
     height: 16px; }
@@ -4147,18 +4149,21 @@ ul.post-meta {
 
 @media only screen and (min-width: 40.063em) {
   .blog-header form#blog-search {
-    margin-top: 30px; }
-    .blog-header form#blog-search input#s {
-      font-size: 35px;
-      font-weight: 300;
-      height: 80px;
-      padding-left: 28px; }
-    .blog-header form#blog-search #searchsubmit {
-      right: 24px;
-      top: 24px;
-      width: 30px;
-      height: 30px;
-      background-size: 30px 30px; } }
+    position: relative;
+    /* margin-top: 30px;
+				input#s {
+				font-size: 35px;
+				font-weight: 300;
+				height: 80px;
+				padding-left: 28px;
+			}
+			#searchsubmit {
+				right: 24px;
+				top: 24px;
+				width: 30px;
+				height: 30px;
+				background-size: 30px 30px;
+			} */ } }
 
 .search-and-cats input#s, .search-and-cats select#blog-cats, .search-and-cats input#fmenu-s {
   color: #fff;
@@ -4253,8 +4258,11 @@ ul.pagination a.next, ul.pagination a.prev {
   ul.pagination a.next svg path, ul.pagination a.prev svg path {
     fill: #598F9B; }
 
+.blog-header-1 {
+  padding-top: 110px; }
+
 .blog-header-2 {
-  padding-top: 49px; }
+  padding-top: 110px; }
   @media only screen and (max-width: 40.063em) {
     .blog-header-2 {
       padding-top: 20px; } }
@@ -5078,6 +5086,12 @@ a.submit-event {
 #email-modal h2 {
   font-size: 32px;
   margin-bottom: 0; }
+  @media only screen and (max-width: 40.063em) {
+    #email-modal h2 {
+      font-size: 24px; } }
+
+#email-modal #gform_confirmation_message_6 {
+  margin: 40px 0; }
 
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider
