@@ -51,7 +51,6 @@ ul.post-meta {
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	background: $primary-color;
 	& > .grid-container {
 		@media only screen and (max-width: 1010px) {
 			padding: 0;
@@ -60,40 +59,15 @@ ul.post-meta {
 	.row {
 		position: relative;
 	}
-	.blurred-container {
-		display: block;
-		position: absolute;
-		height: 100%;
-		width: 100%;
-	}
-	.blurred-bg {
-		opacity: .5;
-		position: absolute;
-		z-index: 0;
-		top: 0;
-		left: 0;
-		height: 100%;
-		width: 100%;
-		svg {
-			width: 100%;
-			height: 100%;
-		}
-	}
-	.blurred-overlay {
-		display: block;
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0,0,0,.2);
-	}
 	h1 {
 		color: #fff;
 	}
 	.blog-header {
 		display: block;
 		position: absolute;
+		@media print { 
+			position: relative;
+		}		
 		top: 0;
 		left: 0;
 		height: 100%;
@@ -105,6 +79,9 @@ ul.post-meta {
 		}
 		.overlay {
 			position: absolute;
+			@media print { 
+				position: relative;
+			}
 			top: 0;
 			left: 0;
 			width: 100%;

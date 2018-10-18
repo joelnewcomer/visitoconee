@@ -51,7 +51,7 @@
 					<div class="large-4 medium-4 cell text-center small-text-center footer-about">
 						<p>Oconee County is located in the northwestern corner of Upstate SC and borders the mountains of NC and Northeast GA.</p>
 					</div>
-					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center">
+					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center hide-for-print">
 						<a class="footer-brochure" "#">
 							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/footer-brochure.jpg" alt="Visit Oconee Visitor's Guide">
 							Download Our Visitor's Guide
