@@ -5067,6 +5067,18 @@ a.submit-event {
   #itinerary .reorder .down {
     margin-top: 8px; }
 
+#email-modal .modal-inner {
+  max-width: 491px;
+  padding: 40px 9px 0 25px; }
+
+#email-modal .close-modal {
+  top: 16px;
+  right: 16px; }
+
+#email-modal h2 {
+  font-size: 32px;
+  margin-bottom: 0; }
+
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider
  * http://bxslider.com

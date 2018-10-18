@@ -24,12 +24,36 @@ get_header(); ?>
 				<div class="button"><a class="email" href="mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! (see attached).&attachment=c:\myfolder\myfile.txt">Email</a></div>
 			</div>
 		</div> <!-- grid-x -->
+
+
+		<!-- Email Modal -->
+		<div class="cat-modal transition" id="email-modal">
+			<div style="display:table;width:100%;height:100%;">
+				<div style="display:table-cell;vertical-align:middle;">
+					<div style="text-align:center;">
+						<div class="modal-inner">
+							<div class="grid-x grid-padding-x">
+								
+								<div class="close-modal"><?php get_template_part('assets/images/close', 'icon.svg'); ?></div>
+								<h2>Email My Itinerary</h2>
+								<?php echo do_shortcode('[gravityform id="6" title="false" description="false" ajax="true"]'); ?>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- email-modal -->
 		
-		<?php session_start(); ?>
-		<?php echo get_home_path() . '<br />'; ?>
-		<?php echo RGFormsModel::get_upload_root() . '<br />'; ?>
-		<?php echo get_home_path() . 'wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf'; ?>
-		<?php echo do_shortcode('[gravityform id="6" title="false" description="false" ajax="true"]'); ?>
+	<script>
+		jQuery("a.email").on( "click", function(e) {
+			e.preventDefault();
+			jQuery('#email-modal').addClass('active');
+		});
+		jQuery(".close-modal").on( "click", function(e) {
+			jQuery('.cat-modal').removeClass('active');	
+		});
+	</script>
 
 	</div> <!-- grid-container -->
 </div> <!-- #page -->
