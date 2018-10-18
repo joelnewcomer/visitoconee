@@ -13,7 +13,7 @@ get_header(); ?>
 		<div class="grid-x grid-padding-x">
 			<div class="large-12 cell text-center itinerary-buttons hide-for-print">
 				<div class="button"><a href="javascript:window.print()">Print</a></div>
-				<div class="button"><a href="">Email</a></div>
+				<div class="button"><a class="email" href="mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! (see attached).&attachment=c:\myfolder\myfile.txt">Email</a></div>
 				<div class="load-awesome la-ball-clip-rotate la-2x"><div></div></div>
 			</div>
 		</div> <!-- grid-x -->
@@ -21,9 +21,11 @@ get_header(); ?>
 		<div class="grid-x grid-padding-x">
 			<div class="large-12 cell text-center itinerary-buttons hide-for-print">
 				<div class="button"><a href="javascript:window.print()">Print</a></div>
-				<div class="button"><a href="">Email</a></div>
+				<div class="button"><a class="email" href="mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! (see attached).&attachment=c:\myfolder\myfile.txt">Email</a></div>
 			</div>
 		</div> <!-- grid-x -->
+		
+		<?php echo do_shortcode('[gravityform id="6" title="false" description="false" ajax="true"]'); ?>
 
 	</div> <!-- grid-container -->
 </div> <!-- #page -->
@@ -58,7 +60,7 @@ jQuery( document ).ready(function() {
         type: 'POST',
         data: { itinerary : itinerary },
         success: function(data) {
-        	console.log(data);
+        	jQuery("a.email").attr("href", "mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! <a href='" + data + "'>(click here).</a>");
         }
     });
 

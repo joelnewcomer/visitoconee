@@ -3082,6 +3082,12 @@ h1.entry-title {
   font-family: "gizmo";
   font-size: 160px;
   text-transform: lowercase; }
+  @media print {
+    h1.entry-title {
+      display: inline-block;
+      font-size: 64px;
+      margin: 40px 0 20px 0;
+      color: #664D39 !important; } }
   @media only screen and (max-width: 700px) {
     h1.entry-title {
       font-size: 120px; } }
@@ -3121,6 +3127,10 @@ body.ie10 .cell {
     order: 1; }
   .small-order-2 {
     order: 2; } }
+
+@media print {
+  .print-12 {
+    width: 100% !important; } }
 
 .header-wrapper {
   z-index: 11;
@@ -3170,6 +3180,11 @@ body.ie10 .cell {
 .top-bar-left {
   padding-top: 8px;
   padding-bottom: 3px; }
+  @media print {
+    .top-bar-left {
+      width: 100% !important;
+      text-align: center;
+      padding: 30px 0; } }
 
 .top-bar-right {
   padding-top: 28px; }
@@ -4092,7 +4107,8 @@ ul.post-meta {
     background: rgba(0, 0, 0, 0.2); }
     @media print {
       .featured-container .blog-landing-featured .overlay {
-        position: relative; } }
+        position: relative;
+        margin-top: 20px; } }
 
 #blog-search, #blog-cats {
   display: inline-block;

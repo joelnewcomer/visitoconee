@@ -46,6 +46,7 @@ if (!is_dir(dirname(__FILE__) . '/../../../wp-content/uploads/itineraries')) {
 }
 
 $filename = dirname(__FILE__) . '/../../../wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf';
+$file_url = get_site_url() . '/wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf';
 file_put_contents($filename, $output);
 
 // Delete PDFs after 30 days
@@ -59,5 +60,5 @@ foreach ($files as $file) {
     }
 }
  
-return $filename;
+echo $file_url;
 ?>

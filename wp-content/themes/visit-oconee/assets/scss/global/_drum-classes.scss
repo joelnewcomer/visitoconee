@@ -149,6 +149,12 @@ h1.entry-title, h2.entry-title {
 h1.entry-title {
 	font-family: "gizmo";
 	font-size: 160px;
+	@media print { 
+		display: inline-block;
+		font-size: 64px;
+		margin: 40px 0 20px 0;
+		color: $brown !important;	
+	}
 	text-transform: lowercase;
 	@media only screen and (max-width: 700px) {	
 		font-size: 120px;
@@ -202,5 +208,11 @@ body.ie10 {
 	}	
 	.small-order-2 {
 		order: 2;
+	}	
+}
+
+@media print { 
+	.print-12 {
+		width: 100% !important;
 	}	
 }

@@ -29,8 +29,10 @@
 		<div class="sub-footer">
 			<div class="grid-container">
 				<div class="grid-x grid-padding-x">
-					<div class="large-4 medium-4 cell footer-logo hide-on-print small-text-center">
-						<?php get_template_part('template-parts/site-logo','link'); ?>
+					<div class="large-4 medium-4 print-12 cell footer-logo hide-on-print small-text-center">
+						<div class="hide-for-print">
+							<?php get_template_part('template-parts/site-logo','link'); ?>
+						</div>
 						<p class="copyright">Copyright &copy; <?php echo date('Y'); ?> Visit Oconee SC.  <span class="no-break"><?php _e( 'All rights reserved.', 'textdomain' ); ?></span>
 							<?php
 							$terms_page = get_theme_mod( 'terms_page' );
@@ -48,7 +50,7 @@
 							</span> <!-- hide-for-print -->
 						</p>
 					</div>
-					<div class="large-4 medium-4 cell text-center small-text-center footer-about">
+					<div class="large-4 medium-4 cell text-center small-text-center footer-about hide-for-print">
 						<p>Oconee County is located in the northwestern corner of Upstate SC and borders the mountains of NC and Northeast GA.</p>
 					</div>
 					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center hide-for-print">

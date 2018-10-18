@@ -258,7 +258,7 @@ function load_itinerary() {
 							Remove
 						</div>
 					</div> <!-- poi-card-content -->
-					<div class="reorder">
+					<div class="reorder hide-for-print">
 						<div class="up sort-scroll-button-up"><?php get_template_part('assets/images/up', 'arrow.svg'); ?></div>
 						<div class="down sort-scroll-button-down"><?php get_template_part('assets/images/down', 'arrow.svg'); ?></div>
 					</div> <!-- reorder -->
@@ -268,6 +268,15 @@ function load_itinerary() {
         }
     } 
     die();
+}
+
+// Attach PDF to "Email Itinerary" notification email
+add_filter( 'gform_notification_6', 'change_user_notification_attachments', 10, 3 );
+function change_user_notification_attachments( $notification, $form, $entry ) {
+    $notification['attachments'] = ( is_array( rgget('attachments', $notification ) ) ) ? rgget( 'attachments', $notification ) : array();
+    $attachment = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf';
+    $notification['attachments'][] = $attachment;
+    return $notification;
 }
 
 // Custom Image Sizes
