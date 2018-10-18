@@ -4550,15 +4550,15 @@ section.home-cats {
       section.home-cats a.cat-link:hover svg path {
         fill: #E67002; }
 
-section.destinations {
+section.tips {
   background: url(../../images/destinations-bg.jpg) center center no-repeat;
   background-size: cover !important; }
-  section.destinations h2, section.destinations h3, section.destinations h4, section.destinations p {
+  section.tips h2, section.tips h3, section.tips h4, section.tips p {
     color: #fff; }
 
-section.tips {
+section.destinations {
   background: #dce7ea; }
-  section.tips h2, section.tips h3, section.tips h4, section.tips p {
+  section.destinations h2, section.destinations h3, section.destinations h4, section.destinations p {
     color: #598F9B; }
 
 section.destinations, section.tips, section.instagram {
