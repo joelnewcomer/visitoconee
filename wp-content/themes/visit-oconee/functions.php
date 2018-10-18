@@ -273,8 +273,9 @@ function load_itinerary() {
 // Attach PDF to "Email Itinerary" notification email
 add_filter( 'gform_notification_6', 'change_user_notification_attachments', 10, 3 );
 function change_user_notification_attachments( $notification, $form, $entry ) {
+	session_start();
     $notification['attachments'] = ( is_array( rgget('attachments', $notification ) ) ) ? rgget( 'attachments', $notification ) : array();
-    $attachment = $_SERVER['DOCUMENT_ROOT'] . '/wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf';
+    $attachment = get_home_path() . 'wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf';
     $notification['attachments'][] = $attachment;
     return $notification;
 }

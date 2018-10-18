@@ -25,6 +25,10 @@ get_header(); ?>
 			</div>
 		</div> <!-- grid-x -->
 		
+		<?php session_start(); ?>
+		<?php echo get_home_path() . '<br />'; ?>
+		<?php echo RGFormsModel::get_upload_root() . '<br />'; ?>
+		<?php echo get_home_path() . 'wp-content/uploads/itineraries/my-itinerary-' . session_id() . '.pdf'; ?>
 		<?php echo do_shortcode('[gravityform id="6" title="false" description="false" ajax="true"]'); ?>
 
 	</div> <!-- grid-container -->
