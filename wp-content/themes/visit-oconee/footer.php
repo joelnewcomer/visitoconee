@@ -12,7 +12,7 @@
 				
 	<footer id="footer" role="contentinfo">
 		<div class="main-footer">
-			<img class="hide-for-print" src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.jpg"> 
+			<img class="hide-for-print" src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.jpg" alt="Scenic Oconee Lake"> 
 			<div class="footer-overlay">
 				<div class="grid-container">
 					<div class="grid-x">
