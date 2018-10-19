@@ -4482,13 +4482,14 @@ section.videos, section.home-cats {
 section.videos {
   padding-bottom: 30px;
   position: relative;
-  z-index: 999; }
+  z-index: 99999999; }
   section.videos .home-video {
     margin-top: -80px;
     margin-bottom: 20px;
     padding-left: 16px;
     padding-right: 16px;
-    position: relative; }
+    position: relative;
+    z-index: 9999999; }
     @media only screen and (max-width: 770px) {
       section.videos .home-video {
         margin-top: 30px; } }
