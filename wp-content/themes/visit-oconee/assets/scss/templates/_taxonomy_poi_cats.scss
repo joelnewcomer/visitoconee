@@ -4,10 +4,16 @@
 	width: 100%;
     background: url(../images/video-bg.png);
     padding: 70px 0 50px 0;
+    @media only screen and (max-width: 40.063em) {
+	 	padding: 30px 0 10px 0;   
+	}
     .cat-filter {
 	    display: inline-block;
 	    margin: 30px 8px;
 	    min-width: 120px;
+	    @media only screen and (max-width: 40.063em) {
+		 	min-width: 100px;   
+		}
 	    cursor: pointer;
 	    svg {
 		    width: 60px;
@@ -21,6 +27,9 @@
 		   text-transform: lowercase;
 		   font-weight: 600;
 		   font-size: 24px;
+		   @media only screen and (max-width: 40.063em) {
+				font-size: 18px;   
+		   }
 		   color: $brown;
 	    }
 	    &.active {
@@ -39,10 +48,14 @@
 
 .cat-banner-ads {
 	margin: 50px 0;
+	@media only screen and (max-width: 40.063em) {
+		margin: 10px 0;	
+	}
 }
 
 .poi-card {
 	background: rgba($brown, .10);
+	margin-bottom: 20px;
 	.poi-card-content {
 		p, .poi-link, .poi-itinerary, a {
 			color: $brown;
@@ -77,6 +90,9 @@
 		float: left;
 		width: 100%;
 		padding: 30px 40px;
+		@media only screen and (max-width: 40.063em) {
+			padding: 15px 20px;
+		}
 	}
 	
 	p, a {

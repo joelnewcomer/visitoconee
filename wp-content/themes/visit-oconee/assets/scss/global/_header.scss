@@ -1,6 +1,9 @@
 .header-wrapper {
 	z-index: 11;
 	min-height: 44px;
+	@media only screen and (max-width: 40.063em) {
+		min-height: 64px;	
+	}
 }
 
 #top-header{
@@ -49,6 +52,9 @@
 	.nav-wrapper-inner {
 		position: absolute;
 		width: 100%;
+		@media only screen and (max-width: 40.063em) {
+			background: $brown;	
+		}
 	}
 }
 
