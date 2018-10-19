@@ -144,9 +144,7 @@ if (typeof bxSlider === "function") {
 		    		    $classes = implode(" ", $terms);
 		    		    ?>
 						<div class="large-4 medium-6 cell poi-card transition <?php echo $classes; ?>">
-							<div class="clickable">
-								<?php the_post_thumbnail( 'thumbnail' ); ?>
-							</div>
+							<?php the_post_thumbnail( 'thumbnail' ); ?>
 							<div class="poi-card-content">
 								<h3><?php the_title(); ?></h3>
 								<?php
