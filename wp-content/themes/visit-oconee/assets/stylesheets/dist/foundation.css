@@ -3025,7 +3025,8 @@ blockquote {
 .entry-content section, .parallax-container, main.container, .grid-wrapper {
   display: block;
   float: left;
-  width: 100%; }
+  width: 100%;
+  overflow-x: hidden; }
 
 .entry-content section:last-child {
   padding-bottom: 40px; }
