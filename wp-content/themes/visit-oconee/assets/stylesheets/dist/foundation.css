@@ -3300,8 +3300,7 @@ header#masthead {
     .top-bar-left a.logo {
       z-index: 9999;
       position: relative;
-      margin: 7px;
-      height: 50px; }
+      margin: 13px; }
       .top-bar-left a.logo img {
         max-height: 100%; }
   .top-bar-right {
@@ -3656,7 +3655,7 @@ main.container > section > .grid-container {
   margin-left: -4px; }
   @media only screen and (max-width: 40.063em) {
     .search-button {
-      padding-top: 15px;
+      padding-top: 19px;
       margin-left: 0; } }
   .search-button svg {
     width: 26px;
