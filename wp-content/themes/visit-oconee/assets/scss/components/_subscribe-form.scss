@@ -20,6 +20,9 @@
 		@media only screen and (max-width: 700px) {
 			width: 254px !important;	
 		}
+		@media only screen and (max-width: 40.063em) {
+			width: 225px !important;	
+		}
 	}
 	.gform_footer {
 		margin-left: -4px !important;
@@ -30,12 +33,18 @@
 		@media only screen and (max-width: 760px) {
 			width: 110px !important;	
 		}
+		@media only screen and (max-width: 40.063em) {
+			width: 75px !important;	
+		}
 	}
 	.gform_wrapper input[type="text"] {
 		border-radius: 0;
 		font-size: 24px !important;
 		@media only screen and (max-width: 700px) {
 			font-size: 20px !important;
+		}
+		@media only screen and (max-width: 40.063em) {
+			font-size: 18px !important;	
 		}
 		background: rgba(255,255,255,0.80);
 		border: none;
@@ -50,6 +59,9 @@
 		width: 100% !important;
 		margin: 0 !important;
 		font-size: 24px !important;
+		@media only screen and (max-width: 40.063em) {
+			font-size: 18px !important;	
+		}
 		text-transform: none;
 		font-weight: bold;
 		padding: 11px 4px;
