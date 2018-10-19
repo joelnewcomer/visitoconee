@@ -4401,7 +4401,8 @@ h1.entry-title-ul {
   width: 100%;
   position: relative;
   max-height: 1048px;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 1; }
 
 .slider-container li img {
   width: 100%; }
