@@ -22,7 +22,7 @@
 }
 
 .gf_browser_ie.gform_wrapper .gform_footer input.button {
-	padding: 1.375rem 2.75rem !important;
+	/* padding: 1.375rem 2.75rem !important; Removed 10/19/18 because it breaks buttons in IE11 */
 }
 
 

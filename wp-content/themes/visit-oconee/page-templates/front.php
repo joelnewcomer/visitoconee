@@ -62,7 +62,7 @@ get_header(); ?>
 				<?php while(has_sub_field('home_blocks')): ?>
 					<div class="large-4 medium-4 cell home-block">
 		   				<?php $link = get_sub_field('link'); ?>
-						<a href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>">
+						<a href="<?php echo $link['url']; ?>" <?php if ($link['target'] != '') : ?>target="<?php echo $link['target']; ?>"<?php endif; ?>>
 							<?php echo wp_get_attachment_image(get_sub_field('image'), 'home-block'); ?>
 							<div class="home-block-overlay">
 								<div style="display:table;width:100%;height:100%;">
@@ -187,7 +187,7 @@ get_header(); ?>
 		   				}
 		   				?>
 		   				<div class="large-4 medium-4 cell dest-cell">
-		   					<a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
+		   					<a href="<?php echo $link; ?>" <?php if ($target != '') : ?>target="<?php echo $target; ?>"<?php endif; ?>>
 			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
 			   					<h3><?php echo $title; ?></h3>
 			   					<h4><?php echo $subtitle; ?></h4>
@@ -235,7 +235,7 @@ get_header(); ?>
 		   				}
 		   				?>
 		   				<div class="large-4 medium-4 cell dest-cell">
-		   					<a href="<?php echo $link; ?>" target="<?php echo $target; ?>">
+		   					<a href="<?php echo $link; ?>" <?php if ($target != '') : ?>target="<?php echo $target; ?>"<?php endif; ?>>
 			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
 			   					<h3><?php echo $title; ?></h3>
 			   					<h4><?php echo $subtitle; ?></h4>
