@@ -76,6 +76,54 @@ date_default_timezone_set(get_option('timezone_string'));
 	<div class="grid-container">
     	<div class="grid-wrapper">
         	<article class="grid-x grid-margin-x clear">
+				
+				<!-- BANNER ADS -->
+				<?php if(get_field('banner_ads', $term)): ?>
+					<div class="large-12 cell cat-banner-ads">
+						<div class="slider-container">
+							<ul class="bxslider">						
+								<?php while(has_sub_field('banner_ads', $term)): ?>
+									<li>
+										<a href="<?php echo get_sub_field('link'); ?>">
+											<div class="hide-for-small">
+												<?php echo wp_get_attachment_image(get_sub_field('desktop_ad'), 'full'); ?>
+											</div>
+											<div class="show-for-small">
+												<?php echo wp_get_attachment_image(get_sub_field('mobile_ad'), 'full'); ?>
+											</div>
+										</a>
+									</li>
+								<?php endwhile; ?>
+							</ul> <!-- bxslider -->
+						</div> <!-- slider-container -->
+					</div> <!-- cat-banner-ads -->
+
+<script>
+if (typeof bxSlider === "function") { 	
+    var slider = jQuery('.bxslider').bxSlider({
+        auto: true,
+        pager: false,
+        controls: false,
+        mode: 'fade',
+        speed: 1000,
+        pause: 3000
+    });	
+} else {
+	jQuery(window).load(function(){
+    	var slider = jQuery('.bxslider').bxSlider({
+    	    auto: true,
+    	    pager: false,
+    	    controls: false,
+    	    mode: 'fade',
+    	    speed: 1000,
+    	    pause: 3000
+    	});		
+	});
+}
+</script>					
+					
+				<?php endif; ?>	        	
+	        	
         		<?php if ( have_posts() ) : ?>
 	    		    <?php while ( have_posts() ) : the_post(); ?>
 	    		    	<?

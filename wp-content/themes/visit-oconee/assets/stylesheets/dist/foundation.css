@@ -3977,7 +3977,11 @@ ul.pagination li.current a {
   color: #fff; }
 
 .subscribe-form {
+  display: inline-block;
   margin-top: -12px; }
+  @media only screen and (min-width: 1009px) {
+    .subscribe-form {
+      margin-left: 16px; } }
   .subscribe-form .gform_body, .subscribe-form .gform_footer {
     display: inline-block;
     vertical-align: middle; }
@@ -3987,13 +3991,10 @@ ul.pagination li.current a {
   .subscribe-form .gfield {
     padding-right: 0 !important; }
   .subscribe-form .gform_body {
-    width: 363px !important; }
-    @media only screen and (max-width: 1170px) {
+    width: 298px !important; }
+    @media only screen and (max-width: 700px) {
       .subscribe-form .gform_body {
-        width: 263px !important; } }
-    @media only screen and (max-width: 760px) {
-      .subscribe-form .gform_body {
-        width: 200px !important; } }
+        width: 254px !important; } }
   .subscribe-form .gform_footer {
     margin-left: -4px !important;
     width: 173px !important; }
@@ -4010,6 +4011,9 @@ ul.pagination li.current a {
     border: none;
     box-shadow: none;
     height: 51px; }
+    @media only screen and (max-width: 700px) {
+      .subscribe-form .gform_wrapper input[type="text"] {
+        font-size: 20px !important; } }
     .subscribe-form .gform_wrapper input[type="text"]::-webkit-input-placeholder {
       color: #664D39; }
   .subscribe-form .gform_button {
@@ -4779,6 +4783,9 @@ body.error404 .entry-content h2 {
         stroke: #E67002; }
       .tax-sub-cats .cat-filter.active h3 {
         color: #E67002; }
+
+.cat-banner-ads {
+  margin: 50px 0; }
 
 .poi-card {
   background: rgba(102, 77, 57, 0.1);

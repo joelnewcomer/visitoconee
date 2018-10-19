@@ -16,10 +16,8 @@
 			<div class="footer-overlay">
 				<div class="grid-container">
 					<div class="grid-x">
-						<div class="large-3 medium-7 cell hide-for-print small-text-center social-subscribe">
+						<div class="large-9 medium-9 cell hide-for-print small-text-center social-subscribe">
 							<?php get_template_part('template-parts/social'); ?>
-						</div>
-						<div class="large-6 medium-7 cell hide-for-print small-text-center social-subscribe">
 							<?php get_template_part('template-parts/subscribe-form'); ?>
 						</div>
 					</div> <!-- grid-x -->

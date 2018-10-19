@@ -121,6 +121,104 @@
                     "return_format": "array"
                 }
             ]
+        },
+        {
+            "key": "field_5bc8e283ed7e1",
+            "label": "Banner Ads",
+            "name": "banner_ads",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add Banner Ad",
+            "sub_fields": [
+                {
+                    "key": "field_5bc8eae4ed7e2",
+                    "label": "Desktop Ad",
+                    "name": "desktop_ad",
+                    "type": "image",
+                    "instructions": "Should be sized to exactly 1208 x 280 pixels.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": 1208,
+                    "min_height": 280,
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "show_column": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bc8eb2fed7e3",
+                    "label": "Mobile Ad",
+                    "name": "mobile_ad",
+                    "type": "image",
+                    "instructions": "Should be sized to exactly 640 x 400 pixels.",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": 640,
+                    "min_height": 400,
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "show_column": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bc8eb72ed7e4",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                }
+            ]
         }
     ],
     "location": [
@@ -140,5 +238,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1539191677
+    "modified": 1539895427
 }
