@@ -4091,6 +4091,7 @@ ul.post-meta {
   .featured-container h1 {
     color: #fff; }
   .featured-container .blog-header {
+    padding-top: 110px;
     display: block;
     position: absolute;
     top: 0;
@@ -4202,11 +4203,6 @@ ul.post-meta {
   @media print, screen and (min-width: 64em) {
     .blog-grid .grid-container .blog-card {
       width: calc(33.33333% - 16px); } }
-
-.blog-grid .blog-content-header {
-  display: block;
-  float: left;
-  width: 100%; }
 
 .blog-grid h2, .blog-grid h3, .blog-grid p.blog-count, .blog-grid .faux-link {
   color: #598F9B; }
@@ -4675,6 +4671,7 @@ section.instagram {
     margin-bottom: 60px; }
 
 #single-post .single-title-ul {
+  font-size: 64px;
   position: relative;
   margin-bottom: 60px;
   max-width: 1010px;

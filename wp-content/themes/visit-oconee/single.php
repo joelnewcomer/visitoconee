@@ -24,18 +24,6 @@ $blur_size = 'width=' . $width . '&height=' . $height . '&crop=1';
 <div id="single-post" role="main">
 
 	<div class="featured-container hide-for-print">
-		<div class="blurred-container"><div class="blurred-bg"></div><div class="blurred-overlay"></div></div>
-		<?php $blurred_image = wp_get_attachment_image_src($image_id, 'featured'); ?>
-		<script>
-		 	jQuery( document ).ready(function() {
-		    	jQuery('.blurred-bg').backgroundBlur({
-		        	imageURL : '<?php echo $blurred_image[0]; ?>',
-					blurAmount : 7,
-					imageClass : 'bg-blur'
-		     	});
-		 	});
-		</script>	
-		<div class="grid-container no-padding">
 			<div class="featured-image blog-landing-featured">
 				<?php echo wp_get_attachment_image($image_id,'featured'); ?>
 				<div class="overlay">
@@ -64,7 +52,6 @@ $blur_size = 'width=' . $width . '&height=' . $height . '&crop=1';
 					</div> <!-- blog-header -->
 				</div> <!-- overlay -->
 			</div> <!-- blog-landing-featured -->
-		</div> <!-- grid-container -->
 	</div> <!-- featured-container -->
 	
 	<div class="single-container">
@@ -72,9 +59,6 @@ $blur_size = 'width=' . $width . '&height=' . $height . '&crop=1';
 		<?php while ( have_posts() ) : the_post(); ?>
 			<article class="main-content large-12 cell" <?php post_class() ?> id="post-<?php the_ID(); ?>">
 				<header>
-					<?php if (!has_post_thumbnail()) : ?>
-						<h1 class="entry-title"><?php the_title(); ?></h1>
-					<?php endif; ?>	
 					<?php drum_entry_meta(); ?>
 					<?php get_template_part('template-parts/single','cats'); ?>
 				</header>

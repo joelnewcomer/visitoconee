@@ -63,6 +63,7 @@ ul.post-meta {
 		color: #fff;
 	}
 	.blog-header {
+		padding-top: 110px;
 		display: block;
 		position: absolute;
 		@media print { 
@@ -198,11 +199,6 @@ ul.post-meta {
 				width: calc(33.33333% - 16px);
 			}
 		}
-	}
-	.blog-content-header {
-		display: block;
-		float: left;
-		width: 100%;		
 	}
 	h2, h3, p.blog-count, .faux-link {
 		color: $primary-color;
