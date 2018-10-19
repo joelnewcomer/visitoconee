@@ -93,6 +93,8 @@ section.videos, section.home-cats {
 
 section.videos {
 	padding-bottom: 30px;
+	position: relative;
+	z-index: 999;
 	.home-video {
 		margin-top: -80px;
 		@media only screen and (max-width: 770px) {
