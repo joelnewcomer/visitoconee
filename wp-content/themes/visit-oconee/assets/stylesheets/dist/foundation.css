@@ -4586,7 +4586,7 @@ section.destinations, section.tips, section.instagram {
       letter-spacing: 0; }
       @media only screen and (max-width: 790px) {
         section.destinations h2 span, section.tips h2 span, section.instagram h2 span {
-          font-size: 48px; } }
+          font-size: 42px; } }
   section.destinations .dest-cell img, section.tips .dest-cell img, section.instagram .dest-cell img {
     margin-bottom: 16px; }
   section.destinations .dest-cell h3, section.tips .dest-cell h3, section.instagram .dest-cell h3 {
