@@ -4811,7 +4811,8 @@ body.error404 .entry-content h2 {
     cursor: pointer; }
     @media only screen and (max-width: 40.063em) {
       .tax-sub-cats .cat-filter {
-        min-width: 100px; } }
+        min-width: 77px;
+        margin: 15px 8px; } }
     .tax-sub-cats .cat-filter svg {
       width: 60px;
       height: 60px; }
