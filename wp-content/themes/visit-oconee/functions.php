@@ -76,7 +76,7 @@ function my_acf_json_load_point( $paths ) {
     return $paths;
 }
 
-register_post_type('poi', array(	'label' => 'Points of Interest','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => true,'rewrite' => array('slug' => ''),'query_var' => true,'exclude_from_search' => false,'supports' => array('title','excerpt','revisions','thumbnail','page-attributes',),'labels' => array (
+register_post_type('poi', array(	'label' => 'Points of Interest','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => true,'rewrite' => array('slug' => 'point-of-interest'),'query_var' => true,'exclude_from_search' => false,'supports' => array('title','excerpt','revisions','thumbnail','page-attributes',),'labels' => array (
   'name' => 'Points of Interest',
   'singular_name' => 'Point of Interest',
   'menu_name' => 'Points of Interest',

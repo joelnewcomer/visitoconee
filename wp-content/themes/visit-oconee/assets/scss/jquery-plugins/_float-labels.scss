@@ -93,13 +93,10 @@ $float-labels-defaults: (
 	textarea.#{fl(prefix)}textarea {
 		padding: fl(base-padding)*2;
 	}
-	select.#{fl(prefix)}select {
-		height: fl(base-height) + fl(base-padding)*4 + fl(border-width)*2;
-	}
 	.#{fl(prefix)}is-active input.#{fl(prefix)}input,
 	.#{fl(prefix)}is-active select.#{fl(prefix)}select,
 	.#{fl(prefix)}is-active textarea.#{fl(prefix)}textarea {
-		padding: fl(base-padding)*3 fl(base-padding)*2 fl(base-padding)*1 !important;
+		padding: 12px 12px 6px !important;
 	}
 	label.#{fl(prefix)}label {
 		top: fl(border-width);
@@ -127,20 +124,6 @@ $float-labels-defaults: (
 	&::-ms-expand {
 		display: none;
 	}
-}
-
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}is-active input.#{fl(prefix)}input,
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}is-active select.#{fl(prefix)}select,
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}is-active textarea.#{fl(prefix)}textarea {
- 	background-color: fl(color-background-active);
-	border-color: fl(color-border-active);
-}
-
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}has-focus input.#{fl(prefix)}input,
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}has-focus select.#{fl(prefix)}select,
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}has-focus textarea.#{fl(prefix)}textarea {
-	background-color: fl(color-background-focus);
-	border-color: fl(color-border-focus);
 }
 
 #{fl(parent)}.#{fl(prefix)}form label.#{fl(prefix)}label {

@@ -354,3 +354,12 @@ li.gfield.date input {
 	background-position: right 12px center;
 	background-color: #fff;	
 }
+
+.ginput_complex input {
+	margin-bottom: 1em !important;
+}
+
+.gform_wrapper input.ginput_quantity[type=text] {
+	display: inline;
+	height: auto;
+}

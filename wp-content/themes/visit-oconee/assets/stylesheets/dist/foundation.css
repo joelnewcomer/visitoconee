@@ -6567,18 +6567,6 @@ div.datedropper .null {
   .fl-form select.fl-select::-ms-expand {
     display: none; }
 
-.fl-form .fl-is-active input.fl-input,
-.fl-form .fl-is-active select.fl-select,
-.fl-form .fl-is-active textarea.fl-textarea {
-  background-color: #fff;
-  border-color: #dfdfdf; }
-
-.fl-form .fl-has-focus input.fl-input,
-.fl-form .fl-has-focus select.fl-select,
-.fl-form .fl-has-focus textarea.fl-textarea {
-  background-color: #fff;
-  border-color: #1976D2; }
-
 .fl-form label.fl-label {
   opacity: 0;
   visibility: hidden;
@@ -6662,13 +6650,10 @@ div.datedropper .null {
 .fl-form.fl-style-2 textarea.fl-textarea {
   padding: 12px; }
 
-.fl-form.fl-style-2 select.fl-select {
-  height: 50px; }
-
 .fl-form.fl-style-2 .fl-is-active input.fl-input,
 .fl-form.fl-style-2 .fl-is-active select.fl-select,
 .fl-form.fl-style-2 .fl-is-active textarea.fl-textarea {
-  padding: 18px 12px 6px !important; }
+  padding: 12px 12px 6px !important; }
 
 .fl-form.fl-style-2 label.fl-label {
   top: 1px;
@@ -7162,5 +7147,12 @@ li.gfield.date input {
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-color: #fff; }
+
+.ginput_complex input {
+  margin-bottom: 1em !important; }
+
+.gform_wrapper input.ginput_quantity[type=text] {
+  display: inline;
+  height: auto; }
 
 /*# sourceMappingURL=foundation.css.map*/
