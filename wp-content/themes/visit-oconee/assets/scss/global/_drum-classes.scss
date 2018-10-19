@@ -69,7 +69,7 @@ blockquote {
 }
 
 .entry-content .grid-container {
-	padding-top: 30px;
+	padding-top: 40px;
 	padding-bottom: 15px;
 }
 
@@ -94,7 +94,7 @@ blockquote {
 }
 
 .entry-content section.default-background:nth-child(even) {
-	background:$primary-section;
+	/* background:$primary-section; */
 }
 
 .entry-content section.primary-background {

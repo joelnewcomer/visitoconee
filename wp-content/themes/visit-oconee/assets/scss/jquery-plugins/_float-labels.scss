@@ -196,17 +196,3 @@ $float-labels-defaults: (
 #{fl(parent)}.#{fl(prefix)}form.#{fl(prefix)}style-2 {
 	@include fl-style-2;
 }
-
-#{fl(parent)}.#{fl(prefix)}form .#{fl(prefix)}wrap-select:after {
-	content: '';
-	position: absolute;
-	display: block;
-	top: fl(border-width);
-	right: 6px;
-	height: calc(100% - #{fl(border-width)*2});
-	width: fl(base-height)/2;
-	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3E%3Cpath fill='#{str-replace(#{fl(color-placeholder)},'#','%23')}' d='M 4 0 L 0 6.5 L 8 6.5 L 4 0 z M 0 9.5 L 4 16 L 4 16 L 8 9.5 z'/%3E%3C/svg%3E") no-repeat;
-	background-position: 100% 50%;
-	background-size: 7px 14px;
-	z-index: 2;
-}

@@ -16,7 +16,7 @@ ul.resp-tabs-list {
     display: inline-block;
     padding: 13px 40px;
     margin: 0 4px 0 0;
-    color: #595959;
+    color: $paragraph-color;
     list-style: none;
     cursor: pointer;
     float: left;
@@ -78,7 +78,7 @@ h2.resp-accordion {
     background: rgba($primary-color, .15) !important;
     -webkit-transition: all .5s; /* Safari and Chrome */
     -ms-transition: all .5s; /* Opera */
-    color: #595959;
+    color: $paragraph-color;
 }
 
 div.resp-easy-accordion {

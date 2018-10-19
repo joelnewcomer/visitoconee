@@ -3019,7 +3019,7 @@ blockquote {
     font-size: 24px; }
 
 .entry-content .grid-container {
-  padding-top: 30px;
+  padding-top: 40px;
   padding-bottom: 15px; }
 
 .entry-content section, .parallax-container, main.container, .grid-wrapper {
@@ -3039,7 +3039,7 @@ blockquote {
   background: #fff; }
 
 .entry-content section.default-background:nth-child(even) {
-  background: #d8e5e8; }
+  /* background:$primary-section; */ }
 
 .entry-content section.primary-background {
   background: #d8e5e8; }
@@ -3070,7 +3070,7 @@ blockquote {
     color: #fff; }
 
 p {
-  color: #595959; }
+  color: #664D39; }
 
 iframe {
   max-width: 100%; }
@@ -3549,7 +3549,7 @@ main.container > section > .grid-container {
   position: relative;
   padding-left: 18px;
   margin-bottom: 7px;
-  color: #595959; }
+  color: #664D39; }
   .entry-content > ul > li:before, section.section ul > li:before {
     content: "";
     width: 7px;
@@ -3565,7 +3565,7 @@ main.container > section > .grid-container {
   .entry-content > ol > li, section.section ol > li {
     display: block;
     margin-bottom: 7px;
-    color: #595959; }
+    color: #664D39; }
     .entry-content > ol > li:before, section.section ol > li:before {
       content: counter(item) ". ";
       counter-increment: item;
@@ -5296,7 +5296,7 @@ ul.resp-tabs-list {
   display: inline-block;
   padding: 13px 40px;
   margin: 0 4px 0 0;
-  color: #595959;
+  color: #664D39;
   list-style: none;
   cursor: pointer;
   float: left; }
@@ -5350,7 +5350,7 @@ h2.resp-accordion {
   /* Safari and Chrome */
   -ms-transition: all .5s;
   /* Opera */
-  color: #595959; }
+  color: #664D39; }
 
 div.resp-easy-accordion {
   max-width: 792px;
@@ -6677,19 +6677,6 @@ div.datedropper .null {
 
 .fl-form.fl-style-2 .fl-is-required:before {
   padding-top: 12px; }
-
-.fl-form .fl-wrap-select:after {
-  content: '';
-  position: absolute;
-  display: block;
-  top: 1px;
-  right: 6px;
-  height: calc(100% - 2px);
-  width: 12px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3E%3Cpath fill='%23bbb' d='M 4 0 L 0 6.5 L 8 6.5 L 4 0 z M 0 9.5 L 4 16 L 4 16 L 8 9.5 z'/%3E%3C/svg%3E") no-repeat;
-  background-position: 100% 50%;
-  background-size: 7px 14px;
-  z-index: 2; }
 
 /**
  * featherlight - ultra slim jQuery lightbox
