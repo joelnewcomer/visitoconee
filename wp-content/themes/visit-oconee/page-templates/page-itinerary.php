@@ -11,7 +11,7 @@ get_header(); ?>
 <div id="page" role="main">
 	<div class="grid-container">
 		<div class="grid-x grid-padding-x">
-			<div class="large-12 cell text-center itinerary-buttons hide-for-print">
+			<div class="large-12 cell text-center itinerary-buttons hide-for-print load-container">
 				<div class="button"><a href="javascript:window.print()">Print</a></div>
 				<div class="button"><a class="email" href="mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! (see attached).&attachment=c:\myfolder\myfile.txt">Email</a></div>
 				<div class="load-awesome la-ball-clip-rotate la-2x"><div></div></div>
@@ -72,14 +72,21 @@ function array_move(arr, old_index, new_index) {
 };
 
 // When the page loads, pull in the itinerary using AJAX
+jQuery('.itinerary-buttons .button').hide();
 jQuery( document ).ready(function() {
     var itinerary = basil.get('itinerary');
     jQuery.post(ajaxurl, {
         action: 'load_itinerary',
         itinerary: itinerary
-    }, function (data) {    
-	    jQuery('.load-awesome').hide();
-        jQuery('#itinerary').append(data);
+    }, function (data) {
+	    if (data == '') {
+		    jQuery('.load-container').html('<h2>You have not added anything to your itinerary yet.</h2>');
+		    jQuery('.itinerary-buttons .button').hide();
+	    } else {
+			jQuery('#itinerary').append(data);
+			jQuery('.itinerary-buttons .button').show();
+        }
+        jQuery('.load-awesome').hide();
     });
     
     // Generate PDF
