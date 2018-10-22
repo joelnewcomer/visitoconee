@@ -4949,10 +4949,10 @@ body.error404 .entry-content h2 {
     display: block;
     float: left;
     width: 100%;
-    padding: 30px 40px; }
+    padding: 30px 20px 30px 40px; }
     @media only screen and (max-width: 40.063em) {
       .poi-card .poi-card-content {
-        padding: 15px 20px; } }
+        padding: 15px 10px 15px 20px; } }
   .poi-card p, .poi-card a {
     font-size: 18px; }
   .poi-card .clickable {
