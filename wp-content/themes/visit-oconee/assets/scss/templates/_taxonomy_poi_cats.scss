@@ -91,7 +91,7 @@
 		float: left;
 		width: 100%;
 		padding: 30px 20px 30px 40px;
-		@media only screen and (max-width: 40.063em) {
+		@media only screen and (max-width: 1170px) {
 			padding: 15px 10px 15px 20px;
 		}
 	}
@@ -126,6 +126,9 @@
 		float: right;
 		margin-top: 15px;
 		width: 138px;
+		@media only screen and (max-width: 1090px) {
+			width: 100px;	
+		}
 		font-weight: bold;
 		span {
 			text-transform: uppercase;
@@ -141,6 +144,9 @@
 			height: 39px;
 			margin-right: 8px;
 			vertical-align: top;
+			@media only screen and (max-width: 1090px) {
+				display: none;	
+			}
 		}
 		.added {
 			display: none;

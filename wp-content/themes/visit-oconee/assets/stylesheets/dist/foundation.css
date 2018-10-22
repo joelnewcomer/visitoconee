@@ -4950,7 +4950,7 @@ body.error404 .entry-content h2 {
     float: left;
     width: 100%;
     padding: 30px 20px 30px 40px; }
-    @media only screen and (max-width: 40.063em) {
+    @media only screen and (max-width: 1170px) {
       .poi-card .poi-card-content {
         padding: 15px 10px 15px 20px; } }
   .poi-card p, .poi-card a {
@@ -4976,6 +4976,9 @@ body.error404 .entry-content h2 {
     margin-top: 15px;
     width: 138px;
     font-weight: bold; }
+    @media only screen and (max-width: 1090px) {
+      .poi-card .poi-itinerary {
+        width: 100px; } }
     .poi-card .poi-itinerary span {
       text-transform: uppercase; }
     .poi-card .poi-itinerary div {
@@ -4988,6 +4991,9 @@ body.error404 .entry-content h2 {
       height: 39px;
       margin-right: 8px;
       vertical-align: top; }
+      @media only screen and (max-width: 1090px) {
+        .poi-card .poi-itinerary svg {
+          display: none; } }
     .poi-card .poi-itinerary .added {
       display: none; }
     .poi-card .poi-itinerary.added .added {
