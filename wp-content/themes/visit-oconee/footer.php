@@ -25,41 +25,45 @@
 			</div>
 		</div> <!-- main-footer -->
 		<div class="sub-footer">
+			<div class="map-container">
 			<div class="grid-container">
 				<div class="grid-x grid-padding-x">
-					<div class="large-4 medium-4 print-12 cell footer-logo hide-on-print small-text-center">
-						<div class="hide-for-print">
-							<?php get_template_part('template-parts/site-logo','link'); ?>
-						</div>
+					<div class="large-offset-4 medium-offset-4 large-4 medium-4 cell text-center footer-about hide-for-print">
+						<?php get_template_part('template-parts/site-logo','link'); ?>
+						<p>Oconee County is located in the northwestern corner of Upstate SC and borders the mountains of NC and Northeast GA.</p>
+					</div>
+					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center hide-for-print">
+						<a class="footer-brochure-image" href="#">
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/footer-brochure.jpg" alt="Visit Oconee Visitor's Guide">
+						</a>
+						<a class="footer-brochure" href="#">
+							Download Our <span class="no-wrap">Visitor's Guide</span>
+						</a>
+						
+					</div>
+					<div class="large-9 medium-12 medium-down-text-center cell">
 						<p class="copyright">Copyright &copy; <?php echo date('Y'); ?> Visit Oconee SC.  <span class="no-break"><?php _e( 'All rights reserved.', 'textdomain' ); ?></span>
 							<?php
 							$terms_page = get_theme_mod( 'terms_page' );
 							$privacy_page = get_theme_mod( 'privacy_page' );
 							?>
-							<br />
 							<span class="hide-for-print">
 							<?php if ($terms_page) : ?>
-								<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
+								&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
 							<?php endif; ?>
 							<?php if ($privacy_page) : ?>
 								&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_permalink($privacy_page); ?>"><?php _e( 'Privacy', 'drumroll' ); ?></a>
 							<?php endif; ?>
 							&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_site_url(); ?>/sitemap"><?php _e( 'Sitemap', 'drumroll' ); ?></a>
 							</span> <!-- hide-for-print -->
-						</p>
+						</p>			
 					</div>
-					<div class="large-4 medium-4 cell text-center small-text-center footer-about hide-for-print">
-						<p>Oconee County is located in the northwestern corner of Upstate SC and borders the mountains of NC and Northeast GA.</p>
-					</div>
-					<div class="large-4 medium-4 cell drum hide-on-print text-right small-text-center hide-for-print">
-						<a class="footer-brochure" href="#">
-							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/footer-brochure.jpg" alt="Visit Oconee Visitor's Guide">
-							Download Our Visitor's Guide
-						</a>
+					<div class="large-3 medium-12 cell drum medium-down-text-center hide-on-print hide-for-print">
 						<p class="drum"><a href="http://www.drumcreative.com" target="_blank"><?php _e( 'Web Design by: Drum Creative' ); ?></a></p>
-					</div>					
+					</div>
 				</div> <!-- grid-x -->
-			</div> <!-- grid-container -->			
+			</div> <!-- grid-container -->
+			</div> <!-- map-container -->	
 		</div> <!-- sub-footer -->
 	</footer>
 	
