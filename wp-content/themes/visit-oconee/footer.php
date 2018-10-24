@@ -47,7 +47,7 @@
 							$terms_page = get_theme_mod( 'terms_page' );
 							$privacy_page = get_theme_mod( 'privacy_page' );
 							?>
-							<span class="hide-for-print">
+							<span class="hide-for-print no-break">
 							<?php if ($terms_page) : ?>
 								&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
 							<?php endif; ?>
@@ -55,7 +55,7 @@
 								&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_permalink($privacy_page); ?>"><?php _e( 'Privacy', 'drumroll' ); ?></a>
 							<?php endif; ?>
 							&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_site_url(); ?>/sitemap"><?php _e( 'Sitemap', 'drumroll' ); ?></a>
-							</span> <!-- hide-for-print -->
+							</span> <!-- hide-for-print no-break -->
 						</p>			
 					</div>
 					<div class="large-3 medium-12 cell drum medium-down-text-center hide-on-print hide-for-print">
