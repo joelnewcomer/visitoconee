@@ -57,7 +57,7 @@
 		<a class="skip-link sr-only" href="#content"><?php _e( 'Skip to content', 'drumroll' ); ?></a>
 		<!-- NOTE: Remove "transparent" class for white relative header (rather than semi-transparent absolute header) -->
 		<div class="header-wrapper transparent">
-			<header id="masthead" class="site-header"  role="banner">
+			<header id="masthead" class="site-header <?php if (!is_front_page()) : ?>headroom--pinned<?php endif; ?>"  role="banner">
 				<div id="top-header" class="hide-for-small hide-for-print">
 					<nav id="top-navigation" class="main-navigation top-menu grid-container" role="navigation">
 						<?php drumroll_top_menu(); ?>
