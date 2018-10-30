@@ -238,7 +238,7 @@
                 },
                 {
                     "key": "field_5bb51d861efd0",
-                    "label": "Image",
+                    "label": "Image (duotone)",
                     "name": "image",
                     "type": "image",
                     "instructions": "Will be sized and cropped to 636 x 428 pixels.",
@@ -258,11 +258,31 @@
                     "max_width": "",
                     "max_height": "",
                     "max_size": "",
-                    "mime_types": "",
-                    "show_column": 0,
-                    "show_column_weight": 1000,
-                    "allow_quickedit": 0,
-                    "allow_bulkedit": 0
+                    "mime_types": ""
+                },
+                {
+                    "key": "field_5bd86abb237d0",
+                    "label": "Image Hover (full color)",
+                    "name": "image_hover",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": ""
                 },
                 {
                     "key": "field_5bb51db31efd1",
@@ -653,5 +673,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1538664113
+    "modified": 1540909832
 }

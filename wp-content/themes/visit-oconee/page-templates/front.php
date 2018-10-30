@@ -64,6 +64,13 @@ get_header(); ?>
 		   				<?php $link = get_sub_field('link'); ?>
 						<a href="<?php echo $link['url']; ?>" <?php if ($link['target'] != '') : ?>target="<?php echo $link['target']; ?>"<?php endif; ?>>
 							<?php echo wp_get_attachment_image(get_sub_field('image'), 'home-block'); ?>
+							<div class="home-block-hover">
+								<?php if (get_sub_field('image_hover')) : ?>
+									<?php echo wp_get_attachment_image(get_sub_field('image_hover'), 'home-block'); ?>
+								<?php else : ?>
+									<?php echo wp_get_attachment_image(get_sub_field('image'), 'home-block'); ?>
+								<?php endif; ?>
+							</div>
 							<div class="home-block-overlay">
 								<div style="display:table;width:100%;height:100%;">
 								  <div style="display:table-cell;vertical-align:middle;">
