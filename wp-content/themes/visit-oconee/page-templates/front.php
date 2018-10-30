@@ -298,6 +298,7 @@ if (typeof bxSlider === "function") {
 
 jQuery(document).one('scroll', function() {
 	jQuery('#masthead').addClass('scrolled');
+	jQuery('#masthead').addClass('headroom--pinned');
 	jQuery('.slider-overlay img').addClass('fade-out');
 });
 
