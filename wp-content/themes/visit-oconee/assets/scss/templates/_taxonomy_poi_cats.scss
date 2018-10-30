@@ -33,9 +33,10 @@
 		   }
 		   color: $brown;
 	    }
-	    &.active {
-		    pointer-events: none;
-		    cursor: default;
+	    svg path, h3 {
+		    transition: all .5s;
+	    }
+	    &.active, &:hover {
 		    svg path {
 		    	fill: $orange;
 				stroke: $orange;
@@ -43,6 +44,10 @@
 			h3 {
 				color: $orange;
 			}
+	    }
+	    &.active {
+		    pointer-events: none;
+		    cursor: default;		    
 	    }
     }
 }

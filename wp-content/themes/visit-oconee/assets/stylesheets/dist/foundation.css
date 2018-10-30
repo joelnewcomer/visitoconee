@@ -3390,7 +3390,7 @@ main.container > section > .grid-container {
         margin-top: 30px;
         margin-bottom: 20px; } }
   .sub-footer .footer-about p {
-    font-size: 24px;
+    font-size: 22px;
     max-width: 495px;
     display: inline-block;
     margin-bottom: 80px; }
@@ -4884,14 +4884,16 @@ body.error404 .entry-content h2 {
       @media only screen and (max-width: 40.063em) {
         .tax-sub-cats .cat-filter h3 {
           font-size: 18px; } }
+    .tax-sub-cats .cat-filter svg path, .tax-sub-cats .cat-filter h3 {
+      transition: all .5s; }
+    .tax-sub-cats .cat-filter.active svg path, .tax-sub-cats .cat-filter:hover svg path {
+      fill: #E67002;
+      stroke: #E67002; }
+    .tax-sub-cats .cat-filter.active h3, .tax-sub-cats .cat-filter:hover h3 {
+      color: #E67002; }
     .tax-sub-cats .cat-filter.active {
       pointer-events: none;
       cursor: default; }
-      .tax-sub-cats .cat-filter.active svg path {
-        fill: #E67002;
-        stroke: #E67002; }
-      .tax-sub-cats .cat-filter.active h3 {
-        color: #E67002; }
 
 .cat-banner-ads {
   margin: 50px 0; }
