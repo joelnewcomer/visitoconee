@@ -3,8 +3,8 @@ Contributors: (Virgial)
 Tags: notification,notify,email,user,password,moderator,postauthor,admin,e-mail,switch
 Requires at least: 4.0.0
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TYG56SLWNG42N
-Tested up to: 4.8
-Stable tag: 1.3.0
+Tested up to: 4.9.8
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,9 @@ Some other plugins also use their custom notifications which overwrite the core 
 If you're one of the early installers, than you'll be happy to see that de new user notification is now splitted in admin and user e-mail management.
 
 == Changelog ==
+
+= 1.4.0 =
+ADDED: Multi-language support
 
 = 1.3.0 =
 ADDED: passing through the $notify variable, available sinds 4.6. This is for other plugins to override default sending to admin or user. Only useful if sending within this plugin is activated. 
