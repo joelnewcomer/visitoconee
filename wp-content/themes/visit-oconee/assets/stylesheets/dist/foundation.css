@@ -5170,6 +5170,9 @@ a.submit-event {
 #itinerary .poi-card {
   position: relative;
   margin-bottom: 30px; }
+  @media only screen and (max-width: 1440px) {
+    #itinerary .poi-card {
+      width: calc(100% - 55px); } }
   #itinerary .poi-card .poi-image {
     float: left; }
   #itinerary .poi-card .poi-itinerary.button {
