@@ -62,6 +62,7 @@
 .poi-card {
 	background: rgba($brown, .10);
 	margin-bottom: 20px;
+	position: relative;
 	.poi-card-content {
 		p, .poi-link, .poi-itinerary, a {
 			color: $brown;
@@ -89,15 +90,15 @@
 	h3 {
 		color: $orange;
 		font-weight: bold;
-		margin-bottom: 0;
+		margin-bottom: 10px;
 	}
 	.poi-card-content {
 		display: block;
 		float: left;
 		width: 100%;
-		padding: 30px 20px 30px 40px;
+		padding: 30px 40px 70px 40px;
 		@media only screen and (max-width: 1170px) {
-			padding: 15px 10px 15px 20px;
+			padding: 15px 20px 70px 20px;
 		}
 	}
 	
@@ -108,27 +109,39 @@
 		cursor: pointer;
 	}
 	a.address{
-		display: inline-block;
+		display: block;
+		width: 100%;
 		margin-bottom: 15px;
 	}
 	.poi-link {
 		font-size: 18px;
 		font-weight: bold;
 	}	
-	.poi-more {
-		margin-right: 40px;
+	.poi-more-info {
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		text-align: center;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-size: 20px;
+		padding: 9px 10px 8px 10px;
+		background: rgba(255,255,255,.2);
 	}
 
 	.poi-social {
 		margin-top: 24px;
-		float: left;
+		float: right;
 		a {
 			margin-right: 10px;
 		}
 	}
 	.poi-itinerary {
 		cursor: pointer;
-		float: right;
+		float: left;
 		margin-top: 15px;
 		width: 138px;
 		@media only screen and (max-width: 1090px) {

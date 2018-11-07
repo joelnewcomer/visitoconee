@@ -158,12 +158,10 @@ if (typeof bxSlider === "function") {
 								<?php endif; ?>
 								    <?php echo $address; ?>
 								</a>
-								<div class="poi-links">
-									<a href="<?php echo get_field('google_business_url'); ?>" target="_blank" class="poi-link poi-more">More Info</a>
-									<?php if ($website != '') : ?>
-										<a class="poi-link" href="<?php echo $website; ?>" target="_blank">Website</a>
-									<?php endif; ?>
-								</div> <!-- poi-links -->
+								<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
+									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
+									<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
+								</div>
 								<div class="poi-social">
 								<?php foreach( $social as $social_name => $social_url ) : ?>
 									<?php
@@ -172,11 +170,8 @@ if (typeof bxSlider === "function") {
 									echo '</a>';
 									?>
 								<?php endforeach; ?>
-								</div> <!-- poi-social -->
-								<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
-									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
-									<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
-								</div>
+								</div> <!-- poi-social -->								
+								<a href="<?php echo get_field('google_business_url'); ?>" target="_blank" class="poi-more-info">More Info</a>
 							</div> <!-- poi-card-content -->
 						</div> <!-- poi-card -->
 					<?php endwhile; ?>

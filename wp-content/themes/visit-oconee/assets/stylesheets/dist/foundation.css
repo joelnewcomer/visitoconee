@@ -4905,6 +4905,7 @@ body.error404 .entry-content h2 {
 .poi-card {
   background: rgba(102, 77, 57, 0.1);
   margin-bottom: 20px;
+  position: relative;
   /* .poi-modal {
 		display: block;
 		position: fixed;
@@ -5000,35 +5001,47 @@ body.error404 .entry-content h2 {
   .poi-card h3 {
     color: #E67002;
     font-weight: bold;
-    margin-bottom: 0; }
+    margin-bottom: 10px; }
   .poi-card .poi-card-content {
     display: block;
     float: left;
     width: 100%;
-    padding: 30px 20px 30px 40px; }
+    padding: 30px 40px 70px 40px; }
     @media only screen and (max-width: 1170px) {
       .poi-card .poi-card-content {
-        padding: 15px 10px 15px 20px; } }
+        padding: 15px 20px 70px 20px; } }
   .poi-card p, .poi-card a {
     font-size: 18px; }
   .poi-card .clickable {
     cursor: pointer; }
   .poi-card a.address {
-    display: inline-block;
+    display: block;
+    width: 100%;
     margin-bottom: 15px; }
   .poi-card .poi-link {
     font-size: 18px;
     font-weight: bold; }
-  .poi-card .poi-more {
-    margin-right: 40px; }
+  .poi-card .poi-more-info {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 20px;
+    padding: 9px 10px 8px 10px;
+    background: rgba(255, 255, 255, 0.2); }
   .poi-card .poi-social {
     margin-top: 24px;
-    float: left; }
+    float: right; }
     .poi-card .poi-social a {
       margin-right: 10px; }
   .poi-card .poi-itinerary {
     cursor: pointer;
-    float: right;
+    float: left;
     margin-top: 15px;
     width: 138px;
     font-weight: bold; }
