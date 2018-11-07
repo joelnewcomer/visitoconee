@@ -28,7 +28,7 @@ get_header(); ?>
 	    </ul>
 	    <div class="slider-overlay text-center">
 		    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/visit-oconee-logo.png" alt="Visit Oconee South Carolina logo">
-		    <h1>Oconee is a<br /><span>cool place to play!</span></h1>
+		    <h1>Oconee, South Carolina is a<br /><span>cool place to play!</span></h1>
 	    </div>
 	</div> <!-- slider-container -->
 
