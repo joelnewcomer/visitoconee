@@ -4478,6 +4478,7 @@ h1.entry-title-ul {
       opacity: 0; }
   .slider-overlay h1 {
     font-size: 37px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     font-weight: 600;
     line-height: 1;
     color: #fff;
