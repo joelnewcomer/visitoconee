@@ -51,27 +51,6 @@
             "allow_bulkedit": 0
         },
         {
-            "key": "field_5bbe5554d2486",
-            "label": "Website",
-            "name": "website",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "show_column": 0,
-            "show_column_sortable": 0,
-            "show_column_weight": 1000,
-            "allow_quickedit": 0,
-            "allow_bulkedit": 0
-        },
-        {
             "key": "field_5bbe58ac465fe",
             "label": "Social",
             "name": "social",
@@ -153,10 +132,10 @@
         },
         {
             "key": "field_5bc4f2b7bbbe9",
-            "label": "Google Business URL",
+            "label": "More Info URL",
             "name": "google_business_url",
             "type": "url",
-            "instructions": "",
+            "instructions": "website \/ Google Business page",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -192,5 +171,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1539955816
+    "modified": 1541623706
 }
