@@ -14,6 +14,7 @@ get_header(); ?>
 			<div class="large-12 cell text-center itinerary-buttons hide-for-print load-container">
 				<div class="button"><a href="javascript:window.print()">Print</a></div>
 				<div class="button"><a class="email" href="mailto:?subject=My Itinerary for Oconee&body=Check out my itinerary for Ocononee County SC! (see attached).&attachment=c:\myfolder\myfile.txt">Email</a></div>
+				<p>Use arrows on right to arrange the order of your visit</p>
 				<div class="load-awesome la-ball-clip-rotate la-2x"><div></div></div>
 			</div>
 		</div> <!-- grid-x -->
