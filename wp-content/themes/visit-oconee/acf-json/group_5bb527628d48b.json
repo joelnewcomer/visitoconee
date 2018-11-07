@@ -59,70 +59,6 @@
             "allow_bulkedit": 0
         },
         {
-            "key": "field_5bbcfb90d8fd5",
-            "label": "Block Ads",
-            "name": "ads",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "block",
-            "button_label": "Add Ad",
-            "sub_fields": [
-                {
-                    "key": "field_5bbcfc1cd8fd6",
-                    "label": "Ad Image",
-                    "name": "ad_image",
-                    "type": "image",
-                    "instructions": "Will be sized and cropped to 414 x 297 pixels.",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "show_column": 0,
-                    "show_column_weight": 1000,
-                    "allow_quickedit": 0,
-                    "allow_bulkedit": 0
-                },
-                {
-                    "key": "field_5bbcfc3fd8fd7",
-                    "label": "Ad Link",
-                    "name": "ad_link",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array"
-                }
-            ]
-        },
-        {
             "key": "field_5bc8e283ed7e1",
             "label": "Banner Ads",
             "name": "banner_ads",
@@ -238,5 +174,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1539895427
+    "modified": 1541618732
 }
