@@ -52,7 +52,7 @@ date_default_timezone_set(get_option('timezone_string'));
 		<div class="grid-x grid-margin-x clear">
 			<div class="large-12 cell text-center">
 				<div class="cat-filter active" data-filter="all">
-					<?php get_template_part('assets/images/eat', 'all-icon.svg'); ?><br />
+					<?php echo file_get_contents(get_field('category_icon', $term)); ?><br />
 					<h3>All</h3>
 				</div>
 				<?php

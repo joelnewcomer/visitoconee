@@ -99,66 +99,16 @@ get_header(); ?>
 					$icon = get_field('product_feature_image', $term );
 					?>
 					<div class="large-3 medium-3 small-6 cell text-center">
-					    <a class="transition cat-link" href="#<?php echo $term->slug; ?>" title="View all <?php echo $term->name; ?>">
+					    <a class="transition cat-link" href="<?php echo get_term_link( $term, 'poi_cats' ); ?>" title="View all <?php echo $term->name; ?>">
 						    <?php echo file_get_contents(get_field('category_icon', $term)); ?><br />
 						    <?php echo $term->name; ?>
 						</a>
 					</div>
-					<div class="cat-modal transition" id="<?php echo $term->slug; ?>">
-						<div style="display:table;width:100%;height:100%;">
-							<div style="display:table-cell;vertical-align:middle;">
-								<div style="text-align:center;">
-									<div class="modal-inner">
-										<div class="grid-x grid-padding-x">
-											<?php if(get_field('ads', $term)): ?>
-												<div class="large-5 medium-5 small-push-7 cell small-order-2 cat-ads">
-													<?php while(has_sub_field('ads', $term)): ?>
-														<?php $link = get_sub_field('ad_link'); ?>
-														<a href="<?php echo $link['url']; ?>">
-															<?php echo wp_get_attachment_image(get_sub_field('ad_image'), 'full'); ?>
-														</a>
-													<?php endwhile; ?>
-												</div>
-												<div class="large-7 medium-7 small-order-1 cell text-left">
-											<?php else: ?>
-												<div class="large-12 cell text-left">	
-											<?php endif; ?>
-												<div class="close-modal"><?php get_template_part('assets/images/close', 'icon.svg'); ?></div>
-												<h2><?php echo $term->name; ?></h2>
-												<div class="sub-cats">
-												<?php
-													$args = array( 
-													    'hide_empty' => false,
-													    'child_of' => $term->term_id,
-													);
-													$child_terms = get_terms( 'poi_cats', $args );
-													foreach ( $child_terms as $child_term ) { ?>
-														<a href="<?php echo get_term_link($term); ?>#<?php echo $child_term->slug; ?>"><?php echo $child_term->name; ?></a><br />
-													<?php } ?>
-												</div> <!-- sub-cats -->							
-											</div>
-										</div> <!-- row -->
-									</div> <!-- modal-inner -->
-								</div> 
-							</div>
-						</div>
-					</div> <!-- cat-modal -->
 				<?php } ?>
 	   		</div>
 		</div>
 	</section> <!-- home-cats -->
 	
-	<script>
-		jQuery("a.cat-link").on( "click", function(e) {
-			e.preventDefault();
-			var modalID = jQuery(this).attr('href');
-			jQuery('.cat-modal').removeClass('active');
-			jQuery(modalID).addClass('active');
-		});
-		jQuery(".close-modal").on( "click", function(e) {
-			jQuery('.cat-modal').removeClass('active');	
-		});
-	</script>
 	
 	<section class="destinations">
 		<div class="grid-container">
