@@ -146,7 +146,8 @@ add_action( 'restrict_manage_posts', 'pippin_add_taxonomy_filters' );
 // Display points of interest in random order
 function order_poi( $query ) {
   if ( !is_admin() && $query->is_main_query() && is_tax( 'poi_cats' ) ) {
-    $query->set( 'orderby', 'rand' );
+    $query->set( 'orderby', 'title' );
+    $query->set( 'order', 'ASC' );
   }
 }
 add_action( 'pre_get_posts', 'order_poi' );
