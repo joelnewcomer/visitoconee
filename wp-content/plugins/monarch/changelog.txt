@@ -1,3 +1,6 @@
+version 1.4.8 ( updated 10-30-2018 )
+	- Applied some minor security hardening improvements.
+
 version 1.4.7 ( updated 10-05-2018 )
 - Fixed the Facebook follower count.
 	* monarch.php

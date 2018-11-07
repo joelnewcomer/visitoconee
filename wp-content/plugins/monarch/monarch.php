@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Monarch Plugin
  * Plugin URI: http://www.elegantthemes.com
- * Version: 1.4.7
+ * Version: 1.4.8
  * Description: Social Media Plugin
  * Author: Elegant Themes
  * Author URI: http://www.elegantthemes.com
@@ -17,7 +17,7 @@ define( 'ET_MONARCH_PLUGIN_DIR', trailingslashit( dirname(__FILE__) ) );
 define( 'ET_MONARCH_PLUGIN_URI', plugins_url('', __FILE__) );
 
 class ET_Monarch {
-	var $plugin_version = '1.4.7';
+	var $plugin_version = '1.4.8';
 	var $db_version = '1.3';
 	var $monarch_options;
 	var $_options_pagename = 'et_monarch_options';
@@ -3844,18 +3844,18 @@ class ET_Monarch {
 			die( -1 );
 		}
 
-		$post_id   = $_POST[ 'all_networks_page_id' ];
-		$link      = $_POST[ 'all_networks_link' ];
-		$title     = $_POST[ 'all_networks_title' ];
-		$media     = isset( $_POST[ 'all_networks_media' ] ) ? $_POST[ 'all_networks_media' ] : '';
+		$post_id   = (int) $_POST[ 'all_networks_page_id' ];
+		$link_url  = sanitize_text_field( $_POST[ 'all_networks_link' ] );
+		$title     = sanitize_text_field( $_POST[ 'all_networks_title' ] );
+		$media_url = isset( $_POST[ 'all_networks_media' ] ) ? sanitize_text_field( $_POST[ 'all_networks_media' ] ) : '';
 		$for_popup = isset( $_POST[ 'is_popup' ] ) ? $_POST[ 'is_popup' ] : false;
 
 		if ( 'true' == $for_popup ) {
 			$monarch_options   = $this->monarch_options;
 			$selected_networks = $monarch_options[ 'sharing_networks_networks_sorting' ][ 'class' ];
-			$result            = $this->get_icons_list( 'popup', '', false, false, true, $post_id, $link, $title, $selected_networks );
+			$result            = $this->get_icons_list( 'popup', '', false, false, true, $post_id, $link_url, $title, $selected_networks );
 		} else {
-			$result = $this->generate_popup_content( true, $post_id, $link, $title, $media );
+			$result = $this->generate_popup_content( true, $post_id, $link_url, $title, $media_url );
 		}
 
 		die( $result );
