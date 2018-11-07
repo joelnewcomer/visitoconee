@@ -4644,6 +4644,8 @@ section.home-cats {
       section.home-cats a.cat-link {
         font-size: 36px; } }
     section.home-cats a.cat-link svg {
+      display: block;
+      margin: 0 auto;
       width: 87px;
       height: 87px; }
       section.home-cats a.cat-link svg path {

@@ -100,7 +100,7 @@ get_header(); ?>
 					?>
 					<div class="large-3 medium-3 small-6 cell text-center">
 					    <a class="transition cat-link" href="<?php echo get_term_link( $term, 'poi_cats' ); ?>" title="View all <?php echo $term->name; ?>">
-						    <?php echo file_get_contents(get_field('category_icon', $term)); ?><br />
+						    <?php echo file_get_contents(get_field('category_icon', $term)); ?>
 						    <?php echo $term->name; ?>
 						</a>
 					</div>
