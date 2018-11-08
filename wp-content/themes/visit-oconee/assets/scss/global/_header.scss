@@ -181,6 +181,12 @@ header#masthead {
 	}
 }
 
+@media only screen and (max-width: 40.063em) {
+	.admin-bar header#masthead.headroom--pinned:not(.headroom--top) {
+		top: 0;
+	}	
+}
+
 .icon-wrapper {
 	display: inline-block;
 	padding: 0 20px;

@@ -3083,18 +3083,21 @@ h1.entry-title {
   font-family: "gizmo";
   font-size: 160px;
   text-transform: lowercase; }
+  @media only screen and (max-width: 970px) {
+    h1.entry-title {
+      font-size: 120px; } }
+  @media only screen and (max-width: 700px) {
+    h1.entry-title {
+      font-size: 100px; } }
+  @media only screen and (max-width: 40.063em) {
+    h1.entry-title {
+      font-size: 80px; } }
   @media print {
     h1.entry-title {
       display: inline-block;
       font-size: 64px;
       margin: 40px 0 20px 0;
       color: #664D39 !important; } }
-  @media only screen and (max-width: 700px) {
-    h1.entry-title {
-      font-size: 120px; } }
-  @media only screen and (max-width: 40.063em) {
-    h1.entry-title {
-      font-size: 80px; } }
 
 body.edge .bx-loading {
   display: none; }
@@ -3292,6 +3295,10 @@ header#masthead {
 @media only screen and (max-width: 782px) {
   .admin-bar header#masthead.headroom--pinned:not(.headroom--top) {
     top: -24px; } }
+
+@media only screen and (max-width: 40.063em) {
+  .admin-bar header#masthead.headroom--pinned:not(.headroom--top) {
+    top: 0; } }
 
 .icon-wrapper {
   display: inline-block;
@@ -4160,7 +4167,7 @@ ul.post-meta {
     width: 100%; }
     @media only screen and (min-width: 40.063em) {
       .featured-container .blog-header {
-        padding-top: 110px; } }
+        padding-top: 82px; } }
     @media print {
       .featured-container .blog-header {
         position: relative; } }
@@ -5242,6 +5249,76 @@ a.submit-event {
 
 #email-modal #gform_confirmation_message_6 {
   margin: 40px 0; }
+
+section.newsletters {
+  padding: 100px 0 50px 0; }
+  @media only screen and (max-width: 40.063em) {
+    section.newsletters {
+      padding: 60px 0 10px 0; } }
+  section.newsletters .current-nl a {
+    font-weight: 700;
+    font-size: 22px;
+    color: #E67002; }
+    section.newsletters .current-nl a span {
+      text-transform: uppercase; }
+    section.newsletters .current-nl a img {
+      margin: 16px 0 10px 0; }
+    section.newsletters .current-nl a i {
+      font-size: 18px;
+      color: #664D39; }
+  section.newsletters .nl-archive {
+    padding-top: 44px;
+    padding-left: 60px; }
+    @media only screen and (max-width: 40.063em) {
+      section.newsletters .nl-archive {
+        padding-left: 0; } }
+    section.newsletters .nl-archive h2 {
+      color: #E67002;
+      font-weight: 700;
+      margin-bottom: 30px; }
+    section.newsletters .nl-archive p {
+      font-size: 20px;
+      margin-bottom: 50px; }
+    section.newsletters .nl-archive .year-row {
+      display: block;
+      float: left;
+      width: 100%;
+      margin-bottom: 50px;
+      padding-left: 90px;
+      position: relative; }
+      section.newsletters .nl-archive .year-row span, section.newsletters .nl-archive .year-row a {
+        font-size: 22px;
+        padding: 0 8px;
+        text-transform: uppercase;
+        display: inline-block; }
+      section.newsletters .nl-archive .year-row a {
+        color: #664D39; }
+        section.newsletters .nl-archive .year-row a:hover {
+          color: #E67002; }
+      section.newsletters .nl-archive .year-row .year {
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 700;
+        padding-right: 40px;
+        padding-left: 0;
+        float: left;
+        margin-bottom: 60px; }
+      section.newsletters .nl-archive .year-row .no-link {
+        color: #E3E0DD; }
+      section.newsletters .nl-archive .year-row .active {
+        color: #E67002 !important; }
+
+section.nl-sign-up {
+  background: #efecea;
+  padding: 120px 0; }
+  section.nl-sign-up h2 {
+    font-weight: 700;
+    color: #E67002;
+    margin-bottom: 24px;
+    font-size: 34px; }
+  section.nl-sign-up p {
+    font-size: 24px; }
 
 /**
  * BxSlider v4.1.2 - Fully loaded, responsive content slider

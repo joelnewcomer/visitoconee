@@ -150,19 +150,22 @@ h1.entry-title, h2.entry-title {
 h1.entry-title {
 	font-family: "gizmo";
 	font-size: 160px;
+	text-transform: lowercase;
+	@media only screen and (max-width: 970px) {
+		font-size: 120px;
+	}
+	@media only screen and (max-width: 700px) {	
+		font-size: 100px;
+	}
+	@media only screen and (max-width: 40.063em) {
+		font-size: 80px;	
+	}
 	@media print { 
 		display: inline-block;
 		font-size: 64px;
 		margin: 40px 0 20px 0;
 		color: $brown !important;	
-	}
-	text-transform: lowercase;
-	@media only screen and (max-width: 700px) {	
-		font-size: 120px;
-	}
-	@media only screen and (max-width: 40.063em) {
-		font-size: 80px;	
-	}
+	}	
 }
 
 // Fix for bxSlider Edge, loader doesn't go away

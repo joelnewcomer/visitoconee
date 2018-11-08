@@ -1,0 +1,89 @@
+section.newsletters {
+	padding: 100px 0 50px 0;
+	@media only screen and (max-width: 40.063em) {
+		padding: 60px 0 10px 0;	
+	}
+	.current-nl {
+		a {
+			font-weight: 700;
+			font-size: 22px;
+			color: $orange;
+			span {
+				text-transform: uppercase;
+			}
+			img {
+				margin: 16px 0 10px 0;
+			}
+			i {
+				font-size: 18px;
+				color: $brown;
+			}
+		}
+	}
+	.nl-archive {
+		padding-top: 44px;
+		padding-left: 60px;
+		@media only screen and (max-width: 40.063em) {
+			padding-left: 0;	
+		}
+		h2 {
+			color: $orange;
+			font-weight: 700;
+			margin-bottom: 30px;
+		}
+		p {
+			font-size: 20px;
+			margin-bottom: 50px;
+		}
+		.year-row {
+			display: block;
+			float: left;
+			width: 100%;
+			margin-bottom: 50px;
+			padding-left: 90px;
+			position: relative;
+			span, a {
+				font-size: 22px;
+				padding: 0 8px;
+				text-transform: uppercase;
+				display: inline-block;
+			}
+			a {
+				color: #664D39;
+				&:hover {
+					color: $orange;
+				}
+			}
+			.year {
+				position: absolute;
+				left: 0;
+				top: 0;
+				font-weight: 700;
+				padding-right: 40px;
+				padding-left: 0;
+				float: left;
+				margin-bottom: 60px;
+			}
+			.no-link {
+				color: #E3E0DD;
+			}
+			.active {
+				color: $orange !important;
+			}
+		}
+	}
+}
+
+section.nl-sign-up {
+	background: #efecea;
+	padding: 120px 0;
+	h2 {
+		font-weight: 700;
+		color: $orange;
+		margin-bottom: 24px;
+		font-size: 34px;
+	}
+	p {
+		font-size: 24px;
+	}
+}
