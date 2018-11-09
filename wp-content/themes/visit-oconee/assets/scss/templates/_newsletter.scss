@@ -77,6 +77,9 @@ section.newsletters {
 section.nl-sign-up {
 	background: #efecea;
 	padding: 120px 0;
+	@media only screen and (max-width: 40.063em) {
+		padding: 60px 0;	
+	}
 	h2 {
 		font-weight: 700;
 		color: $orange;
