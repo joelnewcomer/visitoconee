@@ -149,6 +149,23 @@ endif;
 
 
 
+if (empty($famne_options['auto_core_update_send_email']) && !function_exists('fa_dont_sent_auto_core_update_emails') ) :
+    /**
+     * Send email when wordpress automatic updated.
+     *
+    */
+    //echo "auto_core_update_send_email off";exit;
+    
+    
+    function fa_dont_sent_auto_core_update_emails( $send, $type, $core_update, $result ) {
+        if ( ! empty( $type ) && $type == 'success' ) {
+            return false;
+        }
+        return true;
+    }
+    add_filter( 'auto_core_update_send_email', 'fa_dont_sent_auto_core_update_emails', 10, 4 );
+endif;
+
 
 
 function fa_new_user_notification_to_admin ($user_id,$notify='')

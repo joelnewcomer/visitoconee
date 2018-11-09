@@ -4,7 +4,7 @@ Tags: gdpr, privacy policy, terms and conditions, terms of service, terms of use
 Requires at least: 4.2
 Tested up to: 4.9.7
 Requires PHP: 5.3
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,9 +113,15 @@ Installing the plugin is easy. Just follow these steps:
 
 == Changelog ==
 
+= Version 2.2.1 =
+* Nov 09, 2018
+* Allow for the license key to be used on multiple websites
+* Show WP AutoTerms created Legal Pages in WooCommerce Settings
+* Show WP AutoTerms created Legal Pages in WP > Settings > Privacy tab
+
 = Version 2.2.0 =
 * Oct 1, 2018
-* Fix body oepning tag not found error
+* Fix body opening tag not found error
 
 = Version 2.1.9 =
 * Sep 23, 2018

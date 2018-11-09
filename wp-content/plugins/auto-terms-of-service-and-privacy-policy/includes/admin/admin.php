@@ -48,6 +48,7 @@ abstract class Admin {
 		add_filter( 'pre_update_option', array( __CLASS__, 'fix_update' ), 10, 3 );
 		add_filter( 'get_sample_permalink_html', array( __CLASS__, 'remove_permalink' ), 10, 5 );
 		add_action( 'edit_form_top', array( __CLASS__, 'edit_form_top' ) );
+		add_filter( 'get_pages', array( __CLASS__, 'update_wp_builtin_pp' ), 10, 2 );
 
 		Notices::init( WPAUTOTERMS_OPTION_PREFIX . 'notices' );
 
@@ -61,6 +62,21 @@ abstract class Admin {
 		Admin_Columns::init();
 		Menu::init( static::$_license );
 		static::$_license->check();
+	}
+
+	public static function update_wp_builtin_pp( $pages, $r ) {
+		if ( ! isset( $r['name'] ) || !in_array( $r['name'], array(
+				'wp_page_for_privacy_policy',
+				'page_for_privacy_policy',
+				'woocommerce_terms_page_id'
+			) ) ) {
+			return $pages;
+		}
+		$r['post_type'] = CPT::type();
+		$r['name'] = WPAUTOTERMS_SLUG . '_page_for_privacy_policy';
+		$autoterms_pages = get_pages( $r );
+
+		return array_merge( $pages, $autoterms_pages );
 	}
 
 	public static function add_meta_boxes() {

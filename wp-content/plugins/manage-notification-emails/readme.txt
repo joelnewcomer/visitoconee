@@ -4,7 +4,7 @@ Tags: notification,notify,email,user,password,moderator,postauthor,admin,e-mail,
 Requires at least: 4.0.0
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TYG56SLWNG42N
 Tested up to: 4.9.8
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ Some other plugins also use their custom notifications which overwrite the core 
 If you're one of the early installers, than you'll be happy to see that de new user notification is now splitted in admin and user e-mail management.
 
 == Changelog ==
+
+= 1.4.1 =
+ADDED: Manage sending e-mail after a successful automatic Wordpress core update to administrators. E-mails about failed updates will always be sent to the administrators and will not be disabled.
+
 
 = 1.4.0 =
 ADDED: Multi-language support

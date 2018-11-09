@@ -5,7 +5,7 @@ Plugin URI: https://wpautoterms.com
 Description: Create Privacy Policy (Simple or GDPR), Terms & Conditions, Disclaimers and more. Compliance Kits to help you be compliant with the law. 
 Author: WP AutoTerms
 Author URI: https://wpautoterms.com
-Version: 2.2.0
+Version: 2.2.1
 License: GPLv2 or later
 Text Domain: wpautoterms
 Domain Path:  /languages

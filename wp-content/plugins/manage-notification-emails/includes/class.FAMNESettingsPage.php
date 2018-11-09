@@ -12,7 +12,7 @@
  * @author Virgial Berveling
  * @copyright 2006-2015
  *
- * version: 1.2.0
+ * version: 1.3.0
  */
 
 
@@ -173,6 +173,14 @@ class FAMNESettingsPage
             'setting_section_id'
         ); 
     
+        add_settings_field(
+            'auto_core_update_send_email', 
+            __('automatic Wordpress core update e-mail','manage-notification-emails'), 
+            array( $this, 'field10_callback' ), 
+            'famne-admin', 
+            'setting_section_id'
+        ); 
+    
     
     }
 
@@ -257,6 +265,11 @@ class FAMNESettingsPage
     public function field9_callback()
     {
         $this->print_checkbox('field9','send_password_admin_forgotten_email',__('Send the forgotten password e-mail to administrators. Okay, this is a <strong style="color:#900">DANGEROUS OPTION !</strong><br/> So be warned, because unchecking this option prevents sending out the forgotten password e-mail to all administrators. So hold on to your own password and uncheck this one at your own risk ;-)','manage-notification-emails'));
+    }  
+
+    public function field10_callback()
+    {
+        $this->print_checkbox('field10','auto_core_update_send_email',__('Sends an e-mail after a successful automatic Wordpress core update to administrators. E-mails about failed updates will always be sent to the administrators and cannot be disabled.','manage-notification-emails'));
     }        
 
     public function update_check()
@@ -279,7 +292,8 @@ class FAMNESettingsPage
                     'send_password_change_email'            => '1',
                     'send_email_change_email'               => '1',
                     'send_password_forgotten_email'         => '1',
-                    'send_password_admin_forgotten_email'   => '1'
+                    'send_password_admin_forgotten_email'   => '1',
+                    'auto_core_update_send_email'           => '1'
                 );
                 
                 update_option('famne_options',$options);
@@ -297,6 +311,17 @@ class FAMNESettingsPage
                 $this->options['send_password_forgotten_email'] = '1';
                 $this->options['send_password_admin_forgotten_email'] ='1';
 
+                update_option('famne_options',$this->options);
+            }
+            
+            
+            /** update to 1.4.1
+             * setting the newly added options to checked as default
+             */
+
+            if (!isset($this->options['auto_core_update_send_email']))
+            {
+                $this->options['auto_core_update_send_email'] ='1';
                 update_option('famne_options',$this->options);
             }
             
