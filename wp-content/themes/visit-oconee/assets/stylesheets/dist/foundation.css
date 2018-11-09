@@ -5312,6 +5312,9 @@ section.newsletters {
 section.nl-sign-up {
   background: #efecea;
   padding: 120px 0; }
+  @media only screen and (max-width: 40.063em) {
+    section.nl-sign-up {
+      padding: 60px 0; } }
   section.nl-sign-up h2 {
     font-weight: 700;
     color: #E67002;
