@@ -214,8 +214,10 @@ jQuery( document ).ready(function() {
 	// itinerary = new Array();
 	// basil.set('itinerary', itinerary);
     var itinerary = basil.get('itinerary');
-    for (var i = 0; i < itinerary.length; i++) {
-    	jQuery(".poi-itinerary[data-itinerary='" + itinerary[i] + "']").addClass('added');
+    if (itinerary != null) {
+	    for (var i = 0; i < itinerary.length; i++) {
+    		jQuery(".poi-itinerary[data-itinerary='" + itinerary[i] + "']").addClass('added');
+		}
 	}
 });
 
