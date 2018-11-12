@@ -346,7 +346,7 @@
                 },
                 {
                     "key": "field_5bb617860c48a",
-                    "label": "Subtitle",
+                    "label": "Location",
                     "name": "subtitle",
                     "type": "text",
                     "instructions": "",
@@ -361,7 +361,7 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": "",
+                    "maxlength": 35,
                     "show_column": 0,
                     "show_column_sortable": 0,
                     "show_column_weight": 1000,
@@ -481,7 +481,7 @@
                 },
                 {
                     "key": "field_5bb62688ecfd9",
-                    "label": "Subtitle",
+                    "label": "Location",
                     "name": "subtitle",
                     "type": "text",
                     "instructions": "",
@@ -496,7 +496,7 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
-                    "maxlength": "",
+                    "maxlength": 35,
                     "show_column": 0,
                     "show_column_sortable": 0,
                     "show_column_weight": 1000,
@@ -591,5 +591,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1542056660
+    "modified": 1542058660
 }
