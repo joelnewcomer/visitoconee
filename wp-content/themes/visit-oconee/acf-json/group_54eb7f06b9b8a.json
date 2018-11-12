@@ -321,30 +321,52 @@
             "button_label": "Add Destination",
             "sub_fields": [
                 {
-                    "key": "field_5bb616fd0c487",
-                    "label": "Select Destination",
-                    "name": "select_destination",
-                    "type": "post_object",
+                    "key": "field_5bb6177f0c489",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "post_type": [
-                        "poi",
-                        "page",
-                        "post"
-                    ],
-                    "taxonomy": "",
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "return_format": "object",
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
                     "show_column": 0,
+                    "show_column_sortable": 0,
                     "show_column_weight": 1000,
-                    "ui": 1
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bb617860c48a",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
                 },
                 {
                     "key": "field_5bb617a60c48c",
@@ -370,73 +392,12 @@
                     "allow_bulkedit": 0
                 },
                 {
-                    "key": "field_5bb617300c488",
-                    "label": "",
-                    "name": "",
-                    "type": "message",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "message": "<h4>By default, the title, subtitle, and featured image are automatically pulled. The following fields are optional and only need to be used if you want to over-ride the default content.<\/h4>",
-                    "new_lines": "wpautop",
-                    "esc_html": 0
-                },
-                {
-                    "key": "field_5bb6177f0c489",
-                    "label": "Title",
-                    "name": "title",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "show_column": 0,
-                    "show_column_sortable": 0,
-                    "show_column_weight": 1000
-                },
-                {
-                    "key": "field_5bb617860c48a",
-                    "label": "Subtitle",
-                    "name": "subtitle",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "show_column": 0,
-                    "show_column_sortable": 0,
-                    "show_column_weight": 1000
-                },
-                {
                     "key": "field_5bb617940c48b",
                     "label": "Image",
                     "name": "image",
                     "type": "image",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -464,7 +425,7 @@
                     "name": "link",
                     "type": "link",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -495,30 +456,52 @@
             "button_label": "Add Travel Tip",
             "sub_fields": [
                 {
-                    "key": "field_5bb62688ecfd5",
-                    "label": "Select Tip",
-                    "name": "tip",
-                    "type": "post_object",
+                    "key": "field_5bb62688ecfd8",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
                         "class": "",
                         "id": ""
                     },
-                    "post_type": [
-                        "poi",
-                        "page",
-                        "post"
-                    ],
-                    "taxonomy": "",
-                    "allow_null": 0,
-                    "multiple": 0,
-                    "return_format": "object",
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
                     "show_column": 0,
+                    "show_column_sortable": 0,
                     "show_column_weight": 1000,
-                    "ui": 1
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5bb62688ecfd9",
+                    "label": "Subtitle",
+                    "name": "subtitle",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
                 },
                 {
                     "key": "field_5bb62688ecfd6",
@@ -544,77 +527,12 @@
                     "allow_bulkedit": 0
                 },
                 {
-                    "key": "field_5bb62688ecfd7",
-                    "label": "",
-                    "name": "",
-                    "type": "message",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "message": "<h4>By default, the title, subtitle, and featured image are automatically pulled. The following fields are optional and only need to be used if you want to over-ride the default content.<\/h4>",
-                    "new_lines": "wpautop",
-                    "esc_html": 0
-                },
-                {
-                    "key": "field_5bb62688ecfd8",
-                    "label": "Title",
-                    "name": "title",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "show_column": 0,
-                    "show_column_sortable": 0,
-                    "show_column_weight": 1000,
-                    "allow_quickedit": 0,
-                    "allow_bulkedit": 0
-                },
-                {
-                    "key": "field_5bb62688ecfd9",
-                    "label": "Subtitle",
-                    "name": "subtitle",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
-                    "show_column": 0,
-                    "show_column_sortable": 0,
-                    "show_column_weight": 1000,
-                    "allow_quickedit": 0,
-                    "allow_bulkedit": 0
-                },
-                {
                     "key": "field_5bb62688ecfda",
                     "label": "Image",
                     "name": "image",
                     "type": "image",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -642,7 +560,7 @@
                     "name": "link",
                     "type": "link",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -673,5 +591,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1540909832
+    "modified": 1542056660
 }
