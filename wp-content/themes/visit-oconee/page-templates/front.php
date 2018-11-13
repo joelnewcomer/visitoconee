@@ -130,8 +130,8 @@ get_header(); ?>
 		   				if (!$link_array) {
 			   				$link = get_permalink($dest_id);
 		   				} else {
-			   				$link = $link['url'];
-			   				$target = $link['target'];
+			   				$link = $link_array['url'];
+			   				$target = $link_array['target'];
 		   				}
 		   				if (!$title) {
 			   				$title = get_the_title($dest_id);
@@ -173,13 +173,13 @@ get_header(); ?>
 			   			$blurb = get_sub_field('blurb');
 			   			$link_array = get_sub_field('link');
 			   			$target = "";
-		   				$dest = get_sub_field('tip');
-		   				$dest_id = $dest->ID;
+		   				// $dest = get_sub_field('tip');
+		   				// $dest_id = $dest->ID;
 		   				if (!$link_array) {
 			   				$link = get_permalink($dest_id);
 		   				} else {
-			   				$link = $link['url'];
-			   				$target = $link['target'];
+			   				$link = $link_array['url'];
+			   				$target = $link_array['target'];
 		   				}
 		   				if (!$title) {
 			   				$title = get_the_title($dest_id);
