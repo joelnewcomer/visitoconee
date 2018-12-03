@@ -23,7 +23,11 @@ class Integration {
         foreach (Helper::getEnabledPlugins() as $plugin) {
             switch ($plugin['id']) {
                 case WP::ID :
+                if(current_user_can( 'administrator' )) {
+                    add_filter('comment_form_submit_field', array(WP::getInstance(), 'addFieldForAdmin'), 999);
+                } else {
                     add_filter('comment_form_submit_field', array(WP::getInstance(), 'addField'), 999);
+                }
                     add_action('pre_comment_on_post', array(WP::getInstance(), 'checkPost'));
                     add_action('comment_post', array(WP::getInstance(), 'addAcceptedDateToCommentMeta'));
                     add_filter('manage_edit-comments_columns', array(WP::getInstance(), 'displayAcceptedDateColumnInCommentOverview'));
@@ -284,6 +288,14 @@ class Integration {
         return apply_filters('wpgdprc_privacy_policy_text', $output);
     }
 
+    public static function getPrivacyPolicyLink() {
+        $output = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_link');
+        if (empty($output)) {
+            $output = __('http://www.example.com', WP_GDPR_C_SLUG);
+        }
+        return apply_filters('wpgdprc_privacy_policy_link', $output);
+    }
+
     /**
      * @param bool $insertPrivacyPolicyLink
      * @return mixed
@@ -319,17 +331,21 @@ class Integration {
      * @return mixed|string
      */
     public static function insertPrivacyPolicyLink($content = '') {
+        if (!Helper::isEnabled('enable_privacy_policy_extern', 'settings')) {
         $page = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_page');
+        } else {
+        $url = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_link');
+        }
         $text = Integration::getPrivacyPolicyText();
-        if (!empty($page) && !empty($text)) {
+        if ((!empty($page) || !empty($url)) && !empty($text)) {
             $link = apply_filters(
                 'wpgdprc_privacy_policy_link',
                 sprintf(
                     '<a target="_blank" href="%s" rel="noopener noreferrer">%s</a>',
-                    get_page_link($page),
+                   (Helper::isEnabled('enable_privacy_policy_extern', 'settings')) ? $url : get_page_link($page),
                     esc_html($text)
                 ),
-                $page,
+                (Helper::isEnabled('enable_privacy_policy_extern', 'settings')) ? $url : $page,
                 $text
             );
             $content = str_replace('%privacy_policy%', $link, $content);

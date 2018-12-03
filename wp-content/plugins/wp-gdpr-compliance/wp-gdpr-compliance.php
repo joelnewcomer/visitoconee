@@ -4,7 +4,7 @@
  Plugin Name: WP GDPR Compliance
  Plugin URI:  https://www.wpgdprc.com/
  Description: This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. By May 24th, 2018 your website or shop has to comply to avoid large fines.
- Version:     1.4.3
+ Version:     1.4.5
  Author:      Van Ons
  Author URI:  https://www.van-ons.nl/
  License:     GPL2
@@ -78,6 +78,8 @@ class WPGDPRC {
 
     public function init() {
         self::handleDatabaseTables();
+        self::addConsentVersion();
+        self::removeOldConsentCookies();
         if (is_admin()) {
             Action::getInstance()->handleRedirects();
             if (!function_exists('get_plugin_data')) {
@@ -94,6 +96,7 @@ class WPGDPRC {
         add_action('wp_enqueue_scripts', array($this, 'loadAssets'), 999);
         add_action('admin_enqueue_scripts', array($this, 'loadAdminAssets'), 999);
         add_action('core_version_check_query_args', array(Action::getInstance(), 'onlySendEssentialDataDuringUpdateCheck'));
+        add_filter('cron_schedules', array(Cron::getInstance(), 'addCronSchedules'));
         add_action('wp_ajax_wpgdprc_process_settings', array(Ajax::getInstance(), 'processSettings'));
         add_action('wp_ajax_wpgdprc_process_action', array(Ajax::getInstance(), 'processAction'));
         add_action('wp_ajax_nopriv_wpgdprc_process_action', array(Ajax::getInstance(), 'processAction'));
@@ -103,14 +106,21 @@ class WPGDPRC {
             add_action('init', array(Action::getInstance(), 'processEnableAccessRequest'));
             add_action('admin_notices', array(Action::getInstance(), 'showNoticesRequestUserData'));
             add_action('wpgdprc_deactivate_access_requests', array(Cron::getInstance(), 'deactivateAccessRequests'));
+            add_action('wpgdprc_anonymise_requests', array(Cron::getInstance(), 'anonymiseRequests'));
             add_action('wp_ajax_wpgdprc_process_delete_request', array(Ajax::getInstance(), 'processDeleteRequest'));
             add_shortcode('wpgdprc_access_request_form', array(Shortcode::getInstance(), 'accessRequestForm'));
             if (!wp_next_scheduled('wpgdprc_deactivate_access_requests')) {
                 wp_schedule_event(time(), 'hourly', 'wpgdprc_deactivate_access_requests');
             }
+            if (!wp_next_scheduled('wpgdprc_anonymise_requests')) {
+                wp_schedule_event(time(), 'wpgdprc-monthly', 'wpgdprc_anonymise_requests');
+            }
         } else {
             if (wp_next_scheduled('wpgdprc_deactivate_access_requests')) {
                 wp_clear_scheduled_hook('wpgdprc_deactivate_access_requests');
+            }
+            if (wp_next_scheduled('wpgdprc_anonymise_requests')) {
+                wp_clear_scheduled_hook('wpgdprc_anonymise_requests');
             }
         }
         if (Consent::databaseTableExists()) {
@@ -126,13 +136,31 @@ class WPGDPRC {
         add_filter('wpgdprc_the_content', 'convert_smilies', 20);
         add_filter('wpgdprc_the_content', 'wpautop');
         add_filter('wpgdprc_the_content', 'shortcode_unautop');
-        add_filter('wpgdprc_the_content', 'prepend_attachment');
         add_filter('wpgdprc_the_content', 'wp_make_content_images_responsive');
     }
 
+    public static function addConsentVersion() {
+    	if (!get_option('wpgdprc_consent_version')) {
+    		update_option('wpgdprc_consent_version', '1');
+	    }
+    }
+
+	public static function removeOldConsentCookies() {
+    	$consentVersion = get_option('wpgdprc_consent_version');
+		foreach ($_COOKIE as $cookie => $val) {
+			if (strpos($cookie, 'wpgdprc-consent-') !== false) {
+				preg_match_all('!\d+!', $cookie, $matches);
+				if (intval($matches[0][0]) < intval($consentVersion)) {
+					unset($_COOKIE[$cookie]);
+					setcookie($cookie, null, -1, '/');
+				}
+			}
+		}
+	}
+
     public static function handleDatabaseTables() {
         $dbVersion = get_option('wpgdprc_db_version', 0);
-        if (version_compare($dbVersion, '1.3', '==')) {
+        if (version_compare($dbVersion, '1.5', '==')) {
             return;
         }
 
@@ -176,11 +204,17 @@ class WPGDPRC {
         }
 
         // Add column 'token' to 'Access Requests' table
-        if (version_compare($dbVersion, '1.3', '<')) {
-            $query = "ALTER TABLE `" . AccessRequest::getDatabaseTableName() . "`
-            ADD column `token` text NOT NULL AFTER `ip_address`;";
-            $wpdb->query($query);
-            update_option('wpgdprc_db_version', '1.3');
+        if (version_compare($dbVersion, '1.5', '<')) {
+        	if ($wpdb->get_var("SHOW TABLES LIKE '" . AccessRequest::getDatabaseTableName() . "'") === AccessRequest::getDatabaseTableName()) {
+        		if (!$wpdb->get_var("SHOW COLUMNS FROM " . AccessRequest::getDatabaseTableName() ." LIKE 'token'")) {
+		            $query = "ALTER TABLE `" . AccessRequest::getDatabaseTableName() . "`
+		            ADD column `token` text NOT NULL AFTER `ip_address`;";
+			        $wpdb->query($query);
+			        update_option('wpgdprc_db_version', '1.5');
+		        } else {
+			        update_option('wpgdprc_db_version', '1.5');
+		        }
+	        }
         }
     }
 
@@ -206,6 +240,7 @@ class WPGDPRC {
         $data = array(
             'ajaxURL' => admin_url('admin-ajax.php'),
             'ajaxSecurity' => wp_create_nonce('wpgdprc'),
+            'consentVersion' => get_option('wpgdprc_consent_version')
         );
         if (!empty($_REQUEST['wpgdprc'])) {
             $data['token'] = esc_html(urldecode($_REQUEST['wpgdprc']));

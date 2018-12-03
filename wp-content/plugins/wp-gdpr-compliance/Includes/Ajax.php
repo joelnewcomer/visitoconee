@@ -309,7 +309,7 @@ class Ajax {
                                 'nickname' => 'NICKNAME',
                                 'first_name' => 'FIRST_NAME',
                                 'last_name' => 'LAST_NAME',
-                                'user_email' => $request->getDataId() . '.' . $date->format('Ymd') . '.' . $date->format('His') . '@example.org'
+                                'user_email' => $request->getDataId() . '.' . $date->format('Ymd.His') . '@example.org'
                             ));
                             if (is_wp_error($result)) {
                                 $output['error'] = __('This user doesn\'t exist.', WP_GDPR_C_SLUG);
@@ -327,7 +327,7 @@ class Ajax {
                             $result = wp_update_comment(array(
                                 'comment_ID' => $request->getDataId(),
                                 'comment_author' => 'NAME',
-                                'comment_author_email' => $request->getDataId() . '.' . $date->format('Ymd') . '.' . $date->format('His') . '@example.org',
+                                'comment_author_email' => $request->getDataId() . '.' . $date->format('Ymd.His') . '@example.org',
                                 'comment_author_IP' => '127.0.0.1'
                             ));
                             if ($result === 0) {

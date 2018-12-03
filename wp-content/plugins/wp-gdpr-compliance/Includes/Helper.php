@@ -143,6 +143,9 @@ class Helper {
                     $type = 'error';
                     $message = __('Couldn\'t find this consent.', WP_GDPR_C_SLUG);
                     break;
+	            case 'wpgdprc-cookie-bar-reset' :
+	            	$message = __('The cookie bar has been reset', WP_GDPR_C_SLUG);
+	            	break;
             }
             if (!empty($message)) {
                 printf(
@@ -560,6 +563,16 @@ class Helper {
         return $output;
     }
 
+        /**
+         * Function resets the cookie bar for all users, this will happen on button trigger & when new Consent has been added.
+         */
+    public static function resetCookieBar() {
+    	    $consentVersion = get_option('wpgdprc_consent_version');
+            $consentVersion += 1;
+            update_option('wpgdprc_consent_version', $consentVersion);
+
+    }
+
     /**
      * @return array
      */
@@ -594,7 +607,8 @@ class Helper {
                 'value' => 1
             )
         ));
-        $consents = (!empty($_COOKIE['wpgdprc-consent'])) ? esc_html($_COOKIE['wpgdprc-consent']) : '';
+        $consentVersion = get_option('wpgdprc_consent_version');
+        $consents = (!empty($_COOKIE['wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE['wpgdprc-consent-' . $consentVersion]) : '';
         if (!empty($requiredConsents)) {
             foreach ($requiredConsents as $requiredConsent) {
                 $output[] = intval($requiredConsent->getId());

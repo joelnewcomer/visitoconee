@@ -148,6 +148,7 @@ function order_poi( $query ) {
   if ( !is_admin() && $query->is_main_query() && is_tax( 'poi_cats' ) ) {
     $query->set( 'orderby', 'title' );
     $query->set( 'order', 'ASC' );
+    $query->set( 'posts_per_page', -1);
   }
 }
 add_action( 'pre_get_posts', 'order_poi' );

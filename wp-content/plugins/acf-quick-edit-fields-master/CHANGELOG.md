@@ -1,6 +1,16 @@
 ACF QuickEdit Fields
 ====================
 
+2.4.8
+-----
+ - Fix Checkbox value override in bulk edit
+ - Don't show NULL-Option in multiple select fields
+
+2.4.7
+-----
+ - Fix numeric sorting
+ - Cleanup column value display
+
 2.4.6
 -----
  - Fix uninstall fatal

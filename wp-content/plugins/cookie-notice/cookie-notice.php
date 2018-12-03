@@ -2,7 +2,7 @@
 /*
 Plugin Name: Cookie Notice
 Description: Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law GDPR regulations.
-Version: 1.2.44
+Version: 1.2.45
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/cookie-notice/
@@ -34,7 +34,7 @@ include_once( plugin_dir_path( __FILE__ ) . 'includes/upgrade.php' );
  * Cookie Notice class.
  *
  * @class Cookie_Notice
- * @version	1.2.44
+ * @version	1.2.45
  */
 class Cookie_Notice {
 
@@ -77,7 +77,7 @@ class Cookie_Notice {
 			'translate'						=> true,
 			'deactivation_delete'			=> 'no'
 		),
-		'version'							=> '1.2.44'
+		'version'							=> '1.2.45'
 	);
 	private $positions 			= array();
 	private $styles 			= array();
@@ -107,6 +107,7 @@ class Cookie_Notice {
 
 		// actions
 		add_action( 'init', array( $this, 'register_shortcode' ) );
+		add_action( 'init', array( $this, 'add_wpsc_cookie' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu_options' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -124,6 +125,15 @@ class Cookie_Notice {
 
 		// load other files
 		include_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
+	}
+
+	/**
+	 * Add WP Super Cache compatibility.
+	 *
+	 * @return void
+	 */
+	public function add_wpsc_cookie() {
+		do_action( 'wpsc_add_cookie', 'cookie_notice_accepted' );
 	}
 
 	/**
@@ -634,7 +644,7 @@ class Cookie_Notice {
 
 		echo '
 				</select>
-				<p class="description">' . __( 'The ammount of time that cookie should be stored for.', 'cookie-notice' ) . '</p>
+				<p class="description">' . __( 'The amount of time that cookie should be stored for.', 'cookie-notice' ) . '</p>
 			</div>
 		</fieldset>';
 	}
