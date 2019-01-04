@@ -2,16 +2,15 @@
 
 if (!class_exists('KcSeoMetaData')):
 
-    class KcSeoMetaData {
+    class KcSeoMetaData
+    {
 
-        function __construct()
-        {
+        function __construct() {
             add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
             add_action('save_post', array($this, 'save_KcSeo_schema_data'), 10, 3);
         }
 
-        function admin_enqueue_scripts()
-        {
+        function admin_enqueue_scripts() {
             global $pagenow, $typenow, $KcSeoWPSchema;
             // validate page
             $pt = $KcSeoWPSchema->kcSeoPostTypes();
@@ -36,8 +35,7 @@ if (!class_exists('KcSeoMetaData')):
             add_action('admin_head', array($this, 'admin_head'));
         }
 
-        function admin_head()
-        {
+        function admin_head() {
             global $KcSeoWPSchema;
             $pt = $KcSeoWPSchema->kcSeoPostTypes();
             foreach ($pt as $postType) {
@@ -53,8 +51,7 @@ if (!class_exists('KcSeoMetaData')):
 
         }
 
-        function meta_box_wp_schema($post)
-        {
+        function meta_box_wp_schema($post) {
             global $KcSeoWPSchema;
             wp_nonce_field($KcSeoWPSchema->nonceText(), '_kcseo_nonce');
             $schemas = new KcSeoSchemaModel();
@@ -62,16 +59,6 @@ if (!class_exists('KcSeoMetaData')):
             $html .= "<div class='schema-tips'>";
             $html .= "<p><span>Tip:</span> " . __("For more detailed information on how to configure this plugin, please visit:", "wp-seo-structured-data-schema") . " <a href='https://wpsemplugins.com/wordpress-seo-structured-data-schema-plugin/'>https://wpsemplugins.com/wordpress-seo-structured-data-schema-plugin/</a></p>";
             $html .= "<p><span>Tip:</span> " . __("Once you save these structured data schema settings, validate this page url here:", "wp-seo-structured-data-schema") . " <a href='https://developers.google.com/structured-data/testing-tool/'>https://developers.google.com/structured-data/testing-tool/</a></p>";
-            $html .= "<div class='kc-get-pro'>
-							<strong>" . __("Pro Version Features", "wp-seo-structured-data-schema") . "</strong>
-				            <ol>
-				                <li>" . __("Includes Auto-fill function <---Popular", "wp-seo-structured-data-schema") . "</li>
-				                <li>" . __("Supports Custom Post Types beyond default page and posts", "wp-seo-structured-data-schema") . "</li>
-				                <li>" . __("Supports WordPress Multisite", "wp-seo-structured-data-schema") . "</li>
-				                <li>" . __("Supports more schema types: ( Books, Courses, Job Postings, Movies, Music, Recipe, TV Episode) ", "wp-seo-structured-data-schema") . "</li>
-				            </ol>
-				            <a class='button button-primary' href='https://wpsemplugins.com/downloads/wordpress-schema-plugin/' target='_blank'>" . __("Get the Pro Version", "wp-seo-structured-data-schema") . "</a>
-						</div>";
             $html .= "</div>";
             $html .= "<div class='schema-holder'>";
             $html .= '<div id="meta-tab-holder" class="rt-tab-container">';
@@ -83,14 +70,20 @@ if (!class_exists('KcSeoMetaData')):
                 $tabId = $KcSeoWPSchema->KcSeoPrefix . $schemaID;
                 $htmlMenu .= '<li><a href="#' . $tabId . '">' . $schema['title'] . '</a></li>';
                 $htmlCont .= "<div id='{$tabId}' class='rt-tab-content'>";
+                $htmlCont .= "<div class='kc-top-toolbar'><span class='disabled button button-primary'>" . __("Auto Fill", "wp-seo-structured-data-schema-pro") . "</span><span class='kcseo-pro-label'>" . __("PRO", "wp-seo-structured-data-schema-pro") . "</span></div>";
                 $metaData = get_post_meta($post->ID, $tabId, true);
                 $metaData = (is_array($metaData) ? $metaData : array());
-                foreach ($schema['fields'] as $fieldId => $data) {
-                    $data['fieldId'] = $fieldId;
-                    $data['id'] = $tabId . "_" . $fieldId;
-                    $data['name'] = $tabId . "[{$fieldId}]";
-                    $data['value'] = (!empty($metaData[$fieldId]) ? $metaData[$fieldId] : null);
-                    $htmlCont .= $schemas->get_field($data);
+                if(!empty($schema['fields'])){
+                    foreach ($schema['fields'] as $fieldId => $data) {
+                        $data['fieldId'] = $fieldId;
+                        $data['id'] = $tabId . "_" . $fieldId;
+                        $data['name'] = $tabId . "[{$fieldId}]";
+                        $data['value'] = (!empty($metaData[$fieldId]) ? $metaData[$fieldId] : null);
+                        $htmlCont .= $schemas->get_field($data);
+                    }
+                }
+                if (!empty($schema['pro']) && $schema['pro']) {
+                    $htmlCont .= "<div class='kcseo-pro-feature'>" . __("This is a Pro version feature.", "wp-seo-structured-data-schema-pro") . "<a href='https://wpsemplugins.com/downloads/wordpress-schema-plugin/' target='_blank'>(more info)</a></div>";
                 }
                 $htmlCont .= "</div>";
             }
@@ -101,8 +94,7 @@ if (!class_exists('KcSeoMetaData')):
             echo $html;
         }
 
-        function save_KcSeo_schema_data($post_id, $post, $update)
-        {
+        function save_KcSeo_schema_data($post_id, $post, $update) {
             if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
             global $KcSeoWPSchema;
             $nonce = !empty($_REQUEST['_kcseo_nonce']) ? $_REQUEST['_kcseo_nonce'] : null;
@@ -121,10 +113,12 @@ if (!class_exists('KcSeoMetaData')):
             foreach ($schemaFields as $schemaID => $schema) {
                 $schemaMetaId = $KcSeoWPSchema->KcSeoPrefix . $schemaID;
                 $data = array();
-                foreach ($schema['fields'] as $fieldId => $fieldData) {
-                    $value = (!empty($_REQUEST[$schemaMetaId][$fieldId]) ? $_REQUEST[$schemaMetaId][$fieldId] : null);
-                    $value = $KcSeoWPSchema->sanitize($fieldData, $value);
-                    $data[$fieldId] = $value;
+                if(!empty($schema['fields'])) {
+                    foreach ($schema['fields'] as $fieldId => $fieldData) {
+                        $value = (!empty($_REQUEST[$schemaMetaId][$fieldId]) ? $_REQUEST[$schemaMetaId][$fieldId] : null);
+                        $value = $KcSeoWPSchema->sanitize($fieldData, $value);
+                        $data[$fieldId] = $value;
+                    }
                 }
                 $meta[$schemaMetaId] = $data;
             }

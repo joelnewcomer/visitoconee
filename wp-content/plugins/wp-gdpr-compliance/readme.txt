@@ -4,7 +4,7 @@ Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protec
 Requires at least: 4.5
 Tested up to: 4.9.4
 Requires PHP: 5.3
-Stable tag: 1.4.5
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,19 @@ You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.4.7 =
+*Release date: December 17th, 2018*
+* Bugfix older PHP versions.
+
+= 1.4.6 =
+*Release date: December 17th, 2018*
+* Added anonymised usernames.
+* Added log table.
+* Added integration for WordPress registration.
+* Added warning in case the privacy policy page has not been selected yet.
+* Fixed bug in the settings page.
+* Fixed bug with session ID’s.
 
 = 1.4.5 =
 *Release date: November 30th, 2018*

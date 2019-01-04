@@ -1,9 +1,7 @@
 <?php
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die( 'Damn it.! Dude you are looking for what?' );
-}
+defined( 'WPINC' ) or die( 'Damn it.! Dude you are looking for what?' );
 
 /**
  * The public-facing functionality of the plugin.
@@ -16,6 +14,25 @@ if ( ! defined( 'WPINC' ) ) {
  * @link       https://wordpress.org/plugins/lazy-load-for-comments
  */
 class LLC_Public {
+
+	/**
+	 * Update the comments link to our custom div.
+	 *
+	 * @param string $comments_link Comments link.
+	 * @param int    $post_id       Post ID.
+	 *
+	 * @since 1.0.4
+	 *
+	 * @return string
+	 */
+	public function comments_link( $comments_link, $post_id ) {
+		// If we are lazy loading, link to our div.
+		if ( $this->can_lazy_load() ) {
+			$comments_link = get_permalink( $post_id ) . '#llc_comments';
+		}
+
+		return $comments_link;
+	}
 
 	/**
 	 * Lazy load comments template file
@@ -43,7 +60,7 @@ class LLC_Public {
 	/**
 	 * Javascript to include lazy load script.
 	 *
-	 * @using wp_localize_script() To make strings in JS translatable.
+	 * @using  wp_localize_script() To make strings in JS translatable.
 	 *
 	 * @since  1.0.0
 	 * @access public
@@ -90,20 +107,22 @@ class LLC_Public {
 	 */
 	public function comments_content() {
 
-		// Security check.
-		check_ajax_referer( 'llc-ajax-nonce', 'llc_ajax_nonce' );
+		// Security check (Removed to support caching).
+		// Instead of security check, we are sending get ajax request.
+		// https://konstantin.blog/2012/nonces-on-the-front-end-is-a-bad-idea/
+		//check_ajax_referer( 'llc-ajax-nonce', 'llc_ajax_nonce' );
 
 		// If post/page id not found in request, abort.
-		if ( empty( $_REQUEST['post'] ) ) {
+		if ( empty( $_GET['post'] ) ) {
 			die();
 		}
 		// Query through posts.
-		query_posts( array( 'p' => $_REQUEST['post'], 'post_type' => 'any' ) );
+		query_posts( array( 'p' => intval( $_GET['post'] ), 'post_type' => 'any' ) );
 		// Render comments template and remove our custom template.
 		if ( have_posts() ) {
 			the_post();
 			// Remove our custom comments template and load default template.
-			remove_filter( 'comments_template', array( $this, 'llc_template' ) );
+			remove_filter( 'comments_template', array( $this, 'llc_template' ), 100 );
 			comments_template();
 			exit();
 		}
@@ -169,7 +188,7 @@ class LLC_Public {
 	 * Check if user agent string matches bots, spiders or crawlers.
 	 * If user agent is not set, consider visitor as bot.
 	 *
-	 * @since 1.0.2
+	 * @since  1.0.2
 	 * @access private
 	 *
 	 * @return bool

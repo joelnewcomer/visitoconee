@@ -1,15 +1,14 @@
 <?php
 
 if (!class_exists('KcSeoSchemaModel')):
-    class KcSeoSchemaModel {
+    class KcSeoSchemaModel
+    {
 
-        function __construct()
-        {
+        function __construct() {
 
         }
 
-        function schemaOutput($schemaID, $metaData)
-        {
+        function schemaOutput($schemaID, $metaData) {
             $html = null;
 
             if ($schemaID) {
@@ -552,8 +551,7 @@ if (!class_exists('KcSeoSchemaModel')):
             return $html;
         }
 
-        function get_field($data)
-        {
+        function get_field($data) {
             $html = null;
             global $KcSeoWPSchema;
             $id = $data['id'];
@@ -680,10 +678,10 @@ if (!class_exists('KcSeoSchemaModel')):
             return $html;
         }
 
-        public function schemaTypes()
-        {
+        public function schemaTypes() {
             return array(
                 'article'          => array(
+                    'pro'    => false,
                     'title'  => __("Article", "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'              => array(
@@ -757,6 +755,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'blog_posting'     => array(
+                    'pro'    => false,
                     'title'  => __('Blog Posting', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'           => array(
@@ -825,6 +824,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'news_article'     => array(
+                    'pro'    => false,
                     'title'  => __('News Article', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'           => array(
@@ -893,6 +893,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'event'            => array(
+                    'pro'    => false,
                     'title'  => __('Event', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'          => array(
@@ -964,6 +965,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'product'          => array(
+                    'pro'    => false,
                     'title'  => __('Product', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'        => array(
@@ -1049,6 +1051,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'video'            => array(
+                    'pro'    => false,
                     'title'  => __('Video', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'           => array(
@@ -1110,6 +1113,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'service'          => array(
+                    'pro'    => false,
                     'title'  => __('Service', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'           => array(
@@ -1186,6 +1190,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'review'           => array(
+                    'pro'    => false,
                     'title'  => __('Review', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'        => array(
@@ -1248,6 +1253,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'aggregate_rating' => array(
+                    'pro'    => false,
                     'title'  => __('Aggregate Ratings', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'      => array(
@@ -1339,6 +1345,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'restaurant'       => array(
+                    'pro'    => false,
                     'title'  => __('Restaurant', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'        => array(
@@ -1390,6 +1397,7 @@ if (!class_exists('KcSeoSchemaModel')):
                     )
                 ),
                 'localBusiness'    => array(
+                    'pro'    => false,
                     'title'  => __('Local Business', "wp-seo-structured-data-schema"),
                     'fields' => array(
                         'active'          => array(
@@ -1437,12 +1445,43 @@ if (!class_exists('KcSeoSchemaModel')):
                             'type'  => 'text',
                         )
                     )
-                )
+                ),
+                'book'             => array(
+                    'pro'   => true,
+                    'title' => __("Book", "wp-seo-structured-data-schema"),
+                ),
+                'course'           => array(
+                    'pro'   => true,
+                    'title' => __("Course", "wp-seo-structured-data-schema"),
+                ),
+                'JobPosting'       => array(
+                    'pro'   => true,
+                    'title' => __("Job Posting", "wp-seo-structured-data-schema"),
+                ),
+                'movie'            => array(
+                    'pro'   => true,
+                    'title' => __("Movie", "wp-seo-structured-data-schema"),
+                ),
+                'music'            => array(
+                    'pro'   => true,
+                    'title' => __("Music", "wp-seo-structured-data-schema"),
+                ),
+                'recipe'           => array(
+                    'pro'   => true,
+                    'title' => __("Recipe", "wp-seo-structured-data-schema"),
+                ),
+                'TVEpisode'        => array(
+                    'pro'   => true,
+                    'title' => __("TVEpisode", "wp-seo-structured-data-schema"),
+                ),
+                'question'         => array(
+                    'pro'   => true,
+                    'title' => __("QAPage", "wp-seo-structured-data-schema"),
+                ),
             );
         }
 
-        function get_jsonEncode($data = array())
-        {
+        function get_jsonEncode($data = array()) {
             $html = null;
             /** @var TYPE_NAME $data */
             if (!empty($data) && is_array($data)) {
@@ -1453,8 +1492,7 @@ if (!class_exists('KcSeoSchemaModel')):
             return $html;
         }
 
-        function site_type()
-        {
+        function site_type() {
             return array(
                 'Organization',
                 'LocalBusiness' => array(
@@ -1615,8 +1653,7 @@ if (!class_exists('KcSeoSchemaModel')):
             );
         }
 
-        function countryList()
-        {
+        function countryList() {
             return array(
                 "AF" => "Afghanistan",
                 "AX" => "Aland Islands",
@@ -1870,8 +1907,7 @@ if (!class_exists('KcSeoSchemaModel')):
             );
         }
 
-        function contactType()
-        {
+        function contactType() {
             return array(
                 "Customer Service",
                 "Technical Support",
@@ -1887,8 +1923,7 @@ if (!class_exists('KcSeoSchemaModel')):
             );
         }
 
-        function languageList()
-        {
+        function languageList() {
             return array(
                 "Akan",
                 "Amharic",
@@ -1991,8 +2026,7 @@ if (!class_exists('KcSeoSchemaModel')):
             );
         }
 
-        function socialList()
-        {
+        function socialList() {
             return array(
                 'facebook'    => __('Facebook'),
                 'twitter'     => __('Twitter'),
@@ -2008,8 +2042,7 @@ if (!class_exists('KcSeoSchemaModel')):
             );
         }
 
-        function imgInfo($url = null)
-        {
+        function imgInfo($url = null) {
             $img = array();
             if ($url) {
                 $imgA = @getimagesize($url);
@@ -2025,8 +2058,7 @@ if (!class_exists('KcSeoSchemaModel')):
             return $img;
         }
 
-        function isAssoc($array)
-        {
+        function isAssoc($array) {
             $keys = array_keys($array);
 
             return $keys !== array_keys($keys);

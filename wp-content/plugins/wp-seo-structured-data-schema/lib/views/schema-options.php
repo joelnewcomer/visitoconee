@@ -311,14 +311,24 @@ $schemaModel = new KcSeoSchemaModel;
                                        value="<?php echo(!empty($settings['address']['street']) ? esc_attr($settings['address']['street']) : null); ?>"/>
                         </tr>
                     </table>
+
+                    <div class="add-new-address-tools">
+                        <a id="kcseo-add-address"
+                           class="button button-primary"><?php _e("Add New Address", "wp-seo-structured-data-schema") ?></a>
+                        <span class='kcseo-pro-label'><?php _e("PRO", "wp-seo-structured-data-schema-pro") ?></span>
+                    </div>
                 </div>
                 <div id="tabs-kcseo-container" class="rt-tab-container">
                     <ul class="rt-tab-nav">
                         <li class="current"><a
                                     href="#tab-logo-url"><?php _e("Organization Logo", "wp-seo-structured-data-schema") ?></a>
                         </li>
-                        <li><a href="#tab-social-profile"><?php _e("Social Profile", "wp-seo-structured-data-schema") ?></a></li>
-                        <li><a href="#tab-corporate-contract"><?php _e("Corporate Contacts", "wp-seo-structured-data-schema") ?></a></li>
+                        <li>
+                            <a href="#tab-social-profile"><?php _e("Social Profile", "wp-seo-structured-data-schema") ?></a>
+                        </li>
+                        <li>
+                            <a href="#tab-corporate-contract"><?php _e("Corporate Contacts", "wp-seo-structured-data-schema") ?></a>
+                        </li>
                     </ul>
                     <div id="tab-logo-url" class="rt-tab-content">
                         <table width="100%" cellpadding="10" class="form-table">
@@ -402,7 +412,8 @@ $schemaModel = new KcSeoSchemaModel;
                                         }
                                         ?>
                                     </div>
-                                    <a class="button button-primary add-new" id="social-add"><?php _e("Add Social Profile", "wp-seo-structured-data-schema") ?></a>
+                                    <a class="button button-primary add-new"
+                                       id="social-add"><?php _e("Add Social Profile", "wp-seo-structured-data-schema") ?></a>
                                 </th>
                             </tr>
                         </table>
@@ -433,7 +444,8 @@ $schemaModel = new KcSeoSchemaModel;
                                 <td align="left" scope="row">
                                     <input type="text" class="regular-text" name="contact[telephone]"
                                            value="<?php echo(!empty($settings['contact']['telephone']) ? esc_attr($settings['contact']['telephone']) : null); ?>"/>
-                                    <p class="description kco-telephone"><?php _e("Please follow the format below", "wp-seo-structured-data-schema") ?><span
+                                    <p class="description kco-telephone"><?php _e("Please follow the format below", "wp-seo-structured-data-schema") ?>
+                                        <span
                                                 style="font-size: 11px;">+1-505-998-3793</span><span
                                                 style="font-size: 11px;">+(Country Code) 425 123-4567</span><span
                                                 style="font-size: 11px;">+(Country Code) 42 68 53 01</span><span
@@ -542,28 +554,6 @@ $schemaModel = new KcSeoSchemaModel;
             </form>
             <div id="response"></div>
         </div>
-        <div class='kc-get-pro'>
-            <h3><?php _e("Pro Version Features", "wp-seo-structured-data-schema") ?></h3>
-            <ol>
-                <li><?php _e("Includes Auto-fill function <---Popular", "wp-seo-structured-data-schema") ?></li>
-                <li><?php _e("Supports Custom Post Types beyond default page and posts", "wp-seo-structured-data-schema") ?></li>
-                <li><?php _e("Supports WordPress Multisite", "wp-seo-structured-data-schema") ?></li>
-                <li><?php _e("Supports more schema types:", "wp-seo-structured-data-schema") ?>
-                    <ol>
-                        <li><?php _e("Books", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("Courses", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("Job Postings", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("Movies", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("Music", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("Recipe", "wp-seo-structured-data-schema") ?></li>
-                        <li><?php _e("TV Episode", "wp-seo-structured-data-schema") ?></li>
-                    </ol>
-                </li>
-            </ol>
-            <div class="kc-pro-action"><a class='button button-primary'
-                                          href='https://wpsemplugins.com/downloads/wordpress-schema-plugin/'
-                                          target='_blank'><?php _e("Get the Pro Version", "wp-seo-structured-data-schema") ?></a>
-            </div>
-        </div>
+        <?php $KcSeoWPSchema->advertisingBlock(); ?>
     </div>
 </div>

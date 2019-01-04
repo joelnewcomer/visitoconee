@@ -714,6 +714,64 @@ class Helper {
         return $output;
     }
 
+	/**
+	 * @param $email
+	 *
+	 * @return null|string
+	 */
+	public static function anonymizeEmail($email) {
+
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+			$emailParts = explode('@', $email);
+			$localPart = $emailParts[0];
+			if (strlen($localPart) > 1 && strlen($localPart) < 4) {
+				$localPart = substr_replace($localPart, '*', strlen($localPart) - 1);
+			} else if (strlen($localPart) > 3 && strlen($localPart) < 6) {
+				$localPart = substr_replace($localPart, '**', strlen($localPart) - 2);
+			} else if (strlen($localPart) > 5) {
+				$localPart = substr_replace($localPart, '***', strlen($localPart) - 3);
+			} else {
+				$domain = $emailParts[1];
+				$domainName = explode('.', $domain);
+				$anonymisedDomain = str_replace($domainName[0], '***', $domainName[0]);
+			}
+
+			if (isset($domainName) && isset($anonymisedDomain)) {
+				return $localPart . '@' . $anonymisedDomain . '.' . $domainName[1];
+			} else {
+				return $localPart . '@' . $emailParts[1];
+			}
+		} else {
+			return NULL;
+		}
+
+	}
+
+	/**
+	 * @param $ip
+	 *
+	 * @return null|string
+	 */
+	public static function anonymizeIP($ip) {
+
+		if (filter_var($ip, FILTER_VALIDATE_IP)) {
+			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+				$lastDot = strrpos($ip, '.') + 1;
+				return substr($ip, 0, $lastDot)
+				       . str_repeat('*', strlen($ip) - $lastDot);
+			} else if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+				$lastColon = strrpos($ip, ':') + 1;
+				return substr($ip, 0, $lastColon)
+				       . str_repeat('*', strlen($ip) - $lastColon);
+			} else {
+				return NULL;
+			}
+		} else {
+			return NULL;
+		}
+	}
+
     /**
      * @return null|Helper
      */

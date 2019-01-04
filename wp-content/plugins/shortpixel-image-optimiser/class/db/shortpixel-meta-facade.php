@@ -86,10 +86,16 @@ class ShortPixelMetaFacade {
         }        
     }
     
-    function sanitizeMeta($rawMeta){
+    static function sanitizeMeta($rawMeta){
         if(!is_array($rawMeta)) {
             if($rawMeta == '') { return array('ShortPixel' => array()); }
-            else { return array("previous_meta" => $rawMeta, 'ShortPixel' => array()); }
+            else {
+                $meta = @unserialize($rawMeta);
+                if(is_array($meta)) {
+                    return $meta;
+                }
+                return array("previous_meta" => $rawMeta, 'ShortPixel' => array());
+            }
         }
         return $rawMeta;
     }
@@ -194,7 +200,12 @@ class ShortPixelMetaFacade {
 
                 update_post_meta($_ID, '_wp_attachment_metadata', $rawMeta);
                 //wp_update_attachment_metadata($_ID, $rawMeta);
-                update_post_meta($_ID, '_shortpixel_status', $this->meta->getStatus());
+                //status and optimization percent in the same time, for sorting purposes :)
+                $status = $this->meta->getStatus();
+                if($status == 2) {
+                    $status += 0.01 * $rawMeta['ShortPixelImprovement'];
+                }
+                update_post_meta($_ID, '_shortpixel_status', number_format($status, 4));
 
                 if($_ID == $this->ID) {
                     $this->rawMeta = $rawMeta;

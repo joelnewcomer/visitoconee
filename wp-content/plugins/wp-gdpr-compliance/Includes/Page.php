@@ -320,16 +320,33 @@ class Page {
                     <label><input type="checkbox" name="<?php echo $optionNameEnablePrivacyPolicyExternal; ?>" id="<?php echo $optionNameEnablePrivacyPolicyExternal; ?>" value="1" tabindex="1" <?php checked(true, $enablePrivacyPolicyExternal); ?> /> <?php _e('Activate external links', WP_GDPR_C_SLUG); ?></label>
                     <div class="wpgdprc-information">
                         <div class="wpgdprc-message wpgdprc-message--notice">
-                            <?php
-                            printf(
-                                '<p><strong>%s:</strong> %s</p>',
-                                strtoupper(__('Note', WP_GDPR_C_SLUG)),
-                                sprintf(
-                                    __('Enabling this will allow you to use external Privacy Policy instances', WP_GDPR_C_SLUG)
-                                )
-                            );
-                            ?>
+		                    <?php
+		                    printf(
+			                    '<p><strong>%s:</strong> %s</p>',
+			                    strtoupper(__('Note', WP_GDPR_C_SLUG)),
+			                    sprintf(
+				                    __('Enabling this will allow you to use external Privacy Policy instances', WP_GDPR_C_SLUG)
+			                    )
+		                    );
+		                    ?>
                         </div>
+	                    <?php
+	                    if ( $enablePrivacyPolicyExternal !== true ) {
+		                    if ( empty( $privacyPolicyPage ) || $privacyPolicyPage === '' || $privacyPolicyPage < 1 ) { ?>
+                                <br>
+                                <div class="wpgdprc-message wpgdprc-message--notice">
+				                    <?php
+				                    printf(
+					                    '<p><strong>%s:</strong> %s</p>',
+					                    strtoupper( __( 'Note', WP_GDPR_C_SLUG ) ),
+					                    sprintf(
+						                    __( 'Currently you do not have a privacy policy page selected', WP_GDPR_C_SLUG )
+					                    )
+				                    );
+				                    ?>
+                                </div>
+		                    <?php }
+	                    }?>
                     </div>
                 </div>
             </div>
@@ -439,21 +456,21 @@ class Page {
                 </div>
             </div>
             <div class="wpgdprc-setting">
-                <label for="<?php echo $optionNameConsentsBarExplanationText; ?>"><?php _e('Bar: Explanation', WP_GDPR_C_SLUG); ?></label>
+                <label for="<?php echo htmlspecialchars($optionNameConsentsBarExplanationText); ?>"><?php _e('Bar: Explanation', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
-                    <textarea name="<?php echo $optionNameConsentsBarExplanationText; ?>" rows="2" id="<?php echo $optionNameConsentsBarExplanationText; ?>" placeholder="<?php echo $consentsBarExplanationText; ?>"><?php echo $consentsBarExplanationText; ?></textarea>
+                    <textarea name="<?php echo htmlspecialchars($optionNameConsentsBarExplanationText); ?>" rows="2" id="<?php echo htmlspecialchars($optionNameConsentsBarExplanationText); ?>" placeholder="<?php echo htmlspecialchars($consentsBarExplanationText); ?>"><?php echo htmlspecialchars($consentsBarExplanationText); ?></textarea>
                 </div>
             </div>
             <div class="wpgdprc-setting">
-                <label for="<?php echo $optionNameConsentsModalTitle; ?>"><?php _e('Modal: Title', WP_GDPR_C_SLUG); ?></label>
+                <label for="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>"><?php _e('Modal: Title', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
-                    <input type="text" name="<?php echo $optionNameConsentsModalTitle; ?>" class="regular-text" id="<?php echo $optionNameConsentsModalTitle; ?>" placeholder="<?php echo $consentsModalTitle; ?>" value="<?php echo $consentsModalTitle; ?>" />
+                    <input type="text" name="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>" class="regular-text" id="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>" placeholder="<?php echo htmlspecialchars($consentsModalTitle); ?>" value="<?php echo htmlspecialchars($consentsModalTitle); ?>" />
                 </div>
             </div>
             <div class="wpgdprc-setting">
-                <label for="<?php echo $optionNameConsentsModalExplanationText; ?>"><?php _e('Modal: Explanation', WP_GDPR_C_SLUG); ?></label>
+                <label for="<?php echo htmlspecialchars($optionNameConsentsModalExplanationText); ?>"><?php _e('Modal: Explanation', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
-                    <textarea name="<?php echo $optionNameConsentsModalExplanationText; ?>" rows="5" id="<?php echo $optionNameConsentsModalExplanationText; ?>" placeholder="<?php echo $consentsModalExplanationText; ?>"><?php echo $consentsModalExplanationText; ?></textarea>
+                    <textarea name="<?php echo htmlspecialchars($optionNameConsentsModalExplanationText); ?>" rows="5" id="<?php echo htmlspecialchars($optionNameConsentsModalExplanationText); ?>" placeholder="<?php echo htmlspecialchars($consentsModalExplanationText); ?>"><?php echo htmlspecialchars($consentsModalExplanationText); ?></textarea>
                     <?php echo Helper::getAllowedHTMLTagsOutput(); ?>
                 </div>
             </div>
