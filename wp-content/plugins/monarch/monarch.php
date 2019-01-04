@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Monarch Plugin
  * Plugin URI: http://www.elegantthemes.com
- * Version: 1.4.8
+ * Version: 1.4.10
  * Description: Social Media Plugin
  * Author: Elegant Themes
  * Author URI: http://www.elegantthemes.com
@@ -17,7 +17,7 @@ define( 'ET_MONARCH_PLUGIN_DIR', trailingslashit( dirname(__FILE__) ) );
 define( 'ET_MONARCH_PLUGIN_URI', plugins_url('', __FILE__) );
 
 class ET_Monarch {
-	var $plugin_version = '1.4.8';
+	var $plugin_version = '1.4.10';
 	var $db_version = '1.3';
 	var $monarch_options;
 	var $_options_pagename = 'et_monarch_options';
@@ -3613,7 +3613,6 @@ class ET_Monarch {
 	function get_share_networks_with_api_support() {
 		$networks = array(
 			'facebook',
-			'linkedin',
 			'pinterest',
 			'googleplus',
 			'stumbleupon',
@@ -3639,10 +3638,6 @@ class ET_Monarch {
 					if ( isset( $monarch_options['access_tokens']['facebook'] ) ) {
 						$request_url = sprintf( 'https://graph.facebook.com/v3.1/?access_token=%1$s&fields=engagement&id=', esc_attr( $monarch_options['access_tokens']['facebook'] ) );
 					}
-
-					break;
-				case 'linkedin' :
-					$request_url = 'http://www.linkedin.com/countserv/count/share?format=json&url=';
 
 					break;
 				case 'pinterest' :
@@ -3707,7 +3702,6 @@ class ET_Monarch {
 							$result = isset( $count_object->engagement->share_count ) ? (int) $count_object->engagement->share_count : false;
 
 							break;
-						case 'linkedin' :
 						case 'pinterest' :
 							$result = $count_object->count;
 

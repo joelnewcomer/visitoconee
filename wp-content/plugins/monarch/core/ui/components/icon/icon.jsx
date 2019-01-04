@@ -717,6 +717,12 @@ class ETBuilderIcon extends PureComponent {
             <path d="M16.75 9.14a1 1 0 0 1 .37 1.39l-4.5 8a1 1 0 0 1-1.37.37 1 1 0 0 1-.37-1.39l4.5-8a1 1 0 0 1 1.37-.37zM19.71 10H20a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3h-4.81l1.13-2H20a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1.42zM12.81 10l-1.13 2H8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h1.42l-1.13 2H8a3 3 0 0 1-3-3v-2a3 3 0 0 1 3-3z" fillRule="evenodd"/>
           </g>
         );
+      case 'app-setting':
+        return (
+          <g>
+            <path d="M2.001 4.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fillRule="evenodd"/>
+          </g>
+        );
       case 'expand-palette':
         return (
           <g>
