@@ -7,6 +7,7 @@ use wpautoterms\frontend\Endorsements;
 use wpautoterms\frontend\Links;
 use wpautoterms\frontend\notice\Cookies_Notice;
 use wpautoterms\frontend\notice\Update_Notice;
+use wpautoterms\frontend\Pages_Widget_Extend;
 
 abstract class Frontend {
 	protected static $_body_top = '';
@@ -14,6 +15,12 @@ abstract class Frontend {
 	 * @var Links
 	 */
 	protected static $_links;
+
+	const CONTAINER_LOCATION_TOP = 'top';
+	const CONTAINER_LOCATION_BOTTOM = 'bottom';
+	const CONTAINER_TYPE_STATIC = 'static';
+	const CONTAINER_TYPE_FIXED = 'fixed';
+
 
 	public static function init( $license ) {
 		global $pagenow;
@@ -31,6 +38,7 @@ abstract class Frontend {
 		$a->init();
 		new Endorsements( $license );
 		static::$_links = new Links();
+		new Pages_Widget_Extend();
 	}
 
 
@@ -81,13 +89,17 @@ abstract class Frontend {
 		static::bottom_container();
 	}
 
+	public static function container_id( $where = self::CONTAINER_LOCATION_TOP, $type = self::CONTAINER_TYPE_STATIC ) {
+		return 'wpautoterms-' . $where . '-' . $type . '-container';
+	}
+
 	protected static function container( $where, $type, $return = false ) {
 		ob_start();
 		do_action( WPAUTOTERMS_SLUG . '_container', $where, $type );
 		$c = ob_get_contents();
 		ob_end_clean();
 		if ( ! empty( $c ) ) {
-			$c = '<div id="wpautoterms-' . $where . '-' . $type . '-container">' . $c . '</div>';
+			$c = '<div id="' . static::container_id( $where, $type ) . '">' . $c . '</div>';
 		}
 		if ( $return ) {
 			return $c;
@@ -98,8 +110,8 @@ abstract class Frontend {
 	}
 
 	protected static function top_container( $return = false ) {
-		$c = static::container( 'top', 'static', $return );
-		$c .= static::container( 'top', 'fixed', $return );
+		$c = static::container( self::CONTAINER_LOCATION_TOP, self::CONTAINER_TYPE_STATIC, $return );
+		$c .= static::container( self::CONTAINER_LOCATION_TOP, self::CONTAINER_TYPE_FIXED, $return );
 		if ( $return ) {
 			return $c;
 		}
@@ -109,7 +121,7 @@ abstract class Frontend {
 	}
 
 	protected static function bottom_container() {
-		static::container( 'bottom', 'fixed' );
-		static::container( 'bottom', 'static' );
+		static::container( self::CONTAINER_LOCATION_BOTTOM, self::CONTAINER_TYPE_FIXED );
+		static::container( self::CONTAINER_LOCATION_BOTTOM, self::CONTAINER_TYPE_STATIC );
 	}
 }

@@ -3,7 +3,9 @@
 namespace wpautoterms;
 
 use wpautoterms\admin\form\Legal_Page;
+use wpautoterms\admin\Options;
 use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\Widget;
 use wpautoterms\legal_pages;
 
 abstract class Wpautoterms {
@@ -28,6 +30,7 @@ abstract class Wpautoterms {
 		CPT::init();
 		Shortcodes::init();
 		Legacy_Shortcodes::init();
+		Widget::init();
 	}
 
 	/**
@@ -57,7 +60,7 @@ abstract class Wpautoterms {
 	}
 
 	public static function action_init() {
-		CPT::register();
+		CPT::register( Options::get_option( Options::LEGAL_PAGES_SLUG ) );
 		do_action( WPAUTOTERMS_SLUG . '_registered_cpt' );
 	}
 }

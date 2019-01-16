@@ -3,6 +3,7 @@
 namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
+use wpautoterms\frontend\Links;
 use wpautoterms\option;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -46,6 +47,14 @@ class Links_Box extends Box {
 			$this->id() . '_links_color' => '#000000',
 			$this->id() . '_separator' => '-',
 			$this->id() . '_target_blank' => false,
+		);
+	}
+
+	protected function _class_hints() {
+		return array(
+			__( 'Links bar class:', WPAUTOTERMS_SLUG ) => '.'.Links::FOOTER_CLASS,
+			__( 'Separator class:', WPAUTOTERMS_SLUG ) => '.'.Links::FOOTER_CLASS . ' .' . Links::SEPARATOR_CLASS,
+			__( 'Link class:', WPAUTOTERMS_SLUG ) => '.'.Links::FOOTER_CLASS . ' a',
 		);
 	}
 }

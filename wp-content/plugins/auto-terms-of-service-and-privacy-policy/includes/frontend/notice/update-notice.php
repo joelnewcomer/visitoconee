@@ -9,13 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Update_Notice extends Base_Notice {
+	const BLOCK_CLASS = 'wpautoterms-update-notice';
+	const CLOSE_CLASS = 'wpautoterms-notice-close';
 
 	protected $_duration;
 	protected $_posts;
 	public $message_multiple;
 
 	public static function create() {
-		$a = new Update_Notice( 'update_notice', 'wpautoterms-update-notice-container', 'wpautoterms-update-notice' );
+		$a = new Update_Notice( 'update_notice', 'wpautoterms-update-notice-container', static::BLOCK_CLASS );
 		$a->message_multiple = get_option( WPAUTOTERMS_OPTION_PREFIX . $a->id() . '_message_multiple' );
 
 		return $a;

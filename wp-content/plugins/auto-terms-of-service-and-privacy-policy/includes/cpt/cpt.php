@@ -2,8 +2,6 @@
 
 namespace wpautoterms\cpt;
 
-use wpautoterms\admin\Options;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,11 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 abstract class CPT {
 	const ROLE = 'manage_wpautoterms_pages';
-	const ADD_TO_ROLE = 'administrator';
+	const ROLE_EDITOR = 'manage_wpautoterms_pages_editor';
+	const BASE_ROLE = 'editor';
+	protected static $_taxonomies = array( 'category' );
 
 	public static function init() {
 		add_filter( 'theme_' . static::type() . '_templates', array( __CLASS__, 'filter_templates' ), 10, 2 );
-		add_action( 'user_register', array( __CLASS__, 'add_role' ), 10, 1 );
+		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
+		add_action( 'admin_menu', array( __CLASS__, 'remove_taxonomies' ) );
 	}
 
 	public static function edit_cap() {
@@ -51,7 +52,7 @@ abstract class CPT {
 		);
 	}
 
-	public static function register() {
+	public static function register( $slug ) {
 		$labels = array(
 			'name' => __( 'Legal Pages', WPAUTOTERMS_SLUG ),
 			'all_items' => __( 'All Legal Pages', WPAUTOTERMS_SLUG ),
@@ -71,9 +72,6 @@ abstract class CPT {
 			'menu_name' => __( 'WP AutoTerms', WPAUTOTERMS_SLUG ),
 		);
 
-		$cs = static::cap_singular();
-		$cp = static::cap_plural();
-
 		$args = array(
 			'labels' => $labels,
 			'hierarchical' => true,
@@ -87,41 +85,40 @@ abstract class CPT {
 			'has_archive' => true,
 			'query_var' => true,
 			'can_export' => true,
-			'rewrite' => array( 'slug' => Options::get_option( Options::LEGAL_PAGES_SLUG ) ),
+			'rewrite' => array( 'slug' => $slug ),
 			'map_meta_cap' => true,
 			'capability_type' => array( static::cap_singular(), static::cap_plural() ),
 			'menu_icon' => WPAUTOTERMS_PLUGIN_URL . 'images/icon.png',
 			'show_admin_column' => true,
+			'taxonomies' => static::$_taxonomies
 		);
 
 		register_post_type( static::type(), $args );
 	}
 
-	public static function register_role() {
-		$role = add_role( static::ROLE, __( 'WPAutoTerms Legal pages editor' ), static::caps() );
-		if ( $role === null ) {
-			return;
+	public static function register_roles() {
+		add_role( static::ROLE, __( 'WPAutoTerms Pages Editor (additional)' ), static::caps() );
+		$role = get_role( static::BASE_ROLE );
+		if ( ! empty( $role ) ) {
+			add_role( static::ROLE_EDITOR,
+				__( 'Editor + WPAutoTerms Pages Editor' ),
+				array_merge( $role->capabilities, static::caps() ) );
 		}
-		$users = get_users( array( 'role' => static::ADD_TO_ROLE ) );
+	}
+
+	public static function unregister_roles() {
+		remove_role( static::ROLE );
+		$users = get_users( array( 'role' => static::ROLE_EDITOR ) );
 		if ( ! empty( $users ) ) {
 			/**
 			 * @var $user \WP_User
 			 */
 			foreach ( $users as $user ) {
-				$user->add_role( static::ROLE );
+				$user->add_role( static::BASE_ROLE );
+				$user->remove_role( static::ROLE_EDITOR );
 			}
 		}
-	}
-
-	public static function unregister_role() {
-		remove_role( static::ROLE );
-	}
-
-	public static function add_role( $user_id ) {
-		$user = get_user_by( 'id', $user_id );
-		if ( in_array( static::ADD_TO_ROLE, $user->roles ) ) {
-			$user->add_role( static::ROLE );
-		}
+		remove_role( static::ROLE_EDITOR );
 	}
 
 	/**
@@ -132,5 +129,42 @@ abstract class CPT {
 	 */
 	public static function filter_templates( $post_templates, $theme ) {
 		return array_merge( $post_templates, $theme->get_page_templates() );
+	}
+
+	public static function endswith( $haystack, $needle ) {
+		return $needle === substr( $haystack, - strlen( $needle ) );
+	}
+
+	protected static function is_current_cap( $cap ) {
+		return static::endswith( $cap, static::cap_singular() ) || static::endswith( $cap, static::cap_plural() );
+	}
+
+	public static function map_meta_cap( $caps, $cap, $user_id, $args ) {
+		if ( isset( $args[0] ) ) {
+			$ok = false;
+			foreach ( $caps as $c ) {
+				if ( static::is_current_cap( $caps[0] ) ) {
+					$ok = true;
+					break;
+				}
+			}
+			if ( ! $ok ) {
+				return $caps;
+			}
+		} elseif ( ! static::is_current_cap( $cap ) ) {
+			return $caps;
+		}
+		if ( is_super_admin( $user_id ) ) {
+			return array();
+		}
+
+		return $caps;
+	}
+
+	public static function remove_taxonomies() {
+		foreach ( static::$_taxonomies as $t ) {
+			remove_submenu_page( 'edit.php?post_type=' . static::type(),
+				'edit-tags.php?taxonomy=' . $t . '&amp;post_type=' . static::type() );
+		}
 	}
 }

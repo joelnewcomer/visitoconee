@@ -5,10 +5,10 @@ Plugin URI: https://wpautoterms.com
 Description: Create Privacy Policy (Simple or GDPR), Terms & Conditions, Disclaimers and more. Compliance Kits to help you be compliant with the law. 
 Author: WP AutoTerms
 Author URI: https://wpautoterms.com
-Version: 2.2.1
+Version: 2.2.3
 License: GPLv2 or later
 Text Domain: wpautoterms
-Domain Path:  /languages
+Domain Path: /languages
 */
 
 /*
@@ -43,6 +43,10 @@ use wpautoterms\api\License;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+if ( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	return;
 }
 
 define( 'WPAUTOTERMS_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
@@ -81,13 +85,7 @@ define( 'WPAUTOTERMS_VERSION', get_version( __FILE__ ) );
 
 require_once WPAUTOTERMS_PLUGIN_DIR . 'api.php';
 require_once WPAUTOTERMS_PLUGIN_DIR . 'deactivate.php';
-require_once WPAUTOTERMS_PLUGIN_DIR . 'uninstall.php';
 register_deactivation_hook( __FILE__, '\wpautoterms\deactivate' );
-register_uninstall_hook( __FILE__, '\wpautoterms\uninstall' );
-
-if ( defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	return;
-}
 
 require_once WPAUTOTERMS_PLUGIN_DIR . 'includes' . DIRECTORY_SEPARATOR . 'autoload.php';
 

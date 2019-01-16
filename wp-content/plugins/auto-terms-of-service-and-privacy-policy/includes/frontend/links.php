@@ -9,6 +9,8 @@ use wpautoterms\gen_css\Record;
 
 class Links {
 	const MODULE_ID = 'links';
+	const FOOTER_CLASS = 'wpautoterms-footer';
+	const SEPARATOR_CLASS = 'separator';
 
 	public function __construct() {
 		add_action( 'wp_print_styles', array( $this, 'print_styles' ) );
@@ -26,6 +28,7 @@ class Links {
 			'post_type' => CPT::type(),
 			'post_status' => 'publish',
 			'orderby' => 'post_modified',
+			'numberposts' => - 1
 		);
 
 		$posts = get_posts( $args );
@@ -40,16 +43,16 @@ class Links {
 		}
 
 		$d = new Document( array(
-			new Record( '.wpautoterms-footer', array(
+			new Record( '.' . static::FOOTER_CLASS, array(
 				new Attr( $option_prefix, Attr::TYPE_BG_COLOR ),
 				new Attr( $option_prefix, Attr::TYPE_TEXT_ALIGN ),
 			) ),
-			new Record( '.wpautoterms-footer a', array(
+			new Record( '.' . static::FOOTER_CLASS . ' a', array(
 				new Attr( $option_prefix, Attr::TYPE_LINKS_COLOR ),
 				new Attr( $option_prefix, Attr::TYPE_FONT ),
 				new Attr( $option_prefix, Attr::TYPE_FONT_SIZE ),
 			) ),
-			new Record( '.wpautoterms-footer .separator', array(
+			new Record( '.' . static::FOOTER_CLASS . ' .' . static::SEPARATOR_CLASS, array(
 				new Attr( $option_prefix, Attr::TYPE_TEXT_COLOR ),
 				new Attr( $option_prefix, Attr::TYPE_FONT ),
 				new Attr( $option_prefix, Attr::TYPE_FONT_SIZE ),

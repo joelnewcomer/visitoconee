@@ -4,6 +4,7 @@ namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
 use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\notice\Cookies_Notice;
 use wpautoterms\option;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -125,5 +126,12 @@ class Cookies_Notice_Box extends Licensed_Box {
 			$this->id() . '_text_color' => '',
 			$this->id() . '_links_color' => '',
 		) );
+	}
+
+	protected function _class_hints() {
+		return array(
+			__( 'Cookies notice bar class:', WPAUTOTERMS_SLUG ) => '.' . Cookies_Notice::CLASS_COOKIES_NOTICE,
+			__( 'Close button class:', WPAUTOTERMS_SLUG ) => '.' . Cookies_Notice::CLASS_CLOSE_BUTTON,
+		);
 	}
 }

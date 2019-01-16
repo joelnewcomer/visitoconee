@@ -4,7 +4,7 @@ Tags: compressor, image, compression, optimize, image optimizer, image optimiser
 Requires at least: 3.2.0
 Tested up to: 5.0
 Requires PHP: 5.2
-Stable tag: 4.12.4
+Stable tag: 4.12.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -240,6 +240,17 @@ The ShortPixel Image Optimiser plugin calls the following actions and filters:
 9. Check other optimized images status - themes or other plugins' images. (Media>Other Media)
 
 == Changelog ==
+
+= 4.12.5 =
+
+Release date: 10th Ianuary 2019
+
+* change the JS name in order to circumveit cache problem on many WP installs
+* sorting the Media Library entries by ShortPixel optimization: also sort based on compression level
+* Fixed: case sensitive search for guid duplicates of image posts (needed for finding Polylang versions)
+* Fixed: the data-lazy-src/srcset detection for WebP
+* Improvements to the Deliver WebP options and especially messages with caveats
+* Load the ShortPixel CSS only on admin pages that need it
 
 = 4.12.4 =
 

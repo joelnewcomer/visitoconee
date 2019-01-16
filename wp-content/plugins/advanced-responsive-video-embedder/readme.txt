@@ -5,7 +5,7 @@ Tags: YouTube, Vimeo, lazyload, thumbnail, video, responsive, embeds, video-embe
 Requires at least: 4.4.0
 Tested up to: 4.9.4
 Requires PHP: 5.3
-Stable tag: 8.10.1
+Stable tag: 8.10.2
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -153,10 +153,15 @@ This plugins embed is considered as 'custom player' by YouTube so you have to pa
 2. URL Parameter Options
 3. Pro Options
 
-## Changelog ##
+## Changelog #
 
 * [ARVE Pro addon changelog](https://nextgenthemes.com/plugins/arve-pro/changelog/)
 * [ARVE AMP addon changelog](https://nextgenthemes.com/plugins/arve-amp/)
+
+### 2019-01-16 - 8.10.2 ###
+
+* Fix: Base code to fix titles not showing over thumbnails in recent Pro Addon version.
+* Improved: Added `allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"` to iframe as per official YouTube embed code.
 
 ### 2018-11-29 - 8.10.1 ###
 

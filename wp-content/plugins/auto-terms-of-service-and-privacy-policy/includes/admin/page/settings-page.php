@@ -6,6 +6,7 @@ use wpautoterms\admin\Notices;
 use wpautoterms\admin\Options;
 use wpautoterms\api\License;
 use wpautoterms\Countries;
+use wpautoterms\option\Checkbox_Option;
 use wpautoterms\option\Choices_Option;
 use wpautoterms\option\CPT_Slug_Option;
 use wpautoterms\option\Text_Option;
@@ -85,6 +86,8 @@ class Settings_Page extends Settings_Base {
 			$tooltip,
 			$this->id(), static::SECTION_ID, false, $attrs );
 		$slug->set_fallback( array( $this, 'slug_fail' ) );
+		new Checkbox_Option( Options::SHOW_IN_PAGES_WIDGET, __( 'Show legal pages in Pages Widget', WPAUTOTERMS_SLUG ),
+			'', $this->id(), static::SECTION_ID );
 	}
 
 	protected function _default_slug() {
@@ -115,6 +118,7 @@ class Settings_Page extends Settings_Base {
 	public function defaults() {
 		return array_reduce( Options::all_options(), function ( $acc, $x ) {
 			$acc[ $x ] = Options::default_value( $x );
+
 			return $acc;
 		}, array() );
 	}

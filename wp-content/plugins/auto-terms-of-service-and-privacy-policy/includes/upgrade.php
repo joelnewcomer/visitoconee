@@ -20,7 +20,7 @@ class Upgrade {
 		if ( ! get_option( WPAUTOTERMS_OPTION_PREFIX . WPAUTOTERMS_OPTION_ACTIVATED ) ) {
 			flush_rewrite_rules();
 			update_option( WPAUTOTERMS_OPTION_PREFIX . WPAUTOTERMS_OPTION_ACTIVATED, true );
-			CPT::register_role();
+			CPT::register_roles();
 			$activated = true;
 			$this->_activate = true;
 		} else {
@@ -33,7 +33,7 @@ class Upgrade {
 			}
 			$this->_add_slug_option();
 			if ( ! $activated ) {
-				CPT::register_role();
+				CPT::register_roles();
 			}
 			update_option( WPAUTOTERMS_OPTION_PREFIX . Menu::VERSION, WPAUTOTERMS_VERSION );
 		}

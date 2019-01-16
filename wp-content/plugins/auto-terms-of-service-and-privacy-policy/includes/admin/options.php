@@ -9,6 +9,7 @@ class Options {
 	const COUNTRY = 'country';
 	const STATE = 'state';
 	const LEGAL_PAGES_SLUG = 'legal_pages_slug';
+	const SHOW_IN_PAGES_WIDGET = 'show_in_pages_widget';
 	protected static $_defaults;
 
 	public static function all_options() {
@@ -18,7 +19,8 @@ class Options {
 			static::COMPANY_NAME,
 			static::COUNTRY,
 			static::STATE,
-			static::LEGAL_PAGES_SLUG
+			static::LEGAL_PAGES_SLUG,
+			static::SHOW_IN_PAGES_WIDGET
 		);
 	}
 
@@ -31,7 +33,8 @@ class Options {
 				Options::COMPANY_NAME => $blogname,
 				Options::COUNTRY => '',
 				Options::STATE => '',
-				Options::LEGAL_PAGES_SLUG => 'wpautoterms'
+				Options::LEGAL_PAGES_SLUG => 'wpautoterms',
+				Options::SHOW_IN_PAGES_WIDGET => false
 			);
 		}
 

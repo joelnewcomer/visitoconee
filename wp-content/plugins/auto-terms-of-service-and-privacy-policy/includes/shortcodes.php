@@ -21,6 +21,7 @@ abstract class Shortcodes {
 		static::$_root = new shortcode\Shortcode( WPAUTOTERMS_SLUG );
 		static::$_root->add_subshortcode( new shortcode\Last_Updated( 'last_updated_date' ) );
 		static::$_root->add_subshortcode( new shortcode\Post_Data( 'page_title', 'post_title' ) );
+		static::$_root->add_subshortcode( new shortcode\Post_Content( 'page' ) );
 		static::$_root->add_subshortcode( new shortcode\Post_Link( 'page_link' ) );
 		static::$_root->add_subshortcode( new shortcode\Post_Titles( 'page_titles' ) );
 		static::$_root->add_subshortcode( new shortcode\Post_Links( 'page_links' ) );

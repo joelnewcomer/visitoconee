@@ -21,7 +21,7 @@ abstract class Menu {
 	const VERSION = 'version';
 	const LEGACY_OPTIONS = 'legacy_options';
 
-	const PAGE_CONTACT = 'contact';
+	const PAGE_HELP = 'help';
 	const PAGE_SETTINGS = 'settings';
 	const PAGE_COMPLIANCE_KITS = 'compliancekits';
 	const PAGE_LICENSE_SETTINGS = 'license_settings';
@@ -57,7 +57,7 @@ abstract class Menu {
 		$ls = new License_Settings( static::PAGE_LICENSE_SETTINGS, __( 'License Settings', WPAUTOTERMS_SLUG ),
 			__( 'License', WPAUTOTERMS_SLUG ) );
 		$ls->set_license( $license );
-		$contact = new page\Contact( static::PAGE_CONTACT, __( 'Contact', WPAUTOTERMS_SLUG ) );
+		$contact = new page\Help( static::PAGE_HELP, __( 'Help', WPAUTOTERMS_SLUG ) );
 		$sm = new Send_Message( CPT::edit_cap(), null, $contact->id(), null,
 			__( 'Access denied', WPAUTOTERMS_SLUG ), true );
 		$contact->action = $sm;

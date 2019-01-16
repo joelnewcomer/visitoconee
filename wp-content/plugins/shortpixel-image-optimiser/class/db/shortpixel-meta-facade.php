@@ -482,13 +482,25 @@ class ShortPixelMetaFacade {
         ", $id ) );
 
         //Polylang
-        $moreDuplicates = $wpdb->get_col( $wpdb->prepare( "
-            SELECT p.ID FROM {$wpdb->posts} p
+        $moreDuplicates = $wpdb->get_results( $wpdb->prepare( "
+            SELECT p.ID, p.guid FROM {$wpdb->posts} p
             INNER JOIN {$wpdb->posts} pbase ON p.guid = pbase.guid
          WHERE pbase.ID = %s
         ", $id ) );
+        //MySQL is doing a CASE INSENSITIVE join on p.guid!! so double check the results.
+        $guid = false;
+        foreach($moreDuplicates as $duplicate) {
+            if($duplicate->ID == $id) {
+                $guid = $duplicate->guid;
+            }
+        }
+        foreach($moreDuplicates as $duplicate) {
+            if($duplicate->guid == $guid) {
+                $duplicates[] = $duplicate->ID;
+            }
+        }
 
-        $duplicates = array_unique(array_merge($duplicates, $moreDuplicates));
+        $duplicates = array_unique($duplicates);
 
         if(!in_array($id, $duplicates)) $duplicates[] = $id;
 

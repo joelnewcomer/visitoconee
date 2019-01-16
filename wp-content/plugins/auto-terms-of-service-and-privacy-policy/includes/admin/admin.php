@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use wpautoterms\Action_Base;
 use wpautoterms\admin\action\Recheck_License;
 use wpautoterms\admin\action\Set_Option;
 use wpautoterms\admin\form\Legal_Page;
@@ -32,6 +33,10 @@ abstract class Admin {
 	 * @var Set_Option
 	 */
 	protected static $_warning_action;
+	/**
+	 * @var Review_Banner
+	 */
+	protected static $_review_banner;
 
 	public static function init( License $license, Query $query ) {
 		static::$_license = $license;
@@ -39,6 +44,7 @@ abstract class Admin {
 		add_action( 'init', array( __CLASS__, 'action_init' ) );
 		new Slug_Helper();
 		new Upgrade();
+		static::$_review_banner = new Review_Banner();
 	}
 
 	public static function action_init() {
@@ -65,7 +71,7 @@ abstract class Admin {
 	}
 
 	public static function update_wp_builtin_pp( $pages, $r ) {
-		if ( ! isset( $r['name'] ) || !in_array( $r['name'], array(
+		if ( ! isset( $r['name'] ) || ! in_array( $r['name'], array(
 				'wp_page_for_privacy_policy',
 				'page_for_privacy_policy',
 				'woocommerce_terms_page_id'
@@ -153,8 +159,11 @@ abstract class Admin {
 	}
 
 	public static function enqueue_scripts( $page ) {
+		if ( ! isset ( $_REQUEST['post_type'] ) || $_REQUEST['post_type'] !== CPT::type() ) {
+			return;
+		}
 		global $post;
-		if ( ! empty( $post ) && ( $post->post_type == CPT::type() ) ) {
+		if ( ! empty( $post ) ) {
 			// NOTE: load media scripts in case 3-rd party plugin fails to enqueue them properly.
 			$scripts = wp_scripts();
 			if ( ! empty( $scripts->queue ) ) {
@@ -187,23 +196,31 @@ abstract class Admin {
 				wp_localize_script( WPAUTOTERMS_SLUG . '_post_new', 'wpautotermsPostNew', array(
 					'hidden' => $hidden,
 					'dependencies' => $dependencies,
-					'settings_warning_disable_nonce' => static::$_warning_action->nonce(),
 					'page_id' => $page_id
 				) );
 				wp_register_style( WPAUTOTERMS_SLUG . '_post_new_css', WPAUTOTERMS_PLUGIN_URL . 'css/post-new.css', false );
 				wp_enqueue_style( WPAUTOTERMS_SLUG . '_post_new_css' );
-				wp_register_style( WPAUTOTERMS_SLUG . '_admin_css', WPAUTOTERMS_PLUGIN_URL . 'css/admin.css', false );
-				wp_enqueue_style( WPAUTOTERMS_SLUG . '_admin_css' );
 			}
-		}
 
-		$prefix = WPAUTOTERMS_SLUG . '_';
-		if ( strncmp( $page, $prefix, strlen( $prefix ) ) != 0 ) {
-			return;
 		}
-		Countries::enqueue_scripts();
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_admin', WPAUTOTERMS_PLUGIN_URL . 'js/admin.js', false, false, true );
 		wp_register_style( WPAUTOTERMS_SLUG . '_admin_css', WPAUTOTERMS_PLUGIN_URL . 'css/admin.css', false );
 		wp_enqueue_style( WPAUTOTERMS_SLUG . '_admin_css' );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_common', WPAUTOTERMS_PLUGIN_URL . 'js/common.js',
+			false, false, true );
+		$nonce = array();
+		/**
+		 * @var Action_Base $action
+		 */
+		foreach ( Action_Base::actions() as $action ) {
+			$nonce[ $action->name() ] = $action->nonce();
+		}
+		wp_localize_script( WPAUTOTERMS_SLUG . '_common', 'wpautotermsCommon', array(
+			'nonce' => $nonce,
+		) );
+		$prefix = WPAUTOTERMS_SLUG . '_';
+		if ( strncmp( $page, $prefix, strlen( $prefix ) ) === 0 ) {
+			Countries::enqueue_scripts();
+			wp_enqueue_script( WPAUTOTERMS_SLUG . '_admin', WPAUTOTERMS_PLUGIN_URL . 'js/kits.js', false, false, true );
+		}
 	}
 }
