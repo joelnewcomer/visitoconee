@@ -5011,6 +5011,16 @@ body.error404 .entry-content h2 {
     fill: #664D39;
     stroke: #664D39;
     transition: all .5s; }
+  .poi-card .poi-caption {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 16px;
+    color: #fff;
+    font-size: 20px;
+    background: #E67002;
+    text-transform: uppercase;
+    font-weight: 600; }
   .poi-card:hover {
     background: #664D39;
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.6); }

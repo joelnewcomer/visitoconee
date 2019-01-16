@@ -145,6 +145,10 @@ if (typeof bxSlider === "function") {
 		    		    ?>
 						<div class="large-4 medium-6 cell poi-card transition <?php echo $classes; ?>">
 							<?php the_post_thumbnail( 'thumbnail' ); ?>
+							<?php $caption = get_post(get_post_thumbnail_id())->post_excerpt; ?>
+							<?php if ($caption != '') : ?>
+								<div class="poi-caption"><?php echo $caption; ?></div>
+							<?php endif; ?> 
 							<div class="poi-card-content">
 								<h3><?php the_title(); ?></h3>
 								<?php

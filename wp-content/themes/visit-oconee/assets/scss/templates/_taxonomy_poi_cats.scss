@@ -74,6 +74,17 @@
 			transition: all .5s;
 		}
 	}
+	.poi-caption {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 4px 16px;
+		color: #fff;
+		font-size: 20px;
+		background: $orange;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
 	&:hover {
 		background: $brown;
 		box-shadow: 0 0 55px rgba(0,0,0,.60);		
