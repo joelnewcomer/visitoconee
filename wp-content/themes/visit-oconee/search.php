@@ -19,18 +19,7 @@ if ($image_id == null) {
 			<div class="featured-image blog-landing-featured">
 				<?php echo wp_get_attachment_image($image_id,'featured'); ?>
 				<div class="overlay">
-					<section class="breadcrumbs">
-						<div class="grid-container">
-							<div class="large-12 cell">
-								<?php
-								if ( function_exists('yoast_breadcrumb') ) {
-									yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-								}
-								?>
-							</div>
-						</div> <!-- grid-container -->
-					</section> <!-- breadcrumbs -->
-					<div class="blog-header single-header text-center search-and-cats">
+					<div class="blog-header single-header text-center search-and-cats search-header">
 						<div style="display:table;width:100%;height:100%;">
 							<div style="display:table-cell;vertical-align:middle;">
 						    	<div style="text-align:center;">

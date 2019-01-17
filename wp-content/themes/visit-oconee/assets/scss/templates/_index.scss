@@ -65,6 +65,9 @@ ul.post-meta {
 	.blog-header {
 		@media only screen and (min-width: 40.063em) {
 			padding-top: 82px;
+			&.search-header {
+				padding-top: 65px;
+			}
 		}
 		display: block;
 		position: absolute;
@@ -109,6 +112,7 @@ ul.post-meta {
 
 #blog-search {
 	margin-bottom: 8px;
+	position: relative;
 	/*
 	border-radius: $input-radius;
 	position: relative;

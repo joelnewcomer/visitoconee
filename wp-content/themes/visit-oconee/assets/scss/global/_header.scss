@@ -25,6 +25,9 @@
 			a {
 				display: inline-block;
 				padding: 8px 10px;
+				@media only screen and (max-width: 670px) {
+					padding: 8px;
+				}
 				font-size: 20px;
 				font-weight: 600;
 				text-transform: uppercase;
@@ -58,6 +61,12 @@
 		@media only screen and (max-width: 40.063em) {
 			background: $brown;	
 		}
+	}
+}
+
+@media only screen and (max-width: 40.063em) {
+	body.admin-bar .nav-wrapper .nav-wrapper-inner {
+		top: 46px;
 	}
 }
 

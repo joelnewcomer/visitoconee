@@ -3188,6 +3188,9 @@ body.ie10 .cell {
         font-weight: 600;
         text-transform: uppercase;
         color: #fff; }
+        @media only screen and (max-width: 670px) {
+          #top-header ul li a {
+            padding: 8px; } }
       #top-header ul li:last-child a {
         background: #E67002; }
         #top-header ul li:last-child a:after {
@@ -3211,6 +3214,10 @@ body.ie10 .cell {
     @media only screen and (max-width: 40.063em) {
       .nav-wrapper .nav-wrapper-inner {
         background: #664D39; } }
+
+@media only screen and (max-width: 40.063em) {
+  body.admin-bar .nav-wrapper .nav-wrapper-inner {
+    top: 46px; } }
 
 .top-bar-left {
   padding-top: 8px;
@@ -4192,7 +4199,9 @@ ul.post-meta {
     width: 100%; }
     @media only screen and (min-width: 40.063em) {
       .featured-container .blog-header {
-        padding-top: 82px; } }
+        padding-top: 82px; }
+        .featured-container .blog-header.search-header {
+          padding-top: 65px; } }
     @media print {
       .featured-container .blog-header {
         position: relative; } }
@@ -4222,6 +4231,7 @@ ul.post-meta {
 
 #blog-search {
   margin-bottom: 8px;
+  position: relative;
   /*
 	border-radius: $input-radius;
 	position: relative;
