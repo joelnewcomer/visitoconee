@@ -20,9 +20,9 @@ function drum_customize_register( $wp_customize ) {
 		'description' => '',
 		'priority' => 120,
 	));
-	// Add Company Locations Section to Footer Panel
-	$wp_customize->add_section('locations_section', array(
-		'title' => 'Locations',
+	// Add Visitor's Guide Section to Footer Panel
+	$wp_customize->add_section('visitors_guide_section', array(
+		'title' => 'Visitor\'s Guide',
 		'panel' => 'footer',
 		'description' => '',
 		'priority' => 120,
@@ -112,6 +112,23 @@ if( class_exists('Kirki') ) {
 			'save_as' => 'id',
 		),
 	) );
+
+	Kirki::add_field( 'visitors_guide_image_field', array(
+		'type'        => 'image',
+		'settings'    => 'visitors_guide_thumb',
+		'label'       => esc_attr__( 'Visitor\'s Guide Thumbnail', 'textdomain' ),
+		'description' => esc_attr__( 'Must be sized to exactly 189 x 294 pixels.', 'textdomain' ),
+		'section'     => 'visitors_guide_section',
+		'default'     => '',
+	) );
+
+	Kirki::add_field( 'visitors_guide_link_field', array(
+		'type'        => 'link',
+		'settings'    => 'visitors_guide_link',
+		'label'       => esc_attr__( 'Visitor\'s Guide Link', 'textdomain' ),
+		'section'     => 'visitors_guide_section',
+		'default'     => 'https://visitoconeesc.com/visitors-guide',
+	) );
 	
 	Kirki::add_field( 'featured_dimensions', array(
 		'type'        => 'dimensions',
@@ -135,60 +152,6 @@ if( class_exists('Kirki') ) {
 		),
 	));
 	
-	Kirki::add_field( 'locations_field', array(
-		'type'        => 'repeater',
-		'label'       => esc_attr__( 'Company Locations', 'textdomain' ),
-		'section'     => 'locations_section',
-		'priority'    => 10,
-		'row_label' => array(
-			'type' => 'field',
-			'value' => esc_attr__('Location', 'textdomain' ),
-			'field' => 'loc_title',
-		),
-		'settings'    => 'locations',
-		'fields' => array(
-			'loc_title' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Title', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_address' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Street Address', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_address_2' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Street Address Line 2', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_city' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'City', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_state' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'State', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_zip' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Zip Code', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_phone' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Phone', 'textdomain' ),
-				'default'     => '',
-			),
-			'loc_email' => array(
-				'type'        => 'text',
-				'label'       => esc_attr__( 'Email', 'textdomain' ),
-				'default'     => '',
-			),
-		)
-	));
 	Kirki::add_field( 'sr_field', array(
 		'type'        => 'checkbox',
 		'settings'    => 'sr_toggle',
