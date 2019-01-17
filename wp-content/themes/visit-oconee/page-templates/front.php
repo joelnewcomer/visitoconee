@@ -85,6 +85,7 @@ get_header(); ?>
 	   	</div>
 	</section> <!-- home-blocks -->
 	
+	<!--
 	<section class="home-cats">
 		<div class="grid-container">
 	   		<div class="grid-x">
