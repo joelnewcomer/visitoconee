@@ -51,7 +51,7 @@
             "label": "Short Description",
             "name": "short_description",
             "type": "textarea",
-            "instructions": "120 character limit.",
+            "instructions": "Must be between 80 and 120 characters.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -190,5 +190,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1539955814
+    "modified": 1547740556
 }

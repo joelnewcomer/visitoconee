@@ -89,6 +89,9 @@ get_header(); ?>
 		    		    $classes = implode(" ", $terms);
 		    		    ?>
 						<div class="large-4 medium-6 cell event-card month-<?php echo date('n', $start_date); ?> transition <?php echo $classes; ?>">
+							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
+								<?php the_post_thumbnail( 'thumbnail' ); ?>
+							</a>
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
 								<?php echo date('F', $start_date); ?>
 							</a>

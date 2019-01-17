@@ -364,6 +364,24 @@ new GW_Minimum_Characters( array(
     'max_validation_message' => __( 'Oops! You can only enter %s characters.' )
 ) );
 
+
+// Set minimum characters for event short description ACF field
+add_filter('acf/validate_value/name=short_description', 'validate_min_chars', 10, 4);
+ function validate_min_chars( $valid, $value, $field, $input ){
+ 
+	// bail early if value is already invalid
+	if( !$valid ) {
+		return $valid;
+	}
+ 
+	if ( strlen($value) < 80 ) {		
+		$valid = 'Must be a minimum of 80 characters.';
+	} 
+ 
+	// return
+	return $valid;
+}
+
 // Custom Image Sizes
 add_image_size( 'home-video', 414, 297, true );
 add_image_size( 'home-block', 635, 428, true );
