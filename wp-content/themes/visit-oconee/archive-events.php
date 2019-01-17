@@ -92,10 +92,10 @@ get_header(); ?>
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
 								<?php echo date('F', $start_date); ?>
 							</a>
+							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
+								<?php the_post_thumbnail( 'thumbnail' ); ?>
+							</a>
 							<div class="event-card-content">
-								<a href="<?php echo $link; ?>" <?php echo $target; ?>>
-									<?php the_post_thumbnail( 'thumbnail' ); ?>
-								</a>
 								<div class="date-range">
 									<?php echo date('j', $start_date); ?><?php if ($start_date != $end_date && $end_date != '') : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
