@@ -150,6 +150,7 @@ h1.entry-title, h2.entry-title {
 h1.entry-title {
 	font-family: "gizmo";
 	font-size: 160px;
+	line-height: 1;
 	text-transform: lowercase;
 	@media only screen and (max-width: 970px) {
 		font-size: 120px;
@@ -165,6 +166,18 @@ h1.entry-title {
 		font-size: 64px;
 		margin: 40px 0 20px 0;
 		color: $brown !important;	
+	}	
+}
+
+h1.entry-title.search-title {
+	@media only screen and (max-width: 970px) {
+		font-size: 120px;
+	}
+	@media only screen and (max-width: 880px) {	
+		font-size: 100px;
+	}
+	@media only screen and (max-width: 810px) {
+		font-size: 80px;	
 	}	
 }
 

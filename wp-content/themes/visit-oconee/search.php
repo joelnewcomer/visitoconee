@@ -34,7 +34,7 @@ if ($image_id == null) {
 						<div style="display:table;width:100%;height:100%;">
 							<div style="display:table-cell;vertical-align:middle;">
 						    	<div style="text-align:center;">
-							    	<h1 class="entry-title single-title-ul"><?php _e( 'Search', 'drumroll' ); ?></h1>
+							    	<h1 class="entry-title search-title single-title-ul"><?php _e( 'Search', 'drumroll' ); ?></h1>
 							    	<!-- Search -->
 									<form role="search" method="get" id="blog-search" action="<?php echo home_url( '/' ); ?>">
 										<input type="text" value="<?php echo get_search_query(); ?>" name="s" id="s" placeholder="<?php esc_attr_e( 'Search Blog', 'drumroll' ); ?>">

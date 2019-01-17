@@ -3082,6 +3082,7 @@ h1.entry-title, h2.entry-title {
 h1.entry-title {
   font-family: "gizmo";
   font-size: 160px;
+  line-height: 1;
   text-transform: lowercase; }
   @media only screen and (max-width: 970px) {
     h1.entry-title {
@@ -3098,6 +3099,18 @@ h1.entry-title {
       font-size: 64px;
       margin: 40px 0 20px 0;
       color: #664D39 !important; } }
+
+@media only screen and (max-width: 970px) {
+  h1.entry-title.search-title {
+    font-size: 120px; } }
+
+@media only screen and (max-width: 880px) {
+  h1.entry-title.search-title {
+    font-size: 100px; } }
+
+@media only screen and (max-width: 810px) {
+  h1.entry-title.search-title {
+    font-size: 80px; } }
 
 body.edge .bx-loading {
   display: none; }
