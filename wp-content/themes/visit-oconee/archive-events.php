@@ -89,13 +89,13 @@ get_header(); ?>
 		    		    $classes = implode(" ", $terms);
 		    		    ?>
 						<div class="large-4 medium-6 cell event-card month-<?php echo date('n', $start_date); ?> transition <?php echo $classes; ?>">
-							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
-								<?php the_post_thumbnail( 'thumbnail' ); ?>
-							</a>
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
 								<?php echo date('F', $start_date); ?>
 							</a>
 							<div class="event-card-content">
+								<a href="<?php echo $link; ?>" <?php echo $target; ?>>
+									<?php the_post_thumbnail( 'thumbnail' ); ?>
+								</a>
 								<div class="date-range">
 									<?php echo date('j', $start_date); ?><?php if ($start_date != $end_date && $end_date != '') : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
