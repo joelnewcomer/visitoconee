@@ -16,18 +16,6 @@ if ($image_id == null) {
 ?>
 
 	<div class="featured-container">
-		<div class="blurred-container"><div class="blurred-bg"></div><div class="blurred-overlay"></div></div>
-		<?php $blurred_image = wp_get_attachment_image_src($image_id,'featured'); ?>
-		<script>
-		 	jQuery( document ).ready(function() {
-		    	jQuery('.blurred-bg').backgroundBlur({
-		        	imageURL : '<?php echo $blurred_image[0]; ?>',
-					blurAmount : 7,
-					imageClass : 'bg-blur'
-		     	});
-		 	});
-		</script>	
-		<div class="grid-container">
 			<div class="featured-image blog-landing-featured">
 				<?php echo wp_get_attachment_image($image_id,'featured'); ?>
 				<div class="overlay">
@@ -58,7 +46,6 @@ if ($image_id == null) {
 					</div> <!-- blog-header -->
 				</div> <!-- overlay -->
 			</div> <!-- blog-landing-featured -->
-		</div> <!-- row -->
 	</div> <!-- featured-container -->
 
 <div class="search-results-container">
