@@ -174,9 +174,46 @@ if (typeof bxSlider === "function") {
 									echo '</a>';
 									?>
 								<?php endforeach; ?>
-								</div> <!-- poi-social -->								
-								<a href="<?php echo get_field('google_business_url'); ?>" target="_blank" class="poi-more-info">More Info</a>
+								</div> <!-- poi-social -->	
+								<?php
+								$url = get_field('google_business_url');
+								$website = get_field('website');
+								$more_info = get_field('more_info');
+								?>
+								<?php if ($more_info == '') :?>
+	 								<?php
+		 							if ($website != '') {
+		 								$url = $website;	
+	 								}
+	 								?>
+	 								<a href="<?php echo $url; ?>" target="_blank" class="poi-more-info">More Info</a>
+	 							<?php else : ?>
+	 								<a href="#" class="poi-more-info toggle-shade">More Info</a>
+	 							<?php endif; ?>
 							</div> <!-- poi-card-content -->
+							<?php if ($more_info != '') :?>
+								<div class="poi-shade transition">
+									<div class="toggle-shade close-shade">&times;</div>
+									<h3><?php the_title(); ?></h3>
+									<p><?php echo get_field('more_info'); ?></p>
+									<?php if ($website != '') : ?>
+										<div class="text-center">
+											<div class="button small reverse"><a href="<?php echo $website; ?>" target="_blank">Website</a></div>
+										</div>
+									<?php endif; ?>
+									<div class="shade-left">
+										<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
+											<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
+											<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
+										</div>										
+									</div>
+									<?php if ($url != '') : ?>
+									<div class="shade-right text-right">
+										<a href="<?php echo $url; ?>" target="_blank">Get Directions</a>
+									</div>
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
 						</div> <!-- poi-card -->
 					<?php endwhile; ?>
         		<?php else : ?>
@@ -188,6 +225,11 @@ if (typeof bxSlider === "function") {
 </div> <!-- #page blog-grid -->
 
 <script>
+	
+jQuery(".toggle-shade").on( "click", function(e) {
+	e.preventDefault();
+	jQuery(this).parents('.poi-card').toggleClass('shade-open');
+});
 
 jQuery( document ).ready(function() {
 	var hash = window.location.hash;

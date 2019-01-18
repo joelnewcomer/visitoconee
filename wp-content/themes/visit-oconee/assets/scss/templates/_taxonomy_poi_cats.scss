@@ -63,6 +63,7 @@
 	background: rgba($brown, .10);
 	margin-bottom: 20px;
 	position: relative;
+	overflow: hidden;
 	.poi-card-content {
 		p, .poi-link, .poi-itinerary, a {
 			color: $brown;
@@ -192,6 +193,85 @@
 				stroke: $orange;
 			}
 		}
+	}
+	.poi-shade {
+		background: $brown;
+		display: block;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		padding: 36px 40px 0px 40px;
+		@media only screen and (max-width: 1260px) {
+			padding: 36px 20px 0 20px;
+		}
+		@media only screen and (max-width: 1170px) {
+			h3 {
+				font-size: 20px;
+			}
+		}
+		height: 100%;
+		width: 100%;
+		overflow: scroll;
+		p, a, .poi-itinerary {
+			color: #fff;
+		}
+		svg path {
+			fill: #fff;
+		}
+		p {
+			font-size: 15px;
+			margin-bottom: 20px;
+			@media only screen and (max-width: 1170px) {
+				margin-bottom: 10px;	
+			}
+		}
+		.button a {
+			background: transparent;
+			margin-bottom: 20px;
+			@media only screen and (max-width: 1170px) {
+				margin-bottom: 10px;	
+			}
+		}
+		.close-shade {
+			display: block;
+			position: absolute;
+			top: 12px;
+			right: 16px;
+			font-size: 64px;
+			font-weight: 100;
+			color: #fff;
+			line-height: 24px;
+			width: 24px;
+			height: 24px;
+			cursor: pointer;
+		}
+		.shade-right {
+			padding-top: 30px;
+			a {
+				font-weight: bold;
+			}
+			@media only screen and (max-width: 1120px) and (min-width: 40.063em) {
+				padding-top: 8px;
+				padding-bottom: 20px;	
+			}
+		}
+		.shade-left, .shade-right {
+			display: block;
+			float: left;
+			width: 50%;
+			@media only screen and (max-width: 1120px) and (min-width: 40.063em) {
+				width: 100%;
+				text-align: center !important;
+				.poi-itinerary {
+					float: none;
+					display: inline-block;
+				}
+			}
+		}
+
+	}
+	&.shade-open .poi-shade {
+		top: 0;
 	}
 	/* .poi-modal {
 		display: block;

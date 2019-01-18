@@ -4950,6 +4950,7 @@ body.error404 .entry-content h2 {
   background: rgba(102, 77, 57, 0.1);
   margin-bottom: 20px;
   position: relative;
+  overflow: hidden;
   /* .poi-modal {
 		display: block;
 		position: fixed;
@@ -5128,6 +5129,71 @@ body.error404 .entry-content h2 {
       .poi-card .poi-itinerary.added svg path {
         fill: #E67002;
         stroke: #E67002; }
+  .poi-card .poi-shade {
+    background: #664D39;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 36px 40px 0px 40px;
+    height: 100%;
+    width: 100%;
+    overflow: scroll; }
+    @media only screen and (max-width: 1260px) {
+      .poi-card .poi-shade {
+        padding: 36px 20px 0 20px; } }
+    @media only screen and (max-width: 1170px) {
+      .poi-card .poi-shade h3 {
+        font-size: 20px; } }
+    .poi-card .poi-shade p, .poi-card .poi-shade a, .poi-card .poi-shade .poi-itinerary {
+      color: #fff; }
+    .poi-card .poi-shade svg path {
+      fill: #fff; }
+    .poi-card .poi-shade p {
+      font-size: 15px;
+      margin-bottom: 20px; }
+      @media only screen and (max-width: 1170px) {
+        .poi-card .poi-shade p {
+          margin-bottom: 10px; } }
+    .poi-card .poi-shade .button a {
+      background: transparent;
+      margin-bottom: 20px; }
+      @media only screen and (max-width: 1170px) {
+        .poi-card .poi-shade .button a {
+          margin-bottom: 10px; } }
+    .poi-card .poi-shade .close-shade {
+      display: block;
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 64px;
+      font-weight: 100;
+      color: #fff;
+      line-height: 24px;
+      width: 24px;
+      height: 24px;
+      cursor: pointer; }
+    .poi-card .poi-shade .shade-right {
+      padding-top: 30px; }
+      .poi-card .poi-shade .shade-right a {
+        font-weight: bold; }
+      @media only screen and (max-width: 1120px) and (min-width: 40.063em) {
+        .poi-card .poi-shade .shade-right {
+          padding-top: 8px;
+          padding-bottom: 20px; } }
+    .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right {
+      display: block;
+      float: left;
+      width: 50%; }
+      @media only screen and (max-width: 1120px) and (min-width: 40.063em) {
+        .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right {
+          width: 100%;
+          text-align: center !important; }
+          .poi-card .poi-shade .shade-left .poi-itinerary, .poi-card .poi-shade .shade-right .poi-itinerary {
+            float: none;
+            display: inline-block; } }
+  .poi-card.shade-open .poi-shade {
+    top: 0; }
 
 .event-card {
   background: #EBF0F3 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNzc0IDEwMS43NzMiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjYmQ0ZDg7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjEzLjM3NCwxMjMuNCwxMTEuNiwyMjUuMTc0di03My41NkEyOC4zODUsMjguMzg1LDAsMCwxLDEzOS44MTUsMTIzLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTExLjYgLTEyMy40MDEpIi8+PC9zdmc+) bottom right no-repeat;
