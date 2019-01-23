@@ -46,11 +46,12 @@ if ($image_id == null) {
 				
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) : the_post(); ?>
-					
-					<?php if (get_post_type() == 'poi') : ?>
+
+					<?php if (get_post_type() == 'events') : ?>
+						<?php get_template_part( 'template-parts/event', 'card' ); ?>					
+					<?php elseif (get_post_type() == 'poi') : ?>
 						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 					<?php else : ?>
-					
 						<a href="<?php the_permalink(); ?>" class="blog-card blog-card-wide">
 							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail( array( 'width' => 640, 'height' => 370, 'crop' => true ) ) ?>
