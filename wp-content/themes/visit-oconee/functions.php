@@ -1,4 +1,4 @@
-<?php
+vvv<?php
 /**
  * Author: Drum Creative
  * URL: http://drumcreative.com
@@ -386,3 +386,11 @@ add_filter('acf/validate_value/name=short_description', 'validate_min_chars', 10
 add_image_size( 'home-video', 414, 297, true );
 add_image_size( 'home-block', 635, 428, true );
 add_image_size( 'carousel', 315, 236, true );
+
+// Exclude the URL custom fields from indexing
+add_filter('relevanssi_index_custom_fields', 'rlv_skip_custom_fields');
+function rlv_skip_custom_fields($custom_fields) {
+  $unwanted_fields = array('website', 'google_business_url');
+  $custom_fields = array_diff($custom_fields, $unwanted_fields);
+  return $custom_fields;
+}
