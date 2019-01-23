@@ -47,6 +47,15 @@ date_default_timezone_set(get_option('timezone_string'));
 	</div> <!-- blog-landing-featured -->
 </div> <!-- featured-container -->
 
+<?php
+$args = array( 
+    'hide_empty' => false,
+    'child_of' => $term->term_id,
+);
+$child_terms = get_terms( 'poi_cats', $args );
+?>
+
+<?php if (!empty($child_terms)) : ?>
 <div class="tax-sub-cats">
 	<div class="grid-container">
 		<div class="grid-x grid-margin-x clear">
@@ -56,11 +65,7 @@ date_default_timezone_set(get_option('timezone_string'));
 					<h3>All</h3>
 				</div>
 				<?php
-				$args = array( 
-				    'hide_empty' => false,
-				    'child_of' => $term->term_id,
-				);
-				$child_terms = get_terms( 'poi_cats', $args );
+
 				foreach ( $child_terms as $child_term ) { ?>
 					<div class="cat-filter" id="<?php echo $child_term->slug; ?>-filter" data-filter="<?php echo $child_term->slug; ?>">
 						<?php echo file_get_contents(get_field('category_icon', $child_term)); ?>
@@ -70,7 +75,8 @@ date_default_timezone_set(get_option('timezone_string'));
 			</div>
 		</div> <!-- grid-x -->
 	</div> <!-- grid-container -->
-</div> <!-- tax-sub-cats -->	
+</div> <!-- tax-sub-cats -->
+<?php endif; ?>
 
 <div id="page" role="main" class="blog-grid">
 	<div class="grid-container">

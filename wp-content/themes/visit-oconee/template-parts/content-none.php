@@ -10,11 +10,14 @@
 
 ?>
 
-<header class="page-header">
-	<h1 class="page-title"><?php _e( 'Nothing Found', 'drumroll' ); ?></h1>
-</header>
+	<div class="large-12 cell">
+		<header class="page-header">
+			<h1 class="page-title"><?php _e( 'Nothing Found', 'drumroll' ); ?></h1><br />
+		</header>
+	</div>
 
-<div class="page-content">
+
+<div class="page-content large-12 cell">
 	<?php if ( is_home() && current_user_can( 'publish_posts' ) ) : ?>
 
 	<p><?php printf( __( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'drumroll' ), admin_url( 'post-new.php' ) ); ?></p>
