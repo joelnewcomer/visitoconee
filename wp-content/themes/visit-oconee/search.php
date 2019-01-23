@@ -40,10 +40,17 @@ if ($image_id == null) {
 <div class="search-results-container">
     <div class="grid-container">
 	    <div class="grid-wrapper">
-			<div class="large-12 cell" role="main">
-				<h2 class="entry-title"><?php echo $wp_query->found_posts; ?> <?php _e( 'Results for', 'drumroll' ); ?> "<?php echo get_search_query(); ?>"</h2>			
+		    <article class="grid-x grid-margin-x clear">
+				<div class="large-12 cell" role="main">
+					<h2 class="entry-title"><?php echo $wp_query->found_posts; ?> <?php _e( 'Results for', 'drumroll' ); ?> "<?php echo get_search_query(); ?>"</h2>			</div>
+				
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) : the_post(); ?>
+					
+					<?php if (get_post_type() == 'poi') : ?>
+						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
+					<?php else : ?>
+					
 						<a href="<?php the_permalink(); ?>" class="blog-card blog-card-wide">
 							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail( array( 'width' => 640, 'height' => 370, 'crop' => true ) ) ?>
@@ -57,6 +64,7 @@ if ($image_id == null) {
 								<?php endif; ?>
 							</div> <!-- blog-card-content -->
 						</a>
+						<?php endif; ?>
 					<?php endwhile; ?>
 				<?php else : ?>
 					<?php get_template_part( 'template-parts/content', 'none' ); ?>		
@@ -73,5 +81,39 @@ if ($image_id == null) {
 	    </div> <!-- grid-wrapper -->
 	</div> <!-- grid-container -->
 </div> <!--search-container -->
+
+<script>
+	
+jQuery(".toggle-shade").on( "click", function(e) {
+	e.preventDefault();
+	jQuery(this).parents('.poi-card').toggleClass('shade-open');
+});
+
+jQuery( document ).ready(function() {
+	// Reset
+	// itinerary = new Array();
+	// basil.set('itinerary', itinerary);
+    var itinerary = basil.get('itinerary');
+    if (itinerary != null) {
+	    for (var i = 0; i < itinerary.length; i++) {
+    		jQuery(".poi-itinerary[data-itinerary='" + itinerary[i] + "']").addClass('added');
+		}
+	}
+});
+
+jQuery(".poi-itinerary:not(.added)").on( "click", function() {
+	var poiID = jQuery(this).data('itinerary');
+	var itinerary = basil.get('itinerary');
+	if (itinerary == null) {
+		itinerary = new Array();
+	}
+	jQuery(this).addClass('added');
+	itinerary.push(poiID);
+	basil.set('itinerary', itinerary);
+});
+
+
+</script>
+
 
 <?php get_footer();
