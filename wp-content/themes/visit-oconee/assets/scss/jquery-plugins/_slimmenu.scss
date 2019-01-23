@@ -134,8 +134,11 @@ ul.slimmenu li a {
 ul.slimmenu li > a {
     padding: 8px 20px 7px 20px;
     margin: 0 4px;
-    @media only screen and (max-width: 820px) {
+    @media only screen and (max-width: 860px) and (min-width: 40em) {
 		padding: 8px 9px 7px 9px;	
+	}
+    @media only screen and (max-width: 680px) and (min-width: 40em) {
+		padding: 8px 5px 7px 5px;	
 	}
 }
 
