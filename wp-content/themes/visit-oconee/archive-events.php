@@ -101,6 +101,7 @@ jQuery(".cat-filter").on( "click", function() {
 	} else {
 		jQuery('.event-card').fadeOut();
 		jQuery('.event-card.' + filter).fadeIn();
+		jQuery('html, body').animate({ scrollTop: jQuery('#page').offset().top - 115}, 500);
 	}
 });
 
