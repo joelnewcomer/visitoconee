@@ -515,14 +515,23 @@ $schemaModel = new KcSeoSchemaModel;
                     </div>
                 </div>
 
-                <h2><?php _e("Site Name in Search Results", "wp-seo-structured-data-schema") ?></h2>
+                <h2><?php _e("Site Schema", "wp-seo-structured-data-schema") ?></h2>
                 <table width="100%" cellpadding="10" class="form-table">
+                    <tr class="default">
+                        <th><?php _e("Disable Site Schema", "wp-seo-structured-data-schema") ?></th>
+                        <td align="left" scope="row">
+                            <input type="checkbox"
+                                   name="disable_site_schema" <?php echo(!empty($settings['disable_site_schema']) ? "checked" : null); ?>
+                                   value="1"/>
+                        </td>
+                    </tr>
                     <tr class="default">
                         <th><?php _e("Enable Site link Search Box", "wp-seo-structured-data-schema") ?></th>
                         <td align="left" scope="row">
                             <input type="checkbox"
                                    name="homeonly" <?php echo(!empty($settings['homeonly']) ? "checked" : null); ?>
                                    value="1"/>
+                            <p class="description"><?php _e("Note: Preferred Name markup may no longer be supported by Google", "wp-seo-structured-data-schema") ?></p>
                         </td>
                     </tr>
                     <tr class="default">

@@ -1,4 +1,4 @@
-# Copyright (C) 2018 WP SEO Structured Data Schema
+# Copyright (C) 2019 WP SEO Structured Data Schema
 # This file is distributed under the same license as the WP SEO Structured Data Schema package.
 msgid ""
 msgstr ""
@@ -928,26 +928,34 @@ msgid "Available language"
 msgstr ""
 
 #: ../lib/views/schema-options.php:518
-msgid "Site Name in Search Results"
+msgid "Site Schema"
 msgstr ""
 
 #: ../lib/views/schema-options.php:521
-msgid "Enable Site link Search Box"
+msgid "Disable Site Schema"
 msgstr ""
 
 #: ../lib/views/schema-options.php:529
+msgid "Enable Site link Search Box"
+msgstr ""
+
+#: ../lib/views/schema-options.php:534
+msgid "Note: Preferred Name markup may no longer be supported by Google"
+msgstr ""
+
+#: ../lib/views/schema-options.php:538
 msgid "Site Name:"
 msgstr ""
 
-#: ../lib/views/schema-options.php:536
+#: ../lib/views/schema-options.php:545
 msgid "Site Alternative Name:"
 msgstr ""
 
-#: ../lib/views/schema-options.php:543
+#: ../lib/views/schema-options.php:552
 msgid "Site Url:"
 msgstr ""
 
-#: ../lib/views/schema-options.php:551, ../lib/views/settings.php:105
+#: ../lib/views/schema-options.php:560, ../lib/views/settings.php:105
 msgid "Save Changes"
 msgstr ""
 

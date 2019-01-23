@@ -63,30 +63,31 @@ if (!class_exists('KcSeoOutput')):
             $schemaModel = new KcSeoSchemaModel;
             $html = null;
             $settings = get_option($KcSeoWPSchema->options['settings']);
-            if (is_home() || is_front_page()) {
-                $metaData = array();
+            if (empty($settings['disable_site_schema'])) {
+                if (is_home() || is_front_page()) {
+                    $metaData = array();
 
-                $metaData["@context"] = "http://schema.org/";
-                $metaData["@type"] = "WebSite";
-
-                if (!empty($settings['homeonly']) && $settings['homeonly']) {
+                    $metaData["@context"] = "http://schema.org/";
+                    $metaData["@type"] = "WebSite";
                     $author_url = (!empty($settings['siteurl']) ? $settings['siteurl'] : get_home_url());
                     $to_remove = array('http://', 'https://', 'www.');
                     foreach ($to_remove as $item) {
                         $author_url = str_replace($item, '', $author_url); // to: www.example.com
                     }
-                    $metaData["url"] = $KcSeoWPSchema->sanitizeOutPut($author_url, 'url');
-                    $metaData["name"] = !empty($settings['sitename']) ? $KcSeoWPSchema->sanitizeOutPut($settings['sitename']) : null;
-                    $metaData["alternateName"] = !empty($settings['siteaname']) ? $KcSeoWPSchema->sanitizeOutPut($settings['siteaname']) : null;
-                    $html .= $schemaModel->get_jsonEncode($metaData);
-                } else {
-                    $metaData["url"] = get_home_url();
-                    $metaData["potentialAction"] = array(
-                        "@type"       => "SearchAction",
-                        "target"      => get_home_url() . "/?s={query}",
-                        "query-input" => "required name=query"
-                    );
-                    $html .= $schemaModel->get_jsonEncode($metaData);
+                    if (!empty($settings['homeonly']) && $settings['homeonly']) {
+                        $metaData["url"] = $author_url;
+                        $metaData["potentialAction"] = array(
+                            "@type"       => "SearchAction",
+                            "target"      => trailingslashit(get_home_url()) . "?s={query}",
+                            "query-input" => "required name=query"
+                        );
+                        $html .= $schemaModel->get_jsonEncode($metaData);
+                    } else {
+                        $metaData["url"] = $KcSeoWPSchema->sanitizeOutPut($author_url, 'url');
+                        $metaData["name"] = !empty($settings['sitename']) ? $KcSeoWPSchema->sanitizeOutPut($settings['sitename']) : null;
+                        $metaData["alternateName"] = !empty($settings['siteaname']) ? $KcSeoWPSchema->sanitizeOutPut($settings['siteaname']) : null;
+                        $html .= $schemaModel->get_jsonEncode($metaData);
+                    }
                 }
             }
             $webMeta = array();
