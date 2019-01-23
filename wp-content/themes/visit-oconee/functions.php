@@ -1,4 +1,4 @@
-vvv<?php
+<?php
 /**
  * Author: Drum Creative
  * URL: http://drumcreative.com
