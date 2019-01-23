@@ -253,6 +253,7 @@ jQuery(".cat-filter").on( "click", function() {
 		jQuery('.poi-card').fadeOut();
 		jQuery('.poi-card.' + filter).fadeIn();
 	}
+	jQuery('html, body').animate({ scrollTop: jQuery('#page').offset().top - 70}, 500);
 });
 
 jQuery( document ).ready(function() {
