@@ -132,8 +132,8 @@ if (typeof bxSlider === "function") {
 	        	
         		<?php if ( have_posts() ) : ?>
         			<?php
-	        		global $post;
-	        		update_post_meta( $post->ID, 'show_at_top', 0 );
+	        		// global $post;
+	        		// update_post_meta( $post->ID, 'show_at_top', 0 );
 	        		?>
 	    		    <?php while ( have_posts() ) : the_post(); ?>
 	    		    	<?php get_template_part( 'template-parts/poi', 'card' ); ?>
