@@ -146,8 +146,8 @@ add_action( 'restrict_manage_posts', 'pippin_add_taxonomy_filters' );
 // Display points of interest in order by show_at_top then title alphabetically
 function order_poi( $query ) {
   if ( !is_admin() && $query->is_main_query() && is_tax( 'poi_cats' ) ) {
-    $query->set( 'orderby', array( 'meta_value' => 'DESC', 'title' => 'ASC' ));
-    $query->set( 'meta_key', 'show_at_top');
+    // $query->set( 'orderby', array( 'meta_value' => 'DESC', 'title' => 'ASC' ));
+    // $query->set( 'meta_key', 'show_at_top');
     $query->set( 'posts_per_page', -1);
   }
 }
