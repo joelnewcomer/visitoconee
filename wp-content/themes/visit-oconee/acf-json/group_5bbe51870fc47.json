@@ -194,6 +194,30 @@
             "show_column_weight": 1000,
             "allow_quickedit": 0,
             "allow_bulkedit": 0
+        },
+        {
+            "key": "field_5c4a0527aa86a",
+            "label": "Show at Top of Category",
+            "name": "show_at_top",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "show_column": 0,
+            "show_column_sortable": 0,
+            "show_column_weight": 1000,
+            "allow_quickedit": 0,
+            "allow_bulkedit": 0
         }
     ],
     "location": [
@@ -215,5 +239,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1548258653
+    "modified": 1548354891
 }

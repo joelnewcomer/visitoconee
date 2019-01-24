@@ -4,8 +4,8 @@ Donate link: http://www.dfactory.eu/
 Tags: gdpr, cookie, cookies, notice, notification, notify, cookie, cookie compliance, cookie law, eu cookie, privacy, privacy directive, consent
 Requires at least: 3.3
 Requires PHP: 5.2.4
-Tested up to: 4.9.8
-Stable tag: 1.2.45
+Tested up to: 5.0.3
+Stable tag: 1.2.46
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -65,6 +65,10 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.2.46 =
+* Tweak: Remove WP Super Cache cookie on deactivation
+* Tweak: Remove plugin version from the db on deactivation
 
 = 1.2.45 =
 * Tweak: Improved WP Super Cache support
@@ -258,6 +262,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.2.45 =
-* Tweak: Improved WP Super Cache support
-* Tweak: CSS container style issue and media query for mobile
+= 1.2.46 =
+* Tweak: Remove WP Super Cache cookie on deactivation
+* Tweak: Remove plugin version from the db on deactivation
