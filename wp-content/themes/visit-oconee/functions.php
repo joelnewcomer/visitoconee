@@ -159,6 +159,7 @@ function order_events( $query ) {
     	$query->set( 'orderby', 'meta_value_num' );
     	$query->set( 'meta_key', 'start_date' );
     	$query->set( 'order', 'ASC' );
+    	$query->set( 'posts_per_page', -1);
 		$query->set( 'meta_query', array(
 		    array(
 		        'key' => 'end_date',
