@@ -1,9 +1,9 @@
 === Simple Comment Editing ===
 Contributors: ronalfy
-Tags: ajax, comments,edit comments, edit, comment, admin
-Requires at least: 4.1
-Tested up to: 4.9
-Stable tag: 2.2.1
+Tags: ajax, comments,edit comments, edit, comment,
+Requires at least: 5.0
+Tested up to: 5.1
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -14,9 +14,7 @@ Simple Comment Editing for your website.
 
 Simple Comment Editing gives anonymous users the ability to edit and/or delete their comments for a period of time.
 
-[youtube https://www.youtube.com/watch?v=KfKTVzEdClw]
-
-YouTube video review from <a href="http://www.wpbeginner.com/plugins/allow-users-edit-comments-wordpress/">WPBeginner</a>.
+[youtube https://www.youtube.com/watch?v=bNCDdQbwA-s&rel=0]
 
 Simple Comment Editing features:
 <ol>
@@ -25,6 +23,28 @@ Simple Comment Editing features:
 <li>No styling is necessary. For advanced customization, see the "Other Notes" section.</li>
 <li>Advanced customization can be achieved using filters.</li>
 </ol>
+
+<h3>Introducing Simple Comment Editing Options</h3>
+
+Introducing Simple Comment Editing Options (a paid add-on to Simple Comment Editing). If you lack programming experience and want to customize Simple Comment Editing, then this plugin is for you. See the features below.
+
+<ul>
+<li>Set the comment timer</li>
+<li>Stop the timer</li>
+<li>Hide the timer</li>
+<li>Allow unlimited editing for logged in users.</li>
+<li>Change the timer output to words or compact (e.g., 10:45)
+<li>Select button styles to match your theme</li>
+<li>Enable comment editing logging to show an editing history for the comment</li>
+<li>See how many people are editing comments</li>
+<li>Receive email notifications of edited or deleted comments</li>
+<li>Edit the messages and text shown to users</li>
+<li>Set a minimum comment length</li>
+<li>Disable/Enable comment deletion</li>
+<li>And More!</li>
+</ul>
+
+> Get <a href="https://mediaron.com/simple-comment-editing-options">Simple Comment Editing Options</a> today!
 
 <h3>Help Contribute</h3>
 
@@ -42,17 +62,55 @@ Simple Comment Editing features:
 It's impossible to style an inline comment editor for every theme.  We've included basic HTML markup that is easily stylable to fit your theme.
 
 = Where are the options? =
-No options :) - Just simple comment editing.
+No options :) - Just simple comment editing. If you prefer options, try out the add-on <a href="https://mediaron.com/simple-comment-editing-options">Simple Comment Editing Options</a>.
 
 = How do I customize this plugin? =
-For advanced options, please see the <a href="https://github.com/ronalfy/simple-comment-editing#wordpress-filters">SCE Filter/Action reference</a>. 
+For advanced options, please see the <a href="https://github.com/ronalfy/simple-comment-editing#wordpress-filters">SCE Filter/Action reference</a> or get <a href="https://mediaron.com/simple-comment-editing-options">Simple Comment Editing Options</a>.
+
+= What browsers have you tested this with? =
+Simple Comment Editing will work all the way back to IE10.
 
 == Screenshots ==
 
 1. Edit button and timer.
 2. Textarea and Save/Cancel buttons.
+3. Simple Comment Editing Options admin screen.
+4. Simple Comment Editing Options front-end.
 
 == Changelog ==
+
+= 2.3.6 =
+* Released 2019-02-20
+* Added new filter for unlimited editing option.
+* Fixing PHP 5.3 fatal error when posting a comment.
+
+= 2.3.5 =
+* Released 2019-02-17
+* Updating JavaScript hooks to work with WordPress 5.0+
+
+= 2.3.4 =
+* Released 2019-02-14
+* New hook to allow scripts to load after SCE scripts
+* Ability to stop the timer and finish editing
+
+= 2.3.3 =
+* Released 2018-11-08
+* Fixing timer when it's less than a minute and the timer disaappears
+
+= 2.3.2 =
+* Released 2018-11-08
+* Added better i18n with JavaScript files. Updated German translation.
+
+= 2.3.1 =
+* Released 2018-11-08
+* Fixing compatibility with WP Ajaxify Comments
+
+= 2.3.0 =
+* Released 2018-11-06
+* WordPress 5.0 compatible only
+* Enhancement: set the timer past the 90 minute mark
+* Enhancement: new filter to hide the timer
+* New add-on: <a href="https://mediaron.com/simple-comment-editing-options">Simple Comment Editing Options</a>
 
 = 2.2.1 =
 * Released 2018-10-21
@@ -74,7 +132,7 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 * Released 2017-11-15
 * Added filter to remove the delete comment notifications
 
-= 2.1.5 = 
+= 2.1.5 =
 * Released 2017-01-20
 * Resolving Epoch 1.0 conflict
 
@@ -95,7 +153,7 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 * Bug fix: Deletion filter now works in JS and in HTML output
 * Bug fix: Changing comment time in filter resulted in undefined in JS output
 * New filters: Allow changing of edit and save/cancel/delete buttons
-* Epoch 2.0 compatible 
+* Epoch 2.0 compatible
 
 
 = 1.9.4 =
@@ -120,7 +178,7 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 * Released 2015-10-21
 * Fixed Portuguese translation (thanks Marco Santos)
 * Added Lithuanian translation
-* Fixed timer scroll issue where the delay was too long (thanks MamasLT) 
+* Fixed timer scroll issue where the delay was too long (thanks MamasLT)
 
 = 1.8.3 =
 * Released 2015-10-20
@@ -134,7 +192,7 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 
 = 1.7.1 =
 * Released 2015-09-26
-* Fixed Epoch+SCE user logged in dilemma 
+* Fixed Epoch+SCE user logged in dilemma
 
 = 1.7.0 =
 * Released 2015-09-20
@@ -207,7 +265,7 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 * Added filter for custom error messages when saving a comment
 
 = 1.2.2 =
-* Updated 2014-12-11 - Ensuring WordPress 4.1 compatibility 
+* Updated 2014-12-11 - Ensuring WordPress 4.1 compatibility
 * Released 2014-09-02
 * Added Romanian language
 * Added French language
@@ -272,12 +330,12 @@ For advanced options, please see the <a href="https://github.com/ronalfy/simple-
 
 == Upgrade Notice ==
 
-= 2.2.1 =
-Added CSS around seperator so it can be hidden
+= 2.3.6 =
+Added new filter for unlimited editing option. Fixing PHP 5.3 fatal error.
 
-= 2.2.0 =
-Allow logged in users (author of the post) to bypass cookie authentication
+= 2.3.5 =
+Updating JavaScript hooks to work with WordPress 5.0+
 
 == Customization ==
 
-For advanced options, please see the <a href="https://github.com/ronalfy/simple-comment-editing#wordpress-filters">SCE Filter/Action reference</a>. 
+For advanced options, please see the <a href="https://github.com/ronalfy/simple-comment-editing#wordpress-filters">SCE Filter/Action reference</a>.

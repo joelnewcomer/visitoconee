@@ -46,20 +46,36 @@ class Plugin {
 	 *
 	 * @var string
 	 */
-	public $basename;
+	protected $basename;
 
 	/**
 	 * Placeholder data uri for img src attributes.
 	 *
+	 * @link https://stackoverflow.com/a/13139830
+	 *
 	 * @var string
 	 */
-	private $src_placeholder = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+	private $src_placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+	/**
+	 * Hint if the plugin is disabled for this page.
+	 *
+	 * @var null|int
+	 */
+	private $disabled_for_current_post = null;
 
 	/**
 	 * Plugin constructor.
 	 */
 	public function __construct() {
-		// Init customizer settings.
+
+	}
+
+	/**
+	 * Runs the filters and actions.
+	 */
+	public function init() {
+		// Init settings.
 		$this->settings = new Settings();
 
 		// Set helpers.
@@ -67,12 +83,7 @@ class Plugin {
 
 		// Get the disabled classes and save in property.
 		$this->disabled_classes = $this->settings->disabled_classes;
-	}
 
-	/**
-	 * Runs the filters and actions.
-	 */
-	public function init() {
 		// Add link to settings in the plugin list.
 		add_filter( 'plugin_action_links', array(
 			$this,
@@ -103,14 +114,14 @@ class Plugin {
 		// Adds inline style.
 		add_action( 'wp_head', array( $this, 'add_inline_style' ) );
 
+		// Enqueue Gutenberg script.
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+
 		// Load the language files.
 		add_action( 'plugins_loaded', array( $this, 'load_translation' ) );
 
 		// Action on uninstall.
-		register_uninstall_hook( __FILE__, array(
-			'FlorianBrinkmann\LazyLoadResponsiveImages\Plugin',
-			'uninstall',
-		) );
+		register_uninstall_hook( $this->basename, 'FlorianBrinkmann\LazyLoadResponsiveImages\Plugin::uninstall' );
 	}
 
 	/**
@@ -141,6 +152,20 @@ class Plugin {
 	 * @return string Modified HTML.
 	 */
 	public function filter_markup( $content ) {
+		// Check if the plugin is disabled.
+		if ( null === $this->disabled_for_current_post ) {
+			$this->disabled_for_current_post = absint( get_post_meta( get_the_ID(), 'lazy_load_responsive_images_disabled', true ) );
+		}
+
+		/**
+		 * Filter for disabling Lazy Loader on specific pages/posts/….
+		 *
+		 * @param boolean True if lazy loader should be disabled, false if not.
+		 */
+		if ( 1 === $this->disabled_for_current_post || true === apply_filters( 'lazy_loader_disabled', false ) ) {
+			return $content;
+		}
+
 		// Check if we have no content.
 		if ( empty( $content ) ) {
 			return $content;
@@ -173,9 +198,11 @@ class Plugin {
 
 		$xpath = new \DOMXPath( $dom );
 
-		// Get all nodes except the ones that live inside a noscript or picture element.
+		// Get all nodes except the ones that live inside a noscript element.
 		// @link https://stackoverflow.com/a/19348287/7774451.
-		$nodes = $xpath->query( '//*[not(ancestor-or-self::noscript)]' );
+		$nodes = $xpath->query( "//*[not(ancestor-or-self::noscript)][not(ancestor-or-self::*[contains(@class, 'disable-lazyload')])]" );
+
+		$is_modified = false;
 
 		foreach ( $nodes as $node ) {
 			// Check if it is an element that should not be lazy loaded.
@@ -202,26 +229,33 @@ class Plugin {
 			// Check if it is one of the supported elements and support for it is enabled.
 			if ( 'img' === $node->tagName && 'source' !== $node->parentNode->tagName && 'picture' !== $node->parentNode->tagName ) {
 				$dom = $this->modify_img_markup( $node, $dom );
+				$is_modified = true;
 			} // End if().
 
 			if ( 'picture' === $node->tagName ) {
 				$dom = $this->modify_picture_markup( $node, $dom );
+				$is_modified = true;
 			} // End if().
 
 			if ( '1' === $this->settings->enable_for_iframes && 'iframe' === $node->tagName ) {
 				$dom = $this->modify_iframe_markup( $node, $dom );
+				$is_modified = true;
 			} // End if().
 
 			if ( '1' === $this->settings->enable_for_videos && 'video' === $node->tagName ) {
 				$dom = $this->modify_video_markup( $node, $dom );
+				$is_modified = true;
 			} // End if().
 
 			if ( '1' === $this->settings->enable_for_audios && 'audio' === $node->tagName ) {
 				$dom = $this->modify_audio_markup( $node, $dom );
+				$is_modified = true;
 			} // End if().
 		} // End foreach().
 
-		$content = $this->helpers->save_html( $dom );
+		if ( true === $is_modified ) {
+			$content = $this->helpers->save_html( $dom );
+		}
 
 		return $content;
 	}
@@ -245,6 +279,7 @@ class Plugin {
 		}
 
 		// Check if the image has sizes and srcset attribute.
+		$sizes_attr = '';
 		if ( $img->hasAttribute( 'sizes' ) ) {
 			// Get sizes value.
 			$sizes_attr = $img->getAttribute( 'sizes' );
@@ -266,8 +301,21 @@ class Plugin {
 			// Set data-srcset attribute.
 			$img->setAttribute( 'data-srcset', $srcset );
 
-			// Remove srcset attribute.
-			$img->removeAttribute( 'srcset' );
+			// Set srcset attribute with src placeholder to produce valid markup.
+			$img_width  = $img->getAttribute( 'width' );
+			if ( '' !== $img_width ) {
+				$img->setAttribute( 'srcset', "$this->src_placeholder {$img_width}w" );
+			} elseif ( '' === $img_width && '' !== $sizes_attr ) {
+				$width = preg_replace( '/.+ (\d+)px$/', '$1', $sizes_attr );
+				if ( \is_numeric ( $width ) ) {
+					$img->setAttribute( 'srcset', "$this->src_placeholder {$width}w" );
+				} else {
+					$img->removeAttribute( 'srcset' );
+				}
+			} else {
+				// Remove srcset attribute.
+				$img->removeAttribute( 'srcset' );
+			}
 		} // End if().
 
 		// Get src value.
@@ -324,6 +372,7 @@ class Plugin {
 		if ( 0 !== $source_elements->length ) {
 			foreach ( $source_elements as $source_element ) {
 				// Check if we have a sizes attribute.
+				$sizes_attr = '';
 				if ( $source_element->hasAttribute( 'sizes' ) ) {
 					// Get sizes value.
 					$sizes_attr = $source_element->getAttribute( 'sizes' );
@@ -346,8 +395,18 @@ class Plugin {
 					// Set data-srcset attribute.
 					$source_element->setAttribute( 'data-srcset', $srcset );
 
-					// Remove srcset attribute.
-					$source_element->removeAttribute( 'srcset' );
+					// Set srcset attribute with src placeholder to produce valid markup.
+					if ( '' !== $sizes_attr ) {
+						$width = preg_replace( '/.+ (\d+)px$/', '$1', $sizes_attr );
+						if ( \is_numeric ( $width ) ) {
+							$source_element->setAttribute( 'srcset', "$this->src_placeholder {$width}w" );
+						} else {
+							$source_element->removeAttribute( 'srcset' );
+						}
+					} else {
+						// Remove srcset attribute.
+						$source_element->removeAttribute( 'srcset' );
+					}
 				} // End if().
 
 				if ( $source_element->hasAttribute( 'src' ) ) {
@@ -537,18 +596,18 @@ class Plugin {
 	 */
 	public function enqueue_script() {
 		// Enqueue lazysizes.
-		wp_enqueue_script( 'lazysizes', plugins_url() . '/lazy-loading-responsive-images/js/lazysizes.min.js', '', false, true );
+		wp_enqueue_script( 'lazysizes', plugins_url( '/lazy-loading-responsive-images/js/lazysizes.min.js' ), '', false, true );
 
 		// Check if unveilhooks plugin should be loaded.
 		if ( '1' === $this->settings->load_unveilhooks_plugin || '1' === $this->settings->enable_for_audios || '1' === $this->settings->enable_for_videos ) {
 			// Enqueue unveilhooks plugin.
-			wp_enqueue_script( 'lazysizes-unveilhooks', plugins_url() . '/lazy-loading-responsive-images/js/ls.unveilhooks.min.js', 'lazysizes', false, true );
+			wp_enqueue_script( 'lazysizes-unveilhooks', plugins_url( '/lazy-loading-responsive-images/js/ls.unveilhooks.min.js' ), 'lazysizes', false, true );
 		} // End if().
 
 		// Check if unveilhooks plugin should be loaded.
 		if ( '1' === $this->settings->load_aspectratio_plugin ) {
 			// Enqueue unveilhooks plugin.
-			wp_enqueue_script( 'lazysizes-aspectratio', plugins_url() . '/lazy-loading-responsive-images/js/ls.aspectratio.min.js', 'lazysizes', false, true );
+			wp_enqueue_script( 'lazysizes-aspectratio', plugins_url( '/lazy-loading-responsive-images/js/ls.aspectratio.min.js' ), 'lazysizes', false, true );
 		} // End if().
 	}
 
@@ -594,8 +653,8 @@ class Plugin {
         .lazyloading {
 			opacity: 0;
 		}
-		
-		
+
+
 		.lazyloaded {
 			opacity: 1;
 			transition: opacity 300ms;
@@ -613,6 +672,17 @@ class Plugin {
 	}
 
 	/**
+	 * Enqueue script to Gutenberg editor view.
+	 */
+	public function enqueue_block_editor_assets() {
+		if ( isset( $_REQUEST['post'] ) && in_array( get_post_type( $_REQUEST['post'] ), $this->settings->disable_option_object_types ) ) {
+			$file_data  = get_file_data( __FILE__, array( 'v' => 'Version' ) );
+			$assets_url = trailingslashit( plugin_dir_url( __FILE__ ) );
+			wp_enqueue_script( 'lazy-loading-responsive-images-functions', plugins_url( '/lazy-loading-responsive-images/js/functions.js' ), array( 'wp-blocks', 'wp-element', 'wp-edit-post' ), $file_data['v'] );
+		}
+	}
+
+	/**
 	 * Loads the plugin translation.
 	 */
 	public function load_translation() {
@@ -620,12 +690,33 @@ class Plugin {
 	}
 
 	/**
+	 * Sets plugin basename.
+	 *
+	 * @param string $basename The plugin basename.
+	 */
+	public function set_basename( $basename ) {
+		$this->basename = $basename;
+	}
+
+	/**
 	 * Action on plugin uninstall.
 	 */
-	public function uninstall() {
+	public static function uninstall() {
+		$options_array = array(
+			'lazy_load_responsive_images_disabled_classes',
+			'lazy_load_responsive_images_enable_for_iframes',
+			'lazy_load_responsive_images_unveilhooks_plugin',
+			'lazy_load_responsive_images_enable_for_videos',
+			'lazy_load_responsive_images_enable_for_audios',
+			'lazy_load_responsive_images_aspectratio_plugin',
+			'lazy_load_responsive_images_loading_spinner',
+			'lazy_load_responsive_images_loading_spinner_color',
+			'lazy_load_responsive_images_granular_disable_option',
+		);
+
 		// Delete options.
-		foreach ( $this->settings->options as $option_id => $option ) {
-			delete_option( $option_id );
+		foreach ( $options_array as $option ) {
+			delete_option( $option );
 		}
 	}
 }

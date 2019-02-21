@@ -2,8 +2,8 @@
 Contributors: FlorianBrinkmann, MarcDK
 Tags: lazysizes, lazy loading, performance, images
 Requires at least: 4.5
-Tested up to: 4.9.6
-Stable tag: 3.4.0
+Tested up to: 5.1
+Stable tag: 4.0.1
 Requires PHP: 5.3
 
 == Description ==
@@ -29,6 +29,7 @@ Lazy loads (without the need of any manually modifications):
 * Enable lazy loading for audio elements.
 * Include [lazysizes aspectratio plugin](https://github.com/aFarkas/lazysizes/tree/gh-pages/plugins/aspectratio). This plugin calculates the needed space for images before they are loaded. That avoids content jumping when the images are loaded and makes the lazy loading work with masonry grids.
 * Display a loading spinner.
+* Disable the plugin on specific posts/pages (this shows a checkbox in the edit view of all public post types (except attachments) to disable lazy loading for an entire post).
 
 \* The unveilhooks extension of lazysizes supports more than video and audio elements, but you need to manually modify the markup to use it for:
 
@@ -42,6 +43,8 @@ The auto-modifying of the image markup does not work for images that are added u
 
 You can disable lazy loading for elements with specific CSS classes by defining them via the plugin settings (*Settings* › *Media* › *Lazy Loader options*). Or use the data-no-lazyload attribute.
 
+If you want to disable lazy loading for a specific element and its children (for example, if you have no access to the classes of the image element), you can use the `disable-lazyload` class.
+
 == Installation ==
 
 * Install plugin.
@@ -49,6 +52,18 @@ You can disable lazy loading for elements with specific CSS classes by defining 
 * You can find the plugin settings under *Settings* › *Media* › *Lazy Loader options*.
 
 == Frequently Asked Questions ==
+
+= Is there a way to manually call the plugin to modify markup of not-supported image functions? =
+
+Yes. See the following example that would generate lazy-load-ready output for the result of the not-supported `wp_get_attachment_image()` function:
+
+`
+if ( isset( $lazy_loader ) && $lazy_loader instanceof FlorianBrinkmann\LazyLoadResponsiveImages\Plugin ) {
+	echo $lazy_loader->filter_markup( wp_get_attachment_image( 1261 ) );
+}
+`
+
+To make it happen, you need to pass the markup that contains the image (or images) to `$lazy_loader->filter_markup()`. The `if` statement ensures that the Lazy Loader object is there and that it is an object of the correct class.
 
 = How can I disable/modify the inline styles? =
 
@@ -85,7 +100,55 @@ add_filter( 'lazy_load_responsive_images_inline_styles', function ( $default_sty
 
 The CSS from the example are the default styles that are used by the plugin (without the loading spinner styles). The `display: block` for `.lazyload` is important for the aspectratio plugin option.
 
+= How can I adjust the lazy load threshold? =
+
+[I described that in a support forum post](https://wordpress.org/support/topic/lazy-load-css-background-2/#post-10219851).
+
 == Changelog ==
+
+= 4.0.1 – 20.02.2019 =
+
+**Fixed**
+
+* Removed debug code.
+
+= 4.0.0 – 20.02.2019 =
+
+*Tested with WordPress 5.1.*
+
+**Changed**
+* Renamed object in main plugin file from `$plugin` to `$lazy_loader` to make it accessible via the theme.
+* Added an example for calling the `filter_markup()` method of the plugin from the theme to modify markup of not-supported image functions like `wp_get_attachment_image()`.
+* Updated lazysizes to 4.1.6.
+
+**Fixed**
+
+* Wrong year in changelog for 3.5.0 and 3.5.1. Thanks @pra85!
+* Correctly remove the plugin options from the options database table on uninstall.
+
+= 3.5.1 – 28.01.2019 =
+
+**Fixed**
+
+* Wrong version number in plugin file.
+
+= 3.5.0 – 28.01.2019 =
+
+**Added**
+
+* Option to disable lazy loading for specific posts/pages via a checkbox. The checkbox can be enabled via an option under *Settings* › *Media* › *Lazy Loader options*.
+* Possibility to use the `disable-lazyload` class to disable the lazy loader for an element and its children.
+
+**Changed**
+
+* Updated lazysizes to 4.1.5.
+* Added note about limited browser support to loading spinner option.
+* Updated placeholder source to a more stable variation (thanks diegocanal for the hint).
+
+**Fixed**
+
+* Only use `save_html()` method if markup was modified.
+* Keep `srcset` attribute with placeholder source to get valid HTML.
 
 = 3.4.0 – 05.07.2018 =
 
