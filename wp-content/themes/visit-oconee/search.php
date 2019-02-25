@@ -52,7 +52,7 @@ if ($image_id == null) {
 					<?php elseif (get_post_type() == 'poi') : ?>
 						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 					<?php else : ?>
-						<a href="<?php the_permalink(); ?>" class="blog-card blog-card-wide">
+						<a href="<?php the_permalink(); ?>" class="blog-card large-4 medium-6 cell poi-card transitions">
 							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail( array( 'width' => 640, 'height' => 370, 'crop' => true ) ) ?>
 							<?php endif; ?>

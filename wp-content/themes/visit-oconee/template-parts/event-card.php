@@ -57,7 +57,7 @@
 									echo '</a>';
 									?>
 								<?php endforeach; ?>
-								</div> <!-- poi-social -->
-								<a class="corner-link" href="<?php echo $link; ?>" <?php echo $target; ?></a>
+								</div> <!-- event-social -->
+								<a class="corner-link" href="<?php echo $link; ?>" <?php echo $target; ?>></a>
 							</div> <!-- event-card-content -->
 						</div> <!-- event-card -->
