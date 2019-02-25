@@ -416,9 +416,9 @@ function rlv_orderby( $query ) {
 }
 
 // Display events in date order and exclude past events
-function order_events( $query ) {
-	if ( !is_admin() && $query->is_search ) {	
+function show_all_events( $query ) {
+	if ( !is_admin() && $query->is_search ) {
     	$query->set( 'posts_per_page', -1);   
   	}
 }
-add_action( 'pre_get_posts', 'order_events' );
+add_action( 'pre_get_posts', 'show_all_events' );
