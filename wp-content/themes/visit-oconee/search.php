@@ -84,7 +84,6 @@ if ($image_id == null) {
 							</div>
 							<?php $pages_title_shown = true; ?>						
 						<?php endif; ?>
-						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 						<a href="<?php the_permalink(); ?>" class="blog-card large-4 medium-6 cell poi-card transitions">
 							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail( array( 'width' => 640, 'height' => 370, 'crop' => true ) ) ?>
