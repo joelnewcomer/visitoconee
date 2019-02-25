@@ -4370,6 +4370,9 @@ ul.pagination a.next, ul.pagination a.prev {
   ul.pagination a.next svg path, ul.pagination a.prev svg path {
     fill: #598F9B; }
 
+.blog-card:hover p {
+  color: #fff; }
+
 @media only screen and (min-width: 40.063em) {
   .blog-header-1 {
     padding-top: 110px; } }
@@ -4950,7 +4953,7 @@ body.error404 .entry-content h2 {
     .cat-banner-ads {
       margin: 10px 0; } }
 
-.poi-card {
+.poi-card, .blog-card {
   background: rgba(102, 77, 57, 0.1);
   margin-bottom: 20px;
   position: relative;
@@ -5032,14 +5035,14 @@ body.error404 .entry-content h2 {
 			}			
 		}
 	} */ }
-  .poi-card .poi-card-content p, .poi-card .poi-card-content .poi-link, .poi-card .poi-card-content .poi-itinerary, .poi-card .poi-card-content a {
+  .poi-card .poi-card-content p, .poi-card .poi-card-content .poi-link, .poi-card .poi-card-content .poi-itinerary, .poi-card .poi-card-content a, .blog-card .poi-card-content p, .blog-card .poi-card-content .poi-link, .blog-card .poi-card-content .poi-itinerary, .blog-card .poi-card-content a {
     color: #664D39;
     transition: color .5s; }
-  .poi-card .poi-card-content svg path {
+  .poi-card .poi-card-content svg path, .blog-card .poi-card-content svg path {
     fill: #664D39;
     stroke: #664D39;
     transition: all .5s; }
-  .poi-card .poi-caption {
+  .poi-card .poi-caption, .blog-card .poi-caption {
     position: absolute;
     top: 0;
     right: 0;
@@ -5049,38 +5052,38 @@ body.error404 .entry-content h2 {
     background: rgba(230, 112, 2, 0.7);
     text-transform: uppercase;
     font-weight: 600; }
-  .poi-card:hover {
+  .poi-card:hover, .blog-card:hover {
     background: #664D39;
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.6); }
-    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary, .poi-card:hover .poi-card-content a {
+    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary, .poi-card:hover .poi-card-content a, .blog-card:hover .poi-card-content p, .blog-card:hover .poi-card-content .poi-link, .blog-card:hover .poi-card-content .poi-itinerary, .blog-card:hover .poi-card-content a {
       color: #fff; }
-    .poi-card:hover .poi-card-content svg path {
+    .poi-card:hover .poi-card-content svg path, .blog-card:hover .poi-card-content svg path {
       fill: #fff;
       stroke: #fff; }
-  .poi-card h3 {
+  .poi-card h3, .blog-card h3 {
     color: #E67002;
     font-weight: bold;
     margin-bottom: 10px; }
-  .poi-card .poi-card-content {
+  .poi-card .poi-card-content, .blog-card .poi-card-content {
     display: block;
     float: left;
     width: 100%;
     padding: 30px 40px 70px 40px; }
     @media only screen and (max-width: 1170px) {
-      .poi-card .poi-card-content {
+      .poi-card .poi-card-content, .blog-card .poi-card-content {
         padding: 15px 20px 70px 20px; } }
-  .poi-card p, .poi-card a {
+  .poi-card p, .poi-card a, .blog-card p, .blog-card a {
     font-size: 18px; }
-  .poi-card .clickable {
+  .poi-card .clickable, .blog-card .clickable {
     cursor: pointer; }
-  .poi-card a.address {
+  .poi-card a.address, .blog-card a.address {
     display: block;
     width: 100%;
     margin-bottom: 15px; }
-  .poi-card .poi-link {
+  .poi-card .poi-link, .blog-card .poi-link {
     font-size: 18px;
     font-weight: bold; }
-  .poi-card .poi-more-info {
+  .poi-card .poi-more-info, .blog-card .poi-more-info {
     display: block;
     position: absolute;
     bottom: 0;
@@ -5093,47 +5096,47 @@ body.error404 .entry-content h2 {
     font-size: 20px;
     padding: 9px 10px 8px 10px;
     background: rgba(255, 255, 255, 0.2); }
-  .poi-card .poi-social {
+  .poi-card .poi-social, .blog-card .poi-social {
     margin-top: 24px;
     float: right; }
-    .poi-card .poi-social a {
+    .poi-card .poi-social a, .blog-card .poi-social a {
       margin-right: 10px; }
-  .poi-card .poi-itinerary {
+  .poi-card .poi-itinerary, .blog-card .poi-itinerary {
     cursor: pointer;
     float: left;
     margin-top: 15px;
     width: 138px;
     font-weight: bold; }
     @media only screen and (max-width: 1090px) {
-      .poi-card .poi-itinerary {
+      .poi-card .poi-itinerary, .blog-card .poi-itinerary {
         width: 100px; } }
-    .poi-card .poi-itinerary span {
+    .poi-card .poi-itinerary span, .blog-card .poi-itinerary span {
       text-transform: uppercase; }
-    .poi-card .poi-itinerary div {
+    .poi-card .poi-itinerary div, .blog-card .poi-itinerary div {
       display: inline-block;
       width: 98px;
       line-height: 1;
       font-size: 18px; }
-    .poi-card .poi-itinerary svg {
+    .poi-card .poi-itinerary svg, .blog-card .poi-itinerary svg {
       width: 25px;
       height: 39px;
       margin-right: 8px;
       vertical-align: top; }
       @media only screen and (max-width: 1090px) {
-        .poi-card .poi-itinerary svg {
+        .poi-card .poi-itinerary svg, .blog-card .poi-itinerary svg {
           display: none; } }
-    .poi-card .poi-itinerary .added {
+    .poi-card .poi-itinerary .added, .blog-card .poi-itinerary .added {
       display: none; }
-    .poi-card .poi-itinerary.added .added {
+    .poi-card .poi-itinerary.added .added, .blog-card .poi-itinerary.added .added {
       display: inline; }
-    .poi-card .poi-itinerary.added {
+    .poi-card .poi-itinerary.added, .blog-card .poi-itinerary.added {
       pointer-events: none;
       cursor: default;
       color: #E67002 !important; }
-      .poi-card .poi-itinerary.added svg path {
+      .poi-card .poi-itinerary.added svg path, .blog-card .poi-itinerary.added svg path {
         fill: #E67002;
         stroke: #E67002; }
-  .poi-card .poi-shade {
+  .poi-card .poi-shade, .blog-card .poi-shade {
     background: #664D39;
     display: block;
     position: absolute;
@@ -5144,28 +5147,28 @@ body.error404 .entry-content h2 {
     width: 100%;
     overflow: scroll; }
     @media only screen and (max-width: 1260px) {
-      .poi-card .poi-shade {
+      .poi-card .poi-shade, .blog-card .poi-shade {
         padding: 36px 20px 0 20px; } }
     @media only screen and (max-width: 1170px) {
-      .poi-card .poi-shade h3 {
+      .poi-card .poi-shade h3, .blog-card .poi-shade h3 {
         font-size: 20px; } }
-    .poi-card .poi-shade p, .poi-card .poi-shade a, .poi-card .poi-shade .poi-itinerary {
+    .poi-card .poi-shade p, .poi-card .poi-shade a, .poi-card .poi-shade .poi-itinerary, .blog-card .poi-shade p, .blog-card .poi-shade a, .blog-card .poi-shade .poi-itinerary {
       color: #fff; }
-    .poi-card .poi-shade svg path {
+    .poi-card .poi-shade svg path, .blog-card .poi-shade svg path {
       fill: #fff; }
-    .poi-card .poi-shade p {
+    .poi-card .poi-shade p, .blog-card .poi-shade p {
       font-size: 15px;
       margin-bottom: 20px; }
       @media only screen and (max-width: 1170px) {
-        .poi-card .poi-shade p {
+        .poi-card .poi-shade p, .blog-card .poi-shade p {
           margin-bottom: 10px; } }
-    .poi-card .poi-shade .button a {
+    .poi-card .poi-shade .button a, .blog-card .poi-shade .button a {
       background: transparent;
       margin-bottom: 20px; }
       @media only screen and (max-width: 1170px) {
-        .poi-card .poi-shade .button a {
+        .poi-card .poi-shade .button a, .blog-card .poi-shade .button a {
           margin-bottom: 10px; } }
-    .poi-card .poi-shade .close-shade {
+    .poi-card .poi-shade .close-shade, .blog-card .poi-shade .close-shade {
       display: block;
       position: absolute;
       top: 12px;
@@ -5177,26 +5180,26 @@ body.error404 .entry-content h2 {
       width: 24px;
       height: 24px;
       cursor: pointer; }
-    .poi-card .poi-shade .shade-right {
+    .poi-card .poi-shade .shade-right, .blog-card .poi-shade .shade-right {
       padding-top: 30px; }
-      .poi-card .poi-shade .shade-right a {
+      .poi-card .poi-shade .shade-right a, .blog-card .poi-shade .shade-right a {
         font-weight: bold; }
       @media only screen and (max-width: 1120px) and (min-width: 40.063em) {
-        .poi-card .poi-shade .shade-right {
+        .poi-card .poi-shade .shade-right, .blog-card .poi-shade .shade-right {
           padding-top: 8px;
           padding-bottom: 20px; } }
-    .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right {
+    .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right, .blog-card .poi-shade .shade-left, .blog-card .poi-shade .shade-right {
       display: block;
       float: left;
       width: 50%; }
       @media only screen and (max-width: 1120px) and (min-width: 40.063em) {
-        .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right {
+        .poi-card .poi-shade .shade-left, .poi-card .poi-shade .shade-right, .blog-card .poi-shade .shade-left, .blog-card .poi-shade .shade-right {
           width: 100%;
           text-align: center !important; }
-          .poi-card .poi-shade .shade-left .poi-itinerary, .poi-card .poi-shade .shade-right .poi-itinerary {
+          .poi-card .poi-shade .shade-left .poi-itinerary, .poi-card .poi-shade .shade-right .poi-itinerary, .blog-card .poi-shade .shade-left .poi-itinerary, .blog-card .poi-shade .shade-right .poi-itinerary {
             float: none;
             display: inline-block; } }
-  .poi-card.shade-open .poi-shade {
+  .poi-card.shade-open .poi-shade, .blog-card.shade-open .poi-shade {
     top: 0; }
 
 #itinerary > .poi-card {
