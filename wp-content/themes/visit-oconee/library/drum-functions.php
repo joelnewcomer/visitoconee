@@ -549,10 +549,12 @@ function add_featured_image_instruction( $content ) {
 	global $post;
 	$post_id = $post->ID;
 	if ($post_id == get_option('page_on_front')) {
-		return $content .= '<p>Featured Image must be sized to at least ' . $home_featured_image_size . ' pixels.</p>';
-	} else {
-		return $content .= '<p>Featured Image must be sized to at least ' . $featured_image_size . ' pixels.</p>';
-	}
+        return $content .= '<p>Featured Image must be sized to at least ' . $home_featured_image_size . ' pixels.</p>';
+    } elseif( 'events' == get_post_type( $post_id ) ) {
+        return $content .= '<p>Featured Image must be sized to at least 640 x 370 pixels.</p>';
+    } else {
+        return $content .= '<p>Featured Image must be sized to at least ' . $featured_image_size . ' pixels.</p>';
+    }	
 }
 
 // Set WYSIWYG Colors on Options Page - http://stackoverflow.com/questions/23171247/add-custom-text-color-wordpress-3-9-tinymce-4-visual-editor
