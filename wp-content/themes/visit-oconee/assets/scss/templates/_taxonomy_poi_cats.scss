@@ -355,3 +355,14 @@
 #itinerary > .poi-card {
 	overflow: visible;
 }
+
+body.single-poi .poi-card {
+	margin: 0 auto;
+}
+
+body.single-poi #page {
+	margin-top: 130px;
+	@media only screen and (max-width: 40.063em) {
+		margin-top: 20px;	
+	}
+}

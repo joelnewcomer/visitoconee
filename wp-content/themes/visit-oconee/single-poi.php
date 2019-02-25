@@ -8,25 +8,20 @@
  */
 get_header(); ?>
 
-<?php get_template_part( 'template-parts/featured-image' ); ?>
 <?php // get_template_part( 'template-parts/featured-image-parallax' ); ?>
 
 <div id="page" role="main">
+		<div class="grid-container">
+    	<div class="grid-wrapper">
+        	<article class="grid-x grid-margin-x clear">
+	
 	<?php while ( have_posts() ) : the_post(); ?>
-		<article <?php post_class(array('main-content')) ?> id="post-<?php the_ID(); ?>">
-			<div class="entry-content">
-				<?php if ( post_password_required() ) : ?>
-					<div class="grid-container password-protected-row">
-						<div class="large-12 cell">
-							<?php echo get_the_password_form(); ?>
-						</div>
-					</div>
-				<?php else : ?>
-	        		<?php get_template_part('template-parts/content', 'columns'); ?>
-				<?php endif; ?>
-			</div> <!-- entry-content -->
-		</article>
+		<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 	<?php endwhile;?>
+        	</article>
+    	</div>
+		</div>
+		
 </div> <!-- #page -->
 
 
