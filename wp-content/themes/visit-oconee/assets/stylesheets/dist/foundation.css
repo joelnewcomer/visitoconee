@@ -5262,6 +5262,8 @@ body.single-poi #page {
     margin-bottom: 16px;
     padding-left: 64px;
     min-height: 48px; }
+  .event-card .date-range.two-dates + a h3 {
+    min-height: 80px; }
   .event-card .description-container {
     display: block;
     float: left;

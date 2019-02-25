@@ -36,7 +36,7 @@
 									$two_dates = 'two-dates';
 								}
 								?>
-								<div class="date-range">
+								<div class="date-range <?php echo $two_dates; ?>">
 									<?php echo date('j', $start_date); ?><?php if ($start_date != $end_date && $end_date != '') : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
 								<a href="<?php echo $link; ?>" <?php echo $target; ?>>

@@ -59,6 +59,10 @@
 		padding-left: 64px;
 		min-height: 48px;
 	}
+	.date-range.two-dates + a h3 {
+		min-height: 80px;
+	}	
+	
 	.description-container {
 		display: block;
 		float: left;
