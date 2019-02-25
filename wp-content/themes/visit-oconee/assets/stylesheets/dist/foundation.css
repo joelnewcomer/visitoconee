@@ -5199,6 +5199,9 @@ body.error404 .entry-content h2 {
   .poi-card.shade-open .poi-shade {
     top: 0; }
 
+#itinerary > .poi-card {
+  overflow: visible; }
+
 .event-card {
   background: #EBF0F3 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNzc0IDEwMS43NzMiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjYmQ0ZDg7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjEzLjM3NCwxMjMuNCwxMTEuNiwyMjUuMTc0di03My41NkEyOC4zODUsMjguMzg1LDAsMCwxLDEzOS44MTUsMTIzLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTExLjYgLTEyMy40MDEpIi8+PC9zdmc+) bottom right no-repeat;
   background-size: 80px 80px;
