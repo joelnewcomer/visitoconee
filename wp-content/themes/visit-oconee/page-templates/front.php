@@ -85,30 +85,7 @@ get_header(); ?>
 	   	</div>
 	</section> <!-- home-blocks -->
 	
-	<!--
-	<section class="home-cats">
-		<div class="grid-container">
-	   		<div class="grid-x">
-		   		<?php	
-			   	$play_cat_id = 28;
-		   		$args = array( 
-				    'hide_empty' => 0,
-				    'parent' => 0,
-				);
-				$terms = get_terms( 'poi_cats', $args );
-				foreach ( $terms as $term ) {
-					$icon = get_field('product_feature_image', $term );
-					?>
-					<div class="large-3 medium-3 small-6 cell text-center">
-					    <a class="transition cat-link" href="<?php echo get_term_link( $term, 'poi_cats' ); ?>" title="View all <?php echo $term->name; ?>">
-						    <?php echo file_get_contents(get_field('category_icon', $term)); ?>
-						    <?php echo $term->name; ?>
-						</a>
-					</div>
-				<?php } ?>
-	   		</div>
-		</div>
-	</section> <!-- home-cats -->
+
 	
 	
 	<section class="destinations">
