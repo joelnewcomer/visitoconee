@@ -115,7 +115,7 @@ get_header(); ?>
 		<div class="grid-container">
 	   		<div class="grid-x grid-padding-x">
 		   		<div class="large-12 cell text-center">
-			   		<h2>Seasonal Trending<br /><span>Destinations</span></h2>		
+			   		<h2><?php echo get_field('seasonal_destinations_preheader'); ?><br /><span><?php echo get_field('seasonal_destinations_header'); ?></span></h2>		
 		   		</div>
 		   		<?php if(get_field('seasonal_destinations')): ?>
 		   			<?php while(has_sub_field('seasonal_destinations')): ?>
