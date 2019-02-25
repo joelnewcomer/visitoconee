@@ -5239,6 +5239,7 @@ body.single-poi #page {
       font-size: 18px; }
   .event-card .date-range {
     display: block;
+    position: absolute;
     float: left;
     max-width: 40px;
     margin-right: 16px;
@@ -5258,7 +5259,9 @@ body.single-poi #page {
   .event-card h3 {
     color: #664D39;
     font-weight: bold;
-    margin-bottom: 16px; }
+    margin-bottom: 16px;
+    padding-left: 64px;
+    min-height: 48px; }
   .event-card .description-container {
     display: block;
     float: left;
@@ -5267,6 +5270,7 @@ body.single-poi #page {
     font-size: 18px;
     font-weight: bold; }
   .event-card .event-links {
+    clear: both;
     margin-bottom: 30px; }
   .event-card .corner-link {
     display: block;

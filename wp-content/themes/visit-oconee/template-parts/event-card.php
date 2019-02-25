@@ -29,6 +29,13 @@
 								<?php the_post_thumbnail( 'thumbnail' ); ?>
 							</a>
 							<div class="event-card-content">
+								
+								<?php
+								$two_dates = '';
+								if ($start_date != $end_date && $end_date != '') {
+									$two_dates = 'two-dates';
+								}
+								?>
 								<div class="date-range">
 									<?php echo date('j', $start_date); ?><?php if ($start_date != $end_date && $end_date != '') : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
