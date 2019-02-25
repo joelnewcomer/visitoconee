@@ -4370,9 +4370,6 @@ ul.pagination a.next, ul.pagination a.prev {
   ul.pagination a.next svg path, ul.pagination a.prev svg path {
     fill: #598F9B; }
 
-.blog-card:hover p {
-  color: #fff; }
-
 @media only screen and (min-width: 40.063em) {
   .blog-header-1 {
     padding-top: 110px; } }

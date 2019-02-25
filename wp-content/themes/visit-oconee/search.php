@@ -42,16 +42,49 @@ if ($image_id == null) {
 	    <div class="grid-wrapper">
 		    <article class="grid-x grid-margin-x clear">
 				<div class="large-12 cell" role="main">
-					<h2 class="entry-title"><?php echo $wp_query->found_posts; ?> <?php _e( 'Results for', 'drumroll' ); ?> "<?php echo get_search_query(); ?>"</h2>			</div>
+					<h2 class="entry-title"><?php echo $wp_query->found_posts; ?> <?php _e( 'Results for', 'drumroll' ); ?> "<?php echo get_search_query(); ?>"</h2>
+				</div>
+					
+					<?php
+					$poi_title_shown = false;
+					$events_title_shown = false;
+					$blog_title_show = false;
+					$pages_title_show = false;
+					?>
 				
 				<?php if ( have_posts() ) : ?>
 					<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php if (get_post_type() == 'events') : ?>
+						<?php if (!$events_title_shown) : ?>
+							<div class="large-12 cell search-title-cell">
+								<h3>Events</h3>
+							</div>
+							<?php $events_title_shown = true; ?>						
+						<?php endif; ?>
 						<?php get_template_part( 'template-parts/event', 'card' ); ?>					
 					<?php elseif (get_post_type() == 'poi') : ?>
+						<?php if (!$poi_title_shown) : ?>
+							<div class="large-12 cell search-title-cell">
+								<h3>Points of Interest</h3>
+							</div>
+							<?php $poi_title_shown = true; ?>						
+						<?php endif; ?>
 						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 					<?php else : ?>
+						<?php if (!$blog_title_shown && get_post_type() == 'post') : ?>
+							<div class="large-12 cell search-title-cell">
+								<h3>Blog</h3>
+							</div>
+							<?php $blog_title_shown = true; ?>						
+						<?php endif; ?>
+						<?php if (!$pages_title_shown && get_post_type() == 'page') : ?>
+							<div class="large-12 cell search-title-cell">
+								<h3>Pages</h3>
+							</div>
+							<?php $pages_title_shown = true; ?>						
+						<?php endif; ?>
+						<?php get_template_part( 'template-parts/poi', 'card' ); ?>
 						<a href="<?php the_permalink(); ?>" class="blog-card large-4 medium-6 cell poi-card transitions">
 							<?php if (has_post_thumbnail()) : ?>
 								<?php the_post_thumbnail( array( 'width' => 640, 'height' => 370, 'crop' => true ) ) ?>
@@ -71,12 +104,6 @@ if ($image_id == null) {
 					<?php get_template_part( 'template-parts/content', 'none' ); ?>		
 				<?php endif;?>
 			
-				<?php if ( function_exists( 'drumroll_pagination' ) ) { drumroll_pagination(); } else if ( is_paged() ) { ?>			
-					<nav id="post-nav">
-						<div class="post-previous"><?php next_posts_link( __( '&larr; Older posts', 'drumroll' ) ); ?></div>
-						<div class="post-next"><?php previous_posts_link( __( 'Newer posts &rarr;', 'drumroll' ) ); ?></div>
-					</nav>
-				<?php } ?>
 			
 			</div>
 	    </div> <!-- grid-wrapper -->
