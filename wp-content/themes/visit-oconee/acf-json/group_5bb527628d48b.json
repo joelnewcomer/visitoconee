@@ -153,6 +153,28 @@
                     "show_column_weight": 1000,
                     "allow_quickedit": 0,
                     "allow_bulkedit": 0
+                },
+                {
+                    "key": "field_5c743747b5f28",
+                    "label": "On\/Off",
+                    "name": "banner_toggle",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "show_column": 0,
+                    "show_column_sortable": 0,
+                    "show_column_weight": 1000
                 }
             ]
         }
@@ -174,5 +196,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1541618732
+    "modified": 1551121195
 }
