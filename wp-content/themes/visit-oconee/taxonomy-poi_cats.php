@@ -162,6 +162,7 @@ jQuery( document ).ready(function() {
 		hash = hash.replace(/^.*#/, '');
 		jQuery('.poi-card').fadeOut();
 		jQuery('.poi-card.' + hash).fadeIn();
+		jQuery('html, body').animate({ scrollTop: jQuery('#page').offset().top - 115}, 500);
 	}
 });
 
