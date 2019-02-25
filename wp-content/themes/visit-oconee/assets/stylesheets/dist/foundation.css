@@ -5043,10 +5043,10 @@ body.error404 .entry-content h2 {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 4px 16px;
+    padding: 4px 10px;
     color: #fff;
-    font-size: 20px;
-    background: #E67002;
+    font-size: 16px;
+    background: rgba(230, 112, 2, 0.7);
     text-transform: uppercase;
     font-weight: 600; }
   .poi-card:hover {
