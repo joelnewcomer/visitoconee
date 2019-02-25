@@ -158,7 +158,8 @@ get_header(); ?>
 	   		</div>
 		</div>
 	</section> <!-- destinations -->
-
+	
+	<?php if (get_field('tips_toggle')) : ?>
 	<section class="tips">
 		<div class="grid-container">
 	   		<div class="grid-x grid-padding-x">
@@ -206,6 +207,7 @@ get_header(); ?>
 	   		</div>
 		</div>
 	</section> <!-- tips -->
+	<?php endif; ?>
 	
 	<section class="instagram">
 		<div class="grid-container">
