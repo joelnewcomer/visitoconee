@@ -4887,6 +4887,10 @@ section.instagram {
     .blog-card-wide .blog-card-content {
       padding: 18px 30px 6px 30px; } }
 
+.search-title-cell {
+  padding-top: 20px;
+  padding-bottom: 16px; }
+
 .error404 article {
   padding: 40px 0; }
 
@@ -5052,9 +5056,9 @@ body.error404 .entry-content h2 {
   .poi-card:hover, .blog-card:hover {
     background: #664D39;
     box-shadow: 0 0 55px rgba(0, 0, 0, 0.6); }
-    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary, .poi-card:hover .poi-card-content a, .blog-card:hover .poi-card-content p, .blog-card:hover .poi-card-content .poi-link, .blog-card:hover .poi-card-content .poi-itinerary, .blog-card:hover .poi-card-content a {
+    .poi-card:hover .poi-card-content p, .poi-card:hover .poi-card-content .poi-link, .poi-card:hover .poi-card-content .poi-itinerary, .poi-card:hover .poi-card-content a, .poi-card:hover .blog-card-content p, .poi-card:hover .blog-card-content .poi-link, .poi-card:hover .blog-card-content .poi-itinerary, .poi-card:hover .blog-card-content a, .blog-card:hover .poi-card-content p, .blog-card:hover .poi-card-content .poi-link, .blog-card:hover .poi-card-content .poi-itinerary, .blog-card:hover .poi-card-content a, .blog-card:hover .blog-card-content p, .blog-card:hover .blog-card-content .poi-link, .blog-card:hover .blog-card-content .poi-itinerary, .blog-card:hover .blog-card-content a {
       color: #fff; }
-    .poi-card:hover .poi-card-content svg path, .blog-card:hover .poi-card-content svg path {
+    .poi-card:hover .poi-card-content svg path, .poi-card:hover .blog-card-content svg path, .blog-card:hover .poi-card-content svg path, .blog-card:hover .blog-card-content svg path {
       fill: #fff;
       stroke: #fff; }
   .poi-card h3, .blog-card h3 {

@@ -74,7 +74,7 @@ if ($image_id == null) {
 					<?php else : ?>
 						<?php if (!$blog_title_shown && get_post_type() == 'post') : ?>
 							<div class="large-12 cell search-title-cell">
-								<h3>Blog</h3>
+								<h3>From the Blog</h3>
 							</div>
 							<?php $blog_title_shown = true; ?>						
 						<?php endif; ?>
