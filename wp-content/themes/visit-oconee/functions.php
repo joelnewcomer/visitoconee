@@ -395,3 +395,21 @@ function rlv_skip_custom_fields($custom_fields) {
 	$custom_fields = array_diff($custom_fields, $unwanted_fields);
 	return $custom_fields;
 }
+
+// Set search results post type order
+add_filter( 'relevanssi_comparison_order', 'rlv_post_type_order' );
+function rlv_post_type_order( $order_array ) {
+    $order_array = array(
+        'poi' => 0,
+        'events' => 1,
+        'post' => 2,
+        'page' => 3,
+    );
+    return $order_array;
+}
+
+add_filter( 'relevanssi_modify_wp_query', 'rlv_orderby' );
+function rlv_orderby( $query ) {
+    $query->set( 'orderby', 'post_type' );
+    return $query;
+}
