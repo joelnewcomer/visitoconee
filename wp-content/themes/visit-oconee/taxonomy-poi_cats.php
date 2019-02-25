@@ -89,6 +89,7 @@ $child_terms = get_terms( 'poi_cats', $args );
 						<div class="slider-container">
 							<ul class="bxslider">						
 								<?php while(has_sub_field('banner_ads', $term)): ?>
+									<?php if (get_sub_field('banner_toggle')) : ?>
 									<li>
 										<a href="<?php echo get_sub_field('link'); ?>">
 											<div class="hide-for-small">
@@ -99,6 +100,7 @@ $child_terms = get_terms( 'poi_cats', $args );
 											</div>
 										</a>
 									</li>
+									<?php endif; ?>
 								<?php endwhile; ?>
 							</ul> <!-- bxslider -->
 						</div> <!-- slider-container -->
