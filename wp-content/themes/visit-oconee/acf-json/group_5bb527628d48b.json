@@ -158,7 +158,7 @@
                     "key": "field_5c743747b5f28",
                     "label": "On\/Off",
                     "name": "banner_toggle",
-                    "type": "text",
+                    "type": "true_false",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -167,14 +167,16 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": "",
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "On",
+                    "ui_off_text": "Off",
                     "show_column": 0,
                     "show_column_sortable": 0,
-                    "show_column_weight": 1000
+                    "show_column_weight": 1000,
+                    "allow_quickedit": 0,
+                    "allow_bulkedit": 0
                 }
             ]
         }
@@ -196,5 +198,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1551121195
+    "modified": 1551121498
 }
