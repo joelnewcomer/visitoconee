@@ -4744,13 +4744,13 @@ section.destinations, section.tips, section.instagram {
       section.destinations .dest-cell h3, section.tips .dest-cell h3, section.instagram .dest-cell h3 {
         font-size: 24px; } }
   section.destinations .dest-cell h4, section.tips .dest-cell h4, section.instagram .dest-cell h4 {
-    font-size: 22px;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 22px; }
     @media only screen and (max-width: 790px) {
       section.destinations .dest-cell h4, section.tips .dest-cell h4, section.instagram .dest-cell h4 {
-        font-size: 18px; } }
+        font-size: 16px; } }
   section.destinations .dest-cell p, section.tips .dest-cell p, section.instagram .dest-cell p {
     font-weight: 600;
     font-size: 20px;
