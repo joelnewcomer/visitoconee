@@ -89,7 +89,7 @@
 	&:hover {
 		background: $brown;
 		box-shadow: 0 0 55px rgba(0,0,0,.60);		
-		.poi-card-content {
+		.poi-card-content, .blog-card-content {
 			p, .poi-link, .poi-itinerary, a {
 				color: #fff;
 			}
@@ -104,7 +104,7 @@
 		font-weight: bold;
 		margin-bottom: 10px;
 	}
-	.poi-card-content {
+	.poi-card-content, .blog-card-content {
 		display: block;
 		float: left;
 		width: 100%;

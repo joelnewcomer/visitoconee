@@ -5061,13 +5061,13 @@ body.error404 .entry-content h2 {
     color: #E67002;
     font-weight: bold;
     margin-bottom: 10px; }
-  .poi-card .poi-card-content, .blog-card .poi-card-content {
+  .poi-card .poi-card-content, .poi-card .blog-card-content, .blog-card .poi-card-content, .blog-card .blog-card-content {
     display: block;
     float: left;
     width: 100%;
     padding: 30px 40px 70px 40px; }
     @media only screen and (max-width: 1170px) {
-      .poi-card .poi-card-content, .blog-card .poi-card-content {
+      .poi-card .poi-card-content, .poi-card .blog-card-content, .blog-card .poi-card-content, .blog-card .blog-card-content {
         padding: 15px 20px 70px 20px; } }
   .poi-card p, .poi-card a, .blog-card p, .blog-card a {
     font-size: 18px; }
