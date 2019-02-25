@@ -4,7 +4,7 @@ Tags: compressor, image, compression, optimize, image optimizer, image optimiser
 Requires at least: 3.2.0
 Tested up to: 5.0
 Requires PHP: 5.2
-Stable tag: 4.12.7
+Stable tag: 4.12.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -240,6 +240,15 @@ The ShortPixel Image Optimiser plugin calls the following actions and filters:
 9. Check other optimized images status - themes or other plugins' images. (Media>Other Media)
 
 == Changelog ==
+
+= 4.12.8 =
+
+Release date: 25th February 2019
+
+* fix CSS for the top bar ShortPixel icon on post pages
+* i18n some text which was left out by mistake
+* include the green "CAN" WebP image which shows that the .htaccess works with WebP images having extensions like .jpg.webp
+* display notice if ShortPixel Adaptive Images is active and the Generate WebP markup option is checked. Do not generate the WebP markup in this case.
 
 = 4.12.7 =
 

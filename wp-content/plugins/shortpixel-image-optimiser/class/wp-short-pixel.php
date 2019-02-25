@@ -465,6 +465,7 @@ class WPShortPixel {
                         array("__SP_FIRST_TYPE__", "__SP_SECOND_TYPE__"), "__SP_CELL_MESSAGE__", 'sp-column-actions-template');
                 }
 
+                wp_enqueue_style('short-pixel-bar.min.css', plugins_url('/res/css/short-pixel-bar.min.css',SHORTPIXEL_PLUGIN_FILE), array(), SHORTPIXEL_IMAGE_OPTIMISER_VERSION);
                 if( in_array($screen->id, array('attachment', 'upload', 'settings_page_wp-shortpixel', 'media_page_wp-short-pixel-bulk', 'media_page_wp-short-pixel-custom'))) {
                     wp_enqueue_style('short-pixel.min.css', plugins_url('/res/css/short-pixel.min.css',SHORTPIXEL_PLUGIN_FILE), array(), SHORTPIXEL_IMAGE_OPTIMISER_VERSION);
                 }
@@ -1572,6 +1573,7 @@ class WPShortPixel {
 
         if(isset($originalMeta["ShortPixelImprovement"]) && is_numeric($originalMeta["ShortPixelImprovement"])) {
             $shortPixelMeta = $originalMeta["ShortPixel"];
+            unset($shortPixelMeta['thumbsMissing']);
             if(count($regeneratedSizes) == 0 || !isset($shortPixelMeta["thumbsOptList"])) {
                 $shortPixelMeta["thumbsOpt"] = 0;
                 $shortPixelMeta["thumbsOptList"] = array();
@@ -1715,7 +1717,13 @@ class WPShortPixel {
             $itemHandler->getMeta();
             $rawMeta = $itemHandler->getRawMeta();
         }
-        $toUnlink = $itemHandler->getURLsAndPATHs(true, false, true, array(), true);
+        try {
+            $toUnlink = $itemHandler->getURLsAndPATHs(true, false, true, array(), true);
+        } catch(Exception $e) {
+            //maybe better not notify, as I encountered a case when the post was actually an iframe and the _wp_attachment_metadata contained its size.
+            //$this->throwNotice('generic-err', $e->getMessage());
+            return false;
+        }
 
         $pathInfo = pathinfo($file);
         $sizes = isset($rawMeta["sizes"]) ? $rawMeta["sizes"] : array();
@@ -1868,13 +1876,17 @@ class WPShortPixel {
      * @param string $when
      * @param string $extra
      */
-    protected function throwNotice($when = 'activate', $extra = '') {
+    public function throwNotice($when = 'activate', $extra = '') {
         set_transient("shortpixel_thrown_notice", array('when' => $when, 'extra' => $extra), 120);
     }
 
     protected function catchNotice() {
         $notice = get_transient("shortpixel_thrown_notice");
         if(isset($notice['when'])) {
+            if($notice['when'] == 'spai' && ($this->_settings->deliverWebp == 0 || $this->_settings->deliverWebp == 3)) {
+                delete_transient("shortpixel_thrown_notice");
+                return true;
+            }
             ShortPixelView::displayActivationNotice($notice['when'], $notice['extra']);
             delete_transient("shortpixel_thrown_notice");
             return true;
