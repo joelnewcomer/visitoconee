@@ -411,5 +411,6 @@ function rlv_post_type_order( $order_array ) {
 add_filter( 'relevanssi_modify_wp_query', 'rlv_orderby' );
 function rlv_orderby( $query ) {
     $query->set( 'orderby', 'post_type' );
+    $query->set( 'order', 'ASC' );
     return $query;
 }
