@@ -51,16 +51,18 @@
 								$url = get_field('google_business_url');
 								$website = get_field('website');
 								$more_info = get_field('more_info');
+								$poi_text = "More Info";
 								?>
 								<?php if ($more_info == '') :?>
 	 								<?php
 		 							if ($website != '') {
-		 								$url = $website;	
+		 								$url = $website;
+		 								$poi_text = "Website";
 	 								}
 	 								?>
-	 								<a href="<?php echo $url; ?>" target="_blank" class="poi-more-info">More Info</a>
+	 								<a href="<?php echo $url; ?>" target="_blank" class="poi-more-info"><?php echo $poi_text; ?></a>
 	 							<?php else : ?>
-	 								<a href="#" class="poi-more-info toggle-shade">More Info</a>
+	 								<a href="#" class="poi-more-info toggle-shade"><?php echo $poi_text; ?></a>
 	 							<?php endif; ?>
 							</div> <!-- poi-card-content -->
 							<?php if ($more_info != '') :?>
