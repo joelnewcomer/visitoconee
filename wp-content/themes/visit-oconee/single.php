@@ -63,6 +63,7 @@ $blur_size = 'width=' . $width . '&height=' . $height . '&crop=1';
 					<?php get_template_part('template-parts/single','cats'); ?>
 				</header>
 				<div class="entry-content">
+					<?php get_template_part('template-parts/content', 'columns'); ?>
 					<?php the_content(); ?>
 				</div>
 				<footer>
