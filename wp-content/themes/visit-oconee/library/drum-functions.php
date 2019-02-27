@@ -550,7 +550,7 @@ function add_featured_image_instruction( $content ) {
 	$post_id = $post->ID;
 	if ($post_id == get_option('page_on_front')) {
         return $content .= '<p>Featured Image must be sized to at least ' . $home_featured_image_size . ' pixels.</p>';
-    } elseif( 'events' == get_post_type( $post_id ) ) {
+    } elseif( 'events' == get_post_type( $post_id ) || 'poi' == get_post_type( $post_id ) ) {
         return $content .= '<p>Featured Image must be sized to at least 640 x 370 pixels.</p>';
     } else {
         return $content .= '<p>Featured Image must be sized to at least ' . $featured_image_size . ' pixels.</p>';
