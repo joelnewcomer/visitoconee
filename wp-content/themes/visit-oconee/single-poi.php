@@ -24,5 +24,13 @@ get_header(); ?>
 		
 </div> <!-- #page -->
 
+<script>
+	
+jQuery(".toggle-shade").on( "click", function(e) {
+	e.preventDefault();
+	jQuery(this).parents('.poi-card').toggleClass('shade-open');
+});
+
+</script>
 
 <?php get_footer(); ?>
