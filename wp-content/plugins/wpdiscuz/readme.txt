@@ -2,8 +2,8 @@
 Contributors: gVectors Team
 Tags: comment, comments, ajax comments, custom comment form, custom comment field
 Requires at least: 4.4
-Tested up to: 5.0
-Stable tag: 5.3.1
+Tested up to: 5.1
+Stable tag: 5.3.2
 Requires PHP: 5.4 and higher
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -174,13 +174,20 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 
 == Changelog ==
 
-= Comments - wpDiscuz v5.3.1 =
+= Comments - wpDiscuz v5.3.2 =
 
-* Fixed Bug: Hard dependency of comment author name on email.
+* Updated: WordPress 5.1 Compatibility
+* Fixed Bug: Problems with session_start() function.
+
 
 IMPORTANT!
 
 - Please delete all caches and press CTRL+F5 on website front-end after updating wpDiscuz
+
+
+= Comments - wpDiscuz v5.3.1 =
+
+* Fixed Bug: Hard dependency of comment author name on email.
 
 
 = Comments - wpDiscuz v5.3.0 =

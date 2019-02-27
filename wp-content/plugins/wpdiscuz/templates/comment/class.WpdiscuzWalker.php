@@ -7,6 +7,7 @@ class WpdiscuzWalker extends Walker_Comment implements WpDiscuzConstants {
     private $helperOptimization;
     private $dbManager;
     private $optionsSerialized;
+    private $users;
 
     public function __construct($helper, $helperOptimization, $dbManager, $optionsSerialized) {
         $this->helper = $helper;
@@ -78,8 +79,8 @@ class WpdiscuzWalker extends Walker_Comment implements WpDiscuzConstants {
         }
 
         $userKey = $comment->user_id . '_' . $comment->comment_author_email . '_' . $comment->comment_author;
-        if (isset($_SESSION['wpdiscuz_users'][$userKey])) {
-            $user = $_SESSION['wpdiscuz_users'][$userKey];
+        if (isset($this->users[$userKey])) {
+            $user = $this->users[$userKey];
         } else {
             $user = array();
             $user['user'] = '';
@@ -167,7 +168,7 @@ class WpdiscuzWalker extends Walker_Comment implements WpDiscuzConstants {
                     }
                 }
             }
-            $_SESSION['wpdiscuz_users'][$userKey] = $user;
+            $this->users[$userKey] = $user;
         }
 
         if ($comment->comment_parent && $this->optionsSerialized->wordpressThreadComments) {
