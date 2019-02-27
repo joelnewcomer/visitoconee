@@ -39,7 +39,6 @@ date_default_timezone_set(get_option('timezone_string'));
 							$title = single_term_title("", false);
 						    ?>
 					    	<h1 class="entry-title"><?php echo $title; ?></h1>
-					    	<?php echo term_description( $term_id, 'poi_cats' ); ?>
 				    	</div>
 					</div>
 				</div>
@@ -47,6 +46,19 @@ date_default_timezone_set(get_option('timezone_string'));
 		</div> <!-- overlay -->
 	</div> <!-- blog-landing-featured -->
 </div> <!-- featured-container -->
+
+<?php $desc = term_description( $term_id, 'poi_cats' ); ?>
+<?php if ($desc != '') : ?>
+	<div class="cat-desc">
+		<div class="grid-container">
+			<div class="grid-x grid-margin-x clear">
+				<div class="large-12 cell text-center">
+					<?php echo $desc; ?>
+				</div>
+			</div>
+		</div>
+	</div>		
+<?php endif; ?>
 
 <?php
 $args = array( 
