@@ -39,6 +39,7 @@ date_default_timezone_set(get_option('timezone_string'));
 							$title = single_term_title("", false);
 						    ?>
 					    	<h1 class="entry-title"><?php echo $title; ?></h1>
+					    	<?php echo term_description( $term_id, 'poi_cats' ); ?>
 				    	</div>
 					</div>
 				</div>
