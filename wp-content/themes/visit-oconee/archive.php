@@ -66,8 +66,14 @@ get_header(); ?>
 			        <h2><?php single_term_title(); ?></h2>
 		        </div>
 		        <div class="large-6 medium-6 cell text-right small-text-center">
-			        <?php $count_posts = wp_count_posts(); ?>
-			        <p class="blog-count"><?php echo $wp_query->found_posts; ?> <?php _e( 'Page', 'drumroll' ); ?></p>
+			        <?php
+				    $count_posts = wp_count_posts();
+				    $results_text = 'Result';
+				    if ($count_posts > 1) {
+					    $results_text = 'Results';
+				    }    
+			        ?>
+			        <p class="blog-count"><?php echo $wp_query->found_posts; ?> <?php _e( $results_text, 'drumroll' ); ?></p>
 		        </div>		    
 		    </div>
         	<article class="grid-x grid-margin-x clear">
