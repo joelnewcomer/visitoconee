@@ -46,18 +46,6 @@ get_header(); ?>
 	   		</div>
 		</div>
 	</section>
-
-	<section class="nl-sign-up">
-		<div class="grid-container">
-	   		<div class="grid-x">
-		   		<div class="large-12 cell text-center">	
-			   		<h2>News You Can Use</h2>
-			   		<p>We send timely emails about upcoming events and suggestions for ways to spend your days in Oconee County, SC.</p>
-			   		<?php get_template_part('template-parts/subscribe-form'); ?>
-		   		</div>
-	   		</div>
-		</div>
-	</section> <!-- sign-up -->
 	
 </div> <!-- #page -->
 
