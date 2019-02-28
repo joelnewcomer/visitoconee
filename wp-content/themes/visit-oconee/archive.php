@@ -67,9 +67,8 @@ get_header(); ?>
 		        </div>
 		        <div class="large-6 medium-6 cell text-right small-text-center">
 			        <?php
-				    $count_posts = wp_count_posts();
 				    $results_text = 'Result';
-				    if ($count_posts > 1) {
+				    if ($wp_query->found_posts > 1) {
 					    $results_text = 'Results';
 				    }    
 			        ?>
