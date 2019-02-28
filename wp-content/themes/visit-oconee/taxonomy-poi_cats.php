@@ -187,7 +187,7 @@ jQuery(".cat-filter").on( "click", function() {
 	jQuery(this).addClass('active');
 	var filter = jQuery(this).data('filter');
 	var url = jQuery(this).data('url');
-	history.pushState({}, null, url);
+	// history.pushState({}, null, url);
 	if (filter == "all") {
 		jQuery('.poi-card').fadeIn();
 	} else {
