@@ -80,7 +80,8 @@ $child_terms = get_terms( 'poi_cats', $args );
 				<?php
 
 				foreach ( $child_terms as $child_term ) { ?>
-					<div class="cat-filter" id="<?php echo $child_term->slug; ?>-filter" data-filter="<?php echo $child_term->slug; ?>">
+					<?php $term_link = get_term_link($child_term); ?>
+					<div class="cat-filter" id="<?php echo $child_term->slug; ?>-filter" data-url="<?php echo $term_link; ?>" data-filter="<?php echo $child_term->slug; ?>">
 						<?php echo file_get_contents(get_field('category_icon', $child_term)); ?>
 						<h3><?php echo $child_term->name; ?></h3>
 					</div>
@@ -185,6 +186,8 @@ jQuery(".cat-filter").on( "click", function() {
 	jQuery('.cat-filter').removeClass('active');
 	jQuery(this).addClass('active');
 	var filter = jQuery(this).data('filter');
+	var url = jQuery(this).data('url');
+	history.pushState({}, null, url);
 	if (filter == "all") {
 		jQuery('.poi-card').fadeIn();
 	} else {
