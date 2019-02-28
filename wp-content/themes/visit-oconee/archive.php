@@ -63,11 +63,11 @@ get_header(); ?>
     	<div class="grid-wrapper">
 		    <div class="blog-content-header">
 		        <div class="large-6 medium-6 cell small-text-center">
-			        <h2><?php single_term_title(); ?> <?php _e( 'Articles', 'drumroll' ); ?></h2>
+			        <h2><?php single_term_title(); ?></h2>
 		        </div>
 		        <div class="large-6 medium-6 cell text-right small-text-center">
 			        <?php $count_posts = wp_count_posts(); ?>
-			        <p class="blog-count"><?php echo $wp_query->found_posts; ?> <?php _e( 'Articles', 'drumroll' ); ?></p>
+			        <p class="blog-count"><?php echo $wp_query->found_posts; ?> <?php _e( 'Page', 'drumroll' ); ?></p>
 		        </div>		    
 		    </div>
         	<article class="grid-x grid-margin-x clear">
