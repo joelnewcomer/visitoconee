@@ -3,7 +3,7 @@
 Plugin Name: WCAG 2.0 form fields for Gravity Forms
 Description: Extends the Gravity Forms plugin. Modifies fields and improves validation so that forms meet WCAG 2.0 accessibility requirements.
 Tags: Gravity Forms, wcag, accessibility, forms
-Version: 1.6.0
+Version: 1.7.0
 Author: Adrian Gordon
 Author URI: https://www.itsupportguides.com
 License: GPL2
@@ -113,268 +113,212 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
          */
 		function change_fields_content_wcag( $content, $field, $value, $lead_id, $form_id ) {
 
+			// we don't need to change the form  in admin or entry
 			if ( is_admin() || 'print-entry' == RGForms::get( 'gf_page' ) ) {
 				return $content;
 			}
 
-			$version_info = GFCommon::get_version_info();
-			$version      = rgar( $version_info, 'version' );
+			
+			$field_type = rgar( $field, 'type' );
+			$field_required = rgar( $field, 'isRequired' );
+			$field_failed_valid = rgar( $field, 'failed_validation' );
+			$field_label = htmlspecialchars( rgar( $field, 'label' ), ENT_QUOTES );
+			$field_id = rgar( $field, 'id' );
+			$field_page = rgar( $field, 'pageNumber' );
+			$current_page = GFFormDisplay::get_current_page( $form_id );
+			$field_description = rgar( $field, 'description' );
+			$field_maxFileSize = rgar( $field, 'maxFileSize' );
+			$field_allowedExtensions = rgar( $field, 'allowedExtensions' );
+			
+			if ( 'fileupload' == $field_type ) {
+				// wrap in fieldset
+				if( ! empty( $field_maxFileSize ) ) {
+					// turn max file size to human understandable term
+					$file_limit = $field_maxFileSize. ' mega bytes';
+				}
+				
+				if ( ! empty( $field_allowedExtensions ) ) {
+					// add accept attribute with comma separated list of accept file types
+					$content = str_replace( " type='file' ", " type='file' accept='" . $field_allowedExtensions . "'", $content);
+				}
 
-			if ( version_compare( $version , '2', '<' ) ) {
-				// redundant
-			} else {
-				$field_type = rgar( $field, 'type' );
-				$field_required = rgar( $field, 'isRequired' );
-				$field_failed_valid = rgar( $field, 'failed_validation' );
-				$field_label = htmlspecialchars( rgar( $field, 'label' ), ENT_QUOTES );
-				$field_id = rgar( $field, 'id' );
-				$field_page = rgar( $field, 'pageNumber' );
-				$current_page = GFFormDisplay::get_current_page( $form_id );
-				$field_description = rgar( $field, 'description' );
-				$field_maxFileSize = rgar( $field, 'maxFileSize' );
-				$field_allowedExtensions = rgar( $field, 'allowedExtensions' );
-
-				// FILE UPLOAD FIELD
-				if ( 'fileupload' == $field_type ) {
-					// wrap in fieldset
-					$text_file_upload = __( 'File upload', 'gravity-forms-wcag-20-form-fields' ) ;
-					if ( $field_required ) {
-						$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'><label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label}<span class='gfield_required'>*</span><span class='sr-only'> {$text_file_upload}</span></label></legend>", $content );
+				// only add if either max file size of extension limit specified for field
+				if ( !empty( $field_maxFileSize ) ) {
+					//add title attirbute to file input field
+					$content = str_replace( " type='file' ", " type='file' title='{$field_label}' ", $content );
+					//if aria-describedby attribute not already present
+					if ( false !== strpos( strtolower( $content ), 'aria-describedby' ) )  {
+						$content = str_replace( " aria-describedby='", " aria-describedby='field_{$form_id}_{$field_id}_fmessage ", $content );
 					} else {
-						$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'><label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label}<span class='sr-only'> {$text_file_upload}</span></label></legend>", $content );
-					}
-					$content .= "</fieldset>";
-
-					if( ! empty( $field_maxFileSize ) ) {
-						// turn max file size to human understandable term
-						$file_limit = $field_maxFileSize. ' mega bytes';
-					}
-					if ( ! empty( $field_allowedExtensions ) ) {
-						// add accept attribute with comma separated list of accept file types
-						$content = str_replace( " type='file' ", " type='file' accept='" . $field_allowedExtensions . "'", $content);
-						// turn allowed extensions into a human understandable list - remove commas and replace with spaces
-						$extensions_list = str_replace( ",", " ", $field_allowedExtensions );
-					}
-
-					// only add if either max file size of extension limit specified for field
-					if ( !empty( $field_maxFileSize ) || !empty( $field_allowedExtensions ) ) {
-						//add title attirbute to file input field
-							$content = str_replace( " type='file' ", " type='file' title='{$field_label}' ", $content );
-						//if aria-describedby attribute not already present
-						if ( false !== strpos( strtolower( $content ), 'aria-describedby' ) )  {
-							$content = str_replace( " aria-describedby='", " aria-describedby='field_{$form_id}_{$field_id}_fmessage ", $content );
-						} else {
 						// aria-describedby attribute is already present
-							$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_fmessage' name='input_", $content );
+						$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_fmessage' name='input_", $content );
+					}
+					$content .= "<span id='field_{$form_id}_{$field_id}_fmessage' class='sr-only'>";
+					if( !empty( $field_maxFileSize ) ) {
+						$content .= __( 'Maximum file size', 'gravity-forms-wcag-20-form-fields' ) . ' - ' . $file_limit . '. ';
+					}
+					$content .= "</span>";
+				}
+			}
+
+			// CHECKBOX, RADIO, OPTION UPLOAD FIELDS
+			//
+			// wrap radio and checkbox fields in fieldset
+			// adds aria-required='true' if required field
+			// if 'other choice' enabled - label the hidden field
+			elseif ( 'checkbox' == $field_type || 'radio' == $field_type || 'option' == $field_type ) {
+				// adds labels to radio 'other' field - both the radio and input fields.
+				if( 'radio' == $field_type ) {
+					foreach( $field['choices'] as $key => $choice ) {
+						$isotherchoice = isset( $choice['isOtherChoice'] ) ? $choice['isOtherChoice'] : null;
+						if ( $isotherchoice ) {
+							$choice_position = $key;
+							// add label to radio
+							$content = str_replace( "<li class='gchoice_{$form_id}_{$field_id}_" . $choice_position . "'><input name='input_" . $field_id . "' ", "<li class='gchoice_{$form_id}_{$field_id}_" . $choice_position . "'><label id='label_{$form_id}_{$field_id}_" . $choice_position . "' for='choice_{$form_id}_{$field_id}_" . $choice_position . "' class='sr-only'>" . __( 'Other', 'gravity-forms-wcag-20-form-fields' )." </label><label id='label_{$form_id}_{$field_id}_other' for='input_{$form_id}_{$field_id}_other' class='sr-only'>" . __( 'Other', 'gravity-forms-wcag-20-form-fields' )." </label><input name='input_" . $field_id . "' ", $content );
 						}
-						$content .= "<span id='field_{$form_id}_{$field_id}_fmessage' class='sr-only'>";
-						if( !empty( $field_maxFileSize ) ) {
-							$content .= __( 'Maximum file size', 'gravity-forms-wcag-20-form-fields' ) . ' - ' . $file_limit . '. ';
-						}
-						if( !empty( $field_allowedExtensions ) ) {
-							$content .= __( 'Allowed file extensions', 'gravity-forms-wcag-20-form-fields' ) . ' - ' . $extensions_list . ". ";
-						}
-						$content .= "</span>";
 					}
 				}
 
-				// CHECKBOX, RADIO, OPTION UPLOAD FIELDS
-				//
-				// wrap radio and checkbox fields in fieldset
-				// adds aria-required='true' if required field
-				// if 'other choice' enabled - label the hidden field
-				elseif ( 'checkbox' == $field_type || 'radio' == $field_type || 'option' == $field_type ) {
-					// adds labels to radio 'other' field - both the radio and input fields.
-					if( 'radio' == $field_type ) {
-						foreach( $field['choices'] as $key => $choice ) {
-							$isotherchoice = isset( $choice['isOtherChoice'] ) ? $choice['isOtherChoice'] : null;
-							if ( $isotherchoice ) {
-								$choice_position = $key;
-								// add label to radio
-								$content = str_replace( "<li class='gchoice_{$form_id}_{$field_id}_" . $choice_position . "'><input name='input_" . $field_id . "' ", "<li class='gchoice_{$form_id}_{$field_id}_" . $choice_position . "'><label id='label_{$form_id}_{$field_id}_" . $choice_position . "' for='choice_{$form_id}_{$field_id}_" . $choice_position . "' class='sr-only'>" . __( 'Other', 'gravity-forms-wcag-20-form-fields' )." </label><label id='label_{$form_id}_{$field_id}_other' for='input_{$form_id}_{$field_id}_other' class='sr-only'>" . __( 'Other', 'gravity-forms-wcag-20-form-fields' )." </label><input name='input_" . $field_id . "' ", $content );
-								// add label to text input
-								//$content = str_replace( "<input id='input_{$form_id}_{$field_id}_other' ", "<label id='label_{$form_id}_{$field_id}_other' for='input_{$form_id}_{$field_id}_other' class='sr-only'>" . __( 'Other', 'gravity-forms-wcag-20-form-fields' ) . " </label><input id='input_{$form_id}_{$field_id}_other' ", $content );
-								// change radio jQuery
-								//$content = str_replace( "jQuery(this).next('input').focus()","jQuery(this).closest('li').find('#input_43_1_other').focus()", $content );
-								// change inout jQuery - NOTE Gravity Forms code uses double quotation mark
-								//$content = str_replace( "jQuery(this).prev(\"input\").attr(\"checked\", true)","jQuery(this).closest(\"li\").find(\"#choice_43_1_3\").attr(\"checked\", true)", $content );
-							}
-						}
-					}
-					//wrap in fieldset
+				//wrap in fieldset
+				//if <fieldset> not already present
+				if ( true !== strpos( strtolower( $content ), 'fieldset' ) )  {
 					if ( $field_required ) {
-						// Gravity Forms 1.9.2 appears to no longer include for attribute on field group labels
-						// for='input_{$form_id}_{$field_id}'
+						// GF now ends label with two blank spaces
 						$content = str_replace( "<label class='gfield_label'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						// or if version of GF doesnt have the double empty space
-						$content = str_replace( "<label class='gfield_label' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
 					} else {
+						// GF now ends label with two blank spaces
 						$content = str_replace( "<label class='gfield_label'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						// or if version of GF doesnt have the double empty space
-						$content = str_replace( "<label class='gfield_label' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
 					}
 					$content .= "</fieldset>";
 				}
+			}
+			
+			// NAME FIELD
+			//
+			// name field in fieldset
+			// adds aria-required='true' if required field
+			elseif ( 'name' == $field_type ) {
+				// wrap in fieldset
+				// includes variations for 2-8 depending on field configuration
+				if ( $field_required ) {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+				} else {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>",$content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+				}
+				$content .= "</fieldset>";
+			}
+			
+			// EMAIL FIELD
+			//
+			// wrap email field with confirmation enable in fieldset
+			// adds aria-required='true' if required field
+			elseif ( 'email' == $field_type && rgar( $field, 'emailConfirmEnabled' ) ) {
+				//wrap in fieldset
+				if ( $field_required ) {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+				} else {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+				}
+				$content .= "</fieldset>";
+			}
+			
+			// ADDRESS FIELD
+			//
+			// address field in fieldset
+			// adds aria-required='true' if required field
+			elseif ( 'address' == $field_type ) {
+				//wrap in fieldset
+				if ( $field_required ) {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+				} else {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+				}
+				$content .= "</fieldset>";
+			}
 
-				// NAME FIELD
-				//
-				// name field in fieldset
-				// adds aria-required='true' if required field
-				elseif ( 'name' == $field_type ) {
-					// wrap in fieldset
-					// includes variations for 2-8 depending on field configuration
-					if ( $field_required ) {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_2' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_3' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_4' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_6' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_8' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-					} else {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_2' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_3' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_4' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>",$content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_6' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_8' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-					}
-					$content .= "</fieldset>";
+			// TIME FIELD
+			elseif ( 'time' == $field_type ) {
+				//wrap in fieldset
+				if ( $field_required ) {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+				} else {
+					$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
+				}
+				$content .= "</fieldset>";
+
+				// add sr-only label for AM/PM select drop download
+				$content = str_replace( "<select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", "<label for='input_{$form_id}_{$field_id}_3' class='sr-only' >" . __( 'AM/PM', 'gravity-forms-wcag-20-form-fields' ) . "</label><select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", $content );
+			}
+			
+			// LIST FIELD
+			//
+			// wrap list fields in fieldset
+			// set shim input type to hidden
+			// add hidden table header for add/remove column
+			elseif ( 'list' == $field_type ) {
+				//wrap list fields in fieldset
+				if ( $field_required ) {
+					$content = str_replace( "<label class='gfield_label'  >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
+				} else {
+					$content = str_replace( "<label class='gfield_label'  >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
 				}
 
-				// EMAIL FIELD
-				//
-				// wrap email field with confirmation enable in fieldset
-				// adds aria-required='true' if required field
-				elseif ( 'email' == $field_type && rgar( $field, 'emailConfirmEnabled' ) ) {
-					//wrap in fieldset
-					if ( $field_required ) {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-					} else {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-					}
-					$content .= "</fieldset>";
+				$content .= "</fieldset>";
+			}
+			
+			// WEBSITE field
+			//
+			// add description for website field
+			elseif ( 'website' == $field_type ){
+				$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >" . $field_label, "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label} <span id='field_{$form_id}_{$field_id}_dmessage' class='sr-only'> - " . __( 'enter a valid website URL for example https://www.google.com', 'gravity-forms-wcag-20-form-fields' ) . "</span>", $content );
+
+				// attach to aria-described-by
+				$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_dmessage' name='input_", $content );
+			}
+
+			// DATE FIELD
+			//
+			// add description for date field
+			elseif ( 'date' == $field_type ) {
+				if ( 'dmy' == $field['dateFormat'] ) {
+					$date_format = 'dd/mm/yyyy';
+				} elseif ( 'dmy_dash' == $field['dateFormat'] ) {
+					$date_format = 'dd-mm-yyyy';
+				} elseif ( 'dmy_dot' == $field['dateFormat'] ) {
+					$date_format = 'dd.mm.yyyy';
+				} elseif ( 'ymd_slash' == $field['dateFormat'] ) {
+					$date_format = 'yyyy/mm/dd';
+				} elseif ( 'ymd_dash' == $field['dateFormat'] ) {
+					$date_format = 'yyyy-mm-dd';
+				} elseif ( 'ymd_dot' == $field['dateFormat'] ) {
+					$date_format = 'yyyy.mm.dd';
+				} else {
+					$date_format = 'mm/dd/yyyy';
 				}
-
-				// ADDRESS FIELD
-				//
-				// address field in fieldset
-				// adds aria-required='true' if required field
-				elseif ( 'address' == $field_type ) {
-					//wrap in fieldset
-					if ( $field_required ) {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-					} else {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-					}
-					$content .= "</fieldset>";
-				}
-
-				// TIME FIELD
-				elseif ( 'time' == $field_type ) {
-					//wrap in fieldset
-					if ( $field_required ) {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-					} else {
-						$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_1' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-					}
-					$content .= "</fieldset>";
-
-					// add sr-only label for AM/PM select drop download
-					$content = str_replace( "<select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", "<label for='input_{$form_id}_{$field_id}_3' class='sr-only' >" . __( 'AM/PM', 'gravity-forms-wcag-20-form-fields' ) . "</label><select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", $content );
-				}
-
-				// LIST FIELD
-				//
-				// wrap list fields in fieldset
-				// set shim input type to hidden
-				// add hidden table header for add/remove column
-				elseif ( 'list' == $field_type ) {
-
-					//wrap list fields in fieldset
-					if ( $field->enableColumns ) {
-						if ( $field_required ) {
-							$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_shim' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						} else {
-							$content = str_replace( "<label class='gfield_label gfield_label_before_complex' for='input_{$form_id}_{$field_id}_shim' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						}
-					} else {
-						if ( $field_required ) {
-							$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}_shim' >{$field_label}<span class='gfield_required'>*</span></label>", "<fieldset aria-required='true' class='gfieldset'><legend class='gfield_label'>{$field_label}<span class='gfield_required'>*</span></legend>", $content );
-						} else {
-							$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}_shim' >{$field_label}</label>", "<fieldset class='gfieldset'><legend class='gfield_label'>{$field_label}</legend>", $content );
-						}
-					}
-
-					$text_add_remove_row = __( 'Add or remove row', 'gravity-forms-wcag-20-form-fields' );
-					$content = str_replace( "<th>&nbsp;</th></tr></thead>", "<th><span class='sr-only'>{$text_add_remove_row}</span></th></tr></thead>", $content );
-
-					$content = str_replace( "<input type='text' id='input_{$form_id}_{$field_id}_shim'", "<input type='hidden' id='input_{$form_id}_{$field_id}_shim'", $content );
-
-					$content .= "</fieldset>";
-				}
-
-				// WEBSITE field
-				//
-				// add description for website field
-				elseif ( 'website' == $field_type ){
-					$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >" . $field_label, "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label} <span id='field_{$form_id}_{$field_id}_dmessage' class='sr-only'> - " . __( 'enter a valid website URL for example http://www.google.com', 'gravity-forms-wcag-20-form-fields' ) . "</span>", $content );
-
-					// attach to aria-described-by
-					$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_dmessage' name='input_", $content );
-				}
-
-				// DATE FIELD
-				//
-				// add description for date field
-				elseif ( 'date' == $field_type ) {
-					if ( 'dmy' == $field['dateFormat'] ) {
-						$date_format = 'dd/mm/yyyy';
-					} elseif ( 'dmy_dash' == $field['dateFormat'] ) {
-						$date_format = 'dd-mm-yyyy';
-					} elseif ( 'dmy_dot' == $field['dateFormat'] ) {
-						$date_format = 'dd.mm.yyyy';
-					} elseif ( 'ymd_slash' == $field['dateFormat'] ) {
-						$date_format = 'yyyy/mm/dd';
-					} elseif ( 'ymd_dash' == $field['dateFormat'] ) {
-						$date_format = 'yyyy-mm-dd';
-					} elseif ( 'ymd_dot' == $field['dateFormat'] ) {
-						$date_format = 'yyyy.mm.dd';
-					} else {
-						$date_format = 'mm/dd/yyyy';
-					}
 
 				$content = str_replace( "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label}", "<label class='gfield_label' for='input_{$form_id}_{$field_id}' >{$field_label} <span id='field_{$form_id}_{$field_id}_dmessage' class='sr-only'> - " . sprintf( __( 'must be %s format', 'gravity-forms-wcag-20-form-fields' ), $date_format ) . "</span>", $content );
 
-					// attach to aria-described-by
-					$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_dmessage' name='input_", $content);
-				}
-
-				// ALL FIELDS
-
-				// add screen reader text for required fields
-				if( $field_required ) {
-					/*if ( ( true !== strpos( strtolower( $content ), "aria-required='true'" ) ) && ( 'checkbox' != $field_type ) && ( 'radio' != $field_type ) ) {
-						//add aria-required='true'
-						$content = str_replace( " name='input_", " aria-required='true' name='input_", $content );
-					}*/
-					$text_required =  __( 'Required', 'gravity-forms-wcag-20-form-fields' );
-					//add screen reader only 'Required' message to asterisk
-					$content = str_replace( "*</span>", " * <span class='sr-only'> {$text_required}</span></span>", $content );
-				}
-
-				// use field description as aria-describedby
-				if( ! empty( $field_description ) && 'Infobox' != $field_type ) {
-				// if field has a description, link description to field using aria-describedby
-					// dont apply to validation message - it already has an ID
-					//if aria-describedby attribute not already present
-					if ( false !== strpos( strtolower( $content ), 'aria-describedby' ) )  {
-						$content = str_replace( " aria-describedby='", " aria-describedby='field_{$form_id}_{$field_id}_dmessage ", $content );
-					} else {
-						// aria-describedby attribute is already present
-					$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_dmessage' name='input_", $content );
-					}
-					//add add class for aria-describedby description message
-					$content = str_replace( " class='gfield_description'", " id='field_{$form_id}_{$field_id}_dmessage' class='gfield_description'", $content );
-				}
+				// attach to aria-described-by
+				$content = str_replace( " name='input_", " aria-describedby='field_{$form_id}_{$field_id}_dmessage' name='input_", $content);
 			}
+
+			// ALL FIELDS
+
+			// add screen reader text for required fields
+			if( $field_required ) {
+				$text_required =  __( 'Required', 'gravity-forms-wcag-20-form-fields' );
+				//add screen reader only 'Required' message to asterisk
+				$content = str_replace( "*</span>", " * <span class='sr-only'> {$text_required}</span></span>", $content );
+			}
+			
 			return $content;
 		} // END change_fields_content_wcag
 
@@ -425,7 +369,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
          */
 		public static function admin_warnings() {
 			if ( !self::is_gravityforms_installed() ) {
-				$gravityforms_url = '<a href="https://www.e-junkie.com/ecom/gb.php?cl=54585&c=ib&aff=299380" target="_blank" >' . __( 'download the latest version', 'gravity-forms-wcag-20-form-fields' ) . '</a>';
+				$gravityforms_url = '<a href="https://rocketgenius.pxf.io/dbOK" target="_blank" >' . __( 'download the latest version', 'gravity-forms-wcag-20-form-fields' ) . '</a>';
 
 				printf(
 					'<div class="error"><h3>%s</h3><p>%s</p><p>%s</p></div>',
