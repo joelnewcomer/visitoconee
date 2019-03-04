@@ -89,7 +89,7 @@ __webpack_require__(3);
 __webpack_require__(4);
 __webpack_require__(5); // Remove if you don't have a slider.
 __webpack_require__(6); 
-__webpack_require__(7);
+// require('./originals/preloader');
 __webpack_require__(8); // Remove if you use a full-screen menu.
 __webpack_require__(9); // Remove if there is no blog.
 // require('./originals/headroom.min');
@@ -373,28 +373,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }n?o===-1&&(o=setTimeout(function(){s(a),o=-1},r._throttle)):s(a)},t(r._applyDataApi);var h=t.fn.on?"on":"bind";t(window)[h]("load",function(t){r._update(!1,t)}),t(window)[h]("resize orientationchange",function(t){r._update(!0,t)})});
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-/* Preloader
- * -------------------------------------------------- */
-var drumPreloader = function() {
-    jQuery( document ).ready(function() {
-        // will first fade out the loading animation
-        jQuery(".loading-inner").fadeOut("slow", function() {
-            // will fade out the whole DIV that covers the website.
-            jQuery("#preloader").delay(300).fadeOut("slow");
-        });
-    });
-};
-
-/* Initialize
- * ------------------------------------------------------ */
-(function drumInit() {
-    drumPreloader();
-})();
-
-/***/ }),
+/* 7 */,
 /* 8 */
 /***/ (function(module, exports) {
 

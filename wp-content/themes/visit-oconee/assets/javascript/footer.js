@@ -7,7 +7,7 @@ require('./originals/back-to-top');
 require('./originals/easyResponsiveTabs');
 require('./originals/jquery.bxslider.min'); // Remove if you don't have a slider.
 require('./originals/jquery.matchHeight-min'); 
-require('./originals/preloader');
+// require('./originals/preloader');
 require('./originals/jquery.slimmenu.min'); // Remove if you use a full-screen menu.
 require('./originals/readingTime.min'); // Remove if there is no blog.
 // require('./originals/headroom.min');
