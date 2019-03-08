@@ -5,9 +5,10 @@ if (!class_exists('KcSeoOutput')):
     class KcSeoOutput
     {
         function __construct() {
-            add_action('wp_footer', array($this, 'footer'), 1);
-            add_action('kcseo_footer', array($this, 'debug_mark'), 2);
-            add_action('kcseo_footer', array($this, 'load_schema'), 3);
+	        add_action('wp_footer', array($this, 'footer'), 99);
+	        add_action('amp_post_template_footer', array($this, 'footer'), 999); // AMP support
+	        add_action('kcseo_footer', array($this, 'debug_mark'), 2);
+	        add_action('kcseo_footer', array($this, 'load_schema'), 3);
         }
 
         private function is_premium() {
@@ -204,7 +205,7 @@ if (!class_exists('KcSeoOutput')):
 
             if (is_single() || is_page()) {
                 $post = get_queried_object();
-                foreach ($schemaModel->schemaTypes() as $schemaID => $schema) {
+                foreach (KcSeoOptions::getSchemaTypes() as $schemaID => $schema) {
                     $schemaMetaId = $KcSeoWPSchema->KcSeoPrefix . $schemaID;
                     $metaData = get_post_meta($post->ID, $schemaMetaId, true);
                     $metaData = (is_array($metaData) ? $metaData : array());

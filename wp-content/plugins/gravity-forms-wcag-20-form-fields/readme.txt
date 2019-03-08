@@ -4,7 +4,7 @@ Donate link: https://www.itsupportguides.com/donate/
 Tags: gravity forms, wcag, accessibility, usability
 Requires at least: 5.0
 Tested up to: 5.1
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ With that said, if you want to disable it you can add this code to your theme's 
 2. Shows list field with 'buttons' instead of images to add and delete rows - buttons are styled like the previous images but are keyboard accessible. 
 
 == Changelog ==
+
+= 1.7.1 =
+* Fix: Improve PHP 7.2 compatibility - use '__return_false' instead of create_function
 
 = 1.7.0 =
 * Maintenance: review targeting for field changes and what changes are made to fields.

@@ -3,7 +3,7 @@
 Plugin Name: WCAG 2.0 form fields for Gravity Forms
 Description: Extends the Gravity Forms plugin. Modifies fields and improves validation so that forms meet WCAG 2.0 accessibility requirements.
 Tags: Gravity Forms, wcag, accessibility, forms
-Version: 1.7.0
+Version: 1.7.1
 Author: Adrian Gordon
 Author URI: https://www.itsupportguides.com
 License: GPL2
@@ -58,7 +58,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				add_filter( 'gform_column_input_content',  array( $this, 'change_column_add_title_wcag' ), 10, 6 );
 				add_filter( 'gform_field_content',  array( $this, 'change_fields_content_wcag' ), 10, 5 );
 				add_action( 'gform_enqueue_scripts',  array( $this, 'queue_scripts' ), 90, 3 );
-				add_filter( 'gform_tabindex', create_function( '', 'return false;' ) );   //disable tab-index
+				add_filter( 'gform_tabindex', '__return_false' );   //disable tab-index
 				add_filter( 'gform_validation_message', array( $this, 'change_validation_message' ), 10, 2 );
 		 } // END register_actions
 
@@ -118,7 +118,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				return $content;
 			}
 
-			
+
 			$field_type = rgar( $field, 'type' );
 			$field_required = rgar( $field, 'isRequired' );
 			$field_failed_valid = rgar( $field, 'failed_validation' );
@@ -129,14 +129,14 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 			$field_description = rgar( $field, 'description' );
 			$field_maxFileSize = rgar( $field, 'maxFileSize' );
 			$field_allowedExtensions = rgar( $field, 'allowedExtensions' );
-			
+
 			if ( 'fileupload' == $field_type ) {
 				// wrap in fieldset
 				if( ! empty( $field_maxFileSize ) ) {
 					// turn max file size to human understandable term
 					$file_limit = $field_maxFileSize. ' mega bytes';
 				}
-				
+
 				if ( ! empty( $field_allowedExtensions ) ) {
 					// add accept attribute with comma separated list of accept file types
 					$content = str_replace( " type='file' ", " type='file' accept='" . $field_allowedExtensions . "'", $content);
@@ -192,7 +192,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 					$content .= "</fieldset>";
 				}
 			}
-			
+
 			// NAME FIELD
 			//
 			// name field in fieldset
@@ -215,7 +215,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				}
 				$content .= "</fieldset>";
 			}
-			
+
 			// EMAIL FIELD
 			//
 			// wrap email field with confirmation enable in fieldset
@@ -229,7 +229,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				}
 				$content .= "</fieldset>";
 			}
-			
+
 			// ADDRESS FIELD
 			//
 			// address field in fieldset
@@ -257,7 +257,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				// add sr-only label for AM/PM select drop download
 				$content = str_replace( "<select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", "<label for='input_{$form_id}_{$field_id}_3' class='sr-only' >" . __( 'AM/PM', 'gravity-forms-wcag-20-form-fields' ) . "</label><select name='input_{$field_id}[]' id='input_{$form_id}_{$field_id}_3'", $content );
 			}
-			
+
 			// LIST FIELD
 			//
 			// wrap list fields in fieldset
@@ -273,7 +273,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 
 				$content .= "</fieldset>";
 			}
-			
+
 			// WEBSITE field
 			//
 			// add description for website field
@@ -318,7 +318,7 @@ if ( ! class_exists( 'ITSP_GF_WCAG20_Form_Fields' ) ) {
 				//add screen reader only 'Required' message to asterisk
 				$content = str_replace( "*</span>", " * <span class='sr-only'> {$text_required}</span></span>", $content );
 			}
-			
+
 			return $content;
 		} // END change_fields_content_wcag
 

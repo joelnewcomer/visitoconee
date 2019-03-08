@@ -157,8 +157,7 @@ if (!class_exists('KcSeoSettings')):
 
 
                 if (!empty($ids)) {
-                    $schemaModel = new KcSeoSchemaModel;
-                    $schemaFields = $schemaModel->schemaTypes();
+                    $schemaFields = KcSeoOptions::getSchemaTypes();
                     foreach ($ids as $id) {
                         foreach ($schemaFields as $schemaID => $schema) {
                             $schemaMetaId = $KcSeoWPSchema->KcSeoPrefix . $schemaID;
@@ -202,6 +201,7 @@ if (!class_exists('KcSeoSettings')):
                             <li><?php _e("Recipe", "wp-seo-structured-data-schema") ?></li>
                             <li><?php _e("TV Episode", "wp-seo-structured-data-schema") ?></li>
                             <li><?php _e("QAPage", "wp-seo-structured-data-schema") ?></li>
+                            <li><?php _e("Item List", "wp-seo-structured-data-schema") ?></li>
                         </ol>
                     </li>
                 </ol>
