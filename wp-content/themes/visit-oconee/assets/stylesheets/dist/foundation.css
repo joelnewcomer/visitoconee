@@ -5346,6 +5346,10 @@ a.submit-event {
 #email-modal #gform_confirmation_message_6 {
   margin: 40px 0; }
 
+@media print {
+  header#masthead {
+    position: relative !important; } }
+
 section.newsletters {
   padding: 100px 0 50px 0; }
   @media only screen and (max-width: 40.063em) {

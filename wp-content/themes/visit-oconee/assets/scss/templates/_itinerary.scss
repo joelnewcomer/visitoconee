@@ -91,3 +91,9 @@
 		margin: 40px 0;
 	}
 }
+
+@media print {
+	header#masthead {
+		position: relative !important;
+  	}
+}
