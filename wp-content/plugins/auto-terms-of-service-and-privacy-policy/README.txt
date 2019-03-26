@@ -1,18 +1,20 @@
-=== Auto Terms of Service and Privacy Policy (WP AutoTerms) ===
+=== WP AutoTerms: GDPR Privacy Policy, Cookie Consent Banner, Terms & Conditions ===
 Contributors: wpautoterms
-Tags: gdpr, privacy policy, terms and conditions, terms of service, terms of use, disclosure, disclaimer, affiliate, cookies, cookie consent, legal
+Tags: gdpr, privacy policy, terms and conditions, cookie consent, terms of service, disclosure, disclaimer, affiliates, legal
 Requires at least: 4.2
-Tested up to: 5.0.2
+Tested up to: 5.1.1
 Requires PHP: 5.3
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create Privacy Policy (Simple or GDPR), Terms & Conditions, Disclaimers and more. Compliance Kits to help you get compliant with the law.
+Install your GDPR Cookie Consent Banner. Create GDPR Privacy Policy, Terms & Conditions, Disclaimers. More Compliance Kits to help you get compliant with the law.
 
 == Description ==
 
 WP AutoTerms plugin helps you with a wide range of legal requirements your WordPress website might be required to keep up with, such as the GDPR law or the requirement to have a disclosure for affiliate links.
+
+Previously, WP AutoTerms was called "Auto Terms of Service and Privacy Policy".
 
 = Create GDPR Privacy Policy and other legal agreements =
 
@@ -48,7 +50,7 @@ WP AutoTerms is provided with the purpose of helping you with compliance. While 
 
 We're just getting started. Have a chat with us and let us know what you'd like to see added.
 
-== Honory Mention ==
+== Honorary Mention ==
 
 Special thanks to this plugin's original author, Clifford Paulick of https://tourkick.com/
 
@@ -116,6 +118,13 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.2.4 =
+* Feb 7, 2019
+* Bug fixes
+* Allow customization of the archive template file through the `archive-wpautoterms_page.php` file
+* Show verbose errors if license key doesn't work
+* Delete `wpautoterms` options in the database upon plugin delete
 
 = Version 2.2.3 =
 * Jan 7, 2019

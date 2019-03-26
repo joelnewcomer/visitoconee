@@ -66,13 +66,16 @@ class License {
 		$headers = array( WPAUTOTERMS_API_KEY_HEADER => $key );
 		$resp = $this->_query->get( static::_EP_STATUS, array(), $headers );
 		$json = $resp->json();
+		$this->_info['error'] = $resp->format_error( WP_DEBUG );
 		if ( ! $resp->has_error() && isset( $json[ static::_RESP_STATUS ] ) &&
 		     $json[ static::_RESP_STATUS ] === static::STATUS_PAID ) {
 			$this->_set_status( static::STATUS_PAID );
 		} else {
 			$this->_set_status( static::STATUS_FREE );
+			if ( empty( $this->_info['error'] ) && isset( $json['message'] ) ) {
+				$this->_info['error'] = $json['message'];
+			}
 		}
-		$this->_info['error'] = $resp->format_error( WP_DEBUG );
 		$this->_save_status();
 	}
 

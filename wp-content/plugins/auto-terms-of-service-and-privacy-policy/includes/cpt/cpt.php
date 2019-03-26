@@ -106,7 +106,16 @@ abstract class CPT {
 		}
 	}
 
+	protected static function _remove_role_caps( $role_name ) {
+		$role = get_role( $role_name );
+		foreach ( static::caps() as $k => $v ) {
+			$role->remove_cap( $k );
+		}
+	}
+
 	public static function unregister_roles() {
+		static::_remove_role_caps( static::ROLE );
+		static::_remove_role_caps( static::ROLE_EDITOR );
 		remove_role( static::ROLE );
 		$users = get_users( array( 'role' => static::ROLE_EDITOR ) );
 		if ( ! empty( $users ) ) {
@@ -115,10 +124,13 @@ abstract class CPT {
 			 */
 			foreach ( $users as $user ) {
 				$user->add_role( static::BASE_ROLE );
+
 				$user->remove_role( static::ROLE_EDITOR );
 			}
 		}
+		static::_remove_role_caps( static::ROLE_EDITOR );
 		remove_role( static::ROLE_EDITOR );
+		static::_remove_role_caps( 'administrator' );
 	}
 
 	/**

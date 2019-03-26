@@ -19,3 +19,8 @@
       <li>Assign the new Page Template by going to WP AutoTerms > All Legal Pages > Select your legal page > Select the new Page Template from the "Page Attributes" widget.</li>
     </ol>
 </div>
+
+<h3 class="question-title">How can I update the design of my legal pages archive template?</h3>
+<div class="question-answer">
+    <p>If you'd like to design the archive template file that contains all the generated legal pages, create a new file named `archive-wpautoterms_page.php`.</p>
+</div>

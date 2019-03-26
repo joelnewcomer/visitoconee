@@ -46,11 +46,21 @@
 			$.get( commentUrl, function ( response ) {
 				if ( response !== "" ) {
 					$( "#llc_comments" ).html( response );
+					// Initialize comments after lazy loading.
+					if ( window.addComment && window.addComment.init ) {
+						window.addComment.init();
+					}
 					// Get the comment li id from url if exist.
 					var commentId = document.URL.substr( document.URL.indexOf( "#comment" ) );
 					// If comment id found, scroll to that comment.
 					if ( commentId.indexOf( '#comment' ) > -1 ) {
 						$( window ).scrollTop( $( commentId ).offset().top );
+					}
+
+					// Woocommerce reviews compatibility.
+					if ( $( '#rating' ).length > 0 ) {
+						$( '#rating' ).trigger( 'init' );
+						$( '.reviews_tab a' ).click();
 					}
 				} else {
 					// Incase ajax request failed, append an error message.

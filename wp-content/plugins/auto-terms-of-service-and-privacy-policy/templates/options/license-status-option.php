@@ -16,7 +16,7 @@ use wpautoterms\admin\action\Recheck_License;
         <span id="wpautoterms_license_last_check"><?php _ex( 'unknown', 'license_settings_page', WPAUTOTERMS_SLUG ); ?></span>
         <div class="wpautoterms-recheck-license-button">
             <a class="button" href="javascript:void(0);" id="wpautoterms_recheck" data-action="<?php
-			echo esc_attr(Recheck_License::NAME);
+			echo esc_attr( Recheck_License::NAME );
 			?>"><?php _e( 'Recheck' ); ?></a>
         </div>
     </div>

@@ -23,10 +23,15 @@ class Response {
 	protected $_vs;
 	public $headers = array();
 	protected $_json;
+	protected $_request_headers;
+	protected $_request_body;
 
-	public function __construct( $response, $url, $verbose = false ) {
+	public function __construct( $response, $url, $headers, $body, $verbose = false ) {
 		$this->_response = $response;
 		$this->_verbose = $verbose;
+		$this->_request_headers = $headers;
+		$this->_request_body = $body;
+
 		$this->url = $url;
 	}
 
@@ -75,7 +80,7 @@ class Response {
 				$error = $json[ static::MESSAGE_KEY ];
 			} else {
 				if ( $this->code == \WP_Http::TOO_MANY_REQUESTS ) {
-					$error = __( 'Too much requests. Please, wait.', WPAUTOTERMS_SLUG );
+					$error = __( 'Too many requests. Please, wait.', WPAUTOTERMS_SLUG );
 				} else {
 					$error = sprintf( __( 'Server response code: %s', WPAUTOTERMS_SLUG ), $this->code );
 				}
@@ -84,10 +89,22 @@ class Response {
 			$error = '';
 		}
 		if ( ! empty( $error ) && $debug ) {
-			$info = sprintf( __( 'URL: %s, error: %s, info: %s', WPAUTOTERMS_SLUG ), $this->url, $this->error, $this->error_info );
+			$info = sprintf( __( 'URL: %s, error: %s, info: %s, headers: %s', WPAUTOTERMS_SLUG ),
+				$this->url,
+				$this->error,
+				$this->error_info,
+				print_r( $this->_request_headers, true ) );
 			$error = sprintf( _x( '%s, %s', 'class Response verbose error info', WPAUTOTERMS_SLUG ), $error, $info );
 		}
 
 		return $error;
+	}
+
+	public function request_headers() {
+		return $this->_request_headers;
+	}
+
+	public function request_body() {
+		return $this->_request_body;
 	}
 }

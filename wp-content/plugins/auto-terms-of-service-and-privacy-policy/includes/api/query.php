@@ -28,7 +28,7 @@ class Query {
 			$all_headers = array_merge( $headers, $all_headers );
 		}
 
-		return $this->_exec( wp_remote_get( $url, array( 'headers' => $all_headers, 'body' => $params ) ), $url );
+		return $this->_exec( 'wp_remote_get', $all_headers, $params, $url );
 	}
 
 	/**
@@ -51,14 +51,12 @@ class Query {
 			$all_headers = array_merge( $headers, $all_headers );
 		}
 
-		return $this->_exec( wp_remote_post( $url, array(
-			'headers' => $all_headers,
-			'body' => $data
-		) ), $url );
+		return $this->_exec( 'wp_remote_post', $all_headers, $data, $url );
 	}
 
-	protected function _exec( $resp, $url ) {
-		$ret = new Response( $resp, $url, $this->_verbose );
+	protected function _exec( $fn, $headers, $body, $url ) {
+		$resp = $fn( $url, array( 'headers' => $headers, 'body' => $body ) );
+		$ret = new Response( $resp, $url, $headers, $body, $this->_verbose );
 		$ret->_done();
 
 		return $ret;
