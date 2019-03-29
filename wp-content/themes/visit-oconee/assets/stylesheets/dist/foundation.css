@@ -3529,7 +3529,28 @@ main.container > section > .grid-container {
     margin-right: 0; }
   .button a:hover, input.button:hover, .faux-button:hover, .poi-itinerary.button:hover {
     background: #664D39;
-    color: #fff; }
+    color: #fff !important; }
+
+.button.rounded a {
+  border-radius: 8px; }
+
+.button.blue a {
+  color: #598f9b;
+  border-color: #598f9b; }
+  .button.blue a:hover {
+    background: #598f9b; }
+
+.button.green a {
+  color: #99a53b;
+  border-color: #99a53b; }
+  .button.green a:hover {
+    background: #99a53b; }
+
+.button.orange a {
+  color: #e67002;
+  border-color: #e67002; }
+  .button.orange a:hover {
+    background: #e67002; }
 
 .button.small a, .faux-button.small, button.small {
   padding: 8px 16px;

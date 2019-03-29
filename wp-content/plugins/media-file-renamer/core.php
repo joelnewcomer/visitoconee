@@ -217,6 +217,11 @@ SQL;
 		$old_filepath = get_attached_file( $id );
 		$old_filepath = Meow_MFRH_Core::sensitive_file_exists( $old_filepath );
 		$path_parts = mfrh_pathinfo( $old_filepath );
+
+		// If the file doesn't exist, let's not go further.
+		if ( !isset( $path_parts['dirname'] ) || !isset( $path_parts['basename'] ) )
+			return false;
+
 		//print_r( $path_parts );
 		$directory = $path_parts['dirname'];
 		$old_filename = $path_parts['basename'];

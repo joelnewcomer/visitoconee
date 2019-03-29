@@ -21,7 +21,35 @@
 	}	
 	&:hover {
 		background: $brown;
-		color: #fff;
+		color: #fff !important;
+	}
+}
+
+.button.rounded a {
+	border-radius: 8px;
+}
+
+.button.blue a {
+	color: #598f9b;
+	border-color: #598f9b;
+	&:hover {
+		background: #598f9b;
+	}
+}
+
+.button.green a {
+	color: #99a53b;
+	border-color: #99a53b;
+	&:hover {
+		background: #99a53b;
+	}
+}
+
+.button.orange a {
+	color: #e67002;
+	border-color: #e67002;
+	&:hover {
+		background: #e67002;
 	}
 }
 

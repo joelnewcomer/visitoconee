@@ -583,9 +583,10 @@ function button_shortcode( $atts, $content = null ) {
     extract( shortcode_atts( array(
         'size' => 'normal',
         'type' => 'primary',
+        'color' => 'brown',
         'align' => 'text-left'
     ), $atts ) );
-	$html = '<div class="button ' . $size . ' ' . $type . ' ' . $align . '">' . $content . '</div>';
+	$html = '<div class="button ' . $size . ' ' . $type . ' ' . $color . ' ' . $align . '">' . $content . '</div>';
     return $html;
 }
 

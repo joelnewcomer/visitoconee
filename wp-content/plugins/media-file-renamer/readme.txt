@@ -1,9 +1,10 @@
-=== Media File Renamer Auto ===
+=== Media File Renamer (Auto Rename) ===
 Contributors: TigrouMeow, amekusa
-Tags: rename, seo, file, files, media, renamer
+Tags: rename, seo, file, files, media, renamer, optimize, library
 Requires at least: 4.8
-Tested up to: 5.0
-Stable tag: 4.5.2
+Tested up to: 5.1
+Requires PHP: 7.0
+Stable tag: 4.5.4
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -54,6 +55,9 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 5. Options for the automatic renaming (there are more options than just this).
 
 == Changelog ==
+
+= 4.5.4 =
+* Fix: Search was sometimes not working properly in the Media Library.
 
 = 4.5.2 =
 * Update: Code cleaning, Youtube video.

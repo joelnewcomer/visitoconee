@@ -29,12 +29,23 @@
 						},
 						{
 							type: 'listbox',
+							name: 'buttonColor',
+							label: 'Button Color',
+							'values': [
+								{text: 'Brown', value: 'brown'},
+								{text: 'Blue', value: 'blue'},
+								{text: 'Orange', value: 'orange'},
+								{text: 'Green', value: 'green'}
+							]
+						},
+						{
+							type: 'listbox',
 							name: 'buttonStyle',
 							label: 'Button Style',
 							'values': [
-								{text: 'Primary', value: 'primary'},
+								{text: 'Default', value: 'primary'},
 								{text: 'Secondary', value: 'secondary'},
-								{text: 'Tertiary', value: 'tertiary'}
+								{text: 'Rounded', value: 'rounded'}
 							]
 						},
 						{
@@ -49,7 +60,7 @@
 						}
 					],
 					onsubmit: function( e ) {
-						editor.insertContent( '[button align="' + e.data.buttonAlign + '" type="' + e.data.buttonStyle + '" size="' + e.data.buttonSize + '"]' + '<a href="' + e.data.buttonURL + '">' + e.data.buttonText + '</a>[/button]');
+						editor.insertContent( '[button align="' + e.data.buttonAlign + '" type="' + e.data.buttonStyle + '" color="' + e.data.buttonColor + '" size="' + e.data.buttonSize + '"]' + '<a href="' + e.data.buttonURL + '">' + e.data.buttonText + '</a>[/button]');
 					}
 				});
 			}
