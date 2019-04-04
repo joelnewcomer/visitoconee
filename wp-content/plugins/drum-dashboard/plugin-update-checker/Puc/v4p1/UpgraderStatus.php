@@ -73,7 +73,7 @@ if ( !class_exists('Puc_v4p1_UpgraderStatus', false) ):
 		 * will be NULL.
 		 *
 		 * Examples:
-		 *      ['plugin', 'plugin-dir-name/plugin.php']
+		 *      ['plugin', 'plugin-dir-name/guten-tab-accordion.php']
 		 *      ['theme', 'theme-dir-name']
 		 *
 		 * @param Plugin_Upgrader|WP_Upgrader $upgrader

@@ -34,7 +34,7 @@ if ( !class_exists('Puc_v4p1_Plugin_UpdateChecker', false) ):
 			$this->muPluginFile = $muPluginFile;
 
 			//If no slug is specified, use the name of the main plugin file as the slug.
-			//For example, 'my-cool-plugin/cool-plugin.php' becomes 'cool-plugin'.
+			//For example, 'my-cool-plugin/cool-guten-tab-accordion.php' becomes 'cool-plugin'.
 			if ( empty($slug) ){
 				$slug = basename($this->pluginFile, '.php');
 			}
@@ -274,7 +274,7 @@ if ( !class_exists('Puc_v4p1_Plugin_UpdateChecker', false) ):
 
 		/**
 		 * For plugins, the update array is indexed by the plugin filename relative to the "plugins"
-		 * directory. Example: "plugin-name/plugin.php".
+		 * directory. Example: "plugin-name/guten-tab-accordion.php".
 		 *
 		 * @return string
 		 */
