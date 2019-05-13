@@ -11,7 +11,7 @@
 
 	var new_window_text = gf_wcag20_form_fields_settings.new_window_text;
 	$( function () {
-		$( '.gform_body a' ).not( '.target-self, .gform_save_link' ).each( function() {
+		$( '.gform_body .gfield_description a, .gform_heading .gform_description a' ).not( '.target-self' ).each( function() {
 			//get the current title
 			var title = $( this ).attr( 'title' );
 			//if title doesnt exist or is empty, add line otherwise append it

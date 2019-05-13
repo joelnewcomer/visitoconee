@@ -44,7 +44,7 @@ class Response {
 			$this->code = $this->_response['response']['code'];
 			$this->error = $this->_response['response']['code'];
 			$this->error_info = $this->_response['response']['message'];
-			if ( $this->code == \WP_Http::TOO_MANY_REQUESTS ) {
+			if ( $this->code == static::HTTP_LIMIT ) {
 				$retry = $this->_response['http_response']->get_response_object()->headers->getValues( static::HEADER_RETRY_AFTER );
 				if ( ! empty( $retry ) ) {
 					$this->delay = intval( $retry );
@@ -79,7 +79,7 @@ class Response {
 			if ( $json !== null && isset( $json[ static::MESSAGE_KEY ] ) ) {
 				$error = $json[ static::MESSAGE_KEY ];
 			} else {
-				if ( $this->code == \WP_Http::TOO_MANY_REQUESTS ) {
+				if ( $this->code == static::HTTP_LIMIT ) {
 					$error = __( 'Too many requests. Please, wait.', WPAUTOTERMS_SLUG );
 				} else {
 					$error = sprintf( __( 'Server response code: %s', WPAUTOTERMS_SLUG ), $this->code );

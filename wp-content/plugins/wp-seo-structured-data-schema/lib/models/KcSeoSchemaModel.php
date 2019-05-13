@@ -276,15 +276,16 @@ if ( ! class_exists( 'KcSeoSchemaModel' ) ):
 						if ( ! empty( $metaData['description'] ) ) {
 							$product["description"] = $KcSeoWPSchema->sanitizeOutPut( $metaData['description'] );
 						}
-						if ( ! empty( $metaData['sku'] ) ) {
-							$product["sku"] = $KcSeoWPSchema->sanitizeOutPut( $metaData['sku'] );
-						}
-						if ( ! empty( $metaData['brand'] ) ) {
-							$product["brand"] = array(
-								"@type" => "Thing",
-								"name"  => $KcSeoWPSchema->sanitizeOutPut( $metaData['brand'] )
-							);
-						}
+                        /* product identifier */
+                        if (!empty($metaData['sku'])) {
+                            $product["sku"] = $KcSeoWPSchema->sanitizeOutPut($metaData['sku']);
+                        }
+                        if (!empty($metaData['brand'])) {
+                            $product["brand"] = $KcSeoWPSchema->sanitizeOutPut($metaData['brand']);
+                        }
+                        if (!empty($metaData['identifier_type'] && !empty($metaData['identifier']))) {
+                            $product[$metaData['identifier_type']] = $KcSeoWPSchema->sanitizeOutPut($metaData['identifier']);
+                        }
 						if ( ! empty( $metaData['ratingValue'] ) ) {
 							$product["aggregateRating"] = array(
 								"@type"       => "AggregateRating",

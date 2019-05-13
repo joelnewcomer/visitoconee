@@ -487,9 +487,9 @@ $schemaModel = new KcSeoSchemaModel;
                                                 style="width: 50%">
                                             <?php
                                             $areaServed = !empty($settings['area_served']) ? $settings['area_served'] : array();
-                                            foreach (KcSeoOptions::getCountryList() as $country) {
-                                                $slt = (in_array($country, $areaServed) ? "selected" : null);
-                                                echo "<option value='$country' $slt>$country</option>";
+                                            foreach (KcSeoOptions::getCountryList() as $countryId => $country) {
+                                                $slt = (in_array($countryId, $areaServed) ? "selected" : null);
+                                                echo "<option value='$countryId' $slt>$country</option>";
                                             }
                                             ?>
                                         </select>

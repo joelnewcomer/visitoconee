@@ -24,14 +24,19 @@ class Links {
 		if ( ! get_option( WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID ) ) {
 			return;
 		}
+		$wp_type = CPT::type();
 		$args = array(
-			'post_type' => CPT::type(),
+			'post_type' => $wp_type,
 			'post_status' => 'publish',
 			'orderby' => 'post_modified',
 			'numberposts' => - 1
 		);
 
 		$posts = get_posts( $args );
+		// Filter out by post type, category page adds "post" in filter.
+		$posts = array_filter( $posts, function ( \WP_Post $x ) use ( $wp_type ) {
+			return $x->post_type == $wp_type;
+		} );
 		$new_page = $custom = get_option( static::_option_prefix() . '_target_blank' );
 		\wpautoterms\print_template( static::MODULE_ID, compact( 'posts', 'new_page' ) );
 	}

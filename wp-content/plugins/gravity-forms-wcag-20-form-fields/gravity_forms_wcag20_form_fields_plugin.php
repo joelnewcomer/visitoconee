@@ -3,7 +3,7 @@
 Plugin Name: WCAG 2.0 form fields for Gravity Forms
 Description: Extends the Gravity Forms plugin. Modifies fields and improves validation so that forms meet WCAG 2.0 accessibility requirements.
 Tags: Gravity Forms, wcag, accessibility, forms
-Version: 1.7.1
+Version: 1.7.2
 Author: Adrian Gordon
 Author URI: https://www.itsupportguides.com
 License: GPL2

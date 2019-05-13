@@ -4,7 +4,7 @@ Tags: gdpr, privacy policy, terms and conditions, cookie consent, terms of servi
 Requires at least: 4.2
 Tested up to: 5.1.1
 Requires PHP: 5.3
-Stable tag: 2.2.4
+Stable tag: 2.2.6
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -118,6 +118,17 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.2.6 =
+* Apr 24, 2019
+* Bug fix: Category Links incorrectly appear in Links to Legal Pages kit
+
+= Version 2.2.5 =
+* Apr 9, 2019
+* Bug fix: Legal Page won't appear under the Category page
+* Bug fix: Deleting plugin via WP Dashboard > Plugins can return "Internal Server Error" on some hosts
+* Bug fix: Use the correct response class for "Too Many Requests" use case
+* Bug fix: Fix Settings page where our Countries & States list will return a JS error
 
 = Version 2.2.4 =
 * Feb 7, 2019

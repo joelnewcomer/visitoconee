@@ -4,7 +4,7 @@
  Plugin Name: WP GDPR Compliance
  Plugin URI:  https://www.wpgdprc.com/
  Description: This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. By May 24th, 2018 your website or shop has to comply to avoid large fines.
- Version:     1.5.0
+ Version:     1.5.1
  Author:      Van Ons
  Author URI:  https://www.van-ons.nl/
  License:     GPL2
@@ -271,7 +271,7 @@ class WPGDPRC {
 
     public static function handleDatabaseTables() {
         $dbVersion = get_option('wpgdprc_db_version', 0);
-        if (version_compare($dbVersion, '1.6', '==')) {
+        if (version_compare($dbVersion, '1.7', '==')) {
             return;
         }
 
@@ -314,18 +314,6 @@ class WPGDPRC {
             update_option('wpgdprc_db_version', '1.2');
         }
 
-        // Add column 'token' to 'Access Requests' table
-        if (version_compare($dbVersion, '1.5', '<')) {
-            if ($wpdb->get_var("SHOW TABLES LIKE '" . AccessRequest::getDatabaseTableName() . "'") === AccessRequest::getDatabaseTableName()) {
-                if (!$wpdb->get_var("SHOW COLUMNS FROM " . AccessRequest::getDatabaseTableName() . " LIKE 'token'")) {
-                    $query = "ALTER TABLE `" . AccessRequest::getDatabaseTableName() . "`
-		            ADD column `token` text NOT NULL AFTER `ip_address`;";
-                    $wpdb->query($query);
-                }
-                update_option('wpgdprc_db_version', '1.5');
-            }
-        }
-
         // Create 'Log' table
         if (version_compare($dbVersion, '1.6', '<')) {
             if ($wpdb->get_var("SHOW TABLES LIKE '" . $wpdb->base_prefix . "wpgdprc_log'") !== $wpdb->base_prefix . 'wpgdprc_log') {
@@ -342,6 +330,18 @@ class WPGDPRC {
                 ) $charsetCollate;";
                 dbDelta($query);
                 update_option('wpgdprc_db_version', '1.6');
+            }
+        }
+
+        // Add column 'token' to 'Access Requests' table
+        if (version_compare($dbVersion, '1.7', '<')) {
+            if ($wpdb->get_var("SHOW TABLES LIKE '" . AccessRequest::getDatabaseTableName() . "'") === AccessRequest::getDatabaseTableName()) {
+                if (!$wpdb->get_var("SHOW COLUMNS FROM " . AccessRequest::getDatabaseTableName() . " LIKE 'token'")) {
+                    $query = "ALTER TABLE `" . AccessRequest::getDatabaseTableName() . "`
+		            ADD column `token` text NOT NULL AFTER `ip_address`;";
+                    $wpdb->query($query);
+                }
+                update_option('wpgdprc_db_version', '1.7');
             }
         }
     }

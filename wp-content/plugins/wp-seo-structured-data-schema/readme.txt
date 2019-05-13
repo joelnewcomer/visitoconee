@@ -3,8 +3,8 @@ Contributors: kcseopro
 Donate link:
 Tags: seo, schema, structured data, rich snippets, microdata, json-ld, search engine optimization, local seo, google, sitelinks, schema.org, microformat, serp
 Requires at least: 4.5
-Tested up to: 5.1
-Stable tag: 2.5.6
+Tested up to: 5.2
+Stable tag: 2.5.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,6 +113,16 @@ You'll find the [FAQ on WPSEMPlugins.com](https://wpsemplugins.com/wordpress-seo
 
 
 == Changelog ==
+
+== 2.5.8 =
+* Fix Javascript issue
+* Update Contact Type
+
+== 2.5.7 =
+* Add Time for post
+* Event Start & End Time
+* Fix URL www issue.
+* Product Identifier for e-commerce
 
 == 2.5.6 =
 * Fix event

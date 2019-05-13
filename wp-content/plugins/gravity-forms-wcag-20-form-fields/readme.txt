@@ -4,7 +4,7 @@ Donate link: https://www.itsupportguides.com/donate/
 Tags: gravity forms, wcag, accessibility, usability
 Requires at least: 5.0
 Tested up to: 5.1
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Modifies Gravity Forms form fields and improves validation so that forms meet WC
 
 == Description ==
 
-> This plugin is an add-on for the <a href="https://rocketgenius.pxf.io/dbOK" target="_blank">Gravity Forms</a> (affiliate link) plugin. If you don't yet own a license for Gravity Forms - <a href="https://rocketgenius.pxf.io/c/1210785/445235/7938" target="_blank">buy one now</a>! (affiliate link)
+> This plugin is an add-on for the Gravity Forms plugin. If you don't yet own a license for Gravity Forms - <a href="https://rocketgenius.pxf.io/dbOK" target="_blank">buy one now</a>! (affiliate link)
 
 **What does this plugin do?**
 
@@ -113,6 +113,10 @@ With that said, if you want to disable it you can add this code to your theme's 
 2. Shows list field with 'buttons' instead of images to add and delete rows - buttons are styled like the previous images but are keyboard accessible. 
 
 == Changelog ==
+
+= 1.7.2 =
+* Fix: resolve conflict with Gravity Forms 2.4.7 "Added accessibility enhancements". The combination of this plugin and Gravity Forms 2.4.7 or higher would break the list field add and remove buttons
+* Maintenance: improved targetting for making links in forms open in a new window
 
 = 1.7.1 =
 * Fix: Improve PHP 7.2 compatibility - use '__return_false' instead of create_function

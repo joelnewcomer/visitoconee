@@ -17,6 +17,7 @@ abstract class CPT {
 		add_filter( 'theme_' . static::type() . '_templates', array( __CLASS__, 'filter_templates' ), 10, 2 );
 		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
 		add_action( 'admin_menu', array( __CLASS__, 'remove_taxonomies' ) );
+		add_filter( 'pre_get_posts', array( __CLASS__, 'extend_query_for_category' ) );
 	}
 
 	public static function edit_cap() {
@@ -108,8 +109,10 @@ abstract class CPT {
 
 	protected static function _remove_role_caps( $role_name ) {
 		$role = get_role( $role_name );
-		foreach ( static::caps() as $k => $v ) {
-			$role->remove_cap( $k );
+		if ( $role != null ) {
+			foreach ( static::caps() as $k => $v ) {
+				$role->remove_cap( $k );
+			}
 		}
 	}
 
@@ -178,5 +181,16 @@ abstract class CPT {
 			remove_submenu_page( 'edit.php?post_type=' . static::type(),
 				'edit-tags.php?taxonomy=' . $t . '&amp;post_type=' . static::type() );
 		}
+	}
+
+	public static function extend_query_for_category( \WP_Query $query ) {
+		if ( is_category() && $query->is_archive() ) {
+			$query->set( 'post_type', array(
+				'post',
+				static::type()
+			) );
+		}
+
+		return $query;
 	}
 }
