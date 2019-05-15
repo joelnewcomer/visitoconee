@@ -41,7 +41,7 @@
 		
 		<link rel="stylesheet" href="https://use.typekit.net/umi7ged.css">
 		
-		
+		<meta name="p:domain_verify" content="ff043144675ba63a059af04a7f437b0"/>
 
 	</head>
 	<body <?php body_class(); ?>>
