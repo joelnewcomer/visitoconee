@@ -7,7 +7,7 @@
 *   Author URI:      https://drumcreative.com
 *   Text Domain:     drumcreative-drum-dashboard
 *   Domain Path:     /languages
-*   Version:          2.0.0
+*   Version:          2.0.1
 *   @package         Drum_Dashboard
 */
 
@@ -253,11 +253,11 @@ if( !is_plugin_active( 'advanced-custom-fields-pro/acf.php' ) ) { ?>
                         <div class="builder-type">
                             <div class="medium-12 columns">
                                 <?php if( get_field('website_builder_type', 'option') == 'drumdivi' ): ?>
-                                    <h1>Divi Video Training</h1> <a class="button button-primary button-hero"
+                                    <h1>Page Builder Video Training</h1> <a class="button button-primary button-hero"
                                                                     href="https://vimeo.com/album/5739459"
                                                                     target="_blank">Learn Basics</a>
                                 <?php elseif( get_field('website_builder_type', 'option') == 'drumelementor' ): ?>
-                                    <h1> Elementor Video Training</h1> <a class="button button-primary button-hero"
+                                    <h1> Page Builder Video Training</h1> <a class="button button-primary button-hero"
                                                                           href="https://vimeo.com/album/5885095" target="_blank">Learn Basics</a>
                                 <?php else:?>
                                     <h1>Your Video Training</h1>

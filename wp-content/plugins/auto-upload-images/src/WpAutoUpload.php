@@ -36,37 +36,6 @@ class WpAutoUpload
     }
 
     /**
-     * Returns options in an array
-     * @return array
-     */
-    public static function getOptions()
-    {
-        if (static::$_options) {
-            return static::$_options;
-        }
-        $defaults = array(
-            'base_url' => get_bloginfo('url'),
-            'image_name' => '%filename%',
-            'alt_name' => '%image_alt%',
-        );
-        return static::$_options = wp_parse_args(get_option(self::WP_OPTIONS_KEY), $defaults);
-    }
-
-    /**
-     * Return an option with specific key
-     * @param $key
-     * @return mixed
-     */
-    public static function getOption($key, $default = null)
-    {
-        $options = static::getOptions();
-        if (isset($options[$key]) === false) {
-            return $default;
-        }
-        return $options[$key];
-    }
-
-    /**
      * Automatically upload external images of a post to Wordpress upload directory
      * call by wp_insert_post_data filter
      * @param array data An array of slashed post data
@@ -79,7 +48,7 @@ class WpAutoUpload
             wp_is_post_autosave($postarr['ID']) ||
             (defined('DOING_AJAX') && DOING_AJAX) ||
             (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)) {
-            return false;
+            return $data;
         }
 
         if ($content = $this->save($postarr)) {
@@ -122,12 +91,30 @@ class WpAutoUpload
     /**
      * Find image urls in content and retrieve urls by array
      * @param $content
-     * @return array|null
+     * @return array
      */
     public function findAllImageUrls($content)
     {
-        $pattern = '/<img[^>]*src=["\']([^"\']*)[^"\']*["\'][^>]*>/i'; // find img tags and retrieve src
-        preg_match_all($pattern, $content, $urls, PREG_SET_ORDER);
+        $urls1 = array();
+        preg_match_all('/<img[^>]*srcset=["\']([^"\']*)[^"\']*["\'][^>]*>/i', $content, $srcsets, PREG_SET_ORDER);
+        if (count($srcsets) > 0) {
+            $count = 0;
+            foreach ($srcsets as $key => $srcset) {
+                preg_match_all('/https?:\/\/[^\s,]+/i', $srcset[1], $srcsetUrls, PREG_SET_ORDER);
+                if (count($srcsetUrls) == 0) {
+                    continue;
+                }
+                foreach ($srcsetUrls as $srcsetUrl) {
+                    $urls1[$count][] = $srcset[0];
+                    $urls1[$count][] = $srcsetUrl[0];
+                    $count++;
+                }
+            }
+        }
+
+        preg_match_all('/<img[^>]*src=["\']([^"\']*)[^"\']*["\'][^>]*>/i', $content, $urls, PREG_SET_ORDER);
+        $urls = array_merge($urls, $urls1);
+
         if (count($urls) == 0) {
             return array();
         }
@@ -156,6 +143,52 @@ class WpAutoUpload
     }
 
     /**
+     * Returns options in an array
+     * @return array
+     */
+    public static function getOptions()
+    {
+        if (static::$_options) {
+            return static::$_options;
+        }
+        $defaults = array(
+            'base_url' => get_bloginfo('url'),
+            'image_name' => '%filename%',
+            'alt_name' => '%image_alt%',
+        );
+        return static::$_options = wp_parse_args(get_option(self::WP_OPTIONS_KEY), $defaults);
+    }
+
+    /**
+     * Reset options to default options
+     * @return bool
+     */
+    public static function resetOptionsToDefaults()
+    {
+        $defaults = array(
+            'base_url' => get_bloginfo('url'),
+            'image_name' => '%filename%',
+            'alt_name' => '%image_alt%',
+        );
+        static::$_options = $defaults;
+        return update_option(self::WP_OPTIONS_KEY, $defaults);
+    }
+
+    /**
+     * Return an option with specific key
+     * @param $key
+     * @return mixed
+     */
+    public static function getOption($key, $default = null)
+    {
+        $options = static::getOptions();
+        if (isset($options[$key]) === false) {
+            return $default;
+        }
+        return $options[$key];
+    }
+
+    /**
      * Settings page contents
      */
     public function settingPage()
@@ -168,11 +201,11 @@ class WpAutoUpload
                 }
             }
             update_option(self::WP_OPTIONS_KEY, static::$_options);
-            $message = true;
+            $message = __('Settings Saved.', 'auto-upload-images');
         }
 
-        if (function_exists('curl_init') === false) {
-            $curl_error = true;
+        if (isset($_POST['reset']) && self::resetOptionsToDefaults()) {
+            $message = __('Successfully settings reset to defaults.', 'auto-upload-images');
         }
 
         include_once('setting-page.php');

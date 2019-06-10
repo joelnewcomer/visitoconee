@@ -3,8 +3,8 @@ Contributors: drumcreative
 Donate link: http://example.com/
 Tags: web maintenance, tutorial videos, contact information, advertisements
 Requires at least: 4.0
-Tested up to: 4.9.4
-Stable tag: 2.0.0
+Tested up to: 5.2.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,9 @@ At Drum Creative we manage a lot of clients website. This plugin is an easy was 
 At Drum Creative we manage a lot of clients website. This plugin is an easy was to show clients how many hour of maintenance, where their website is hosted, and show who their account manager is. We also have a section where we can show tutorial videos that apply directly to the specific client. Last we can promote different services that we provide.
 
 == Changelog ==
+=  2.0.1 =
+* v 2.0.1 - changed wording of Divi and Elementor Training videos to Page Builder Training Videos
+
 =  2.0.0 =
 * v 2.0.0 - created a spot for Divi and Elementor Training videos
 
