@@ -422,3 +422,18 @@ function show_all_events( $query ) {
   	}
 }
 add_action( 'pre_get_posts', 'show_all_events' );
+
+// Fix the Lost Password / Mandrill issue
+add_filter('mandrill_payload', 'wpmandrill_auto_add_breaks');
+function wpmandrill_auto_add_breaks($message) {    
+    $html = $message['html'];
+    $is_comment_notification = ( $message['tags']['automatic'][0] == 'wp_wp_notify_moderator' );
+    $is_password_reset = ( $message['tags']['automatic'][0] == 'wp_retrieve_password' );
+    $no_html_found = ( $html == strip_tags($html) );
+    // Add line breaks and links to messages that don't appear to be HTML
+    if ( $no_html_found || $is_comment_notification || $is_password_reset ) {
+        $html = wpautop($html);
+        $message['html'] = make_clickable($html);
+    }
+    return $message;
+}
