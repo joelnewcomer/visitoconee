@@ -15,7 +15,7 @@
 		<meta charset="<?php bloginfo( 'charset' ); ?>" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="p:domain_verify" content="ff043144675ba63a0594af04a7f437b0" />
+		<meta name="p:domain_verify" content="9f10618fa3faa5bc7d494f8a2d4c6257"/>
 		
 		
 		<?php wp_head(); ?>
