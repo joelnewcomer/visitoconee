@@ -466,7 +466,7 @@ SQL;
 		// Conversion table
 		static $chars = null;
 
-		if ( is_null($chars) ) {
+		if ( is_null( $chars ) ) {
 			$chars = array (
 				// iexcl and iquest
 				'%c2%a1', '%c2%bf',

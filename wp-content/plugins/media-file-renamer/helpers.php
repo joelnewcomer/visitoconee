@@ -18,10 +18,11 @@ if ( !function_exists( 'is_rest' ) ) {
 				|| isset($_GET['rest_route']) // (#2)
 						&& strpos( trim( $_GET['rest_route'], '\\/' ), $prefix , 0 ) === 0)
 				return true;
-
 		// (#3)
 		$rest_url = wp_parse_url( site_url( $prefix ) );
 		$current_url = wp_parse_url( add_query_arg( array( ) ) );
+		if ( !isset( $current_url['path'] ) || !isset( $rest_url['path'] ) )
+			return false;
 		return strpos( $current_url['path'], $rest_url['path'], 0 ) === 0;
 	}
 }
