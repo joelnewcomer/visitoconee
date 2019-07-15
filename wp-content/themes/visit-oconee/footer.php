@@ -47,10 +47,10 @@
 							$privacy_page = get_theme_mod( 'privacy_page' );
 							?>
 							<span class="hide-for-print no-break">
-							<?php if ($terms_page) : ?>
+							<?php if ($terms_page == 'disabled' ) : ?>
 								&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?php echo get_permalink($terms_page); ?>"><?php _e( 'Terms', 'drumroll' ); ?></a>
 							<?php endif; ?>
-							<?php if ($privacy_page) : ?>
+							<?php if ($privacy_page == 'disabled' ) : ?>
 								&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_permalink($privacy_page); ?>"><?php _e( 'Privacy', 'drumroll' ); ?></a>
 							<?php endif; ?>
 							&nbsp;&nbsp;|&nbsp;&nbsp;<a href="<?php echo get_site_url(); ?>/sitemap"><?php _e( 'Sitemap', 'drumroll' ); ?></a>
