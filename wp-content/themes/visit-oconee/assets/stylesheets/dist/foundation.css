@@ -4529,6 +4529,9 @@ h1.entry-title-ul {
       @media only screen and (max-width: 40.063em) {
         .slider-overlay h1 span {
           font-size: 48px; } }
+      .slider-overlay h1 span i {
+        font-style: normal;
+        color: #b0d5de; }
 
 section.videos, section.home-cats {
   background: url(../../images/video-bg.png); }
