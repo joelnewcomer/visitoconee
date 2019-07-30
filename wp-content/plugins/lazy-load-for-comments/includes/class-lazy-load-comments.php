@@ -117,7 +117,6 @@ class Lazy_Load_Comments {
 	 *
 	 * @since  1.0.0
 	 * @access private
-	 * @uses   add_filter()
 	 *
 	 * @return void
 	 */
@@ -134,14 +133,17 @@ class Lazy_Load_Comments {
 	/**
 	 * Register all of the hooks related to handle 404 actions of the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  1.0.10
 	 * @access private
-	 * @uses   add_filter()
 	 *
 	 * @return void
 	 */
 	private function compatibility_hooks() {
-		$plugin_compatibility = new LLC_Compatibility();
+		$compatibility = new LLC_Compatibility();
+
+		// Compatibility.
+		$this->loader->add_action( 'llc_comments_content_separate_comments', $compatibility, 'separate_comments' );
+		$this->loader->add_filter( 'et_builder_load_requests', $compatibility, 'divi_load_functions' );
 	}
 
 	/**
@@ -155,5 +157,4 @@ class Lazy_Load_Comments {
 	public function run() {
 		$this->loader->run();
 	}
-
 }
