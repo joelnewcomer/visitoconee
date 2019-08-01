@@ -107,13 +107,7 @@ function arve_sc_filter_attr( $a ) {
 			'height'          => empty( $a['height'] ) ? false : $a['height'],
 		);
 
-		if ( 'vimeo' == $a['provider'] ) {
-			$a['iframe_attr']['sandbox'] .= ' allow-forms';
-		}
-
-		$properties['iframe']['requires_flash'] = $options['iframe_flash'];
-
-		if ( null === $a['disable_flash'] && $properties[ $a['provider'] ]['requires_flash'] ) {
+		if ( false === $a['sandbox'] ) {
 			$a['iframe_attr']['sandbox'] = false;
 		}
 	}
@@ -131,7 +125,7 @@ function arve_sc_filter_validate( $a ) {
 	$a['arve_link']     = arve_validate_bool( $a['arve_link'], 'arve_link' );
 	$a['loop']          = arve_validate_bool( $a['loop'], 'loop' );
 	$a['controls']      = arve_validate_bool( $a['controls'], 'controls' );
-	$a['disable_flash'] = arve_validate_bool( $a['disable_flash'], 'disable_flash' );
+	$a['sandbox']       = arve_validate_bool( $a['sandbox'], 'sandbox' );
 	$a['muted']         = arve_validate_bool( $a['muted'], 'muted' );
 	$a['playsinline']   = arve_validate_bool( $a['playsinline'], 'playsinline' );
 

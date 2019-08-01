@@ -15,7 +15,6 @@ function arve_get_options_defaults( $section ) {
 		'wp_video_override'     => true,
 		'controlslist'          => 'nodownload',
 		'vimeo_api_token'       => '',
-		'iframe_flash'          => true,
 		'youtube_nocookie'      => true,
 	);
 
@@ -347,20 +346,6 @@ function arve_get_settings_definitions() {
 		),
 		array(
 			'hide_from_sc' => true,
-			'attr'               => 'iframe_flash',
-			'label'              => esc_html__( 'Allow Flash for general iframe?', ARVE_SLUG ),
-			'type'               => 'select',
-			'options'            => array(
-				'yes'             => esc_html__( 'Allow Flash', ARVE_SLUG ),
-				'no'              => esc_html__( 'Do not allow Flash', ARVE_SLUG ),
-			),
-			'description'        => sprintf(
-				__( 'It is recommented to have this disabled if you not embed videos from a <a href="%s">not listed provider</a> that still requires flash and is not listed here. Disable flash will make general iframe embeds more secure, prevents evil redirection from within the iframe. This also makes the Pro Addon\'s \'Disable Links\' feature possible for unlisted providers. Note you can still put <code>disable_flash="yes/no"</code> on individual shortcodes to overwrite this if needed.', ARVE_SLUG ),
-				'https://nextgenthemes.com/plugins/arve-pro/#support-table'
-			),
-		),
-		array(
-			'hide_from_sc' => true,
 			'attr'               => 'always_enqueue_assets',
 			'label'              => esc_html__( 'Assent loading', ARVE_SLUG ),
 			'type'               => 'select',
@@ -484,7 +469,6 @@ function arve_get_host_properties() {
 			'embed_url'      => 'http://break.com/embed/%s',
 			'default_params' => 'embed=1',
 			'auto_thumbnail' => false,
-			'requires_flash' => true,
 			'tests' => array(
 				array(
 					'url' => 'http://www.break.com/video/first-person-pov-of-tornado-strike-2542591-test',
@@ -840,7 +824,6 @@ function arve_get_host_properties() {
 			'name'           => 'RuTube.ru',
 			'regex'          => $s . 'rutube\.ru/play/embed/(?<id>[0-9]+)',
 			'embed_url'      => 'https://rutube.ru/play/embed/%s',
-			'requires_flash' => true,
 			'tests' => array(
 				array(
 					'url' => 'https://rutube.ru/play/embed/9822149',
@@ -866,7 +849,6 @@ function arve_get_host_properties() {
 			'embed_url'      => 'https://scache.vevo.com/assets/html/embed.html?video=%s',
 			'default_params' => 'playlist=false&playerType=embedded&env=0',
 			'auto_thumbnail' => false,
-			'requires_flash' => true,
 			'tests' => array(
 				array(
 					'url'  => 'https://www.vevo.com/watch/the-offspring/the-kids-arent-alright/USSM20100649',
@@ -896,7 +878,6 @@ function arve_get_host_properties() {
 			'name'      => 'vidspot.net',
 			'regex'     => $s . 'vidspot\.net/(embed-)?(?<id>[a-z0-9]+)',
 			'embed_url' => 'http://vidspot.net/embed-%s.html',
-			'requires_flash' => true,
 			'tests' => array(
 				array( 'url' => 'http://vidspot.net/285wf9uk3rry', 'id' => '285wf9uk3rry' ),
 				array( 'url' => 'http://vidspot.net/embed-285wf9uk3rry.html', 'id' => '285wf9uk3rry' ),
@@ -977,7 +958,6 @@ function arve_get_host_properties() {
 			'regex'          => $s . 'xtube\.com/watch\.php\?v=(?<id>[a-z0-9_\-]+)',
 			'embed_url'      => 'http://www.xtube.com/embedded/user/play.php?v=%s',
 			'auto_thumbnail' => false,
-			'requires_flash' => true,
 			'tests' => array(
 				array( 'url' => 'http://www.xtube.com/watch.php?v=1234', 'id' => 1234 ),
 			),
@@ -988,7 +968,6 @@ function arve_get_host_properties() {
 			'default_params' => 'format=embed',
 			'auto_thumbnail' => true,
 			'auto_title'     => true,
-			'requires_flash' => true,
 			'tests' => array(
 				array(
 					'url' => 'https://de.sports.yahoo.com/video/krasse-vorher-nachher-bilder-mann-094957265.html?format=embed&player_autoplay=false',
@@ -1005,7 +984,6 @@ function arve_get_host_properties() {
 			'embed_url'      => 'http://player.youku.com/embed/%s',
 			'auto_thumbnail' => false,
 			'aspect_ratio'   => '450:292.5',
-			'requires_flash' => true,
 			# <iframe height=498 width=510 src="http://player.youku.com/embed/XMTUyODYwOTc4OA==" frameborder=0 allowfullscreen></iframe>
 			'tests' => array(
 				array(
@@ -1240,7 +1218,6 @@ function arve_get_host_properties() {
 			'embed_url'      => '%s',
 			'default_params' => '',
 			'auto_thumbnail' => false,
-			'requires_flash' => true,
 			'tests' => array(
 				array( 'url' => 'https://example.com/', 'id' => 'https://example.com/' ),
 			),
@@ -1257,9 +1234,6 @@ function arve_get_host_properties() {
 		}
 		if( ! isset( $value['aspect_ratio'] ) ) {
 			$properties[ $key ]['aspect_ratio'] = '16:9';
-		}
-		if( empty( $value['requires_flash'] ) ) {
-			$properties[ $key ]['requires_flash'] = false;
 		}
 	}
 
