@@ -4537,7 +4537,7 @@ h1.entry-title-ul {
         color: #b0d5de; }
 
 section.videos, section.home-cats {
-  background: url(../../images/video-bg.png); }
+  /* background: url(../images/video-bg.png);	*/ }
 
 #page > section {
   display: block;
@@ -4681,7 +4681,9 @@ section.home-cats {
         fill: #E67002; }
 
 section.tips {
-  background: url(../../images/destinations-bg.jpg) center center no-repeat;
+  /* background: url(../images/destinations-bg.jpg) center center no-repeat;	*/
+  background-position: center center;
+  background-repeat: no-repeat;
   background-size: cover !important; }
   section.tips h2, section.tips h3, section.tips h4, section.tips p {
     color: #fff; }

@@ -88,7 +88,7 @@
 }
 
 section.videos, section.home-cats {
-	background: url(../images/video-bg.png);	
+	/* background: url(../images/video-bg.png);	*/
 }
 
 #page > section {
@@ -260,7 +260,9 @@ section.home-cats {
 }
 
 section.tips {
-	background: url(../images/destinations-bg.jpg) center center no-repeat;	
+	/* background: url(../images/destinations-bg.jpg) center center no-repeat;	*/
+	background-position: center center;
+	background-repeat: no-repeat;
 	background-size: cover !important;
 	h2, h3, h4, p {
 		color: #fff;		

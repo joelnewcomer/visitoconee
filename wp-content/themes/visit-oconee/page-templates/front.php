@@ -38,7 +38,7 @@ get_header(); ?>
 	    </div>
 	</div> <!-- slider-container -->
 
-	<section class="videos">
+	<section class="videos lazyload"  data-bg="<?php echo get_template_directory_uri(); ?>/assets/images/video-bg.png">
 		<div class="grid-container">
 	   		<div class="grid-x">
 	   			<?php if(get_field('videos')): ?>
@@ -143,7 +143,7 @@ get_header(); ?>
 	</section> <!-- destinations -->
 	
 	<?php if (get_field('tips_toggle')) : ?>
-	<section class="tips">
+	<section class="tips lazyload" data-bg="<?php echo get_template_directory_uri(); ?>/assets/images/destinations-bg.jpg">
 		<div class="grid-container">
 	   		<div class="grid-x grid-padding-x">
 		   		<div class="large-12 cell text-center">
