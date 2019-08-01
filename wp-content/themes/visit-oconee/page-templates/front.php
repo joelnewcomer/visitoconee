@@ -39,7 +39,7 @@ get_header(); ?>
 	   				<?php while(has_sub_field('videos')): ?>
 	   					<div class="large-4 medium-4 cell home-video text-center">
 		   					<a href="<?php echo get_sub_field('video_url'); ?>?autoplay=1&modestbranding=1&showinfo=0&rel=0" data-featherlight="iframe" data-featherlight-iframe-width="960" data-featherlight-iframe-height="540">
-		   						<?php echo wp_get_attachment_image(get_sub_field('video_thumbnail'), 'home-video'); ?>
+		   						<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('video_thumbnail'), 'home-video')); ?>
 		   						<?php get_template_part('assets/images/play', 'button.svg'); ?>
 		   					</a>
 	   					</div>
@@ -49,7 +49,7 @@ get_header(); ?>
 	   	</div> <!-- grid-container -->	   			
 	   	<div class="home-quote text-center">
 			<div class="quote-wrapper">
-				<?php echo wp_get_attachment_image(get_field('quote_image'), 'full'); ?>
+				<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_field('quote_image'), 'full')); ?>
 				<h2><i><?php echo get_field('quote'); ?></i></h2>
 				<p><?php echo get_field('quote_author'); ?></p>
 			</div>
@@ -63,12 +63,12 @@ get_header(); ?>
 					<div class="large-4 medium-4 cell home-block">
 		   				<?php $link = get_sub_field('link'); ?>
 						<a href="<?php echo $link['url']; ?>" <?php if ($link['target'] != '') : ?>target="<?php echo $link['target']; ?>"<?php endif; ?>>
-							<?php echo wp_get_attachment_image(get_sub_field('image'), 'home-block'); ?>
+							<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('image'), 'home-block')); ?>
 							<div class="home-block-hover">
 								<?php if (get_sub_field('image_hover')) : ?>
-									<?php echo wp_get_attachment_image(get_sub_field('image_hover'), 'home-block'); ?>
+									<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('image_hover'), 'home-block')); ?>
 								<?php else : ?>
-									<?php echo wp_get_attachment_image(get_sub_field('image'), 'home-block'); ?>
+									<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('image'), 'home-block')); ?>
 								<?php endif; ?>
 							</div>
 							<div class="home-block-overlay">
@@ -123,7 +123,7 @@ get_header(); ?>
 		   				?>
 		   				<div class="large-4 medium-4 cell dest-cell">
 		   					<a href="<?php echo $link; ?>" <?php if ($target != '') : ?>target="<?php echo $target; ?>"<?php endif; ?>>
-			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
+			   					<?php echo $lazy_loader->filter_markup(wp_get_attachment_image($image, 'home-block')); ?>
 			   					<h3><?php echo $title; ?></h3>
 			   					<h4><?php echo $subtitle; ?></h4>
 								<p><?php echo $blurb; ?></p>	
@@ -172,7 +172,7 @@ get_header(); ?>
 		   				?>
 		   				<div class="large-4 medium-4 cell dest-cell">
 		   					<a href="<?php echo $link; ?>" <?php if ($target != '') : ?>target="<?php echo $target; ?>"<?php endif; ?>>
-			   					<?php echo wp_get_attachment_image($image, 'home-block'); ?>
+			   					<?php echo $lazy_loader->filter_markup(wp_get_attachment_image($image, 'home-block')); ?>
 			   					<h3><?php echo $title; ?></h3>
 			   					<h4><?php echo $subtitle; ?></h4>
 								<p><?php echo $blurb; ?></p>	

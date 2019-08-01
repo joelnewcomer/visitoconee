@@ -12,7 +12,7 @@
 				
 	<footer id="footer" role="contentinfo">
 		<div class="main-footer">
-			<img class="hide-for-print" src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.jpg" alt="Scenic Oconee Lake"> 
+			<img class="hide-for-print lazyload" data-src="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.jpg" alt="Scenic Oconee Lake"> 
 			<div class="footer-overlay">
 				<div class="grid-container">
 					<div class="grid-x">
@@ -24,8 +24,8 @@
 				</div> <!-- grid-container -->
 			</div>
 		</div> <!-- main-footer -->
-		<div class="sub-footer">
-			<div class="map-container">
+		<div class="sub-footer lazyload" data-bg="<?php echo get_template_directory_uri(); ?>/assets/images/footer-bg.png">
+			<div class="map-container lazyload" data-bg="<?php echo get_template_directory_uri(); ?>/assets/images/footer-map.png">
 			<div class="grid-container">
 				<div class="grid-x grid-padding-x">
 					<div class="large-8 medium-8 cell footer-about hide-for-print">

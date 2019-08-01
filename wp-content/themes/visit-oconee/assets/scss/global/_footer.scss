@@ -35,13 +35,16 @@
 }
 
 .sub-footer {
-	background: $brown url(../images/footer-bg.png);
+	background-color: $brown;
+	/* background-image: url(../images/footer-bg.png); */
 	position: relative;
 	.map-container {
 		display: block;
 		float: left;
 		width: 100%;
-		background: url(../images/footer-map.png) left top no-repeat;
+		/* background: url(../images/footer-map.png) left top no-repeat; */
+		background-position: left top;
+		background-repeat: no-repeat;
 		background-size: auto 100% !important;
 		@media only screen and (max-width: 800px) {
 			background-position: right top;
