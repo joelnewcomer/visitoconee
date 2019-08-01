@@ -10,6 +10,7 @@ get_header(); ?>
 
 	<div class="slider-container">
 	    <ul class="bxslider">
+		    <?php $counter = 1; ?>
 			<?php if( have_rows('slides') ):
 				while ( have_rows('slides') ) : the_row(); ?>
 	                <li>
@@ -18,11 +19,16 @@ get_header(); ?>
 		                if ($link != '') : ?>
 		                    <a href="<?php echo get_sub_field('link_to'); ?>">
 			            <?php endif; ?>
-							<?php echo wp_get_attachment_image(get_sub_field('slide'), 'featured-home'); ?>
+			            	<?php if ($counter == 1) : ?>
+								<?php echo wp_get_attachment_image(get_sub_field('slide'), 'featured-home'); ?>
+							<?php else : ?>
+								<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('slide'), 'featured-home')); ?>
+							<?php endif; ?>
 						<?php if ($link != '') : ?>	
 	                    	</a>
 	                    <?php endif; ?>
 	                </li>
+	                <?php $counter++; ?>
 				<?php endwhile;
 			endif; ?>
 	    </ul>
