@@ -5,7 +5,7 @@ Tags: YouTube, Vimeo, lazyload, thumbnail, video, responsive, embeds, video-embe
 Requires at least: 4.4.0
 Tested up to: 5.2.2
 Requires PHP: 5.3
-Stable tag: 8.10.6
+Stable tag: 8.10.8
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -157,6 +157,11 @@ This plugins embed is considered as 'custom player' by YouTube so you have to pa
 
 * [ARVE Pro addon changelog](https://nextgenthemes.com/plugins/arve-pro/changelog/)
 * [ARVE AMP addon changelog](https://nextgenthemes.com/plugins/arve-amp/)
+
+### 2019-08-19 - 8.10.8 ###
+
+* Improved: Switch Youku embeds to https set to default 16:9 aspect ratio.
+* Improved: added `allow-popups-to-escape-sandbox` to sandbox attribute. This eliminates the need for `sandbox="false"` for Vimeo action links to work. And just in general I think its a good idea.
 
 ### 2019-07-31 - 8.10.6 ###
 

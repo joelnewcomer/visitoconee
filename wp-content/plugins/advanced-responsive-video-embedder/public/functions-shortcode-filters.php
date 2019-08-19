@@ -100,12 +100,16 @@ function arve_sc_filter_attr( $a ) {
 			'class'           => 'arve-iframe fitvidsignore',
 			'frameborder'     => '0',
 			'name'            => $a['iframe_name'],
-			'sandbox'         => 'allow-scripts allow-same-origin allow-presentation allow-popups',
+			'sandbox'         => 'allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox',
 			'scrolling'       => 'no',
 			'src'             => $iframe_src,
 			'width'           => empty( $a['width'] )  ? false : $a['width'],
 			'height'          => empty( $a['height'] ) ? false : $a['height'],
 		);
+
+		if ( 'vimeo' == $a['provider'] ) {
+			$a['iframe_attr']['sandbox'] .= ' allow-forms';
+		}
 
 		if ( false === $a['sandbox'] ) {
 			$a['iframe_attr']['sandbox'] = false;

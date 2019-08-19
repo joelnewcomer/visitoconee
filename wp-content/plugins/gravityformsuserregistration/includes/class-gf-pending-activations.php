@@ -397,15 +397,15 @@ class GF_Pending_Activations {
 				var spinner = new ajaxSpinner('#gf_user_pending_activate_link', 'margin-left:10px');
 
 				jQuery.post(ajaxurl, {
-					key: activationKey,
-					action: 'gf_user_activate'
+					key:     activationKey,
+					action: 'gf_user_activate',
+					nonce:  '<?php echo wp_create_nonce( 'gf_user_activate' ); ?>'
 				}, function (response) {
 
 					// if there is an error message, alert it
-					if (response) {
+					if ( ! response.success ) {
 
-						alert(response);
-						jQuery('#gf_user_pending_activation').fadeOut();
+						alert( response.data.message );
 						spinner.destroy();
 
 					} else {
