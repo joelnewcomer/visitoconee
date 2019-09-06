@@ -26,29 +26,9 @@ class Bulkedit extends EditFeature {
 	/**
 	 *	@inheritdoc
 	 */
-	public function render_acf_settings( $field ) {
-
-		// show column: todo: allow sortable
-		// add to bulk edit
-		acf_render_field_setting( $field, array(
-			'label'			=> __('Allow Bulk Edit','acf-quick-edit-fields'),
-			'instructions'	=> '',
-			'type'			=> 'true_false',
-			'name'			=> 'allow_bulkedit',
-			'ui'			=> 1,
-			'message'		=> __("Allow editing this field in Bulk edit mode", 'acf-quick-edit-fields')
-		));
+	public function get_fieldgroup_option() {
+		return 'allow_bulkedit';
 	}
-
-	/**
-	 *	@inheritdoc
-	 */
-	public function is_enabled_for_field( $field ) {
-
-		return isset($field['allow_bulkedit']) && $field['allow_bulkedit'];
-
-	}
-
 
 	/**
 	 *	@inheritdoc
@@ -58,8 +38,11 @@ class Bulkedit extends EditFeature {
 		parent::init_fields();
 
 		if ( $this->is_active() ) {
+
 			add_action( 'bulk_edit_custom_box', array( $this , 'display_bulk_edit' ), 200, 2 );
+
 		}
+
 	}
 
 
@@ -71,17 +54,20 @@ class Bulkedit extends EditFeature {
 			return;
 		}
 
-		$column = str_replace('-qef-thumbnail','', $wp_column_slug );
-		foreach ( $this->field_groups as $field_group ) {
+		$column = str_replace(' qef-thumbnail','', $wp_column_slug );
+		foreach ( $this->fieldsets as $field_group_key => $fields ) {
+			$field_group = acf_get_field_group( $field_group_key );
 			// we need a div here because WP is prepending tags input to the fieldset:last in the editor
 			echo '<!-- BEGIN ACF Quick Edit Fields - Bulk -->' . "\n";
 			echo '<div>' . "\n";
 			printf( '<fieldset class="inline-edit-col-qed inline-edit-%s acf-quick-edit">', $post_type );
 			printf( '<legend>%s</legend>', $field_group['title'] );
+			echo '<div class="qed-fields">';
 
-			foreach ( $field_group['fields'] as $sub_field_object ) {
+			foreach ( $fields as $sub_field_object ) {
 				$sub_field_object->render_quickedit_field( $post_type, 'bulk' );
 			}
+			echo '</div>';
 			echo '</fieldset>';
 			echo '</div>' . "\n";
 			echo '<!-- END ACF Quick Edit Fields - Bulk -->';

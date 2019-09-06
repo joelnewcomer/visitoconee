@@ -5,7 +5,7 @@ Tags: YouTube, Vimeo, lazyload, thumbnail, video, responsive, embeds, video-embe
 Requires at least: 4.4.0
 Tested up to: 5.2.2
 Requires PHP: 5.3
-Stable tag: 8.10.8
+Stable tag: 8.10.10
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -134,7 +134,7 @@ You are most likely use `align`, this plugin has a option for limiting video wid
 
 ### Can you add a video provider? ###
 
-I have no plans on implementing providers that include videos via JavaScript such as www.nicovideo.jp. I also will not implement video services from mainstream media news organizations. For others, feel free to ask.
+ARVE Already support all the provider the offer iframe embed codes. Just use the `src="https://this-URL"` url from any iframe embed code on a arve shortcode like this [arve url="https://embed-code-src-url" /]. For well known providers ARVE builds this URL automatically so you just need the video URL on their page. If the ID for a video can be extracted from the URL and is the same in the embed code its easy to add it to the plugin, just asked. For example `https://example.com/video/112233/` and their embed code might be `<iframe src="https://example.com/video/112233/embed" ...><iframe>` in such case or if you not sure just ask.
 
 ### How do I embed videos from a unlisted providers / iframes? ###
 
@@ -157,6 +157,10 @@ This plugins embed is considered as 'custom player' by YouTube so you have to pa
 
 * [ARVE Pro addon changelog](https://nextgenthemes.com/plugins/arve-pro/changelog/)
 * [ARVE AMP addon changelog](https://nextgenthemes.com/plugins/arve-amp/)
+
+### 2019-08-29 - 8.10.10 ###
+
+Just a small readme update and checking new release script, making sure everything works and everyone is on the latest stable version.
 
 ### 2019-08-19 - 8.10.8 ###
 

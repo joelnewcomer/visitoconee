@@ -23,7 +23,7 @@ class CheckboxField extends ChoiceField {
 			) ) );
 		}
 
-		$output .= sprintf( '<ul class="acf-checkbox-list" data-acf-field-key="%s">', $this->acf_field['key'] );
+		$output .= sprintf( '<ul class="acf-checkbox-list" data-acf-field-key="%s">', sanitize_key( $this->acf_field['key'] ) );
 
 		$input_atts		+= array(
 			'class'	=> 'acf-quick-edit',
@@ -31,7 +31,7 @@ class CheckboxField extends ChoiceField {
 		);
 		$this->acf_field['value']	= acf_get_array( $this->acf_field['value'], false );
 
-		$field_name = sprintf( 'acf[%s][]', $this->acf_field['key'] );
+		$field_name = $input_atts['name'] . '[]';
 
 		foreach ( $this->acf_field['choices'] as $value => $label ) {
 			$atts = array(
@@ -54,7 +54,7 @@ class CheckboxField extends ChoiceField {
 		$output .= '</ul>';
 
 		if ( $this->acf_field['allow_custom'] ) {
-			$output .= '<button class="button button-seconday add-choice">' . __('Add Choice','acf-quick-edit-fields') . '</button>';
+			$output .= '<button class="button button-seconday add-choice">' . __('Add Choice','acf-quickedit-fields') . '</button>';
 			$output .= sprintf( '<script type="text/html" id="tmpl-acf-qef-custom-choice-%s">', $this->acf_field['key'] );
 
 			$id = $this->core->prefix( $this->acf_field['key'] . '-other' );
@@ -98,6 +98,8 @@ class CheckboxField extends ChoiceField {
 		parent::render_bulk_do_not_change( $input_atts );
 
 	}
+
+
 
 
 }
