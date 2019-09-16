@@ -3,7 +3,7 @@
 Plugin Name: Manage Notification E-mails
 Plugin URI: https://www.freeamigos.nl/wp-plugins/manage-notification-emails/1.4.2
 Description: This plugin gives you the option to disable some of the notification e-mails send by Wordpress. It's a simple plugin but effective.
-Version: 1.4.2
+Version: 1.5.0
 Author: Virgial Berveling
 Author URI: https://www.freeamigos.nl
 Text Domain: manage-notification-emails
@@ -59,7 +59,7 @@ License: GPLv2
 
 if (!defined('ABSPATH')) die();
 
-define( 'FA_MNE_VERSION', '1.4.2' );
+define( 'FA_MNE_VERSION', '1.5.0' );
 define( 'FA_MNE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'FA_MNE_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
 
@@ -70,12 +70,12 @@ define( 'FA_MNE_PLUGIN_DIR', untrailingslashit( dirname( __FILE__ ) ) );
  * @since 1.0.0
  */
 
-function famne_init() {
-    
+function fa_mne_init() {
+
     if (is_admin()) :
 
 include_once( FA_MNE_PLUGIN_DIR . '/includes/class.FAMNESettingsPage.php' );
-    $fa_MNESettingsPage = new FAMNESettingsPage();    
+    $fa_MNESettingsPage = new FAMNESettingsPage();
     endif;
 }
 
@@ -85,11 +85,13 @@ include_once( FA_MNE_PLUGIN_DIR . '/includes/class.FAMNESettingsPage.php' );
  * @since 1.3.0
  */
 global $wp_version;
-if (version_compare($wp_version, '4.7.0') >= 0) {
+if (version_compare($wp_version, '5.2.0') >= 0) {
+    include_once( FA_MNE_PLUGIN_DIR . '/includes/pluggable-functions-1.4.php' );
+}elseif (version_compare($wp_version, '4.7.0') >= 0) {
     include_once( FA_MNE_PLUGIN_DIR . '/includes/pluggable-functions-1.3.php' );
 }else {
     include_once( FA_MNE_PLUGIN_DIR . '/includes/pluggable-functions-1.2.php' );
 }
 
-famne_init();
+fa_mne_init();
 
