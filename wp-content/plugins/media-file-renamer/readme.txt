@@ -5,7 +5,7 @@ Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a95
 Requires at least: 4.8
 Tested up to: 5.2
 Requires PHP: 7.0
-Stable tag: 4.5.7
+Stable tag: 4.5.9
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -57,8 +57,11 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 
 == Changelog ==
 
-= 4.5.7 =
-* Fix: AJAX/REST check.
+= 4.5.9 =
+* Fix: Column wasn't displayed when manual enabled and automatic disabled.
+
+= 4.5.8 =
+* Fix: Fixed the AJAX/REST check.
 * Update: Admin refresh.
 
 = 4.5.5 =

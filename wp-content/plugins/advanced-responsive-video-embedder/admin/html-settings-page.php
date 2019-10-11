@@ -30,7 +30,7 @@ $options = arve_get_options();
 
 			<h3><a href="https://nextgenthemes.com/plugins/arve-pro/">Pro Addon</a></h3>
 
-			<p>Limited time price experiment: <strong><big>44% off</big></strong> first year with discount code <code>settingspage</code></p>
+			<strong><big>10% off</big></strong> first year with discount code <code>settingspage</code></p>
 
 			<p>This plugin is financed by purchases of the <a href="https://nextgenthemes.com/plugins/arve-pro/">Pro Addon</a>. The development and support of this plugins has become a job for me so I hope you understand that I can not make all features gratis and that you <a href="https://nextgenthemes.com/plugins/arve-pro/">purchase it</a> to get extra features and support the development.</p>
 
@@ -59,7 +59,7 @@ $options = arve_get_options();
 
 	<?php endif; ?>
 
-	<h2><?php esc_html_e( get_admin_page_title() ); ?></h2>
+	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
 	<h2 class="nav-tab-wrapper arve-settings-tabs"></h2>
 
@@ -68,7 +68,7 @@ $options = arve_get_options();
 		<?php do_settings_sections( ARVE_SLUG ); ?>
 		<?php settings_fields( 'arve-settings-group' ); ?>
 
-		<input type="hidden" id="arve_options_main[last_settings_tab]" name="arve_options_main[last_settings_tab]" value="<?php esc_attr_e( $options['last_settings_tab'] ); ?>">
+		<input type="hidden" id="arve_options_main[last_settings_tab]" name="arve_options_main[last_settings_tab]" value="<?php echo esc_attr( $options['last_settings_tab'] ); ?>">
 
 	</form>
 

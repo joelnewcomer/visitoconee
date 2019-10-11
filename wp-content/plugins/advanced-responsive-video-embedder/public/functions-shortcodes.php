@@ -79,8 +79,8 @@ function arve_shortcode_arve( $input_atts, $content = null, $arve_shortcode = tr
 	);
 
 	for ( $n = 1; $n <= ARVE_NUM_TRACKS; $n++ ) {
-		$pairs["track_{$n}"]       = null;
-		$pairs["track_{$n}_label"] = null;
+		$pairs[ "track_{$n}" ]       = null;
+		$pairs[ "track_{$n}_label" ] = null;
 	}
 
 	if ( $arve_shortcode ) {
@@ -94,9 +94,10 @@ function arve_shortcode_arve( $input_atts, $content = null, $arve_shortcode = tr
 		}
 	}
 
-	$atts = shortcode_atts( apply_filters( 'arve_shortcode_pairs', $pairs ), $input_atts, 'arve' );
+	$atts   = shortcode_atts( apply_filters( 'arve_shortcode_pairs', $pairs ), $input_atts, 'arve' );
+	$errors = arve_output_errors( $atts );
 
-	if ( $errors = arve_output_errors( $atts ) ) {
+	if ( $errors ) {
 		return $errors . arve_get_debug_info( '', $atts, $input_atts );
 	}
 
@@ -134,7 +135,7 @@ function arve_create_shortcodes() {
 
 	$options = arve_get_options();
 
-	foreach( $options['shortcodes'] as $provider => $shortcode ) {
+	foreach ( $options['shortcodes'] as $provider => $shortcode ) {
 
 		$function = function( $atts ) use ( $provider ) {
 			$atts['provider'] = $provider;
@@ -187,7 +188,7 @@ function arve_shortcode_arve_supported() {
 		$out .= sprintf( '<td>%s</td>', ( isset( $values['requires_src'] ) && $values['requires_src'] ) ? '&#x2713;' : '' );
 		$out .= sprintf( '<td>%s</td>', ( isset( $values['embed_url'] ) && arve_starts_with( $values['embed_url'], 'https' ) ) ? '&#x2713;' : '' );
 		$out .= sprintf( '<td>%s</td>', ( isset( $values['auto_thumbnail'] ) && $values['auto_thumbnail'] ) ? '&#x2713;' : '' );
-		$out .= sprintf( '<td>%s</td>', ( isset( $values['auto_title'] )     && $values['auto_title'] )     ? '&#x2713;' : '' );
+		$out .= sprintf( '<td>%s</td>', ( isset( $values['auto_title'] ) && $values['auto_title'] ) ? '&#x2713;' : '' );
 		$out .= '</tr>';
 	}
 
@@ -202,7 +203,7 @@ function arve_shortcode_arve_supported() {
 
 function arve_shortcode_arve_supported_list() {
 
-	$list = '';
+	$list      = '';
 	$providers = arve_get_host_properties();
 	// unset deprecated and doubled
 	unset( $providers['dailymotionlist'] );
@@ -212,14 +213,14 @@ function arve_shortcode_arve_supported_list() {
 		$list .= '*   ' . $values['name'] . PHP_EOL;
 	}
 
-	return '<textarea style="width:100%" rows="15">'. $list . '</textarea>';
+	return '<textarea style="width:100%" rows="15">' . $list . '</textarea>';
 }
 
 function arve_shortcode_arve_params() {
 
 	$attrs = arve_get_settings_definitions();
 
-	if( function_exists( 'arve_pro_get_settings_definitions' ) ) {
+	if ( function_exists( 'arve_pro_get_settings_definitions' ) ) {
 		$attrs = array_merge( $attrs, arve_pro_get_settings_definitions() );
 	}
 
@@ -231,7 +232,7 @@ function arve_shortcode_arve_params() {
 
 	foreach ( $attrs as $key => $values ) {
 
-		if( isset( $values['hide_from_sc'] ) && $values['hide_from_sc'] ) {
+		if ( isset( $values['hide_from_sc'] ) && $values['hide_from_sc'] ) {
 			continue;
 		}
 
@@ -241,11 +242,11 @@ function arve_shortcode_arve_params() {
 
 		if ( ! empty( $values['options'] ) ) {
 
-			foreach ( $values['options'] as $key => $value) {
+			foreach ( $values['options'] as $key => $value ) {
 				$choices[] = sprintf( '<code>%s</code>', $key );
 			}
 
-			$desc .= __('Options: ', ARVE_SLUG ) . implode( ', ', $choices ) . '<br>';
+			$desc .= __( 'Options: ', ARVE_SLUG ) . implode( ', ', $choices ) . '<br>';
 		}
 
 		if ( ! empty( $values['description'] ) ) {
@@ -271,11 +272,11 @@ function arve_wp_video_shortcode_override( $out, $attr, $content, $instance ) {
 
 	$options = arve_get_options();
 
-	if( ! $options['wp_video_override'] || ! empty( $attr['wmv'] ) || ! empty( $attr['flv'] ) ) {
+	if ( ! $options['wp_video_override'] || ! empty( $attr['wmv'] ) || ! empty( $attr['flv'] ) ) {
 		return $out;
 	}
 
-	if( ! empty( $attr['poster'] ) ) {
+	if ( ! empty( $attr['poster'] ) ) {
 		$attr['thumbnail'] = $attr['poster'];
 	}
 
