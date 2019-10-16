@@ -5190,13 +5190,13 @@ body.error404 .entry-content h2 {
 #itinerary > .poi-card {
   overflow: visible; }
 
-body.single-poi .poi-card {
+body.single-poi .poi-card, body.single-events .event-card {
   margin: 0 auto; }
 
-body.single-poi #page {
+body.single-poi #page, body.single-events #page {
   margin-top: 130px; }
   @media only screen and (max-width: 40.063em) {
-    body.single-poi #page {
+    body.single-poi #page, body.single-events #page {
       margin-top: 20px; } }
 
 .cat-desc {
