@@ -16,8 +16,9 @@
 		    		    $link = get_field('more_info_link');
 		    		    $target = 'target="_blank"';
 		    		    if ($link == '') {
-			    		    $link = get_permalink($post->ID);
-			    		    $target = '';
+			    		    // $link = get_permalink($post->ID);
+			    		    // $target = '';
+			    		    $link = '#';
 			    		} 
 		    		    if (get_field('social_instagram') != '') {
 			    		    $social['instagram'] = get_field('social_instagram');
@@ -58,10 +59,11 @@
 								<div class="description-container">
 									<p><?php echo get_field('short_description'); ?></p>
 								</div>
-								
+								<?php if ($link != '#') : ?>
 								<div class="event-links">
 									<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-link event-more">More Info</a>
 								</div> <!-- event-links -->
+								<?php endif; ?>
 								<div class="event-social">
 								<?php foreach( $social as $social_name => $social_url ) : ?>
 									<?php
