@@ -1,5 +1,12 @@
 	    		    	<?
 		    		    global $post;
+		    		    $today = time();
+		    		    $start_date_past = false;
+		    		    // If the event start date is in the past, set the start date to today
+		    		    if ($start_date < $today) {
+			    			$start_date = $today;
+			    			$start_date_past = true;
+			    		}
 		    		    $start_date = get_post_meta($post->ID, "start_date", true);
 		    		    $end_date = get_post_meta($post->ID, "end_date", true);
 		    		    $social = array();
@@ -23,7 +30,7 @@
 		    		    ?>
 						<div class="large-4 medium-6 cell event-card month-<?php echo date('n', $start_date); ?> transition <?php echo $classes; ?>">
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
-								<?php echo date('F', $start_date); ?>
+								<?php echo date('F', $today); ?>
 							</a>
 							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
 								<?php the_post_thumbnail( 'thumbnail' ); ?>
