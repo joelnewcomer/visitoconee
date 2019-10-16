@@ -2,6 +2,7 @@
 		    		    global $post;
 		    		    $today = time();
 		    		    $start_date_past = false;
+		    		    $current_month = date('j', $today);
 		    		    // If the event start date is in the past, set the start date to today
 		    		    if ($start_date < $today) {
 			    			$start_date = $today;
@@ -30,7 +31,7 @@
 		    		    ?>
 						<div class="large-4 medium-6 cell event-card month-<?php echo date('n', $start_date); ?> transition <?php echo $classes; ?>">
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
-								<?php echo date('F', $today); ?>
+								<?php echo date('F', $start_date); ?>
 							</a>
 							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
 								<?php the_post_thumbnail( 'thumbnail' ); ?>
