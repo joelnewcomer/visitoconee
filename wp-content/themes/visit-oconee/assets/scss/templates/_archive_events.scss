@@ -62,7 +62,10 @@
 	.date-range.two-dates + a h3 {
 		padding-left: 64px;
 		min-height: 60px;
-	}	
+	}
+	.date-range.no-dates + a h3 {
+		padding-left: 0;
+	}
 	
 	.description-container {
 		display: block;

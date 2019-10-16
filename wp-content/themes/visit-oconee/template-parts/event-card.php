@@ -2,14 +2,16 @@
 		    		    global $post;
 		    		    $today = time();
 		    		    $start_date_past = false;
-		    		    $current_month = date('j', $today);
+		    		    $current_month = date('F', $today);
+		    		    $start_date = get_post_meta($post->ID, "start_date", true);
+		    		    $end_date = get_post_meta($post->ID, "end_date", true);
+		    		    $start_month = date('F', $start_date);
+		    		    $end_month = date('F', $end_date);
 		    		    // If the event start date is in the past, set the start date to today
 		    		    if ($start_date < $today) {
 			    			$start_date = $today;
 			    			$start_date_past = true;
 			    		}
-		    		    $start_date = get_post_meta($post->ID, "start_date", true);
-		    		    $end_date = get_post_meta($post->ID, "end_date", true);
 		    		    $social = array();
 		    		    $link = get_field('more_info_link');
 		    		    $target = 'target="_blank"';
@@ -40,12 +42,15 @@
 								
 								<?php
 								$two_dates = '';
-								if ($start_date != $end_date && $end_date != '') {
+								if ($start_date != $end_date && $end_date != '' && $current_month == $start_month && $end_month == $start_month) {
 									$two_dates = 'two-dates';
+								}
+								if ($current_month != $start_month && $current_month != $end_month) {
+									$two_dates = 'no-dates';
 								}
 								?>
 								<div class="date-range <?php echo $two_dates; ?>">
-									<?php echo date('j', $start_date); ?><?php if ($start_date != $end_date && $end_date != '') : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
+										<?php if ($start_month == $current_month) : ?><?php echo date('j', $start_date); ?><?php endif; ?><?php if ($start_date != $end_date && $end_date != '' && $current_month == $end_month) : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
 								<a href="<?php echo $link; ?>" <?php echo $target; ?>>
 									<h3><?php the_title(); ?></h3>

@@ -5258,6 +5258,8 @@ body.single-poi #page {
   .event-card .date-range.two-dates + a h3 {
     padding-left: 64px;
     min-height: 60px; }
+  .event-card .date-range.no-dates + a h3 {
+    padding-left: 0; }
   .event-card .description-container {
     display: block;
     float: left;
