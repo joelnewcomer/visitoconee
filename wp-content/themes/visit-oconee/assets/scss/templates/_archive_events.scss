@@ -131,3 +131,8 @@ a.submit-event {
 		color: $orange;
 	}
 }
+
+.event-card a[href="#"] {
+	pointer-events: none;
+	cursor: default;
+}

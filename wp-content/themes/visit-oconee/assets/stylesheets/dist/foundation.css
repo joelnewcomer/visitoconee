@@ -5306,6 +5306,10 @@ a.submit-event {
 .month-3 .date-range, .month-6 .date-range, .month-9 .date-range, .month-12 .date-range {
   color: #E67002; }
 
+.event-card a[href="#"] {
+  pointer-events: none;
+  cursor: default; }
+
 .la-ball-clip-rotate {
   color: #598F9B !important; }
 
