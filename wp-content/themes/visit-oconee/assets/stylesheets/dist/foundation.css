@@ -5307,6 +5307,7 @@ a.submit-event {
   color: #E67002; }
 
 .event-card a[href="#"] {
+  display: inline-block;
   pointer-events: none;
   cursor: default; }
 

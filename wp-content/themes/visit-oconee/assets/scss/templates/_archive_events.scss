@@ -133,6 +133,7 @@ a.submit-event {
 }
 
 .event-card a[href="#"] {
+	display: inline-block;
 	pointer-events: none;
 	cursor: default;
 }
