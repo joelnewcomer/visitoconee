@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-<?php // get_template_part( 'template-parts/featured-image' ); ?>
+<?php get_template_part( 'template-parts/featured-image' ); ?>
 <?php // get_template_part( 'template-parts/featured-image-parallax' ); ?>
 
 <div id="page" role="main">
@@ -18,11 +18,13 @@ get_header(); ?>
 	
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php get_template_part( 'template-parts/event', 'card' ); ?>
+		<?php get_template_part('template-parts/content', 'columns'); ?>
 	<?php endwhile;?>
         	</article>
     	</div>
 		</div>
 		
 </div> <!-- #page -->
+
 
 <?php get_footer(); ?>
