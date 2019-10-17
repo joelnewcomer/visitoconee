@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-<?php get_template_part( 'template-parts/featured-image' ); ?>
+<?php // get_template_part( 'template-parts/featured-image' ); ?>
 <?php // get_template_part( 'template-parts/featured-image-parallax' ); ?>
 
 <div id="page" role="main">
