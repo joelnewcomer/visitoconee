@@ -42,11 +42,11 @@
 						get_template_part('assets/images/email','icon.svg');
 						echo '</a>';				
 						// Text
-						if ( $detect->isMobile() ) {
-							echo '<a href="sms:1&body=' . $title . '%0D%0A%0D%0A' . $desc . '%0D%0A%0D%0A' . $share_link . '" target="_blank">';
+						// if ( $detect->isMobile() ) {
+							echo '<a href="sms:1&body=' . $title . '%0a%0a' . $desc . '%0a%0a' . $share_link . '" target="_blank">';
 							get_template_part('assets/images/texting','icon.svg');
 							echo '</a>';
-						}	
+						// }	
 					echo '</div>';
 					?>	
 								
