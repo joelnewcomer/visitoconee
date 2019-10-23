@@ -42,20 +42,12 @@
 						get_template_part('assets/images/email','icon.svg');
 						echo '</a>';				
 						// Text
-						// if ( $detect->isMobile() ) {
+						if ( $detect->isMobile() ) {
 							$text_message = $title . ' - ' . $desc . ' - ' . $share_link;
-							if( $detect->isAndroidOS() ){
-								
-								// sms://+11234567890/?body=Checkout%20this%20awesome%20website%20%40%20http%253A%252F%252Fgilgreenberg.com%252F
-								
-								echo '<a href="sms://?body=' . rawurlencode($text_message) . '">';
-							}
-							if( $detect->isiOS() ){
-								echo '<a href="sms://?body=' . rawurlencode($text_message) . '">';
-							}
+							echo '<a href="sms://?body=' . rawurlencode($text_message) . '">';
 							get_template_part('assets/images/texting','icon.svg');
 							echo '</a>';
-						// }	
+						}	
 					echo '</div>';
 					?>	
 								
