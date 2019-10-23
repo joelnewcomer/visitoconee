@@ -1,5 +1,6 @@
 	    		    	<?
 		    		    global $post;
+		    		    global $detect;
 		    		    $today = time();
 		    		    $start_date_past = false;
 		    		    $current_month = date('F', $today);
@@ -14,6 +15,7 @@
 			    		}
 		    		    $social = array();
 		    		    $link = get_field('more_info_link');
+		    		    $share_link = get_permalink($post->ID);
 		    		    $target = 'target="_blank"';
 		    		    if ($link == '') {
 			    		    // $link = get_permalink($post->ID);
@@ -31,14 +33,41 @@
 			    		}
 		    		    $terms = wp_get_post_terms( $post->ID, 'events_cats', array("fields" => "slugs") );
 		    		    $classes = implode(" ", $terms);
+		    		    $caption = get_field('short_description');
+		    		    $title = get_the_title($post);
 		    		    ?>
 						<div class="large-4 medium-6 cell event-card month-<?php echo date('n', $start_date); ?> transition <?php echo $classes; ?>">
 							<a href="<?php echo $link; ?>" <?php echo $target; ?> class="event-card-month text-center">
 								<?php echo date('F', $start_date); ?>
 							</a>
-							<a href="<?php echo $link; ?>" <?php echo $target; ?>>
-								<?php the_post_thumbnail( 'thumbnail' ); ?>
-							</a>
+							<div class="event-photo-wrapper">
+								<a href="<?php echo $link; ?>" <?php echo $target; ?>>
+									<?php the_post_thumbnail( 'thumbnail' ); ?>
+								</a>
+						<?php
+						echo '<div class="img-social transition">Share: ';
+						
+						// Facebook
+						echo '<a href="https://www.facebook.com/sharer.php?u=' . $share_link . '" target="_blank" onclick="ga(\'send\', \'event\', \'Social\', \'Click\', \'Social Media – Facebook\');">';
+						get_template_part('assets/images/social/facebook','official.svg');
+						echo '</a>';
+						// Twitter
+						echo '<a href="https://twitter.com/intent/tweet?url=' .$share_link . '&text=' . urlencode($caption) . '" target="_blank" onclick="ga(\'send\', \'event\', \'Social\', \'Click\', \'Social Media – Twitter\');">';
+						get_template_part('assets/images/social/twitter','official.svg');
+						echo '</a>';
+						// Email
+						echo '<a href="mailto:?body=' . $title . '%0D%0A%0D%0A' . $caption . '%0D%0A%0D%0A' . $share_link . '&subject=Check out this event!" target="_blank">';
+						get_template_part('assets/images/email','icon.svg');
+						echo '</a>';				
+						// Text
+						if ( $detect->isMobile() ) {
+							echo '<a href="sms:1&body=' . $title . '%0D%0A%0D%0A' . $caption . '%0D%0A%0D%0A' . $share_link . '" target="_blank">';
+							get_template_part('assets/images/texting','icon.svg');
+							echo '</a>';
+						}	
+					echo '</div>';
+					?>								
+							</div>
 							<div class="event-card-content">
 								
 								<?php

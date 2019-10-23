@@ -1,8 +1,12 @@
-	    		    	<?
+	    		    	<?php
+		    		    $detect = new Mobile_Detect;
 		    		    $website = get_field('website');
 		    		    $address = get_field('address');
 		    		    $phone = get_field('phone');
 		    		    $social = array();
+		    		    $share_link = get_permalink($post->ID);
+		    		    $desc = get_field('more_info');
+		    		    $title = get_the_title($post);
 		    		    if (get_field('social_instagram') != '') {
 			    		    $social['instagram'] = get_field('social_instagram');
 			    		}
@@ -16,16 +20,42 @@
 		    		    $classes = implode(" ", $terms);
 		    		    ?>
 						<div class="large-4 medium-6 cell poi-card transition <?php echo $classes; ?>">
-							<?php the_post_thumbnail( 'thumbnail' ); ?>
-							<?php $caption = get_post(get_post_thumbnail_id())->post_excerpt; ?>
-							<?php if ($caption != '') : ?>
-								<div class="poi-caption"><?php echo $caption; ?></div>
-							<?php endif; ?> 
+							<div class="poi-photo-wrapper">
+								<?php the_post_thumbnail( 'thumbnail' ); ?>
+								<?php $caption = get_post(get_post_thumbnail_id())->post_excerpt; ?>
+								<?php if ($caption != '') : ?>
+									<div class="poi-caption"><?php echo $caption; ?></div>
+								<?php endif; ?>
+														<?php
+						echo '<div class="img-social transition">Share: ';
+						
+						// Facebook
+						echo '<a href="https://www.facebook.com/sharer.php?u=' . $share_link . '" target="_blank" onclick="ga(\'send\', \'event\', \'Social\', \'Click\', \'Social Media – Facebook\');">';
+						get_template_part('assets/images/social/facebook','official.svg');
+						echo '</a>';
+						// Twitter
+						echo '<a href="https://twitter.com/intent/tweet?url=' .$share_link . '&text=' . urlencode($desc) . '" target="_blank" onclick="ga(\'send\', \'event\', \'Social\', \'Click\', \'Social Media – Twitter\');">';
+						get_template_part('assets/images/social/twitter','official.svg');
+						echo '</a>';
+						// Email
+						echo '<a href="mailto:?body=' . $title . '%0D%0A%0D%0A' . $desc . '%0D%0A%0D%0A' . $share_link . '&subject=Check this out!" target="_blank">';
+						get_template_part('assets/images/email','icon.svg');
+						echo '</a>';				
+						// Text
+						if ( $detect->isMobile() ) {
+							echo '<a href="sms:1&body=' . $title . '%0D%0A%0D%0A' . $desc . '%0D%0A%0D%0A' . $share_link . '" target="_blank">';
+							get_template_part('assets/images/texting','icon.svg');
+							echo '</a>';
+						}	
+					echo '</div>';
+					?>	
+								
+							</div> <!-- poi-photo-wrapper --> 
 							<div class="poi-card-content">
 								<h3><?php the_title(); ?></h3>
 								<?php
 								$address = get_field('address');
-								$detect = new Mobile_Detect;
+								
 								$clean_address = urlencode( strip_tags($address) );
 								if( $detect->isiOS() ) : ?>
 								    <a class="address" href="http://maps.apple.com/?daddr=<?php echo $clean_address; ?>">

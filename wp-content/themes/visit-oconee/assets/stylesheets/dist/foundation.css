@@ -5204,6 +5204,9 @@ body.single-poi #page, body.single-events #page {
   width: 100%;
   padding-top: 40px; }
 
+.poi-photo-wrapper {
+  position: relative; }
+
 .event-card {
   background: #EBF0F3 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNzc0IDEwMS43NzMiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjYmQ0ZDg7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjEzLjM3NCwxMjMuNCwxMTEuNiwyMjUuMTc0di03My41NkEyOC4zODUsMjguMzg1LDAsMCwxLDEzOS44MTUsMTIzLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTExLjYgLTEyMy40MDEpIi8+PC9zdmc+) bottom right no-repeat;
   background-size: 80px 80px;
@@ -5310,6 +5313,27 @@ a.submit-event {
   display: inline-block;
   pointer-events: none;
   cursor: default; }
+
+.event-photo-wrapper {
+  position: relative; }
+
+.img-social {
+  display: block;
+  padding: 4px 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* background: rgba(0,0,0,.5); */
+  background: rgba(230, 112, 2, 0.7);
+  font-size: 14px;
+  color: #fff; }
+  .img-social svg {
+    margin: 0 4px;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    pointer-events: none; }
 
 .la-ball-clip-rotate {
   color: #598F9B !important; }

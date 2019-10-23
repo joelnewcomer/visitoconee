@@ -6,6 +6,23 @@ if ( ! class_exists( 'KcSeoWPSchema' ) ) {
 		public $options;
 		public $KcSeoPrefix;
 
+		/**
+		 * Store the singleton object.
+		 */
+		private static $singleton = false;
+
+
+		/**
+		 * Fetch an instance of the class.
+		 */
+		public static function getInstance() {
+			if ( self::$singleton === false ) {
+				self::$singleton = new self();
+			}
+
+			return self::$singleton;
+		}
+
 		function __construct() {
 			$this->KcSeoPrefix = "_schema_";
 			$this->options     = array(
@@ -86,9 +103,6 @@ if ( ! class_exists( 'KcSeoWPSchema' ) ) {
 			if ( $pageReturn AND $pageReturn <> 1 ) {
 				return $pageReturn;
 			}
-			if ( @$html ) {
-				return $html;
-			}
 		}
 
 		/**
@@ -124,6 +138,10 @@ if ( ! class_exists( 'KcSeoWPSchema' ) ) {
 
 	global $KcSeoWPSchema;
 	if ( ! is_object( $KcSeoWPSchema ) ) {
-		$KcSeoWPSchema = new KcseoWPSchema;
+		$KcSeoWPSchema = kcseo();
 	}
+}
+
+function kcseo() {
+	return KcseoWPSchema::getInstance();
 }

@@ -137,3 +137,27 @@ a.submit-event {
 	pointer-events: none;
 	cursor: default;
 }
+
+.event-photo-wrapper {
+	position: relative;
+}
+
+.img-social {
+	display: block;
+	padding: 4px 8px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	/* background: rgba(0,0,0,.5); */
+	background: rgba(230, 112, 2, 0.7);
+	font-size: 14px;
+	color: #fff;
+	svg {
+		margin: 0 4px;
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+		fill: #fff;
+		pointer-events: none;
+	}
+}

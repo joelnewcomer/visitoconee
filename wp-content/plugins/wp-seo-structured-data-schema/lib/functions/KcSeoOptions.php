@@ -221,72 +221,72 @@ class KcSeoOptions
                 'pro'    => false,
                 'title'  => __('Event', "wp-seo-structured-data-schema"),
                 'fields' => array(
-                    'active'          => array(
+                    'active'               => array(
                         'type' => 'checkbox'
                     ),
-                    'name'            => array(
+                    'name'                 => array(
                         'title'    => __('Name', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'desc'     => __("The name of the event.", "wp-seo-structured-data-schema")
                     ),
-                    'locationName'    => array(
+                    'locationName'         => array(
                         'title'    => __('Location name', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'desc'     => __("Event Location name", "wp-seo-structured-data-schema")
                     ),
-                    'locationAddress' => array(
+                    'locationAddress'      => array(
                         'title'    => __('Location address', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'desc'     => __("The location of for example where the event is happening, an organization is located, or where an action takes place.", "wp-seo-structured-data-schema")
                     ),
-                    'startDate'       => array(
+                    'startDate'            => array(
                         'title'    => __('Start date', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'class'    => 'kcseo-date',
                         'required' => true,
                         'desc'     => __("Event start date Like : 2017-10-16 4:00 AM", "wp-seo-structured-data-schema")
                     ),
-                    'endDate'         => array(
+                    'endDate'              => array(
                         'title'       => __('End date', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true,
                         'class'       => 'kcseo-date',
                         'desc'        => __("Event end date Like : 2017-10-16 4:00 AM", "wp-seo-structured-data-schema")
                     ),
-                    'description'     => array(
+                    'description'          => array(
                         'title'       => __('Description', "wp-seo-structured-data-schema"),
                         'type'        => 'textarea',
                         'recommended' => true,
                         'desc'        => __("Event description", "wp-seo-structured-data-schema")
                     ),
-                    'performerName'   => array(
+                    'performerName'        => array(
                         'title'       => __('Performer Name', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true,
                         'desc'        => __("The performer's name.", "wp-seo-structured-data-schema")
                     ),
-                    'image'           => array(
+                    'image'                => array(
                         'title'       => __('Image URL', "wp-seo-structured-data-schema"),
                         'type'        => 'url',
                         'recommended' => true,
                         'desc'        => __("URL of an image or logo for the event or tour", "wp-seo-structured-data-schema")
                     ),
-                    'price'           => array(
+                    'price'                => array(
                         'title'       => __('Price', "wp-seo-structured-data-schema"),
                         'type'        => 'number',
                         'recommended' => true,
                         'attr'        => 'step="any"',
                         'desc'        => __("This is highly recommended. The lowest available price, including service charges and fees, of this type of ticket. <span class='required'>Not required but (Recommended)</span>", "wp-seo-structured-data-schema")
                     ),
-                    'priceCurrency'   => array(
+                    'priceCurrency'        => array(
                         'title' => __('Price currency', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                         'desc'  => __("The 3-letter currency code. (USD)", "wp-seo-structured-data-schema")
                     ),
-                    'availability'    => array(
+                    'availability'         => array(
                         'title'       => 'Availability',
                         'type'        => 'select',
                         'recommended' => true,
@@ -297,20 +297,70 @@ class KcSeoOptions
                             'http://schema.org/PreOrder' => 'PreOrder',
                         ),
                     ),
-                    'validFrom'       => array(
+                    'validFrom'            => array(
                         'title'       => __('Valid From', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true,
                         'class'       => 'kcseo-date',
                         'desc'        => __(sprintf("The date and time when tickets go on sale (only required on date-restricted offers), in <a href='%s' target='_blank'>ISO-8601 format</a>", 'https://en.wikipedia.org/wiki/ISO_8601'), "wp-seo-structured-data-schema")
                     ),
-                    'url'             => array(
+                    'url'                  => array(
                         'title'       => 'URL',
                         'recommended' => true,
                         'type'        => 'url',
                         'placeholder' => 'URL',
                         'desc'        => __("A link to the event's details page. <span class='required'>Not required but (Recommended)</span>", "wp-seo-structured-data-schema")
                     ),
+                    'review_section'       => array(
+                        'title' => __('Review', "wp-seo-structured-data-schema"),
+                        'type'  => 'heading',
+                        'desc'  => __("To add review schema for this type, complete fields below and enable, others live blank.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_active'        => array(
+                        'type' => 'checkbox'
+                    ),
+                    'review_author'        => array(
+                        'title'    => __("Author", "wp-seo-structured-data-schema"),
+                        'type'     => 'text',
+                        'required' => true
+                    ),
+                    'review_author_sameAs' => array(
+                        'title'    => __("Author Same As profile link", "wp-seo-structured-data-schema"),
+                        'type'     => 'textarea',
+                        'attr'     => 'placeholder="https://facebook.com/example&#10;https://twitter.com/example"',
+                        'required' => true,
+                        'desc'     => __('A reference page that unambiguously indicates the item\'s identity; for example, the URL of the item\'s Wikipedia page, Freebase page, or official website.<br> Enter new line for every entry', "wp-seo-structured-data-schema")
+                    ),
+                    'review_body'          => array(
+                        'title'    => __('Review body', "wp-seo-structured-data-schema"),
+                        'type'     => 'textarea',
+                        'required' => true,
+                        'desc'     => __("The actual body of the review.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_datePublished' => array(
+                        'title' => __('Date of Published', "wp-seo-structured-data-schema"),
+                        'type'  => 'text',
+                        'class' => 'kcseo-date',
+                        'desc'  => __("Like this: 2015-12-25 4:00 PM", "wp-seo-structured-data-schema")
+                    ),
+                    'review_ratingValue'   => array(
+                        'title' => __('Rating value', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("A numerical quality rating for the item.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_bestRating'    => array(
+                        'title' => __('Best rating', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("The highest value allowed in this rating system.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_worstRating'   => array(
+                        'title' => __('Worst rating', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("The lowest value allowed in this rating system. * Required if the rating system is not on a 5-point scale. If worstRating is omitted, 1 is assumed.", "wp-seo-structured-data-schema")
+                    )
                 )
             ),
             'product'          => array(
@@ -337,28 +387,28 @@ class KcSeoOptions
                         'desc'  => __("Product description.", "wp-seo-structured-data-schema")
                     ),
                     'sku'               => array(
-                        'title'       => __('SKU', "wp-seo-structured-data-schema-pro"),
+                        'title'       => __('SKU', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true
                     ),
                     'brand'             => array(
-                        'title' => __('Brand', "wp-seo-structured-data-schema"),
-                        'type'  => 'text',
+                        'title'       => __('Brand', "wp-seo-structured-data-schema"),
+                        'type'        => 'text',
                         'recommended' => true,
-                        'desc'  => __("The brand of the product.", "wp-seo-structured-data-schema")
+                        'desc'        => __("The brand of the product.", "wp-seo-structured-data-schema")
                     ),
                     'identifier_type'   => array(
-                        'title'   => __('Identifier Type', "wp-seo-structured-data-schema"),
-                        'type'    => 'select',
+                        'title'       => __('Identifier Type', "wp-seo-structured-data-schema"),
+                        'type'        => 'select',
                         'recommended' => true,
-                        'options' => array(
+                        'options'     => array(
                             'mpn'    => 'MPN',
                             'isbn'   => 'ISBN',
                             'gtin8'  => 'GTIN-8 (UPC, JAN)',
                             'gtin12' => 'GTIN-12 (UPC)',
                             'gtin13' => 'GTIN-13 (EAN,JAN)'
                         ),
-                        'desc'    => __("<strong>MPN</strong><br>
+                        'desc'        => __("<strong>MPN</strong><br>
                                        &#8594; MPN(Manufacturer Part Number) Used globally, Alphanumeric digits (various lengths)<br>
                                        <strong>GTIN</strong><br>
                                        &#8594; UPC(Universal Product Code) Used in primarily North America. 12 numeric digits. eg. 892685001003.<br>
@@ -367,10 +417,14 @@ class KcSeoOptions
                                        &#8594; JAN(Japanese Article Number) Used only in Japan, 8 or 13 numeric digits.", "wp-seo-structured-data-schema")
                     ),
                     'identifier'        => array(
-                        'title' => __('Identifier', "wp-seo-structured-data-schema"),
-                        'type'  => 'text',
+                        'title'       => __('Identifier', "wp-seo-structured-data-schema"),
+                        'type'        => 'text',
                         'recommended' => true,
-                        'desc'  => __("Enter product unique identifier", "wp-seo-structured-data-schema")
+                        'desc'        => __("Enter product unique identifier", "wp-seo-structured-data-schema")
+                    ),
+                    'rating_section'    => array(
+                        'title' => __('Product Review & Rating', "wp-seo-structured-data-schema"),
+                        'type'  => 'heading',
                     ),
                     'reviewRatingValue' => array(
                         'title'       => __('Review rating value', "wp-seo-structured-data-schema"),
@@ -406,6 +460,10 @@ class KcSeoOptions
                         'type'  => 'number',
                         'attr'  => 'step="any"',
                         'desc'  => __("Review rating value. <span class='required'>This is required if (Rating value) is given</span>", "wp-seo-structured-data-schema")
+                    ),
+                    'pricing_section'   => array(
+                        'title' => __('Product Pricing', "wp-seo-structured-data-schema"),
+                        'type'  => 'heading',
                     ),
                     'price'             => array(
                         'title' => __('Price', "wp-seo-structured-data-schema"),
@@ -603,59 +661,64 @@ class KcSeoOptions
                 'pro'    => false,
                 'title'  => __('Review', "wp-seo-structured-data-schema"),
                 'fields' => array(
-                    'active'        => array(
+                    'active'                => array(
                         'type' => 'checkbox'
                     ),
-                    'itemName'      => array(
+                    'review_notice_heading' => array(
+                        'title' => sprintf('<span style="display:block;text-align:center;color: red">%s</span>', __('Notice</span>', "wp-seo-structured-data-schema-pro")),
+                        'type'  => 'heading',
+                        'desc'  => self::getReviewNotice()
+                    ),
+                    'itemName'              => array(
                         'title'    => __('Name of the reviewed item', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'desc'     => __("The item that is being reviewed.", "wp-seo-structured-data-schema")
                     ),
-                    'reviewBody'    => array(
+                    'reviewBody'            => array(
                         'title'    => __('Review body', "wp-seo-structured-data-schema"),
                         'type'     => 'textarea',
                         'required' => true,
                         'desc'     => __("The actual body of the review.", "wp-seo-structured-data-schema")
                     ),
-                    'name'          => array(
+                    'name'                  => array(
                         'title'    => __('Review name', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'desc'     => __("A particular name for the review.", "wp-seo-structured-data-schema")
                     ),
-                    'author'        => array(
+                    'author'                => array(
                         'title'    => __('Author', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true,
                         'author'   => 'Author name',
                         'desc'     => __("The author of the review. The reviewer’s name needs to be a valid name.", "wp-seo-structured-data-schema")
                     ),
-                    'datePublished' => array(
+                    'datePublished'         => array(
                         'title' => __('Date of Published', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                         'class' => 'kcseo-date',
                         'desc'  => __("Like this: 2015-12-25 4:00 PM", "wp-seo-structured-data-schema")
                     ),
-                    'ratingValue'   => array(
+                    'ratingValue'           => array(
                         'title' => __('Rating value', "wp-seo-structured-data-schema"),
                         'type'  => 'number',
                         'attr'  => 'step="any"',
                         'desc'  => __("A numerical quality rating for the item.", "wp-seo-structured-data-schema")
                     ),
-                    'bestRating'    => array(
+                    'bestRating'            => array(
                         'title' => __('Best rating', "wp-seo-structured-data-schema"),
                         'type'  => 'number',
                         'attr'  => 'step="any"',
                         'desc'  => __("The highest value allowed in this rating system.", "wp-seo-structured-data-schema")
                     ),
-                    'worstRating'   => array(
+                    'worstRating'           => array(
                         'title' => __('Worst rating', "wp-seo-structured-data-schema"),
                         'type'  => 'number',
                         'attr'  => 'step="any"',
                         'desc'  => __("The lowest value allowed in this rating system. * Required if the rating system is not on a 5-point scale. If worstRating is omitted, 1 is assumed.", "wp-seo-structured-data-schema")
                     ),
-                    'publisher'     => array(
+                    'publisher'             => array(
                         'title' => __('Name of the organization', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                         'desc'  => __('The publisher of the review.', "wp-seo-structured-data-schema")
@@ -813,51 +876,101 @@ class KcSeoOptions
                 'pro'    => false,
                 'title'  => __('Local Business', "wp-seo-structured-data-schema"),
                 'fields' => array(
-                    'active'          => array(
+                    'active'               => array(
                         'type' => 'checkbox'
                     ),
-                    'name'            => array(
+                    'name'                 => array(
                         'title'    => __('Name', "wp-seo-structured-data-schema"),
                         'type'     => 'text',
                         'required' => true
                     ),
-                    'description'     => array(
+                    'description'          => array(
                         'title' => __('Description', "wp-seo-structured-data-schema"),
                         'type'  => 'textarea',
                     ),
-                    'image'           => array(
+                    'image'                => array(
                         'title'    => __('Business Logo', "wp-seo-structured-data-schema"),
                         'type'     => 'image',
                         'required' => true
                     ),
-                    'priceRange'      => array(
+                    'priceRange'           => array(
                         'title'       => __('Price Range', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true,
                         'desc'        => __("The price range of the business, for example $$$.", "wp-seo-structured-data-schema")
                     ),
-                    'addressLocality' => array(
+                    'addressLocality'      => array(
                         'title' => __('Address locality', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                         'desc'  => __('City (i.e Kansas city)', "wp-seo-structured-data-schema")
                     ),
-                    'addressRegion'   => array(
+                    'addressRegion'        => array(
                         'title' => __('Address region', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                         'desc'  => __('State (i.e. MO)', "wp-seo-structured-data-schema")
                     ),
-                    'postalCode'      => array(
+                    'postalCode'           => array(
                         'title' => __('Postal code', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                     ),
-                    'streetAddress'   => array(
+                    'streetAddress'        => array(
                         'title' => __('Street address', "wp-seo-structured-data-schema"),
                         'type'  => 'text',
                     ),
-                    'telephone'       => array(
+                    'telephone'            => array(
                         'title'       => __('Telephone', "wp-seo-structured-data-schema"),
                         'type'        => 'text',
                         'recommended' => true,
+                    ),
+                    'review_section'       => array(
+                        'title' => __('Review', "wp-seo-structured-data-schema"),
+                        'type'  => 'heading',
+                        'desc'  => __("To add review schema for this type, complete fields below and enable, others live blank.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_active'        => array(
+                        'type' => 'checkbox'
+                    ),
+                    'review_author'        => array(
+                        'title'    => __("Author", "wp-seo-structured-data-schema"),
+                        'type'     => 'text',
+                        'required' => true
+                    ),
+                    'review_author_sameAs' => array(
+                        'title'    => __("Author Same As profile link", "wp-seo-structured-data-schema"),
+                        'type'     => 'textarea',
+                        'attr'     => 'placeholder="https://facebook.com/example&#10;https://twitter.com/example"',
+                        'required' => true,
+                        'desc'     => __('A reference page that unambiguously indicates the item\'s identity; for example, the URL of the item\'s Wikipedia page, Freebase page, or official website.<br> Enter new line for every entry', "wp-seo-structured-data-schema")
+                    ),
+                    'review_body'          => array(
+                        'title'    => __('Review body', "wp-seo-structured-data-schema"),
+                        'type'     => 'textarea',
+                        'required' => true,
+                        'desc'     => __("The actual body of the review.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_datePublished' => array(
+                        'title' => __('Date of Published', "wp-seo-structured-data-schema"),
+                        'type'  => 'text',
+                        'class' => 'kcseo-date',
+                        'desc'  => __("Like this: 2015-12-25 4:00 PM", "wp-seo-structured-data-schema")
+                    ),
+                    'review_ratingValue'   => array(
+                        'title' => __('Rating value', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("A numerical quality rating for the item.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_bestRating'    => array(
+                        'title' => __('Best rating', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("The highest value allowed in this rating system.", "wp-seo-structured-data-schema")
+                    ),
+                    'review_worstRating'   => array(
+                        'title' => __('Worst rating', "wp-seo-structured-data-schema"),
+                        'type'  => 'number',
+                        'attr'  => 'step="any"',
+                        'desc'  => __("The lowest value allowed in this rating system. * Required if the rating system is not on a 5-point scale. If worstRating is omitted, 1 is assumed.", "wp-seo-structured-data-schema")
                     )
                 )
             ),
@@ -1341,108 +1454,108 @@ class KcSeoOptions
     }
 
     static function getLanguageList() {
-	    $language_list = array(
-		    "Akan",
-		    "Amharic",
-		    "Arabic",
-		    "Assamese",
-		    "Awadhi",
-		    "Azerbaijani",
-		    "Balochi",
-		    "Belarusian",
-		    "Bengali",
-		    "Bhojpuri",
-		    "Burmese",
-		    "Cantonese",
-		    "Cebuano",
-		    "Chewa",
-		    "Chhattisgarhi",
-		    "Chittagonian",
-		    "Czech",
-		    "Deccan",
-		    "Dhundhari",
-		    "Dutch",
-		    "English",
-		    "French",
-		    "Fula",
-		    "Gan",
-		    "German",
-		    "Greek",
-		    "Gujarati",
-		    "Haitian Creole",
-		    "Hakka",
-		    "Haryanvi",
-		    "Hausa",
-		    "Hiligaynon",
-		    "Hindi / Urdu",
-		    "Hmong",
-		    "Hungarian",
-		    "Igbo",
-		    "Ilokano",
-		    "Italian",
-		    "Japanese",
-		    "Javanese",
-		    "Jin",
-		    "Kannada",
-		    "Kazakh",
-		    "Khmer",
-		    "Kinyarwanda",
-		    "Kirundi",
-		    "Konkani",
-		    "Korean",
-		    "Kurdish",
-		    "Madurese",
-		    "Magahi",
-		    "Maithili",
-		    "Malagasy",
-		    "Malay/Indonesian",
-		    "Malayalam",
-		    "Mandarin",
-		    "Marathi",
-		    "Marwari",
-		    "Min Bei",
-		    "Min Dong",
-		    "Min Nan",
-		    "Mossi",
-		    "Nepali",
-		    "Oriya",
-		    "Oromo",
-		    "Pashto",
-		    "Persian",
-		    "Polish",
-		    "Portuguese",
-		    "Punjabi",
-		    "Quechua",
-		    "Romanian",
-		    "Russian",
-		    "Saraiki",
-		    "Serbo-Croatian",
-		    "Shona",
-		    "Sindhi",
-		    "Sinhalese",
-		    "Somali",
-		    "Spanish",
-		    "Sundanese",
-		    "Swahili",
-		    "Swedish",
-		    "Sylheti",
-		    "Tagalog",
-		    "Tamil",
-		    "Telugu",
-		    "Thai",
-		    "Turkish",
-		    "Ukrainian",
-		    "Uyghur",
-		    "Uzbek",
-		    "Vietnamese",
-		    "Wu",
-		    "Xhosa",
-		    "Xiang",
-		    "Yoruba",
-		    "Zulu",
-	    );
+        $language_list = array(
+            "Akan",
+            "Amharic",
+            "Arabic",
+            "Assamese",
+            "Awadhi",
+            "Azerbaijani",
+            "Balochi",
+            "Belarusian",
+            "Bengali",
+            "Bhojpuri",
+            "Burmese",
+            "Cantonese",
+            "Cebuano",
+            "Chewa",
+            "Chhattisgarhi",
+            "Chittagonian",
+            "Czech",
+            "Deccan",
+            "Dhundhari",
+            "Dutch",
+            "English",
+            "French",
+            "Fula",
+            "Gan",
+            "German",
+            "Greek",
+            "Gujarati",
+            "Haitian Creole",
+            "Hakka",
+            "Haryanvi",
+            "Hausa",
+            "Hiligaynon",
+            "Hindi / Urdu",
+            "Hmong",
+            "Hungarian",
+            "Igbo",
+            "Ilokano",
+            "Italian",
+            "Japanese",
+            "Javanese",
+            "Jin",
+            "Kannada",
+            "Kazakh",
+            "Khmer",
+            "Kinyarwanda",
+            "Kirundi",
+            "Konkani",
+            "Korean",
+            "Kurdish",
+            "Madurese",
+            "Magahi",
+            "Maithili",
+            "Malagasy",
+            "Malay/Indonesian",
+            "Malayalam",
+            "Mandarin",
+            "Marathi",
+            "Marwari",
+            "Min Bei",
+            "Min Dong",
+            "Min Nan",
+            "Mossi",
+            "Nepali",
+            "Oriya",
+            "Oromo",
+            "Pashto",
+            "Persian",
+            "Polish",
+            "Portuguese",
+            "Punjabi",
+            "Quechua",
+            "Romanian",
+            "Russian",
+            "Saraiki",
+            "Serbo-Croatian",
+            "Shona",
+            "Sindhi",
+            "Sinhalese",
+            "Somali",
+            "Spanish",
+            "Sundanese",
+            "Swahili",
+            "Swedish",
+            "Sylheti",
+            "Tagalog",
+            "Tamil",
+            "Telugu",
+            "Thai",
+            "Turkish",
+            "Ukrainian",
+            "Uyghur",
+            "Uzbek",
+            "Vietnamese",
+            "Wu",
+            "Xhosa",
+            "Xiang",
+            "Yoruba",
+            "Zulu",
+        );
 
-	    return apply_filters('kcseo_language_list', $language_list);
+        return apply_filters('kcseo_language_list', $language_list);
     }
 
     static function getSocialList() {
@@ -1461,6 +1574,19 @@ class KcSeoOptions
         );
 
         return apply_filters('kcseo_social_list', $socialList);
+    }
+
+    static function getReviewNotice() {
+        $html = null;
+        $html = '<span>As of September, Google made a major change to review snippet schema and structure data markup. Google no longer support "self-serving" independent markup tied to the general types and has narrow support to specific types.</span><br><br>
+<span>You can read more about Google\'s change here:<br><a target="_blank" href="https://webmasters.googleblog.com/2019/09/making-review-rich-results-more-helpful.html">https://webmasters.googleblog.com/2019/09/making-review-rich-results-more-helpful.html</a></span><br><br>
+<span style="font-weight: bold">If you are a user of our plugin prior to September 2019, you need to remove the review schema for this tab on all pages and  post where you\'ve it for reviews and add back to the supported types (such as: book, course, event, movie, product, recipe, etc):</span><br><br>
+<span style="display: block;margin: 0 auto;max-width: 800px;">1. Simple uncheck the "enable" tab in this section<br>
+2. Update the page or post to remove the review schema.<br>
+3. Then re-add new review schema within the appropriet type tab(i.e. book, course, event, movie, product, recipe, etc)</span>
+<br>To review Google\'s documentation on <a target="_blank" href="https://developers.google.com/search/docs/data-types/review-snippet">https://developers.google.com/search/docs/data-types/review-snippet</a>';
+
+        return $html;
     }
 
 }

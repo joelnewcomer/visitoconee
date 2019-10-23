@@ -6,8 +6,8 @@ if ( ! class_exists( 'KcSeoInit' ) ):
 		protected $version;
 
 		function __construct() {
-			global $KcSeoWPSchema;
-			$this->version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? time() : $KcSeoWPSchema->options['version'];
+
+			$this->version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? time() : KCSEO_VERSION;
 			add_action( 'init', array( $this, 'kcSeoScript' ) );
 			add_action( 'admin_menu', array( $this, 'kcSeo_Wp_Schema_menu' ) );
 			add_action( 'plugins_loaded', array( $this, 'kcSeo_pluginInit' ) );

@@ -56,6 +56,11 @@
         basil = new window.Basil(options);
     });
     </script>
+    
+    <?php
+	global $detect;
+	$detect = new Mobile_Detect;
+	?>    
 		
 		<?php // get_template_part('template-parts/preloader'); ?>
 		<a class="skip-link sr-only" href="#content"><?php _e( 'Skip to content', 'drumroll' ); ?></a>
