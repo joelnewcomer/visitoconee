@@ -44,7 +44,7 @@
 						// Text
 						// if ( $detect->isMobile() ) {
 							$text_message = $title . ' - ' . $desc . ' - ' . $share_link;
-							echo '<a href="sms:+1&body=' . $text_message . '" target="_blank">';
+							echo '<a href="sms:?&body=' . $text_message . '" target="_blank">';
 							get_template_part('assets/images/texting','icon.svg');
 							echo '</a>';
 						// }	
