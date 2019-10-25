@@ -44,7 +44,12 @@
 						// Text
 						if ( $detect->isMobile() ) {
 							$text_message = $title . ' - ' . $desc . ' - ' . $share_link;
-							echo '<a href="sms://?body=' . rawurlencode($text_message) . '">';
+							if ($detect->isiOS()) { 
+								echo '<a href="sms://+1?body=' . rawurlencode($text_message) . '">';
+							}
+							if( $detect->isAndroidOS() ){
+								echo '<a href="sms://+1?body=' . rawurlencode($text_message) . '">';
+							}
 							get_template_part('assets/images/texting','icon.svg');
 							echo '</a>';
 						}	
