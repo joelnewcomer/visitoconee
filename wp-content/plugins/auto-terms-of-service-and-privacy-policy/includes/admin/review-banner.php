@@ -18,7 +18,7 @@ class Review_Banner {
 			return;
 		}
 		add_action( 'admin_notices', array( $this, 'print_notice' ) );
-		$this->action = new Set_Option( CPT::edit_cap(), null, static::ACTION_ID );
+		$this->action = new Set_Option( CPT::edit_cap(), static::ACTION_ID );
 		$this->action->set_option_name( static::ACTION_ID );
 	}
 

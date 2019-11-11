@@ -2,12 +2,15 @@
 
 //mimic the actuall admin-ajax
 define('DOING_AJAX', true);
-
-if (!isset($_POST['action'])) {
+$wpdiscuz_ajax_action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING);
+//var_dump($action);
+//print_r($_POST);
+if (!$wpdiscuz_ajax_action) {
     die('-1');
 }
 
-require_once('../../../../../wp-load.php');
+$ABSPATH = wpdiscuz_ABSPATH();
+require_once($ABSPATH . DIRECTORY_SEPARATOR .'wp-load.php');
 
 header('Content-Type: text/html');
 send_nosniff_header();
@@ -16,7 +19,7 @@ header('Cache-Control: no-cache');
 header('Pragma: no-cache');
 
 $wpdiscuz = wpDiscuz();
-$action = esc_attr(trim($_POST['action']));
+$wpdiscuz_ajax_action = esc_attr(trim($wpdiscuz_ajax_action));
 $allowedActions = array(
     'wpdLoadMoreComments',
     'wpdVoteOnComment',
@@ -124,12 +127,19 @@ add_action('wpdiscuz_wpdCloseThread', array($wpdiscuz->helperAjax, 'closeThread'
 // Follow user
 add_action('wpdiscuz_wpdFollowUser', array($wpdiscuz->helperAjax, 'followUser'));
 
-if (in_array($action, $allowedActions)) {
+if (in_array($wpdiscuz_ajax_action, $allowedActions)) {
     if (is_user_logged_in()) {
-        do_action('wpdiscuz_' . $action);
+        do_action('wpdiscuz_' . $wpdiscuz_ajax_action);
     } else {
-        do_action('wpdiscuz_nopriv_' . $action);
+        do_action('wpdiscuz_nopriv_' . $wpdiscuz_ajax_action);
     }
 } else {
     die('-1');
+}
+
+function wpdiscuz_ABSPATH(){
+    $dirname = dirname(__FILE__);
+    $path = join(DIRECTORY_SEPARATOR, ['wp-content','plugins','wpdiscuz','utils','ajax']);
+    $abspath = str_replace($path, '', $dirname);
+    return $abspath;
 }

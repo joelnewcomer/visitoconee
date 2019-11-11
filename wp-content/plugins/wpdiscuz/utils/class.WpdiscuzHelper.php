@@ -199,7 +199,7 @@ class WpdiscuzHelper implements WpDiscuzConstants {
             return false;
         }
         $form = $this->wpdiscuzForm->getForm($post->ID);
-        return $form->getFormID() && (comments_open($post) || $post->comment_count) && is_singular() && post_type_supports($post->post_type, 'comments');
+        return apply_filters('is_load_wpdiscuz', $form->getFormID() && (comments_open($post) || $post->comment_count) && is_singular() && post_type_supports($post->post_type, 'comments'), $post);
     }
 
     public function replaceCommentContentCode($content) {

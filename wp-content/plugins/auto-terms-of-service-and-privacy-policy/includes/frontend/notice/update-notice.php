@@ -2,107 +2,49 @@
 
 namespace wpautoterms\frontend\notice;
 
-use wpautoterms\cpt\CPT;
+use wpautoterms\admin\Options;
+use wpautoterms\Updated_Posts;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 class Update_Notice extends Base_Notice {
+	const ID = 'update_notice';
+	const COOKIE_PREFIX = 'wpautoterms-update-notice-';
 	const BLOCK_CLASS = 'wpautoterms-update-notice';
 	const CLOSE_CLASS = 'wpautoterms-notice-close';
+	const ACTION_NAME = '_check_updates';
 
-	protected $_duration;
-	protected $_posts;
 	public $message_multiple;
+	protected $compat;
 
 	public static function create() {
-		$a = new Update_Notice( 'update_notice', 'wpautoterms-update-notice-container', static::BLOCK_CLASS );
+		$a = new Update_Notice( static::ID, WPAUTOTERMS_TAG . '-update-notice-container', static::BLOCK_CLASS );
 		$a->message_multiple = get_option( WPAUTOTERMS_OPTION_PREFIX . $a->id() . '_message_multiple' );
 
 		return $a;
 	}
 
-	protected function get_posts() {
-		$args = array(
-			'post_type' => CPT::type(),
-			'post_status' => 'publish',
-			'orderby' => 'post_modified',
-			'date_query' => array(
-				'column' => 'post_modified',
-				'after' => '-' . $this->_duration . ' days',
-			),
-		);
-
-		$posts = get_posts( $args );
-		$this->_posts = array();
-		if ( count( $posts ) ) {
-			foreach ( $posts as $post ) {
-				if ( $post->post_modified == $post->post_date ) {
-					continue;
-				}
-				$t = get_post_modified_time( get_option( 'date_format' ), false, $post, true );
-				if ( ! isset( $this->_posts[ $t ] ) ) {
-					$this->_posts[ $t ] = array();
-				}
-				$this->_posts[ $t ][] = $post;
-			}
-		}
+	protected function _print_box() {
+		\wpautoterms\print_template( 'update-notice', array(
+			'class_escaped' => esc_attr( static::BLOCK_CLASS ),
+			'close' => $this->_close_message,
+		) );
 	}
 
-	protected function print_box() {
-		if ( empty( $this->_posts ) ) {
-			return;
-		}
-		global $wpautoterms_post;
-		global $wpautoterms_posts;
-		foreach ( $this->_posts as $date => $posts ) {
-			if ( count( $posts ) > 1 ) {
-				$wpautoterms_posts = array();
-				$wpautoterms_post = $posts[0];
-				$cookie = array();
-				$values = array();
-				foreach ( $posts as $post ) {
-					$modified = strtotime( $post->post_modified );
-					$tmp_cookie = 'wpautoterms-update-notice-' . $post->ID;
-					if ( ! isset( $_COOKIE[ $tmp_cookie ] ) || ( $_COOKIE[ $tmp_cookie ] != $modified ) ) {
-						$cookie[] = $tmp_cookie;
-						$values[] = $modified;
-						$wpautoterms_posts[] = $post;
-					}
-				}
-				if ( ! empty( $wpautoterms_posts ) ) {
-					\wpautoterms\print_template( 'update-notice', array(
-						'cookie_name' => join( ',', $cookie ),
-						'cookie_value' => join( ',', $values ),
-						'message' => do_shortcode( $this->message_multiple ),
-						'close' => $this->_close_message,
-					) );
-				}
-			} else if ( count( $posts ) ) {
-				$post = $posts[0];
-				$modified = strtotime( $post->post_modified );
-				$cookie = 'wpautoterms-update-notice-' . $post->ID;
-				if ( ! isset( $_COOKIE[ $cookie ] ) || ( $_COOKIE[ $cookie ] != $modified ) ) {
-					$wpautoterms_post = $post;
-					\wpautoterms\print_template( 'update-notice', array(
-						'cookie_name' => $cookie,
-						'cookie_value' => $modified,
-						'message' => do_shortcode( $this->_message ),
-						'close' => $this->_close_message,
-					) );
-				}
-			}
-		}
-	}
+	protected function _localize_args() {
+		$ret = parent::_localize_args();
+		$posts = new Updated_Posts( intval( get_option( WPAUTOTERMS_OPTION_PREFIX . 'update_notice_duration' ) ),
+			static::COOKIE_PREFIX, $this->_message, $this->message_multiple );
+		$posts->fetch_posts();
+		$ret['data'] = $posts->transform();
+		$ret['ajaxurl'] = admin_url( 'admin-ajax.php' );
+		$ret['action'] = WPAUTOTERMS_SLUG . static::ACTION_NAME;
+		$ret['cache_detector_cookie'] = WPAUTOTERMS_SLUG . '_cache_detector';
+		$ret['cache_detected'] = 1;
+		setcookie( $ret['cache_detector_cookie'], 0, 0, COOKIEPATH, COOKIE_DOMAIN );
 
-	protected function get_data() {
-		$this->_duration = intval( get_option( WPAUTOTERMS_OPTION_PREFIX . 'update_notice_duration' ) );
-		$this->get_posts();
-		if ( empty( $this->_posts ) ) {
-			return false;
-		}
-
-		return true;
+		return $ret;
 	}
 }

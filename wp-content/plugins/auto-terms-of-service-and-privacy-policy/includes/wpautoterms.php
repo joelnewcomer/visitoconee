@@ -3,6 +3,7 @@
 namespace wpautoterms;
 
 use wpautoterms\admin\form\Legal_Page;
+use wpautoterms\admin\Notices;
 use wpautoterms\admin\Options;
 use wpautoterms\cpt\CPT;
 use wpautoterms\frontend\Widget;
@@ -31,6 +32,7 @@ abstract class Wpautoterms {
 		Shortcodes::init();
 		Legacy_Shortcodes::init();
 		Widget::init();
+		Notices::$instance = new Notices( WPAUTOTERMS_OPTION_PREFIX . 'notices' );
 	}
 
 	/**

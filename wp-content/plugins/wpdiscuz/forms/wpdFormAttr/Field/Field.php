@@ -55,7 +55,7 @@ abstract class Field {
         ?>
         <div class="wpd-field <?php echo $this->isDefault ? 'wpd-default-field' : ''; ?>">
             <div class="wpd-field-head">
-                <?php echo $args['name']; ?>
+                <?php echo htmlentities($args['name']); ?>
                 <?php
                 if ($args['type'] == 'wpdFormAttr\Field\DefaultField\Submit') {
                     _e(' (Submit Button)', 'wpdiscuz');
@@ -63,7 +63,7 @@ abstract class Field {
                     _e(' (CAPTCHA)', 'wpdiscuz');
                 } elseif (!strstr($args['type'], 'wpdFormAttr\Field\DefaultField')) {
                     $fieldLable = str_replace('wpdFormAttr\Field\\', '', $args['type']);
-                    echo ' ( ' . str_replace('Field', '', $fieldLable) . ' )';
+                    echo ' ( ' . htmlentities(str_replace('Field', '', $fieldLable)) . ' )';
                 }
                 ?>
                 <div class="wpd-field-actions">

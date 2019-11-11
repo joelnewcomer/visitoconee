@@ -1,4 +1,9 @@
-<div class="postbox wpautoterms-options-box">
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?><div class="postbox wpautoterms-options-box">
     <h3><?php use wpautoterms\api\License;
 
 		echo $box->title(); ?></h3>

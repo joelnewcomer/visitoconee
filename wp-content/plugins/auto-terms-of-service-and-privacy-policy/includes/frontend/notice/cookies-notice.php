@@ -31,19 +31,15 @@ class Cookies_Notice extends Base_Notice {
 		return $this->_license->status() != License::STATUS_FREE && parent::_is_enabled();
 	}
 
-	protected function print_box() {
+	protected function _print_box() {
 		$cookie = 'wpautoterms-cookies-notice';
-		if ( ! isset( $_COOKIE[ $cookie ] ) ) {
-			\wpautoterms\print_template( 'cookies-notice', array(
-				'cookie_name' => $cookie,
-				'cookie_value' => 1,
-				'message' => do_shortcode( $this->_message ),
-				'close' => $this->_close_message,
-			) );
-		}
-	}
-
-	protected function get_data() {
-		return true;
+		$class_escaped = esc_attr( Cookies_Notice::CLASS_COOKIES_NOTICE );
+		\wpautoterms\print_template( 'cookies-notice', array(
+			'cookie_name' => $cookie,
+			'cookie_value' => 1,
+			'class_escaped' => $class_escaped,
+			'message' => do_shortcode( $this->_message ),
+			'close' => $this->_close_message,
+		) );
 	}
 }

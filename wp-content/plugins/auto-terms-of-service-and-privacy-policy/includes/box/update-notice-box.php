@@ -4,6 +4,7 @@ namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
 use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\Container_Constants;
 use wpautoterms\frontend\notice\Update_Notice;
 use wpautoterms\option;
 
@@ -55,22 +56,17 @@ class Update_Notice_Box extends Box {
 	function define_options( $page_id, $section_id ) {
 		new option\Checkbox_Option( $this->id(), __( 'Enabled', WPAUTOTERMS_SLUG ), '', $page_id, $section_id );
 
-		if ( current_user_can( CPT::edit_cap() ) ) {
-//			new option\Checkbox_Option( $this->id() . '_test_mode', __( 'Test mode', WPAUTOTERMS_SLUG ),
-//				__( 'Show sample box to admin', WPAUTOTERMS_SLUG ), $page_id, $section_id );
-		}
-
 		$a = new option\Choices_Option( $this->id() . '_bar_position', __( 'Announcement bar position', WPAUTOTERMS_SLUG ),
 			'', $page_id, $section_id );
 		$a->set_values( array(
-			'top' => __( 'top', WPAUTOTERMS_SLUG ),
-			'bottom' => __( 'bottom', WPAUTOTERMS_SLUG ),
+			Container_Constants::LOCATION_TOP => __( 'top', WPAUTOTERMS_SLUG ),
+			Container_Constants::LOCATION_BOTTOM => __( 'bottom', WPAUTOTERMS_SLUG ),
 		) );
 		$a = new option\Choices_Option( $this->id() . '_bar_type', __( 'Announcement bar type', WPAUTOTERMS_SLUG ),
 			'', $page_id, $section_id );
 		$a->set_values( array(
-			'static' => __( 'static', WPAUTOTERMS_SLUG ),
-			'fixed' => __( 'fixed', WPAUTOTERMS_SLUG ),
+			Container_Constants::TYPE_STATIC => __( 'static', WPAUTOTERMS_SLUG ),
+			Container_Constants::TYPE_FIXED => __( 'fixed', WPAUTOTERMS_SLUG ),
 		) );
 		/*
 		new Choices_Combo_Option($this->id().'_offset', __( 'Announcement bar offset', WPAUTOTERMS_SLUG ),
@@ -103,11 +99,12 @@ class Update_Notice_Box extends Box {
 			'media_buttons' => false,
 			'editor_height' => 150,
 			'filters' => array(
-				'mce_buttons' => array( $this, 'limited_buttons' ),
-				'mce_buttons_2' => array( $this, 'empty_buttons' ),
-				'mce_buttons_3' => array( $this, 'empty_buttons' ),
-				'mce_buttons_4' => array( $this, 'empty_buttons' ),
-				'wpautoterms_post_editor' => array( $this, 'shortcodes' ),
+				array( 'mce_buttons', array( $this, 'limited_buttons' ) ),
+				array( 'mce_buttons_2', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_3', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_4', array( $this, 'empty_buttons' ) ),
+				array( 'wpautoterms_post_editor', array( $this, 'shortcodes' ) ),
+				array( 'wpautoterms_post_editor', array( $this, '_render_revert_message' ) ),
 			),
 			'tinymce' => array(
 				'resize' => false,
@@ -120,11 +117,12 @@ class Update_Notice_Box extends Box {
 			'media_buttons' => false,
 			'editor_height' => 150,
 			'filters' => array(
-				'mce_buttons' => array( $this, 'limited_buttons' ),
-				'mce_buttons_2' => array( $this, 'empty_buttons' ),
-				'mce_buttons_3' => array( $this, 'empty_buttons' ),
-				'mce_buttons_4' => array( $this, 'empty_buttons' ),
-				'wpautoterms_post_editor' => array( $this, 'shortcodes_multiple' ),
+				array( 'mce_buttons', array( $this, 'limited_buttons' ) ),
+				array( 'mce_buttons_2', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_3', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_4', array( $this, 'empty_buttons' ) ),
+				array( 'wpautoterms_post_editor', array( $this, 'shortcodes_multiple' ) ),
+				array( 'wpautoterms_post_editor', array( $this, '_render_revert_message' ) ),
 			),
 			'tinymce' => array(
 				'resize' => false,
@@ -145,8 +143,8 @@ class Update_Notice_Box extends Box {
 	public function defaults() {
 		return array(
 			$this->id() => false,
-			$this->id() . '_bar_position' => 'top',
-			$this->id() . '_bar_type' => 'static',
+			$this->id() . '_bar_position' => Container_Constants::LOCATION_TOP,
+			$this->id() . '_bar_type' => Container_Constants::TYPE_STATIC,
 			$this->id() . '_disable_logged' => 'yes',
 			$this->id() . '_duration' => '3',
 			$this->id() . '_message' => __( 'Our <a href="[wpautoterms page_link]">[wpautoterms page_title]</a> has been updated on [wpautoterms last_updated_date].', WPAUTOTERMS_SLUG ),

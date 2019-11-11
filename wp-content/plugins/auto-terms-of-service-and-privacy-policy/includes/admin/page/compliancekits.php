@@ -65,8 +65,7 @@ class Compliancekits extends Settings_Base {
 
 	function enqueue_scripts() {
 		if ( ! $this->_box ) {
-			wp_enqueue_script( WPAUTOTERMS_SLUG . '_compliancekits_page',
-				WPAUTOTERMS_PLUGIN_URL . 'js/compliancekits-page.js', false, false, true );
+			wp_enqueue_script( WPAUTOTERMS_SLUG . '_compliancekits_page', WPAUTOTERMS_PLUGIN_URL . 'js/compliancekits-page.js', false, WPAUTOTERMS_VERSION, true );
 			wp_localize_script( WPAUTOTERMS_SLUG . '_compliancekits_page', 'wpautotermsComplianceKits', array(
 				'boxData' => array_reduce( $this->_boxes, function ( $acc, Box $x ) {
 					$acc[ $x->enable_action_id() ] = array(
@@ -83,11 +82,7 @@ class Compliancekits extends Settings_Base {
 			) );
 		} else {
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( WPAUTOTERMS_SLUG . '_box_page',
-				WPAUTOTERMS_PLUGIN_URL . 'js/box-page.js',
-				array( 'wp-color-picker' ),
-				false,
-				true );
+			wp_enqueue_script( WPAUTOTERMS_SLUG . '_box_page', WPAUTOTERMS_PLUGIN_URL . 'js/box-page.js', array( 'wp-color-picker' ), WPAUTOTERMS_VERSION, true );
 			$this->_box->enqueue_scripts();
 		}
 	}

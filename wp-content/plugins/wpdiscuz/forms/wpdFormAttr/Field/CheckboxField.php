@@ -93,7 +93,7 @@ class CheckboxField extends Field {
                 <div class="wpd-field-group-title">
                     <div class="wpd-item">
                         <input id="<?php echo $name . '-1_' . $uniqueId; ?>" type="checkbox" name="<?php echo $name; ?>[]" value="1" class="<?php echo $name; ?> wpd-field"  <?php echo $args['required'] ? 'required' : ''; ?>>
-                        <label class="wpd-field-label wpd-cursor-pointer" for="<?php echo $name . '-1_' . $uniqueId; ?>"><?php echo $args['values'][0]; ?></label>
+                        <label class="wpd-field-label wpd-cursor-pointer" for="<?php echo $name . '-1_' . $uniqueId; ?>"><?php echo htmlentities($args['values'][0]); ?></label>
                     </div>
                 </div>
                 <?php if ($args['desc']) { ?>

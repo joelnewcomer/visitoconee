@@ -50,6 +50,13 @@ function wpautoterms_country_translations_{locale} () {{
 }}
 """
 
+def filter_states(subdiv):
+    if subdiv.country_code == "GB":
+        return False
+    if subdiv.country_code == "PH" and subdiv.code == "PH-00":
+        return True
+    t = subdiv.type.lower()
+    return t in ("state", "province", "territory", "autonomous republic")
 
 def run():
 	with open(LOCALES, "r") as f:
@@ -59,7 +66,7 @@ def run():
 	for c in pycountry.countries:
 		code = c.alpha_2
 		s = pycountry.subdivisions.get(country_code=code)
-		s = filter(lambda y:y.type.lower() in ("state", "province", "territory", "autonomous republic") and code != "GB",s)
+		s = filter(filter_states, s)
 		countries[code]=map(lambda x:x.code, s)
 		states+=s
 	print "Saving {} subdivisions and {} countries...".format(len(states), len(countries.keys()))

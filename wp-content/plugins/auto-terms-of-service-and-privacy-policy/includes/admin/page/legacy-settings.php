@@ -131,8 +131,7 @@ class Legacy_Settings extends Settings_Base {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_legacy_on_off', WPAUTOTERMS_PLUGIN_URL . 'js/legacy-on-off.js',
-			false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_legacy_on_off', WPAUTOTERMS_PLUGIN_URL . 'js/legacy-on-off.js', false, WPAUTOTERMS_VERSION, true );
 		wp_localize_script( WPAUTOTERMS_SLUG . '_legacy_on_off', 'wpautotermsLegacy', array(
 			'required' => __( 'required', WPAUTOTERMS_SLUG ),
 			'onOffNotice' => __( 'please, fill all required fields to enable', WPAUTOTERMS_SLUG ),

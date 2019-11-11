@@ -1,4 +1,9 @@
-<div class="wpautoterms-options-select-combo <?php echo $classes; ?>">
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?><div class="wpautoterms-options-select-combo <?php echo $classes; ?>">
     <select name="<?php echo $name; ?>" id="<?php echo $name; ?>">
 		<?php
 		$found = false;

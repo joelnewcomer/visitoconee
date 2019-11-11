@@ -55,38 +55,35 @@ jQuery(document).ready(function ($) {
         s.trigger("change");
     });
 
-    function send_to_editor( html ) {
-        var editor,
-            hasTinymce = typeof tinymce !== 'undefined',
-            hasQuicktags = typeof QTags !== 'undefined';
-
-        if ( ! wpActiveEditor ) {
-            if ( hasTinymce && tinymce.activeEditor ) {
-                editor = tinymce.activeEditor;
-                wpActiveEditor = editor.id;
-            } else if ( ! hasQuicktags ) {
-                return false;
-            }
-        } else if ( hasTinymce ) {
-            editor = tinymce.get( wpActiveEditor );
+    function send_to_editor(editorId, html, replace) {
+        var editor;
+        if (typeof tinymce !== 'undefined') {
+            editor = tinymce.get(editorId);
         }
-
-        if ( editor && ! editor.isHidden() ) {
-            editor.execCommand( 'mceInsertContent', false, html );
-        } else if ( hasQuicktags ) {
-            QTags.insertContent( html );
+        if (editor && !editor.isHidden()) {
+            editor.execCommand(replace ? "mceSetContent" : "mceInsertContent", false, html);
         } else {
-            document.getElementById( wpActiveEditor ).value += html;
+            if (replace) {
+                document.getElementById(editorId).value = html;
+            } else {
+                document.getElementById(editorId).value += html;
+            }
         }
     }
 
-    $(".wpautoterms-shortcodes-source a").each(function () {
-        var t=jQuery(this);
-        var id=t.data("editor");
-        var data=t.data("data");
-        t.click(function(){
-            send_to_editor(data);
-            //tinymce.get(id).execCommand('mceInsertContent', false, data);
+    function inject_action(el, replace) {
+        var t = jQuery(el);
+        var id = t.data("editor");
+        var data = t.data("data");
+        t.click(function () {
+            send_to_editor(id, data, replace);
         });
+    }
+
+    $(".wpautoterms-shortcodes-source a").each(function () {
+        inject_action(this, false);
+    });
+    $(".wpautoterms-replace-source a").each(function () {
+        inject_action(this, true);
     });
 });

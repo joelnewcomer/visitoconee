@@ -5,7 +5,7 @@ Tags: YouTube, Vimeo, lazyload, thumbnail, video, responsive, embeds, video-embe
 Requires at least: 4.4.0
 Tested up to: 5.2.2
 Requires PHP: 5.3
-Stable tag: 8.10.13
+Stable tag: 8.10.20
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,6 +16,8 @@ Easy responsive video embeds via URLs or shortcodes. Perfect drop-in replacement
 The best WordPress plugin for videos? Supports close to everything you can imagine, still keeping it easy & simple.
 
 It is very likely the one and only plugin you will ever need to handle video embeds on your WordPress site(s). It goes far beyond just making your videos responsive!
+
+### Big version update with Gutenberg Block is coming [please help testing](https://nextgenthemes.com/plugins/arve/help-testing-the-beta-version/) ###
 
 [youtube https://www.youtube.com/watch?v=m6mkA6Zr1vY ]
 
@@ -157,6 +159,14 @@ This plugins embed is considered as 'custom player' by YouTube so you have to pa
 
 * [ARVE Pro addon changelog](https://nextgenthemes.com/plugins/arve-pro/changelog/)
 * [ARVE AMP addon changelog](https://nextgenthemes.com/plugins/arve-amp/)
+
+### 2019-11-05 - 8.10.20 ###
+
+* Big version update with Gutenberg Block is coming [please help testing](https://nextgenthemes.com/plugins/arve/help-testing-the-beta-version/)
+
+### 2019-10-18 - 8.10.15 ###
+
+* Fix: Force shortcode args to be array. To prevent issues.
 
 ### 2019-10-09 - 8.10.13 ###
 

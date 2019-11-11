@@ -89,19 +89,17 @@ abstract class Countries {
 	}
 
 	public static function enqueue_scripts() {
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_countries', WPAUTOTERMS_PLUGIN_URL . 'js/countries.js',
-			array( 'underscore', 'wp-util' ), false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_countries', WPAUTOTERMS_PLUGIN_URL . 'js/countries.js', array( 'underscore', 'wp-util' ), WPAUTOTERMS_VERSION, true );
 		$ret = static::select_locale( static::LOCALE_PATH );
 		if ( $ret !== false ) {
 			$lang = $ret[1];
 			$locale = $ret[0];
 			$locale = WPAUTOTERMS_PLUGIN_URL . substr( $locale, strlen( WPAUTOTERMS_PLUGIN_DIR ) );
-			wp_enqueue_script( WPAUTOTERMS_SLUG . '_countries_locale', $locale, false, false, true );
+			wp_enqueue_script( WPAUTOTERMS_SLUG . '_countries_locale', $locale, false, WPAUTOTERMS_VERSION, true );
 		} else {
 			$lang = static::DEFAULT_LOCALE;
 		}
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_states_js', WPAUTOTERMS_PLUGIN_URL . 'js/data/states.js',
-			false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_states_js', WPAUTOTERMS_PLUGIN_URL . 'js/data/states.js', false, WPAUTOTERMS_VERSION, true );
 
 		wp_localize_script( WPAUTOTERMS_SLUG . '_countries', 'wpautotermsCountry', array(
 			'country' => Options::get_option( Options::COUNTRY ),

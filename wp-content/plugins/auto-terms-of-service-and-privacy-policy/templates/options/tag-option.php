@@ -1,4 +1,9 @@
-<p><?php _e( 'Choose a tag from your current list of tags:', WPAUTOTERMS_SLUG ); ?></p>
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?><p><?php _e( 'Choose a tag from your current list of tags:', WPAUTOTERMS_SLUG ); ?></p>
 <select class="wpautoterms-options-select-tag <?php echo $classes; ?>" name="<?php echo $name; ?>[]"
         id="<?php echo $name; ?>[]">
 	<?php

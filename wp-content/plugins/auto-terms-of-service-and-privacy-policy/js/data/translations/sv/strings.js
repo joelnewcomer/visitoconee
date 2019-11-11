@@ -1146,6 +1146,7 @@ wpautotermsStates.translations = {
   "PG-WHM": "Western Highlands", 
   "PG-WPD": "Västra", 
   "PH": "Filippinerna", 
+  "PH-00": "Metro Manila", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Agusan del Sur", 

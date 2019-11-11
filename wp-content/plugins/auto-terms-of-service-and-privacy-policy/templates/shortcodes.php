@@ -7,5 +7,5 @@
 			esc_attr( $v ) . '" data-editor="'.esc_attr($option->name()).'">' . esc_html( $k ) . '</a>';
 	}
 	echo join( ', ', $s );
-	?>
+	?>.
 </p>

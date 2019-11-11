@@ -1146,6 +1146,7 @@ wpautotermsStates.translations = {
   "PG-WHM": "Nyugati felföldek", 
   "PG-WPD": "Western", 
   "PH": "Fülöp-szigetek", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Agusan del Sur", 

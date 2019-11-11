@@ -1,4 +1,9 @@
-<div class="wpautoterms-flex">
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?><div class="wpautoterms-flex">
     <div class="wpautoterms-w-3">
         <textarea name="<?php echo $name; ?>" class="<?php echo $classes; ?>" id="<?php echo $name; ?>"<?php
         echo empty( $attrs ) ? '' : ' ' . $attrs;

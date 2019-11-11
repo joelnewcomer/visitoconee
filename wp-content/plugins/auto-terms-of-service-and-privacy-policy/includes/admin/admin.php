@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use wpautoterms\Action_Base;
+use wpautoterms\admin\action\Check_Updates;
+use wpautoterms\admin\action\Dismiss_Notice;
 use wpautoterms\admin\action\Recheck_License;
 use wpautoterms\admin\action\Set_Option;
 use wpautoterms\admin\form\Legal_Page;
@@ -15,6 +17,7 @@ use wpautoterms\api\Query;
 use wpautoterms\Countries;
 use wpautoterms\cpt\Admin_Columns;
 use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\notice\Update_Notice;
 use wpautoterms\Upgrade;
 use wpautoterms\Wpautoterms;
 
@@ -48,59 +51,70 @@ abstract class Admin {
 	}
 
 	public static function action_init() {
-		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 100 );
 		add_filter( 'post_row_actions', array( __CLASS__, 'row_actions' ), 10, 2 );
 		add_filter( 'pre_update_option', array( __CLASS__, 'fix_update' ), 10, 3 );
-		add_filter( 'get_sample_permalink_html', array( __CLASS__, 'remove_permalink' ), 10, 5 );
 		add_action( 'edit_form_top', array( __CLASS__, 'edit_form_top' ) );
 		add_filter( 'get_pages', array( __CLASS__, 'update_wp_builtin_pp' ), 10, 2 );
+		add_action( 'activated_plugin', array( __CLASS__, 'on_activated_plugin' ), 10, 2 );
+		add_action( WPAUTOTERMS_SLUG . Dismiss_Notice::DISMISSED_ACTION_SUFFIX, array(
+			__CLASS__,
+			'_on_dismiss_notice'
+		), 10, 3 );
 
-		Notices::init( WPAUTOTERMS_OPTION_PREFIX . 'notices' );
-
-		$recheck_action = new Recheck_License( CPT::edit_cap(), null, '', null, __( 'Access denied', WPAUTOTERMS_SLUG ) );
+		$recheck_action = new Recheck_License( CPT::edit_cap(), '', null, null, __( 'Access denied', WPAUTOTERMS_SLUG ) );
 		$recheck_action->set_license_query( static::$_license );
 
 		// TODO: extract warnings class
-		static::$_warning_action = new Set_Option( CPT::edit_cap(), null, 'settings_warning_disable' );
+		static::$_warning_action = new Set_Option( CPT::edit_cap(), 'settings_warning_disable' );
 		static::$_warning_action->set_option_name( 'settings_warning_disable' );
+
+		$cu = new Check_Updates( '', WPAUTOTERMS_SLUG . Update_Notice::ACTION_NAME, null, null,
+			__( 'Updated posts error', WPAUTOTERMS_SLUG ), false, true, true );
+		$cu->duration = intval( get_option( WPAUTOTERMS_OPTION_PREFIX . Update_Notice::ID . '_duration' ) );
+		$cu->message_multiple = get_option( WPAUTOTERMS_OPTION_PREFIX . Update_Notice::ID . '_message_multiple' );
+		$cu->message = get_option( WPAUTOTERMS_OPTION_PREFIX . Update_Notice::ID . '_message' );
+		$cu->cookie_prefix = Update_Notice::COOKIE_PREFIX;
 
 		Admin_Columns::init();
 		Menu::init( static::$_license );
 		static::$_license->check();
 	}
 
+	public static function _on_dismiss_notice( $class, $id, $success ) {
+		Options::set_option( Options::CACHE_PLUGINS_SUPPRESS_WARNING, true );
+	}
+
+	public static function on_activated_plugin( $plugin, $network_wide ) {
+		Options::set_option( Options::CACHE_PLUGINS_DETECTION, true );
+		Options::set_option( Options::CACHE_PLUGINS_DETECTED, false );
+		Options::set_option( Options::OB_TOTAL, 0 );
+		Options::set_option( Options::OB_NOT_INTERCEPTED, 0 );
+	}
+
 	public static function update_wp_builtin_pp( $pages, $r ) {
-		if ( ! isset( $r['name'] ) || ! in_array( $r['name'], array(
+		$res = isset( $r['name'] ) && in_array( $r['name'], array(
 				'wp_page_for_privacy_policy',
 				'page_for_privacy_policy',
 				'woocommerce_terms_page_id'
-			) ) ) {
+			) );
+		if ( ! $res && function_exists( 'wc_get_page_id' ) && isset( $r['exclude'] ) ) {
+			$cmp = array(
+				wc_get_page_id( 'cart' ),
+				wc_get_page_id( 'checkout' ),
+				wc_get_page_id( 'myaccount' ),
+			);
+			$res = $cmp === $r['exclude'];
+		}
+		if ( ! $res ) {
 			return $pages;
 		}
 		$r['post_type'] = CPT::type();
 		$r['name'] = WPAUTOTERMS_SLUG . '_page_for_privacy_policy';
+		unset( $r['exclude'] );
 		$autoterms_pages = get_pages( $r );
 
 		return array_merge( $pages, $autoterms_pages );
-	}
-
-	public static function add_meta_boxes() {
-		global $post;
-
-		if ( empty( $post ) || ( $post->post_type != CPT::type() ) ) {
-			return;
-		}
-
-		remove_meta_box( 'slugdiv', $post->post_type, 'normal' );
-	}
-
-	public static function remove_permalink( $permalink, $post_id, $new_title, $new_slug, $post ) {
-		if ( $post->post_type != CPT::type() ) {
-			return $permalink;
-		}
-
-		return '';
 	}
 
 	public static function edit_form_top( $post ) {
@@ -177,12 +191,10 @@ abstract class Admin {
 				}
 			}
 			if ( $page == 'edit.php' ) {
-				wp_enqueue_script( WPAUTOTERMS_SLUG . '_row_actions', WPAUTOTERMS_PLUGIN_URL . 'js/row-actions.js',
-					false, false, true );
+        wp_enqueue_script( WPAUTOTERMS_SLUG . '_row_actions', WPAUTOTERMS_PLUGIN_URL . 'js/row-actions.js', false, WPAUTOTERMS_VERSION, true );
 			}
 			if ( $page == 'post-new.php' && $post->post_status == 'auto-draft' ) {
-				wp_enqueue_script( WPAUTOTERMS_SLUG . '_post_new', WPAUTOTERMS_PLUGIN_URL . 'js/post-new.js',
-					false, false, true );
+				wp_enqueue_script( WPAUTOTERMS_SLUG . '_post_new', WPAUTOTERMS_PLUGIN_URL . 'js/post-new.js', false, WPAUTOTERMS_VERSION, true );
 				$hidden = array();
 				$dependencies = array();
 				/**
@@ -198,15 +210,15 @@ abstract class Admin {
 					'dependencies' => $dependencies,
 					'page_id' => $page_id
 				) );
-				wp_register_style( WPAUTOTERMS_SLUG . '_post_new_css', WPAUTOTERMS_PLUGIN_URL . 'css/post-new.css', false );
-				wp_enqueue_style( WPAUTOTERMS_SLUG . '_post_new_css' );
+				wp_register_style( WPAUTOTERMS_SLUG . '_post_new_css', WPAUTOTERMS_PLUGIN_URL . 'css/post-new.css',
+					WPAUTOTERMS_VERSION );
+				wp_enqueue_style( WPAUTOTERMS_SLUG . '_post_new_css', array(), WPAUTOTERMS_VERSION );
 			}
 
 		}
-		wp_register_style( WPAUTOTERMS_SLUG . '_admin_css', WPAUTOTERMS_PLUGIN_URL . 'css/admin.css', false );
-		wp_enqueue_style( WPAUTOTERMS_SLUG . '_admin_css' );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_common', WPAUTOTERMS_PLUGIN_URL . 'js/common.js',
-			false, false, true );
+		wp_register_style( WPAUTOTERMS_SLUG . '_admin_css', WPAUTOTERMS_PLUGIN_URL . 'css/admin.css', WPAUTOTERMS_VERSION );
+		wp_enqueue_style( WPAUTOTERMS_SLUG . '_admin_css', array(), WPAUTOTERMS_VERSION );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_common', WPAUTOTERMS_PLUGIN_URL . 'js/common.js', false, WPAUTOTERMS_VERSION, true );
 		$nonce = array();
 		/**
 		 * @var Action_Base $action
@@ -220,7 +232,7 @@ abstract class Admin {
 		$prefix = WPAUTOTERMS_SLUG . '_';
 		if ( strncmp( $page, $prefix, strlen( $prefix ) ) === 0 ) {
 			Countries::enqueue_scripts();
-			wp_enqueue_script( WPAUTOTERMS_SLUG . '_admin', WPAUTOTERMS_PLUGIN_URL . 'js/kits.js', false, false, true );
+			wp_enqueue_script( WPAUTOTERMS_SLUG . '_admin', WPAUTOTERMS_PLUGIN_URL . 'js/kits.js', false, WPAUTOTERMS_VERSION, true );
 		}
 	}
 }

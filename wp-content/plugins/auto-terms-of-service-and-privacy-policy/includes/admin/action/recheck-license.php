@@ -4,6 +4,7 @@ namespace wpautoterms\admin\action;
 
 
 use wpautoterms\Action_Base;
+use wpautoterms\admin\Notices;
 use wpautoterms\api\License;
 
 class Recheck_License extends Action_Base {

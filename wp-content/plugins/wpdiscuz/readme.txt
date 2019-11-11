@@ -2,8 +2,8 @@
 Contributors: gVectors Team
 Tags: comment, comments, ajax comments, custom comment form, custom comment field
 Requires at least: 4.4
-Tested up to: 5.1
-Stable tag: 5.3.2
+Tested up to: 5.2
+Stable tag: 5.3.5
 Requires PHP: 5.4 and higher
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -173,6 +173,21 @@ Nothing will be lost!  **Comments - wpDiscuz** will show all old comments.
 7. wpDiscuz Settings | Screenshot #7
 
 == Changelog ==
+
+= Comments - wpDiscuz v5.3.5 =
+
+* Fixed Bug: Conflict with uBlock Origin.
+
+
+= Comments - wpDiscuz v5.3.4 =
+
+* Fixed Bug: Comment Subscription bar agreement label content issue.
+
+
+= Comments - wpDiscuz v5.3.3 =
+
+* Code Optimization (sanitization, filtering)
+
 
 = Comments - wpDiscuz v5.3.2 =
 

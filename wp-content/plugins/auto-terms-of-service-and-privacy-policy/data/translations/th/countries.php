@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_th () {
   "PG-WHM": "Western Highlands", 
   "PG-WPD": "ภาคตะวันตก", 
   "PH": "ฟิลิปปินส์", 
+  "PH-00": "เขตนครหลวง (มะนิลา)", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Agusan del Sur", 

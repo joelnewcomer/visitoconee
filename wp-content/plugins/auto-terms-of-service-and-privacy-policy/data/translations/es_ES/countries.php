@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_es_es () {
   "PG-WHM": "Western Highlands", 
   "PG-WPD": "Western", 
   "PH": "Filipinas", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Agusan del Sur", 

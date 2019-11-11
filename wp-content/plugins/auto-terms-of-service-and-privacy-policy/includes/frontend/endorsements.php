@@ -47,7 +47,7 @@ class Endorsements {
 			'message' => do_shortcode( $message )
 		), true );
 		$message = Styles::print_styles( static::ID, static::css_class_id(), true ) . $message;
-		if ( $where == 'bottom' ) {
+		if ( $where == Container_Constants::LOCATION_BOTTOM ) {
 			return $content . $message;
 		}
 

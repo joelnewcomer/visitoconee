@@ -8,13 +8,13 @@ class AgreementCheckbox extends Field {
         ?>
         <div class="wpd-field-body" style="display: <?php echo $this->display; ?>">
             <div class="wpd-field-option wpdiscuz-item">
-                <input class="wpd-field-type" type="hidden" value="<?php echo $this->type; ?>" name="<?php echo $this->fieldInputName; ?>[type]" />
+                <input class="wpd-field-type" type="hidden" value="<?php echo $this->type; ?>" name="<?php echo  htmlentities($this->fieldInputName, ENT_QUOTES); ?>[type]" />
                 <label><?php _e('Name', 'wpdiscuz'); ?>:</label> 
-                <input class="wpd-field-name" type="text" value="<?php echo $this->fieldData['name']; ?>" name="<?php echo $this->fieldInputName; ?>[name]" required />
+                <input class="wpd-field-name" type="text" value="<?php echo htmlentities($this->fieldData['name'], ENT_QUOTES); ?>" name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[name]" required />
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Description', 'wpdiscuz'); ?>:</label> 
-                <input type="text" value="<?php echo $this->fieldData['desc']; ?>" name="<?php echo $this->fieldInputName; ?>[desc]" />
+                <input type="text" value="<?php echo htmlentities($this->fieldData['desc'], ENT_QUOTES); ?>" name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[desc]" />
                 <p class="wpd-info"><?php _e('Field specific short description or some rule related to inserted information.', 'wpdiscuz'); ?></p>
             </div>
             <div class="wpd-field-option">
@@ -22,27 +22,27 @@ class AgreementCheckbox extends Field {
                 <p class="wpd-info"><?php _e('You can use HTML tags to add links to website Terms and Privacy Policy pages. For example: ', 'wpdiscuz'); ?><br>
                     <code><?php echo esc_html('I agree to the <a href="https://example.com/terms/" target="_blank">Terms</a> and <a href="https://example.com/privacy/" target="_blank">Privacy Policy</a>'); ?></code>
                 </p>
-                <textarea required="required" type="text" name="<?php echo $this->fieldInputName; ?>[label]"  style="height: 75px;width:100%"><?php echo $this->fieldData['label']; ?></textarea>
+                <textarea required="required" type="text" name="<?php echo  htmlentities($this->fieldInputName, ENT_QUOTES); ?>[label]"  style="height: 75px;width:100%"><?php echo htmlentities($this->fieldData['label']); ?></textarea>
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Field is required', 'wpdiscuz'); ?>:</label> 
-                <input type="checkbox" value="1" <?php checked($this->fieldData['required'], 1, true); ?> name="<?php echo $this->fieldInputName; ?>[required]" />
+                <input type="checkbox" value="1" <?php checked($this->fieldData['required'], 1, true); ?> name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[required]" />
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Display on reply form', 'wpdiscuz'); ?>:</label> 
-                <input type="checkbox" value="1" <?php checked($this->fieldData['is_show_sform'], 1, true); ?> name="<?php echo $this->fieldInputName; ?>[is_show_sform]" />
+                <input type="checkbox" value="1" <?php checked($this->fieldData['is_show_sform'], 1, true); ?> name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[is_show_sform]" />
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Display for Guests', 'wpdiscuz'); ?>:</label> 
-                <input type="checkbox" value="1" <?php checked($this->fieldData['show_for_guests'], 1, true); ?> name="<?php echo $this->fieldInputName; ?>[show_for_guests]" />
+                <input type="checkbox" value="1" <?php checked($this->fieldData['show_for_guests'], 1, true); ?> name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[show_for_guests]" />
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Display for Registered Users', 'wpdiscuz'); ?>:</label> 
-                <input type="checkbox" value="1" <?php checked($this->fieldData['show_for_users'], 1, true); ?> name="<?php echo $this->fieldInputName; ?>[show_for_users]" />
+                <input type="checkbox" value="1" <?php checked($this->fieldData['show_for_users'], 1, true); ?> name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[show_for_users]" />
             </div>
             <div class="wpd-field-option">
                 <label><?php _e('Don\'t show again if the agreement is accepted once', 'wpdiscuz'); ?>:</label>
-                <input type="checkbox" value="1" <?php checked($this->fieldData['donot_show_again_if_checked'], 1, true); ?> name="<?php echo $this->fieldInputName; ?>[donot_show_again_if_checked]" />
+                <input type="checkbox" value="1" <?php checked($this->fieldData['donot_show_again_if_checked'], 1, true); ?> name="<?php echo htmlentities($this->fieldInputName, ENT_QUOTES); ?>[donot_show_again_if_checked]" />
             </div>
             <div style="clear:both;"></div>
         </div>

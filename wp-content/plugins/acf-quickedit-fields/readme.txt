@@ -5,7 +5,7 @@ Tags: acf, quickedit, columns, bulk edit
 Requires at least: 4.7
 Tested up to: 5.2
 Requires PHP: 5.4
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,8 +85,11 @@ On the whole upgrading is always a good idea.
 
 == Changelog ==
 
+= 3.0.4 =
+ - Fix: Quick/Bulk Edit not showing when list table filter is used
+
 = 3.0.3 =
- - Fix: QuickEdit sometimes
+ - Fix: QuickEdit sometimes caused a JS Error
 
 = 3.0.2 =
  - Fix: Broken 3rd party field integration

@@ -9,7 +9,7 @@ use wpautoterms\admin\page\Compliancekits;
 use wpautoterms\admin\page\Legacy_Settings;
 use wpautoterms\admin\page\License_Settings;
 use wpautoterms\admin\page\Settings_Page;
-use wpautoterms\admin\page;
+use wpautoterms\admin\page\Settings_Page_Advanced;
 use wpautoterms\api;
 use wpautoterms\cpt\CPT;
 
@@ -23,6 +23,7 @@ abstract class Menu {
 
 	const PAGE_HELP = 'help';
 	const PAGE_SETTINGS = 'settings';
+	const PAGE_SETTINGS_ADVANCED = 'settings_advanced';
 	const PAGE_COMPLIANCE_KITS = 'compliancekits';
 	const PAGE_LICENSE_SETTINGS = 'license_settings';
 	const PAGE_LEGACY_SETTINGS = 'legacy_settings';
@@ -58,15 +59,17 @@ abstract class Menu {
 			__( 'License', WPAUTOTERMS_SLUG ) );
 		$ls->set_license( $license );
 		$contact = new page\Help( static::PAGE_HELP, __( 'Help', WPAUTOTERMS_SLUG ) );
-		$sm = new Send_Message( CPT::edit_cap(), null, $contact->id(), null,
+		$sm = new Send_Message( CPT::edit_cap(), $contact->id(), null, null,
 			__( 'Access denied', WPAUTOTERMS_SLUG ), true );
 		$contact->action = $sm;
-		$sp = new Settings_Page( static::PAGE_SETTINGS, __( 'Settings', WPAUTOTERMS_SLUG ) );
+		$sp = new Settings_Page( static::PAGE_SETTINGS, __( 'General Settings', WPAUTOTERMS_SLUG ),
+			__( 'Settings', WPAUTOTERMS_SLUG ) );
 		$sp->set_license( $license );
 
 		static::$pages = array(
 			new Compliancekits( static::PAGE_COMPLIANCE_KITS, __( 'Compliance Kits', WPAUTOTERMS_SLUG ), $license ),
 			$sp,
+			new Settings_Page_Advanced( static::PAGE_SETTINGS_ADVANCED, __( 'Advanced Settings', WPAUTOTERMS_SLUG ) ),
 			$ls,
 			new Legacy_Settings( static::PAGE_LEGACY_SETTINGS, __( 'Legacy Auto TOS & PP', WPAUTOTERMS_SLUG ) ),
 			$contact,

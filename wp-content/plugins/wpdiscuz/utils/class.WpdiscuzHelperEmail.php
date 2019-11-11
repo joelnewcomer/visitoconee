@@ -21,7 +21,7 @@ class WpdiscuzHelperEmail implements WpDiscuzConstants {
         if (!current_user_can('moderate_comments') && $key = trim($this->optionsSerialized->antispamKey)) {
             if (!isset($_POST['ahk']) || (!($ahk = trim($_POST['ahk'])) || $key != $ahk)) {
                 $httpReferer .= $wp_rewrite->using_permalinks() ? "?wpdiscuzUrlAnchor&subscriptionSuccess=$success&subscriptionID=0#wc_unsubscribe_message" : "&wpdiscuzUrlAnchor&subscriptionSuccess=$success#wc_unsubscribe_message";
-                wp_redirect($httpReferer);
+                wp_redirect(get_bloginfo('wpurl') . '/' . $httpReferer);
                 exit();
             }
         }
@@ -59,7 +59,7 @@ class WpdiscuzHelperEmail implements WpDiscuzConstants {
             }
         }
         $httpReferer .= $wp_rewrite->using_permalinks() ? "?wpdiscuzUrlAnchor&subscriptionSuccess=$success&subscriptionID=" . $confirmData['id'] . "#wc_unsubscribe_message" : "&wpdiscuzUrlAnchor&subscriptionSuccess=$success#wc_unsubscribe_message";
-        wp_redirect($httpReferer);
+        wp_redirect(get_bloginfo('wpurl') . '/' . $httpReferer);
         exit();
     }
 
@@ -128,10 +128,10 @@ class WpdiscuzHelperEmail implements WpDiscuzConstants {
         $post = get_post($comment->comment_post_ID);
         $postAuthor = get_userdata($post->post_author);
 
+        $sendMail = apply_filters('wpdiscuz_email_notification', true, $emailData, $comment);
         if ($emailData['email'] == $postAuthor->user_email && ((get_option('moderation_notify') && $comment->comment_approved !== '1') || (get_option('comments_notify') && $comment->comment_approved === '1'))) {
             return;
         }
-        $sendMail = apply_filters('wpdiscuz_email_notification', true, $emailData, $comment);
         if ($sendMail) {
             $unsubscribeUrl = !$wp_rewrite->using_permalinks() ? get_permalink($comment->comment_post_ID) . "&" : get_permalink($comment->comment_post_ID) . "?";
             $unsubscribeUrl .= "wpdiscuzUrlAnchor&wpdiscuzSubscribeID=" . $emailData['id'] . "&key=" . $emailData['activation_key'] . '&#wc_unsubscribe_message';

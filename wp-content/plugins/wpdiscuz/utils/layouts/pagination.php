@@ -55,7 +55,7 @@ if ($pageCount && $pageCount > 1) {
             <?php
         }
         ?>                    
-        <input type='hidden' class='wpd-action' value='<?php echo $action; ?>'/>
+        <input type='hidden' class='wpd-action' value='<?php echo htmlentities($action, ENT_QUOTES); ?>'/>
         <div class="clear"></div>
     </div>
     <?php

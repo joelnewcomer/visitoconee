@@ -172,11 +172,18 @@ class Meow_MFRH_Admin extends MeowApps_Admin {
 							'<a target="_blank" href="https://meowapps.com/media-file-renamer/">' . esc_html__( 'tutorial', 'media-file-renamer' ) . '</a>'
 						);
 						?>
-						<p class="submit">
-							<a class="button button-primary" href="upload.php?page=rename_media_files">
-								<?php esc_html_e( "Access the Renamer Dashboard", 'media-file-renamer' ); ?>
-							</a>
-						</p>
+						<?php
+							$method = apply_filters( 'mfrh_method', 'media_title' );
+							if ( $method != 'none' ) {
+								?>
+								<p class="submit">
+									<a class="button button-primary" href="upload.php?page=rename_media_files">
+										<?php esc_html_e( "Access the Renamer Dashboard", 'media-file-renamer' ); ?>
+									</a>
+								</p>
+								<?php
+								}
+							?>
 					</div>
 				</div>
 			</div>

@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_vi () {
   "PG-WHM": "Vùng Tây Cao Nguyên", 
   "PG-WPD": "Miền Tây", 
   "PH": "Phi-li-pi-nợ", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Bắc Agusan", 
   "PH-AGS": "Nam Agusan", 

@@ -6,6 +6,7 @@ use wpautoterms\admin\action\Toggle_Action;
 use wpautoterms\admin\page;
 use wpautoterms\cpt\CPT;
 use wpautoterms\Frontend;
+use wpautoterms\frontend\Container_Constants;
 use wpautoterms\option\Text_Option;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +21,7 @@ abstract class Box {
 
 	public function __construct( $id, $title, $infotip ) {
 		$this->_id = $id;
-		$this->_action = new Toggle_Action( CPT::edit_cap(), null, $this->enable_action_id() );
+		$this->_action = new Toggle_Action( CPT::edit_cap(), $this->enable_action_id() );
 		$this->_action->set_option_name( $this->_enabled_option() );
 		$this->_title = $title;
 		$this->_infotip = $infotip;
@@ -81,10 +82,10 @@ abstract class Box {
 
 	protected static function _container_classes() {
 		return array(
-			'#' . Frontend::container_id( Frontend::CONTAINER_LOCATION_TOP, Frontend::CONTAINER_TYPE_STATIC ),
-			'#' . Frontend::container_id( Frontend::CONTAINER_LOCATION_TOP, Frontend::CONTAINER_TYPE_FIXED ),
-			'#' . Frontend::container_id( Frontend::CONTAINER_LOCATION_BOTTOM, Frontend::CONTAINER_TYPE_STATIC ),
-			'#' . Frontend::container_id( Frontend::CONTAINER_LOCATION_BOTTOM, Frontend::CONTAINER_TYPE_FIXED )
+			'#' . Frontend::container_id( Container_Constants::LOCATION_TOP, Container_Constants::TYPE_STATIC ),
+			'#' . Frontend::container_id( Container_Constants::LOCATION_TOP, Container_Constants::TYPE_FIXED ),
+			'#' . Frontend::container_id( Container_Constants::LOCATION_BOTTOM, Container_Constants::TYPE_STATIC ),
+			'#' . Frontend::container_id( Container_Constants::LOCATION_BOTTOM, Container_Constants::TYPE_FIXED )
 		);
 	}
 
@@ -109,34 +110,28 @@ abstract class Box {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/codemirror.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_css',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/css.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_hint',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/show-hint.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_css_hint',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/css-hint.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_matchbrackets',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/edit/matchbrackets.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_closebrackets',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/edit/closebrackets.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_active_line',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/selection/active-line.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_annotatescrollbar',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/scroll/annotatescrollbar.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_matchesonscrollbar',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/matchesonscrollbar.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_search_cursor',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/searchcursor.js', false, false, true );
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_match_highlight',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/match-highlighter.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/codemirror.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_css', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/css.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_hint', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/show-hint.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_css_hint', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/css-hint.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_matchbrackets', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/edit/matchbrackets.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_closebrackets', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/edit/closebrackets.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_active_line', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/selection/active-line.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_annotatescrollbar', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/scroll/annotatescrollbar.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_matchesonscrollbar', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/matchesonscrollbar.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_search_cursor', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/searchcursor.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_codemirror_match_highlight', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/match-highlighter.js', false, false, true );
 		wp_enqueue_style( WPAUTOTERMS_SLUG . '_codemirror', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/codemirror.css' );
-		wp_enqueue_style( WPAUTOTERMS_SLUG . '_codemirror_hint',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/show-hint.css' );
-		wp_enqueue_style( WPAUTOTERMS_SLUG . '_codemirror_matchesonscrollbar',
-			WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/matchesonscrollbar.css' );
+		wp_enqueue_style( WPAUTOTERMS_SLUG . '_codemirror_hint', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/hint/show-hint.css' );
+		wp_enqueue_style( WPAUTOTERMS_SLUG . '_codemirror_matchesonscrollbar', WPAUTOTERMS_PLUGIN_URL . 'js/codemirror-5.42.0/addon/search/matchesonscrollbar.css' );
 
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_css_hint', WPAUTOTERMS_PLUGIN_URL . 'js/css-hints.js', false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_css_hint', WPAUTOTERMS_PLUGIN_URL . 'js/css-hints.js', false, WPAUTOTERMS_VERSION, true );
+	}
+
+	public function _render_revert_message($option) {
+		\wpautoterms\print_template( 'options/revert-message', array(
+			'option' => $option,
+			'box' => $this
+		) );
 	}
 }

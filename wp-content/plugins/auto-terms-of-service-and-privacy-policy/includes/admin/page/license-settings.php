@@ -39,8 +39,7 @@ class License_Settings extends Settings_Base {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_license_settings', WPAUTOTERMS_PLUGIN_URL . 'js/license-settings.js',
-			false, false, true );
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_license_settings', WPAUTOTERMS_PLUGIN_URL . 'js/license-settings.js', false, WPAUTOTERMS_VERSION, true );
 		wp_localize_script( WPAUTOTERMS_SLUG . '_license_settings', 'wpautotermsLicenseSettings', array(
 			'nonce' => wp_create_nonce( Recheck_License::NAME ),
 			'lastCheck' => $this->_license->timestamp(),

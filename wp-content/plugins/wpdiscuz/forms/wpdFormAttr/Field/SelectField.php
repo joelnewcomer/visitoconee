@@ -89,9 +89,9 @@ class SelectField extends Field {
         <?php $required = $args['required'] ? ' required="required" ' : ''; ?>
         <div class="wpdiscuz-item wpd-field-group wpd-field-select <?php echo $name, '-wrapper', ($hasDesc ? ' wpd-has-desc' : ''); ?>">
             <select <?php echo $required; ?> name="<?php echo $name; ?>" class="<?php echo $name; ?> wpd-field wpdiscuz_select">
-                <option value=""><?php echo $args['name']; ?></option>
+                <option value=""><?php echo htmlentities($args['name']); ?></option>
                 <?php foreach ($args['values'] as $index => $val): ?>
-                    <option value="<?php echo $index + 1; ?>"><?php echo $val; ?></option>
+                    <option value="<?php echo $index + 1; ?>"><?php echo htmlentities($val); ?></option>
                 <?php endforeach; ?>
             </select>
             <?php if ($args['desc']) { ?>

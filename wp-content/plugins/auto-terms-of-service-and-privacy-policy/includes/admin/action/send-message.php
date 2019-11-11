@@ -31,9 +31,14 @@ class Send_Message extends Action_Base {
 		$ext = array_map( function ( $x ) {
 			return $x . ': ' . phpversion( $x );
 		}, get_loaded_extensions() );
-		$plugins = array_map( function ( $x ) {
-			return $x['Name'] . ': ' . $x['Version'] . ' (' . $x['PluginURI'] . ')';
-		}, get_plugins() );
+		$plugins = get_plugins();
+		$plugins = array_map( function ( $k, $x ) {
+			if ( ! is_plugin_active( $k ) ) {
+				return false;
+			}
+
+			return $x['Name'] . ': ' . $x['Version'] . ' (' . $x['PluginURI'] . ') ';
+		}, array_keys( $plugins ), array_values( $plugins ) );
 
 		$prefix = 'Plugin version: ' . WPAUTOTERMS_VERSION . "\nPHP version: " . phpversion();
 
@@ -42,7 +47,7 @@ class Send_Message extends Action_Base {
 			static::SITE_INFO_SHORT => $prefix . "\nWP version: " . $wp_version . "\nWPDB version: " . $wp_db_version,
 			static::SITE_INFO_EXTENDED => $prefix . "\nPHP extensions:\n" . join( "\n", $ext ) .
 			                              "\nWP version: " . $wp_version . "\nWPDB version: " . $wp_db_version .
-			                              "\nWP plugins:\n" . join( "\n", $plugins ),
+			                              "\nWP plugins:\n" . join( "\n", array_filter( $plugins ) ),
 		);
 	}
 

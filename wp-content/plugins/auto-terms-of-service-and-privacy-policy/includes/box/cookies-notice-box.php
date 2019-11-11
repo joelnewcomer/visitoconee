@@ -4,6 +4,7 @@ namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
 use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\Container_Constants;
 use wpautoterms\frontend\notice\Cookies_Notice;
 use wpautoterms\option;
 
@@ -57,14 +58,14 @@ class Cookies_Notice_Box extends Licensed_Box {
 		$a = new option\Choices_Option( $this->id() . '_bar_position', __( 'Announcement bar position', WPAUTOTERMS_SLUG ),
 			'', $page_id, $section_id );
 		$a->set_values( array(
-			'top' => __( 'top', WPAUTOTERMS_SLUG ),
-			'bottom' => __( 'bottom', WPAUTOTERMS_SLUG ),
+			Container_Constants::LOCATION_TOP => __( 'top', WPAUTOTERMS_SLUG ),
+			Container_Constants::LOCATION_BOTTOM => __( 'bottom', WPAUTOTERMS_SLUG ),
 		) );
 		$a = new option\Choices_Option( $this->id() . '_bar_type', __( 'Announcement bar type', WPAUTOTERMS_SLUG ),
 			'', $page_id, $section_id );
 		$a->set_values( array(
-			'static' => __( 'static', WPAUTOTERMS_SLUG ),
-			'fixed' => __( 'fixed', WPAUTOTERMS_SLUG ),
+			Container_Constants::TYPE_STATIC => __( 'static', WPAUTOTERMS_SLUG ),
+			Container_Constants::TYPE_FIXED => __( 'fixed', WPAUTOTERMS_SLUG ),
 		) );
 		/*
 		new option\Choices_Combo_Option($this->id().'_offset', __( 'Announcement bar offset', WPAUTOTERMS_SLUG ),
@@ -89,11 +90,12 @@ class Cookies_Notice_Box extends Licensed_Box {
 			'media_buttons' => false,
 			'editor_height' => 150,
 			'filters' => array(
-				'mce_buttons' => array( $this, 'limited_buttons' ),
-				'mce_buttons_2' => array( $this, 'empty_buttons' ),
-				'mce_buttons_3' => array( $this, 'empty_buttons' ),
-				'mce_buttons_4' => array( $this, 'empty_buttons' ),
-				'wpautoterms_post_editor' => array( $this, 'shortcodes' ),
+				array( 'mce_buttons', array( $this, 'limited_buttons' ) ),
+				array( 'mce_buttons_2', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_3', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_4', array( $this, 'empty_buttons' ) ),
+				array( 'wpautoterms_post_editor', array( $this, 'shortcodes' ) ),
+				array( 'wpautoterms_post_editor', array( $this, '_render_revert_message' ) ),
 			),
 			'tinymce' => array(
 				'resize' => false,
@@ -115,8 +117,8 @@ class Cookies_Notice_Box extends Licensed_Box {
 		$ret = parent::defaults();
 
 		return array_merge( $ret, array(
-			$this->id() . '_bar_position' => 'top',
-			$this->id() . '_bar_type' => 'static',
+			$this->id() . '_bar_position' => Container_Constants::LOCATION_TOP,
+			$this->id() . '_bar_type' => Container_Constants::TYPE_STATIC,
 			$this->id() . '_disable_logged' => 'yes',
 			$this->id() . '_message' => __( 'We use cookies to ensure that we give you the best experience on our website', WPAUTOTERMS_SLUG ),
 			$this->id() . '_close_message' => __( 'Close', WPAUTOTERMS_SLUG ),

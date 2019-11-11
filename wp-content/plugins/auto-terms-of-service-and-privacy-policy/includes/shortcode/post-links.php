@@ -20,7 +20,15 @@ class Post_Links extends Sub_Shortcode {
 			           esc_html( $post->post_title ) . '</a>';
 		}
 
-		return join( ', ', $links );
+		if ( count( $links ) > 1 ) {
+			$last = array_pop( $links );
+			$ret = join( ', ', $links );
+			$ret = sprintf( __( "%s and %s" ), $ret, $last );
+		} else {
+			$ret = join( ', ', $links );
+		}
+
+		return $ret;
 	}
 
 }

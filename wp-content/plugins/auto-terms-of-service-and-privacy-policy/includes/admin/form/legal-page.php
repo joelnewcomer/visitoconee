@@ -39,14 +39,14 @@ class Legal_Page {
 			return;
 		}
 		Section::init();
-		$this->_wizard = $this->_wizard_text();
+		$this->_wizard = $this->_wizard_text() . \wpautoterms\print_template( WPAUTOTERMS_LEGAL_PAGES_DIR . 'common',
+				array(), true );
 		$this->_hidden = Section::get_start_hidden();
 		$this->_dependencies = Section::get_dependencies();
 	}
 
 	protected function _wizard_text() {
-		return \wpautoterms\print_template( WPAUTOTERMS_LEGAL_PAGES_DIR . 'admin/' . $this->id(),
-			array(), true );
+		return \wpautoterms\print_template( WPAUTOTERMS_LEGAL_PAGES_DIR . 'admin/' . $this->id(), array(), true );
 	}
 
 	public function wizard() {

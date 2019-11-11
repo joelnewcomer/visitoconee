@@ -20,7 +20,7 @@ if ($isMain && $commentsCount && $postId) {
                     }
                     ?>
                     <div class="wpdiscuz-stat wpd-stat-threads wpd-tooltip-left">
-                        <i class="fas fa-align-left fa-rotate-180" data-fa-transform="rotate-180"></i><span class="wpd-stat-threads-count"><?php echo $threads; ?></span>
+                        <i class="fas fa-align-left fa-rotate-180" data-fa-transform="rotate-180"></i><span class="wpd-stat-threads-count"><?php echo htmlentities($threads); ?></span>
                         <wpdtip><?php echo $form->wpdOptions->phrases['wc_comment_threads']; ?></wpdtip>
                     </div>
                 <?php } ?>
@@ -34,7 +34,7 @@ if ($isMain && $commentsCount && $postId) {
                     }
                     ?>
                     <div class="wpdiscuz-stat wpd-stat-replies wpd-tooltip-left">
-                        <i class="far fa-comments"></i><span class="wpd-stat-replies-count"><?php echo $replies; ?></span>
+                        <i class="far fa-comments"></i><span class="wpd-stat-replies-count"><?php echo htmlentities($replies); ?></span>
                         <wpdtip><?php echo $form->wpdOptions->phrases['wc_thread_replies']; ?></wpdtip>
                     </div>
                 <?php } ?>
@@ -74,7 +74,7 @@ if ($isMain && $commentsCount && $postId) {
                     }
                     ?>
                     <div class="wpdiscuz-stat wpd-stat-users wpd-tooltip">
-                        <i class="fas fa-user-circle"></i> <span class="wpd-stat-authors-count"><?php echo $authorsCount; ?></span>
+                        <i class="fas fa-user-circle"></i> <span class="wpd-stat-authors-count"><?php echo htmlentities($authorsCount); ?></span>
                         <wpdtip><?php echo $form->wpdOptions->phrases['wc_comment_authors']; ?></wpdtip>
                     </div>
                 <?php } ?>

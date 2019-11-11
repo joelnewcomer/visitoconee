@@ -57,8 +57,12 @@ class Row {
             <div class="col-body">
                 <?php
                 if ($fields) {
+                    $allowedFieldsType = $this->allowedFieldsType();
                     foreach ($fields as $name => $fieldData) {
                         $fieldType = $fieldData['type'];
+                        if (!in_array($fieldType, $allowedFieldsType, true)) {
+                            throw new Exception('Not whitelisted value detected');
+                        }
                         $field = call_user_func($fieldType . '::getInstance');
                         $field->dashboardFormHtml($id, $colName, $name, $fieldData);
                     }
@@ -95,10 +99,13 @@ class Row {
         ?>
         <div class="wpd-form-col-<?php echo $colName; ?>">
             <?php
+            $allowedFieldsType = $this->allowedFieldsType();
             foreach ($fields as $fieldName => $fieldData) {
                 $fieldType = $fieldData['type'];
-                $field = call_user_func($fieldType . '::getInstance');
-                $field->frontFormHtml($fieldName, $fieldData, $options, $currentUser, $uniqueId, $isMainForm);
+                if (in_array($fieldType, $allowedFieldsType, true)) {
+                    $field = call_user_func($fieldType . '::getInstance');
+                    $field->frontFormHtml($fieldName, $fieldData, $options, $currentUser, $uniqueId, $isMainForm);
+                }
             }
             ?>
         </div>
@@ -128,12 +135,13 @@ class Row {
     }
 
     private function callFieldSanitize($args, &$fields) {
+        $allowedFieldsType = $this->allowedFieldsType();
         foreach ($args as $fieldName => $fieldData) {
             if (!isset($fieldData['type']) && !$fieldData['type']) {
                 continue;
             }
             $callableClass = str_replace('\\\\', '\\', $fieldData['type']);
-            if (is_callable($callableClass . '::getInstance')) {
+            if (in_array($callableClass, $allowedFieldsType, true) && is_callable($callableClass . '::getInstance')) {
                 $field = call_user_func($callableClass . '::getInstance');
                 $fieldNewName = $this->changeFieldName($fieldName, $fieldData);
                 if ($fieldNewName != $fieldName) {
@@ -186,7 +194,7 @@ class Row {
 
     private function getPostRatingMeta() {
         global $wpdb;
-        $sql = $wpdb->prepare("SELECT `post_id`,`meta_value` FROM `{$wpdb->postmeta}` WHERE `meta_key` = %s",wpdFormConst::WPDISCUZ_RATING_COUNT);
+        $sql = $wpdb->prepare("SELECT `post_id`,`meta_value` FROM `{$wpdb->postmeta}` WHERE `meta_key` = %s", wpdFormConst::WPDISCUZ_RATING_COUNT);
         return $wpdb->get_results($sql, ARRAY_A);
     }
 
@@ -199,6 +207,31 @@ class Row {
             $array = array_combine($keys, $values);
         }
         return $array;
+    }
+
+    public function allowedFieldsType() {
+        $allowedFieldsType = [
+            'wpdFormAttr\Field\DefaultField\Name',
+            'wpdFormAttr\Field\DefaultField\Email',
+            'wpdFormAttr\Field\DefaultField\Website',
+            'wpdFormAttr\Field\DefaultField\Captcha',
+            'wpdFormAttr\Field\DefaultField\Submit',
+            'wpdFormAttr\Field\AgreementCheckbox',
+            'wpdFormAttr\Field\CheckboxField',
+            'wpdFormAttr\Field\ColorField',
+            'wpdFormAttr\Field\CookiesConsent',
+            'wpdFormAttr\Field\DateField',
+            'wpdFormAttr\Field\HTMLField',
+            'wpdFormAttr\Field\NumberField',
+            'wpdFormAttr\Field\RadioField',
+            'wpdFormAttr\Field\RatingField',
+            'wpdFormAttr\Field\SelectField',
+            'wpdFormAttr\Field\TextAreaField',
+            'wpdFormAttr\Field\TextField',
+            'wpdFormAttr\Field\UrlField',
+        ];
+
+        return apply_filters('wpdiscuz_allowed_form_field', $allowedFieldsType);
     }
 
 }

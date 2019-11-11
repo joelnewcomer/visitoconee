@@ -301,8 +301,13 @@ class Captcha extends Field {
             return false;
         }
         $captchaLower = strtolower($captcha);
+        $captchaFiles = array_diff(scandir($this->captchaDir), array('..', '.'));
         $file = $fileName . '.jpg';
+        if(!in_array($file, $captchaFiles,true)){
+            return false;
+        }
         $filePath = $this->captchaDir . WPDISCUZ_DS . $file;
+        if(file_exists($filePath)){}
         $parts = explode('=', file_get_contents($filePath));
         $tKey = $parts[0];
         $tAnswer = $parts[1];

@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_ja () {
   "PG-WHM": "西ハイランド", 
   "PG-WPD": "Western", 
   "PH": "フィリピン", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "Abra", 
   "PH-AGN": "北アグサン", 
   "PH-AGS": "南アグサン", 

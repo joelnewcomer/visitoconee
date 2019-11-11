@@ -10,7 +10,7 @@ class Pages_Widget_Extend {
 
 	public function __construct() {
 		add_filter( 'widget_pages_args', array( $this, 'widget_pages_args' ), 10 );
-		add_filter( 'wp_list_pages', array( $this, 'wp_list_pages' ), 10, 3 );
+		add_filter( 'wp_list_pages', array( $this, 'wp_list_pages' ), 10, 2 );
 	}
 
 	public function widget_pages_args( $args ) {
@@ -19,7 +19,7 @@ class Pages_Widget_Extend {
 		return $args;
 	}
 
-	public function wp_list_pages( $output, $r, $pages ) {
+	public function wp_list_pages( $output, $r ) {
 		if ( ! isset( $r[ static::MARKER ] ) || ! Options::get_option( Options::SHOW_IN_PAGES_WIDGET ) ) {
 			return $output;
 		}

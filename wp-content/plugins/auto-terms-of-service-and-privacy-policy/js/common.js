@@ -25,7 +25,6 @@ jQuery(document).ready(function ($) {
                         Object.assign(args, data);
                     }
                 }
-                console.log(args);
                 $.post(ajaxurl, args);
             }
         });

@@ -149,13 +149,13 @@ class Form {
         switch ($column) {
             case 'form_post_types':
                 $postTypes = isset($this->generalOptions[wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES]) ? $this->generalOptions[wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES] : '';
-                echo $postTypes ? implode(', ', $this->generalOptions[wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES]) : '';
+                echo $postTypes ? htmlentities(implode(', ', $this->generalOptions[wpdFormConst::WPDISCUZ_META_FORMS_POSTE_TYPES])) : '';
                 break;
             case 'form_post_ids':
-                echo isset($this->generalOptions['postid']) ? $this->generalOptions['postid'] : '';
+                echo isset($this->generalOptions['postid']) ? htmlentities($this->generalOptions['postid']) : '';
                 break;
             case 'form_lang':
-                echo isset($this->generalOptions['lang']) ? $this->generalOptions['lang'] : '';
+                echo isset($this->generalOptions['lang']) ? htmlentities($this->generalOptions['lang']) : '';
                 break;
         }
     }
@@ -487,8 +487,12 @@ class Form {
     }
 
     public function validateFields($currentUser) {
+        $allowedFieldsType = $this->row->allowedFieldsType();
         foreach ($this->formCustomFields as $fieldName => $fieldArgs) {
             $fieldType = $fieldArgs['type'];
+            if (!in_array($fieldType, $allowedFieldsType, true)) {
+                throw new Exception('Not whitelisted value detected');
+            }
             $field = call_user_func($fieldType . '::getInstance');
             if (isset($fieldArgs['no_insert_meta'])) {
                 $field->validateFieldData($fieldName, $fieldArgs, $this->wpdOptions, $currentUser);
@@ -541,11 +545,12 @@ class Form {
 
     private function _renderFrontCommentMetaHtml($meta, $formCustomFields, $loc) {
         $html = '';
+        $allowedFieldsType = $this->row->allowedFieldsType();
         foreach ($formCustomFields as $key => $value) {
             if (isset($value['loc']) && $value['loc'] == $loc) {
                 $fieldType = $value['type'];
                 $metaValuen = isset($meta[$key][0]) ? maybe_unserialize($meta[$key][0]) : '';
-                if (is_callable($fieldType . '::getInstance') && $metaValuen) {
+                if (in_array($fieldType, $allowedFieldsType, true) && is_callable($fieldType . '::getInstance') && $metaValuen) {
                     $field = call_user_func($fieldType . '::getInstance');
                     $html .= $field->drawContent($metaValuen, $value);
                 }
@@ -631,11 +636,14 @@ class Form {
         $html .= '<div class="wpdiscuz-item wpdiscuz-textarea-wrap"><textarea required="required" name="wc_comment" class="wc_comment wpd-field wc_edit_comment" style="min-height: 2em;">' . str_replace(array('<code>', '</code>'), array('`', '`'), $comment->comment_content) . '</textarea></div>';
         if ($this->formCustomFields) {
             $html .= '<table class="form-table editcomment wpd-form-row"><tbody>';
+            $allowedFieldsType = $this->row->allowedFieldsType();
             foreach ($this->formCustomFields as $key => $data) {
                 $fieldType = $data['type'];
-                $field = call_user_func($fieldType . '::getInstance');
-                $value = get_comment_meta($comment->comment_ID, $key, true);
-                $html .= $field->editCommentHtml($key, $value, $data, $comment);
+                if (in_array($fieldType, $allowedFieldsType, true)) {
+                    $field = call_user_func($fieldType . '::getInstance');
+                    $value = get_comment_meta($comment->comment_ID, $key, true);
+                    $html .= $field->editCommentHtml($key, $value, $data, $comment);
+                }
             }
             $html .= '</tbody></table>';
         }
@@ -655,11 +663,14 @@ class Form {
                         <table class="form-table editcomment">
                             <tbody>
                                 <?php
+                                $allowedFieldsType = $this->row->allowedFieldsType();
                                 foreach ($this->formCustomFields as $key => $data) {
                                     $fieldType = $data['type'];
-                                    $field = call_user_func($fieldType . '::getInstance');
-                                    $value = get_comment_meta($comment->comment_ID, $key, true);
-                                    echo $field->editCommentHtml($key, $value, $data, $comment);
+                                    if (in_array($fieldType, $allowedFieldsType, true)) {
+                                        $field = call_user_func($fieldType . '::getInstance');
+                                        $value = get_comment_meta($comment->comment_ID, $key, true);
+                                        echo $field->editCommentHtml($key, $value, $data, $comment);
+                                    }
                                 }
                                 ?>
                             </tbody>
@@ -687,7 +698,7 @@ class Form {
                             </th>
                             <td>
                                 <?php $lang = isset($this->generalOptions['lang']) ? $this->generalOptions['lang'] : get_locale(); ?>
-                                <input required="" type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[lang]" value="<?php echo $lang; ?>" >
+                                <input required="" type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[lang]" value="<?php echo htmlentities($lang, ENT_QUOTES); ?>" >
                                 <a href="https://wpdiscuz.com/docs/wpdiscuz-documentation/getting-started/custom-comment-form/comment-form-settings/#language" title="<?php _e('Read the documentation', 'wpdiscuz') ?>" target="_blank"><i class="far fa-question-circle"></i></a>
                             </td>
                         </tr>                        
@@ -754,7 +765,7 @@ class Form {
                             </th>
                             <td>
                                 <?php $subscriptionAgreementLabel = isset($this->generalOptions['subscription_agreement_label']) && $this->generalOptions['subscription_agreement_label'] ? $this->generalOptions['subscription_agreement_label'] : __('I allow to use my email address and send notification about new comments and replies (you can unsubscribe at any time).', 'wpdiscuz'); ?>
-                                <textarea name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[subscription_agreement_label]" style="width:80%;"><?php echo $subscriptionAgreementLabel; ?></textarea>
+                                <textarea name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[subscription_agreement_label]" style="width:80%;"><?php echo htmlentities($subscriptionAgreementLabel); ?></textarea>
                             </td>
                         </tr>
                         </tr>
@@ -764,7 +775,8 @@ class Form {
                             </th>
                             <td >
                                 <div>
-                                    <input  type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[header_text]" placeholder="<?php _e('Leave a Reply', 'wpdiscuz'); ?>" value="<?php echo isset($this->generalOptions['header_text']) ? $this->generalOptions['header_text'] : __('Leave a Reply', 'wpdiscuz'); ?>" style="width:80%;">
+                                    <?php $header_text = isset($this->generalOptions['header_text']) ? $this->generalOptions['header_text'] : __('Leave a Reply', 'wpdiscuz'); ?>
+                                    <input  type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[header_text]" placeholder="<?php _e('Leave a Reply', 'wpdiscuz'); ?>" value="<?php echo htmlentities($header_text,ENT_QUOTES);?>" style="width:80%;">
                                     <a href="https://wpdiscuz.com/docs/wpdiscuz-documentation/getting-started/custom-comment-form/comment-form-settings/#comment_form_header_text" title="<?php _e('Read the documentation', 'wpdiscuz') ?>" target="_blank"><i class="far fa-question-circle"></i></a>
                                 </div>
                             </td>
@@ -804,7 +816,8 @@ class Form {
                                 <p class="wpd-info"> <?php _e('You can use this form for certain posts/pages specified by comma separated IDs.', 'wpdiscuz'); ?></p>
                             </th>
                             <td>
-                                <input type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[postid]" placeholder="5,26,30..." value="<?php echo isset($this->generalOptions['postid']) ? $this->generalOptions['postid'] : ''; ?>" style="width:80%;">
+                                <?php  $optionsPostids = isset($this->generalOptions['postid']) ? $this->generalOptions['postid'] : '';?>
+                                <input type="text" name="<?php echo wpdFormConst::WPDISCUZ_META_FORMS_GENERAL_OPTIONS; ?>[postid]" placeholder="5,26,30..." value="<?php echo htmlentities($optionsPostids, ENT_QUOTES); ?>" style="width:80%;">
                                 <a href="https://wpdiscuz.com/docs/wpdiscuz-documentation/getting-started/custom-comment-form/comment-form-settings/#comment_form_for_post_id" title="<?php _e('Read the documentation', 'wpdiscuz') ?>" target="_blank"><i class="far fa-question-circle"></i></a>
                             </td>
                         </tr>
@@ -992,6 +1005,10 @@ class Form {
         $this->generalOptions = array();
         $this->formCustomFields = array();
         $this->formFields = array();
+    }
+    
+    public function getAllowedFieldsType(){
+        return $this->row->allowedFieldsType();
     }
 
 }

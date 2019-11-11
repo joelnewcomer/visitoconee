@@ -3,7 +3,7 @@
 /*
  * Plugin Name: wpDiscuz
  * Description: Better comment system. Wordpress post comments and discussion plugin. Allows your visitors discuss, vote for comments and share.
- * Version: 5.3.2
+ * Version: 5.3.5
  * Author: gVectors Team (A. Chakhoyan, G. Zakaryan, H. Martirosyan)
  * Author URI: https://gvectors.com/
  * Plugin URI: http://wpdiscuz.com/
@@ -1126,7 +1126,7 @@ class WpdiscuzCore implements WpDiscuzConstants {
                 wp_enqueue_style('wpdiscuz-frontend-css');
             }
 
-            wp_register_script('wpdiscuz-cookie-js', plugins_url(WPDISCUZ_DIR_NAME . '/assets/third-party/wpdcookiejs/customcookie.js'), array('jquery'), $this->version, $this->optionsSerialized->isLoadScriptsInFooter);
+            wp_register_script('wpdiscuz-cookie-js', plugins_url(WPDISCUZ_DIR_NAME . '/assets/third-party/wpdccjs/wpdcc.js'), array('jquery'), $this->version, $this->optionsSerialized->isLoadScriptsInFooter);
             wp_enqueue_script('wpdiscuz-cookie-js');
             wp_register_script('autogrowtextarea-js', plugins_url(WPDISCUZ_DIR_NAME . '/assets/third-party/autogrow/jquery.autogrowtextarea.min.js'), array('jquery'), $this->version, $this->optionsSerialized->isLoadScriptsInFooter);
             wp_enqueue_script('autogrowtextarea-js');

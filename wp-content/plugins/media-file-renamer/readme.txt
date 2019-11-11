@@ -3,9 +3,9 @@ Contributors: TigrouMeow, amekusa
 Tags: rename, seo, file, files, media, renamer, optimize, library
 Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a950f61832f
 Requires at least: 4.8
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 7.0
-Stable tag: 4.5.9
+Stable tag: 4.6.3
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -56,6 +56,10 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 5. Options for the automatic renaming (there are more options than just this).
 
 == Changelog ==
+
+= 4.6.3 =
+* Add: Doesn't show the button to the Dashboard if Auto is disabled.
+* Update: Admin refreshed to 2.4.
 
 = 4.5.9 =
 * Fix: Column wasn't displayed when manual enabled and automatic disabled.

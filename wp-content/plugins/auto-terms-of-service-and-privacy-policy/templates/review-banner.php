@@ -1,6 +1,7 @@
 <div class="wpautoterms-review-banner notice notice-info wpautoterms-is-dismissible" data-wpautoterms-dismissible="<?php
 esc_attr_e( 'Don\'t show this again', WPAUTOTERMS_SLUG ); ?>"
      data-wpautoterms-action-id="<?php echo esc_attr( $action_id ); ?>"
+     data-wpautoterms-action-nonce="<?php echo esc_attr( $action_nonce ); ?>"
      data-wpautoterms-action-data="<?php echo esc_attr( '{"state":1}' ) ?>">
     <h4><?php esc_html_e( 'Do you like WP AutoTerms?', WPAUTOTERMS_SLUG ); ?></h4>
     <p>

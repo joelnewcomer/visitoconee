@@ -190,7 +190,7 @@ if (!post_password_required($post->ID)) {
                         <div class="wpd-cc-arrow"></div>
                     </div>
                 <?php } ?>
-                <?php echo $form->getHeaderText(); ?>
+                <?php echo htmlentities($form->getHeaderText()); ?>
             </h3>
             <?php
         }

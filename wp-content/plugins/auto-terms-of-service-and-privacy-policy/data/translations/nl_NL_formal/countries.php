@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_nl_nl_formal () {
   "PG-WHM": "Westelijke Hooglanden", 
   "PG-WPD": "West", 
   "PH": "Filipijnen", 
+  "PH-00": "Nationale Hoofstadregio", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Zuid-Agusan", 

@@ -44,7 +44,7 @@ class CookiesConsent extends Field {
             <div class="wpd-field-group-title">
                 <div class="wpd-item">
                     <input id="<?php echo $name . '-1_' . $uniqueId; ?>" name="<?php echo $name; ?>" type="checkbox" value="1" <?php echo $consent; ?> class="<?php echo $name; ?> wpd-field wpd-cookies-checkbox" />
-                    <label class="wpd-field-label wpd-cursor-pointer" for="<?php echo $name . '-1_' . $uniqueId; ?>"><?php echo $args['label']; ?></label>
+                    <label class="wpd-field-label wpd-cursor-pointer" for="<?php echo $name . '-1_' . $uniqueId; ?>"><?php echo htmlentities($args['label']); ?></label>
                 </div>
             </div>
             <?php if ($args['desc']) { ?>

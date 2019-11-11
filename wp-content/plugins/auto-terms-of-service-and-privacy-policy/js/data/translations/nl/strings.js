@@ -1146,6 +1146,7 @@ wpautotermsStates.translations = {
   "PG-WHM": "Westelijke Hooglanden", 
   "PG-WPD": "West", 
   "PH": "Filipijnen", 
+  "PH-00": "Nationale Hoofstadregio", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Zuid-Agusan", 

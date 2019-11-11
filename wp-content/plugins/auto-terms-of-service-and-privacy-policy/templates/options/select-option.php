@@ -1,4 +1,9 @@
-<select name="<?php echo $name; ?>" class="<?php echo $classes; ?>" id="<?php echo $name; ?>" <?php echo $attrs; ?>>
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?><select name="<?php echo $name; ?>" class="<?php echo $classes; ?>" id="<?php echo $name; ?>" <?php echo $attrs; ?>>
 	<?php
 	foreach ( $values as $k => $v ) {
 		$k = trim( $k );

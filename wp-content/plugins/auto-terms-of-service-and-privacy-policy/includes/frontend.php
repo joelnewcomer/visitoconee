@@ -2,7 +2,11 @@
 
 namespace wpautoterms;
 
-
+use wpautoterms\admin\Menu;
+use wpautoterms\admin\Notices;
+use wpautoterms\admin\Options;
+use wpautoterms\cpt\CPT;
+use wpautoterms\frontend\Container_Constants;
 use wpautoterms\frontend\Endorsements;
 use wpautoterms\frontend\Links;
 use wpautoterms\frontend\notice\Cookies_Notice;
@@ -10,25 +14,37 @@ use wpautoterms\frontend\notice\Update_Notice;
 use wpautoterms\frontend\Pages_Widget_Extend;
 
 abstract class Frontend {
+	const OB_TEST_TOTAL = 5;
+	const OB_PASSED_LIMIT = 0.2;
+	const CACHE_PLUGIN_NOTICE_ID = 'cache_plugin_usage';
 	protected static $_body_top = '';
 	/**
 	 * @var Links
 	 */
 	protected static $_links;
-
-	const CONTAINER_LOCATION_TOP = 'top';
-	const CONTAINER_LOCATION_BOTTOM = 'bottom';
-	const CONTAINER_TYPE_STATIC = 'static';
-	const CONTAINER_TYPE_FIXED = 'fixed';
-
+	protected static $_body_applied = false;
+	protected static $_compat;
 
 	public static function init( $license ) {
 		global $pagenow;
 		if ( in_array( $pagenow, array( 'wp-login.php', 'wp-register.php' ) ) ) {
 			return;
 		}
-		// NOTE: modify buffer on teardown.
-		ob_start( array( __CLASS__, '_out_head' ) );
+		static::$_compat = Options::get_option( Options::CACHE_PLUGINS_COMPAT );
+		if ( ! static::$_compat ) {
+			// NOTE: modify buffer on teardown.
+			$detection_mode = ! Options::get_option( Options::CACHE_PLUGINS_SUPPRESS_WARNING ) &&
+			                  Options::get_option( Options::CACHE_PLUGINS_DETECTION );
+			if ( $detection_mode ) {
+				add_action( 'init', array( __CLASS__, '_init' ) );
+				$body_handler = array( __CLASS__, '_out_head_supported' );
+			} else {
+				$body_handler = array( __CLASS__, '_out_head' );
+			}
+			add_filter( 'wp_cache_ob_callback_filter', $body_handler );
+			add_filter( 'cache_enabler_before_store', $body_handler );
+			ob_start( array( __CLASS__, '_out_head' ) );
+		}
 		add_action( WPAUTOTERMS_SLUG . '_registered_cpt', array( __CLASS__, 'action_registered_cpt' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'wp_footer', array( __CLASS__, 'footer' ), 100002 );
@@ -41,33 +57,77 @@ abstract class Frontend {
 		new Pages_Widget_Extend();
 	}
 
+	public static function _init() {
+		if ( ! \is_user_logged_in() ) {
+			$total = Options::get_option( Options::OB_TOTAL );
+			if ( $total > static::OB_TEST_TOTAL ) {
+				$passed = Options::get_option( Options::OB_NOT_INTERCEPTED );
+				Options::set_option( Options::OB_NOT_INTERCEPTED, 0 );
+				Options::set_option( Options::OB_TOTAL, 1 );
+				if ( $passed > $total * static::OB_PASSED_LIMIT ) {
+					Options::set_option( Options::CACHE_PLUGINS_DETECTION, false );
+					Options::set_option( Options::CACHE_PLUGINS_DETECTED, true );
+					Notices::$instance->add(
+						__( 'Cache plugins detected. Please review ' .
+						    '<a href="' . admin_url( 'edit.php?post_type=' . CPT::type() . '&page=' . WPAUTOTERMS_SLUG .
+						                             '_' . Menu::PAGE_SETTINGS_ADVANCED ) .
+						    '">WPAutoTerms settings</a> and enable the Caching Plugins compatibility mode.',
+							WPAUTOTERMS_SLUG ), Notices::CLASS_ERROR, true, static::CACHE_PLUGIN_NOTICE_ID );
+				}
+			} elseif ( static::_is_html_content() ) {
+				Options::set_option( Options::OB_TOTAL, $total + 1 );
+			}
+		}
+	}
 
 	public static function action_registered_cpt() {
-		static::$_body_top = static::top_container( true );
+		if ( ! static::$_compat ) {
+			static::$_body_top = static::top_container( true );
+		}
 	}
 
 	public static function enqueue_scripts() {
-		wp_register_style( WPAUTOTERMS_SLUG . '_css', WPAUTOTERMS_PLUGIN_URL . 'css/wpautoterms.css', false );
+		wp_register_style( WPAUTOTERMS_SLUG . '_css', WPAUTOTERMS_PLUGIN_URL . 'css/wpautoterms.css', WPAUTOTERMS_VERSION );
 		wp_enqueue_style( WPAUTOTERMS_SLUG . '_css' );
 	}
 
-	public static function _out_head( $buf ) {
+	protected static function _is_html_content() {
 		$ct = 'content-type';
 		$ct_len = strlen( $ct );
-		$handle = true;
 		foreach ( headers_list() as $h ) {
 			$h = ltrim( $h );
 			if ( strncasecmp( $h, $ct, $ct_len ) === 0 ) {
 				// do not handle non-html content
 				if ( 1 !== preg_match( '/^content-type:\s*(text\/html|application\/xhtml\+xml)([^[:alnum:]]+.*|)$/i', $h ) ) {
-					$handle = false;
+					return false;
 				}
-				break;
 			}
 		}
-		if ( ! $handle ) {
+
+		return true;
+	}
+
+	public static function _out_head_supported( $buf ) {
+		Options::set_option( Options::CACHE_PLUGINS_DETECTION, false );
+		Options::set_option( Options::CACHE_PLUGINS_DETECTED, false );
+		Options::set_option( Options::OB_NOT_INTERCEPTED, 0 );
+		Options::set_option( Options::OB_TOTAL, 0 );
+
+		return static::_out_head( $buf );
+	}
+
+	public static function _out_head( $buf ) {
+		if ( ! static::_is_html_content() ) {
 			return $buf;
 		}
+		if ( ! Options::get_option( Options::CACHE_PLUGINS_SUPPRESS_WARNING ) && ! \is_user_logged_in() &&
+		     Options::get_option( Options::CACHE_PLUGINS_DETECTION ) ) {
+			Options::set_option( Options::OB_NOT_INTERCEPTED, Options::get_option( Options::OB_NOT_INTERCEPTED ) + 1 );
+		}
+		if ( static::$_body_applied ) {
+			return $buf;
+		}
+		static::$_body_applied = true;
 		$m = array();
 		preg_match( '/(.*<\s*body[^>]*>)(.*)/is', $buf, $m );
 		$ret = '';
@@ -89,7 +149,10 @@ abstract class Frontend {
 		static::bottom_container();
 	}
 
-	public static function container_id( $where = self::CONTAINER_LOCATION_TOP, $type = self::CONTAINER_TYPE_STATIC ) {
+	public static function container_id(
+		$where = Container_Constants::LOCATION_TOP,
+		$type = Container_Constants::TYPE_STATIC
+	) {
 		return 'wpautoterms-' . $where . '-' . $type . '-container';
 	}
 
@@ -110,8 +173,8 @@ abstract class Frontend {
 	}
 
 	protected static function top_container( $return = false ) {
-		$c = static::container( self::CONTAINER_LOCATION_TOP, self::CONTAINER_TYPE_STATIC, $return );
-		$c .= static::container( self::CONTAINER_LOCATION_TOP, self::CONTAINER_TYPE_FIXED, $return );
+		$c = static::container( Container_Constants::LOCATION_TOP, Container_Constants::TYPE_STATIC, $return );
+		$c .= static::container( Container_Constants::LOCATION_TOP, Container_Constants::TYPE_FIXED, $return );
 		if ( $return ) {
 			return $c;
 		}
@@ -121,7 +184,10 @@ abstract class Frontend {
 	}
 
 	protected static function bottom_container() {
-		static::container( self::CONTAINER_LOCATION_BOTTOM, self::CONTAINER_TYPE_FIXED );
-		static::container( self::CONTAINER_LOCATION_BOTTOM, self::CONTAINER_TYPE_STATIC );
+		if ( static::$_compat ) {
+			self::top_container();
+		}
+		static::container( Container_Constants::LOCATION_BOTTOM, Container_Constants::TYPE_FIXED );
+		static::container( Container_Constants::LOCATION_BOTTOM, Container_Constants::TYPE_STATIC );
 	}
 }

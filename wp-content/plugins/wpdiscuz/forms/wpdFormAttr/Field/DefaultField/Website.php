@@ -50,7 +50,7 @@ class Website extends Field {
                     <?php if ($hasIcon) { ?>
                         <div class="wpd-field-icon"><i class="<?php echo strpos(trim($args['icon']), ' ') ? $args['icon'] : 'fas ' . $args['icon']; ?>"></i></div>
                     <?php } ?>
-                    <input value="<?php echo $authorUrl; ?>" class="<?php echo $name; ?> wpd-field" type="text" name="<?php echo $name; ?>" placeholder="<?php echo $args['name'];
+                    <input value="<?php echo $authorUrl; ?>" class="<?php echo $name; ?> wpd-field" type="text" name="<?php echo htmlentities($name, ENT_QUOTES); ?>" placeholder="<?php echo htmlentities($args['name'], ENT_QUOTES);
                 echo!empty($args['required']) ? '*' : ''; ?>">
                             <?php if ($args['desc']) { ?>
                         <div class="wpd-field-desc"><i class="far fa-question-circle" aria-hidden="true"></i><span><?php echo $args['desc']; ?></span></div>

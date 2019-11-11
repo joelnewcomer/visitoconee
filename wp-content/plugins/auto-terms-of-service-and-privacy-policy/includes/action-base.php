@@ -19,17 +19,25 @@ class Action_Base {
 	protected $_handler;
 
 	protected static $_actions = array();
+	protected $_skip_nonce;
 
-	public function __construct( $capability, $args = null, $name = '', $handler = null, $fail_handler = null, $admin_post = false ) {
+	public function __construct(
+		$capability, $name = '', $handler = null, $args = null, $fail_handler = null, $admin_post = false,
+		$nopriv = false, $skip_nonce = false
+	) {
 		$this->_name = empty( $name ) ? static::NAME : $name;
 		$this->_args = $args;
 		$this->_handler = $handler;
 		$this->_fail_handler = $fail_handler;
 		$this->_capability = $capability;
+		$this->_skip_nonce = $skip_nonce;
 		if ( $admin_post ) {
 			add_action( 'admin_post_' . $this->name(), array( $this, 'handle_post' ) );
 		}
 		add_action( 'wp_ajax_' . $this->name(), array( $this, 'handle' ) );
+		if ( $nopriv ) {
+			add_action( 'wp_ajax_nopriv_' . $this->name(), array( $this, 'handle_nopriv' ) );
+		}
 		static::$_actions[] = $this;
 	}
 
@@ -65,8 +73,10 @@ class Action_Base {
 	}
 
 	protected function _handle( $admin_post ) {
-		$fn = $this->_handler;
-		$fn( $this->_args );
+		if ( $this->_handler !== false ) {
+			$fn = $this->_handler;
+			$fn( $admin_post, $this->_args );
+		}
 	}
 
 	public function handle_post() {
@@ -74,14 +84,26 @@ class Action_Base {
 	}
 
 	public function handle( $admin_post = false ) {
-		if ( ! current_user_can( $this->capability() ) ) {
+		$cap = $this->capability();
+		if ( ! empty( $cap ) && ! current_user_can( $cap ) ) {
 			$this->_fail();
 		}
 		$fn = $admin_post ? 'check_admin_referer' : 'check_ajax_referer';
-		if ( ! $fn( $this->name(), 'nonce', false ) ) {
+		if ( ! $this->_skip_nonce && ! $fn( $this->name(), 'nonce', false ) ) {
 			$this->_fail();
 		}
 		$this->_handle( $admin_post );
+	}
+
+	public function handle_nopriv() {
+		$cap = $this->capability();
+		if ( ! empty( $cap ) && ! current_user_can( $cap ) ) {
+			$this->_fail();
+		}
+		if ( ! $this->_skip_nonce && ! check_ajax_referer( $this->name(), 'nonce', false ) ) {
+			$this->_fail();
+		}
+		$this->_handle( false );
 	}
 
 	protected static function _request_var( $name ) {

@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
                 var state;
                 var c = jQuery("#" + args[0] + ":visible");
                 if (c.length) {
-                    if (typeof(args[1]) === "boolean") {
+                    if (typeof (args[1]) === "boolean") {
                         state = c.prop("checked");
                     } else {
                         state = c.val();
@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
         }).join(",")).hide();
         CONTAINER.find("input[type=radio],input[type=checkbox]").click(updateDependencies);
         CONTAINER.find("input[type=radio]:visible").prop("required", true);
-        CONTAINER.find("input[type='submit']").click(function (e) {
+        CONTAINER.find("input[type='submit'],button[type='submit']").click(function (e) {
             CONTAINER.find("input[type=radio]").each(function () {
                 var t = $(this);
                 var v = t.val();
@@ -76,8 +76,10 @@ jQuery(document).ready(function ($) {
                     t.val("legal-page-radio-no");
                 }
             });
+            return true;
         });
         wpautotermsCountry.initCountrySelector();
         updateDependencies();
+        $("input[name=post_title]:not([data-wpautoterms])").remove();
     }
 });

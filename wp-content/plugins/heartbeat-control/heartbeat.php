@@ -11,7 +11,6 @@ namespace Heartbeat_Control;
  * Primary Hearbeat class.
  */
 class Heartbeat {
-
 	/**
 	 * The current screen being accessed.
 	 *
@@ -34,30 +33,31 @@ class Heartbeat {
 	public $settings = array();
 
 	/**
-	 * Just a regular ole constructor.
+	 * Constructor.
 	 */
 	public function __construct() {
+		$_query_string = filter_input( INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_URL );
+		$_request_uri  = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_URL );
 
-		if ( ! empty( $_SERVER['QUERY_STRING'] ) ) {
-			$current_url = $_SERVER['REQUEST_URI'] . '?' . $_SERVER['QUERY_STRING'];
+		if ( $_query_string && $_request_uri ) {
+			$current_url = wp_unslash( $_query_string . '?' . $_request_uri );
+		} elseif ( $_query_string ) {
+			$current_url = wp_unslash( $_request_uri );
 		} else {
-			$current_url = $_SERVER['REQUEST_URI'];
+			$current_url = admin_url();
 		}
 
 		$this->current_screen = wp_parse_url( $current_url );
-
-		if ( $this->current_screen === '/wp-admin/admin-ajax.php' ) {
+		if ( '/wp-admin/admin-ajax.php' === $this->current_screen ) {
 			return;
 		}
 
 		$settings = get_option( 'heartbeat_control_settings' );
-
-		if ( ( ! is_array( $settings['rules'] ) ) || ( empty( $settings['rules'] ) ) ) {
+		if ( false === $settings ) {
 			return;
 		}
 
-		array_reverse( $settings['rules'] );
-		$this->settings = $settings['rules'];
+		$this->settings = $settings;
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_disable' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'maybe_disable' ), 99 );
@@ -67,21 +67,24 @@ class Heartbeat {
 	/**
 	 * Checks if the current location has a rule.
 	 *
-	 * @param array $locations Locations that have rules.
-	 *
+	 * @param  array $location Locations that have rules.
 	 * @return bool
 	 */
-	public function check_location( $locations ) {
-		if ( ! isset( $locations ) || ! is_array( $locations ) ) {
-			return false;
-		}
+	public function check_location( $location ) {
+		$location_test = array(
+			'rules_dash'   => function() {
+				return is_admin();
+			},
+			'rules_front'  => function() {
+				return ! is_admin();
+			},
+			'rules_editor' => function() {
+				return ( '/wp-admin/post.php' === $this->current_screen['path'] );
+			},
+		);
 
-		if ( in_array( $this->current_screen['path'], $locations ) ) {
-			return true;
-		} elseif ( ( ! is_admin() ) && ( in_array( 'frontend', $locations ) ) ) {
-			return true;
-		} elseif ( ( is_admin() ) && ( in_array( 'admin', $locations ) ) ) {
-			return true;
+		if ( isset( $location_test[ $location ] ) ) {
+			return $location_test[ $location ]();
 		}
 
 		return false;
@@ -93,40 +96,31 @@ class Heartbeat {
 	 * @return void
 	 */
 	public function maybe_disable() {
-		foreach ( $this->settings as $rule ) {
-			if ( array_key_exists( 'heartbeat_control_behavior', $rule ) && $rule['heartbeat_control_behavior'] === 'disable' ) {
-
-				if ( ! array_key_exists( 'heartbeat_control_location', $rule ) ) {
-					return;
-				}
-
-				if ( $this->check_location( $rule['heartbeat_control_location'] ) ) {
+		foreach ( $this->settings as $location => $r ) {
+			$rule = reset( $r );
+			if ( array_key_exists( 'heartbeat_control_behavior', $rule ) && 'disable' === $rule['heartbeat_control_behavior'] ) {
+				if ( $this->check_location( $location ) ) {
 					wp_deregister_script( 'heartbeat' );
 					return;
 				}
 			}
 		}
-
 	}
 
 	/**
 	 * Modify the heartbeat, if needed.
 	 *
-	 * @param array $settings The settings.
-	 *
-	 * @return array
+	 * @param  array $settings The settings.
+	 * @return array $settings Maybe an updated settings.
 	 */
 	public function maybe_modify( $settings ) {
+		foreach ( $this->settings as $location => $r ) {
+			$rule = reset( $r );
 
-		foreach ( $this->settings as $rule ) {
-			if ( array_key_exists( 'heartbeat_control_behavior', $rule ) && $rule['heartbeat_control_behavior'] === 'modify' ) {
-
-				if ( ! array_key_exists( 'heartbeat_control_location', $rule ) ) {
-					return;
-				}
-
-				if ( $this->check_location( $rule['heartbeat_control_location'] ) ) {
+			if ( array_key_exists( 'heartbeat_control_behavior', $rule ) && 'modify' === $rule['heartbeat_control_behavior'] ) {
+				if ( $this->check_location( $location ) ) {
 					$settings['interval'] = intval( $rule['heartbeat_control_frequency'] );
+
 					return $settings;
 				}
 			}
@@ -134,5 +128,4 @@ class Heartbeat {
 
 		return $settings;
 	}
-
 }

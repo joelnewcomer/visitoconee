@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Settings_Page extends Settings_Base {
+
 	const SHORTCODE_OPTION_TEMPLATE = 'shortcode-entry-option';
 	const SHORTCODE_SELECT_TEMPLATE = 'shortcode-select-option';
 	/**
@@ -86,6 +87,7 @@ class Settings_Page extends Settings_Base {
 			$tooltip,
 			$this->id(), static::SECTION_ID, false, $attrs );
 		$slug->set_fallback( array( $this, 'slug_fail' ) );
+
 		new Checkbox_Option( Options::SHOW_IN_PAGES_WIDGET, __( 'Show legal pages in Pages Widget', WPAUTOTERMS_SLUG ),
 			'', $this->id(), static::SECTION_ID );
 	}
@@ -105,11 +107,13 @@ class Settings_Page extends Settings_Base {
 		if ( $this->_license->status() === License::STATUS_FREE ) {
 			$dv = Options::default_value( Options::LEGAL_PAGES_SLUG );
 			if ( $value !== $dv ) {
-				Notices::add( __( 'Using free license, set pages slug to default.', WPAUTOTERMS_SLUG ), Notices::CLASS_ERROR );
+				Notices::$instance->add( __( 'Using free license, set pages slug to default.', WPAUTOTERMS_SLUG ),
+					Notices::CLASS_ERROR );
 				$value = $dv;
 			}
 		} elseif ( $wp_rewrite->using_permalinks() ) {
-			Notices::add( sprintf( __( 'Invalid slug value, set to %s.', WPAUTOTERMS_SLUG ), $value ), Notices::CLASS_ERROR );
+			Notices::$instance->add( sprintf( __( 'Invalid slug value, set to %s.', WPAUTOTERMS_SLUG ), $value ),
+				Notices::CLASS_ERROR );
 		}
 
 		return $value;

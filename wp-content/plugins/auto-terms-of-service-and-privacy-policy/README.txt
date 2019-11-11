@@ -2,9 +2,9 @@
 Contributors: wpautoterms
 Tags: gdpr, privacy policy, terms and conditions, cookie consent, terms of service, disclosure, disclaimer, affiliates, legal
 Requires at least: 4.2
-Tested up to: 5.1.1
+Tested up to: 5.3
 Requires PHP: 5.3
-Stable tag: 2.2.6
+Stable tag: 2.2.8
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -118,6 +118,21 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.2.8 =
+* Nov 10, 2019
+* Fix: Fixed use case when GDPR Privacy Policy couldn't be created
+* Fix: Fix custom query category page interferance with other plugins
+
+= Version 2.2.7 =
+* Nov 4, 2019
+* Feature: Compatibility support with various caching plugins for Cookie Notice and Update to Legal Pages kits
+* Feature: Allow Post Excerpt for Legal Pages
+* Feature: Allow for the Legal Page slug to be editable from the Edit page directly
+* Feature: Drag-to-order links for the Links to Legal Pages kit
+* Fix: Update to Legal Pages notice incorrectly sets the cookie as `undefined`
+* Fix: Bugfix for Legal Pages Widget 
+* Fix: Added National Capital Region (Metro Manila) for Philippines
 
 = Version 2.2.6 =
 * Apr 24, 2019

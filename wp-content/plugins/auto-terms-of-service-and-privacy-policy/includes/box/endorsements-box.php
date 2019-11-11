@@ -3,6 +3,7 @@
 namespace wpautoterms\box;
 
 use wpautoterms\admin\Menu;
+use wpautoterms\frontend\Container_Constants;
 use wpautoterms\frontend\Endorsements;
 use wpautoterms\option;
 
@@ -50,11 +51,12 @@ class Endorsements_Box extends Licensed_Box {
 			'media_buttons' => false,
 			'editor_height' => 150,
 			'filters' => array(
-				'mce_buttons' => array( $this, 'limited_buttons' ),
-				'mce_buttons_2' => array( $this, 'empty_buttons' ),
-				'mce_buttons_3' => array( $this, 'empty_buttons' ),
-				'mce_buttons_4' => array( $this, 'empty_buttons' ),
-				'wpautoterms_post_editor' => array( $this, 'shortcodes' ),
+				array( 'mce_buttons', array( $this, 'limited_buttons' ) ),
+				array( 'mce_buttons_2', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_3', array( $this, 'empty_buttons' ) ),
+				array( 'mce_buttons_4', array( $this, 'empty_buttons' ) ),
+				array( 'wpautoterms_post_editor', array( $this, 'shortcodes' ) ),
+				array( 'wpautoterms_post_editor', array( $this, '_render_revert_message' ) ),
 			),
 			'tinymce' => array(
 				'resize' => false,
@@ -73,7 +75,7 @@ class Endorsements_Box extends Licensed_Box {
 			'', $page_id, $section_id );
 		$a->set_values( array(
 			' ' => __( 'at the top of the post (before post content)', WPAUTOTERMS_SLUG ),
-			'bottom' => __( 'at the bottom of the post (after post content)', WPAUTOTERMS_SLUG ),
+			Container_Constants::LOCATION_BOTTOM => __( 'at the bottom of the post (after post content)', WPAUTOTERMS_SLUG ),
 		) );
 
 		new option\Color_Option( $this->id() . '_bg_color', __( 'Background color', WPAUTOTERMS_SLUG ), '', $page_id, $section_id );

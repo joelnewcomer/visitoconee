@@ -11,13 +11,14 @@ abstract class CPT {
 	const ROLE = 'manage_wpautoterms_pages';
 	const ROLE_EDITOR = 'manage_wpautoterms_pages_editor';
 	const BASE_ROLE = 'editor';
+
 	protected static $_taxonomies = array( 'category' );
 
 	public static function init() {
-		add_filter( 'theme_' . static::type() . '_templates', array( __CLASS__, 'filter_templates' ), 10, 2 );
-		add_filter( 'map_meta_cap', array( __CLASS__, 'map_meta_cap' ), 10, 4 );
-		add_action( 'admin_menu', array( __CLASS__, 'remove_taxonomies' ) );
-		add_filter( 'pre_get_posts', array( __CLASS__, 'extend_query_for_category' ) );
+		add_filter( 'theme_' . static::type() . '_templates', array( __CLASS__, '_filter_templates' ), 10, 2 );
+		add_filter( 'map_meta_cap', array( __CLASS__, '_map_meta_cap' ), 10, 4 );
+		add_action( 'admin_menu', array( __CLASS__, '_remove_taxonomies' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, '_extend_query_for_category' ) );
 	}
 
 	public static function edit_cap() {
@@ -76,7 +77,7 @@ abstract class CPT {
 		$args = array(
 			'labels' => $labels,
 			'hierarchical' => true,
-			'supports' => array( 'title', 'editor', 'revisions', 'page-attributes', 'custom-fields' ),
+			'supports' => array( 'title', 'editor', 'revisions', 'page-attributes', 'custom-fields', 'excerpt' ),
 			'public' => true,
 			'show_ui' => true,
 			//'show_in_nav_menus'   => false,
@@ -142,7 +143,7 @@ abstract class CPT {
 	 *
 	 * @return array
 	 */
-	public static function filter_templates( $post_templates, $theme ) {
+	public static function _filter_templates( $post_templates, $theme ) {
 		return array_merge( $post_templates, $theme->get_page_templates() );
 	}
 
@@ -154,7 +155,7 @@ abstract class CPT {
 		return static::endswith( $cap, static::cap_singular() ) || static::endswith( $cap, static::cap_plural() );
 	}
 
-	public static function map_meta_cap( $caps, $cap, $user_id, $args ) {
+	public static function _map_meta_cap( $caps, $cap, $user_id, $args ) {
 		if ( isset( $args[0] ) ) {
 			$ok = false;
 			foreach ( $caps as $c ) {
@@ -176,21 +177,27 @@ abstract class CPT {
 		return $caps;
 	}
 
-	public static function remove_taxonomies() {
+	public static function _remove_taxonomies() {
 		foreach ( static::$_taxonomies as $t ) {
 			remove_submenu_page( 'edit.php?post_type=' . static::type(),
 				'edit-tags.php?taxonomy=' . $t . '&amp;post_type=' . static::type() );
 		}
 	}
 
-	public static function extend_query_for_category( \WP_Query $query ) {
-		if ( is_category() && $query->is_archive() ) {
-			$query->set( 'post_type', array(
-				'post',
-				static::type()
-			) );
+	public static function _extend_query_for_category( \WP_Query $query ) {
+		if ( ! $query->is_main_query() ) {
+			return;
 		}
-
-		return $query;
+		if ( is_category() && $query->is_archive() ) {
+			if ( isset( $query->query_vars['post_type'] ) ) {
+				$pt = $query->query_vars['post_type'];
+			} else {
+				$pt = array(
+					'post'
+				);
+			}
+			$pt[] = static::type();
+			$query->set( 'post_type', $pt );
+		}
 	}
 }

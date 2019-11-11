@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_my () {
   "PG-WHM": "Western Highlands", 
   "PG-WPD": "Western", 
   "PH": "ဖိလစ်ပိုင်နိုင်ငံ", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Norte", 
   "PH-AGS": "Agusan del Sur", 

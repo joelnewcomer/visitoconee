@@ -22,7 +22,7 @@ abstract class Controls {
 
 	public static function radio( $control_id, $values ) {
 		$control_id = esc_attr( $control_id );
-		\wpautoterms\print_template( 'form/radio', compact( 'control_id', 'label', 'values' ) );
+		\wpautoterms\print_template( 'form/radio', compact( 'control_id', 'values' ) );
 	}
 
 }

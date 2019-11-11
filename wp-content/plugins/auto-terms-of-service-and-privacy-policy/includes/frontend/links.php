@@ -2,6 +2,7 @@
 
 namespace wpautoterms\frontend;
 
+use wpautoterms\admin\Options;
 use wpautoterms\cpt\CPT;
 use wpautoterms\gen_css\Attr;
 use wpautoterms\gen_css\Document;
@@ -12,6 +13,8 @@ class Links {
 	const FOOTER_CLASS = 'wpautoterms-footer';
 	const SEPARATOR_CLASS = 'separator';
 
+	static $_posts;
+
 	public function __construct() {
 		add_action( 'wp_print_styles', array( $this, 'print_styles' ) );
 	}
@@ -20,23 +23,52 @@ class Links {
 		return WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID;
 	}
 
+	public static function links_order() {
+		$order = explode( ',', Options::get_option( Options::LINKS_ORDER ) );
+
+		return array_map( 'intval', $order );
+	}
+
+	public static function link_posts() {
+		if ( static::$_posts == null ) {
+			$wp_type = CPT::type();
+			$args = array(
+				'post_type' => $wp_type,
+				'post_status' => 'publish',
+				'numberposts' => - 1
+			);
+
+			$posts = get_posts( $args );
+			// Filter out by post type, category page adds "post" in filter.
+			$posts = array_filter( $posts, function ( \WP_Post $x ) use ( $wp_type ) {
+				return $x->post_type == $wp_type;
+			} );
+			$posts = array_reduce( $posts, function ( $acc, \WP_Post $x ) {
+				$acc[ $x->ID ] = $x;
+
+				return $acc;
+			}, array() );
+			static::$_posts = array();
+			$order = static::links_order();
+			if ( ! empty( $order ) ) {
+				foreach ( $order as $id ) {
+					if ( isset( $posts[ $id ] ) ) {
+						static::$_posts[] = $posts[ $id ];
+						unset( $posts[ $id ] );
+					}
+				}
+			}
+			static::$_posts = array_merge( static::$_posts, array_values( $posts ) );
+		}
+
+		return static::$_posts;
+	}
+
 	public function links_box() {
 		if ( ! get_option( WPAUTOTERMS_OPTION_PREFIX . static::MODULE_ID ) ) {
 			return;
 		}
-		$wp_type = CPT::type();
-		$args = array(
-			'post_type' => $wp_type,
-			'post_status' => 'publish',
-			'orderby' => 'post_modified',
-			'numberposts' => - 1
-		);
-
-		$posts = get_posts( $args );
-		// Filter out by post type, category page adds "post" in filter.
-		$posts = array_filter( $posts, function ( \WP_Post $x ) use ( $wp_type ) {
-			return $x->post_type == $wp_type;
-		} );
+		$posts = static::link_posts();
 		$new_page = $custom = get_option( static::_option_prefix() . '_target_blank' );
 		\wpautoterms\print_template( static::MODULE_ID, compact( 'posts', 'new_page' ) );
 	}

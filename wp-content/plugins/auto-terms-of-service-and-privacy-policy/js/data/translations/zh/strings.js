@@ -1146,6 +1146,7 @@ wpautotermsStates.translations = {
   "PG-WHM": "西高地省", 
   "PG-WPD": "西部区", 
   "PH": "菲律宾", 
+  "PH-00": "National Capital Region", 
   "PH-ABR": "阿布拉", 
   "PH-AGN": "北阿古桑", 
   "PH-AGS": "南阿古桑", 

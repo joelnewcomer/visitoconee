@@ -1147,6 +1147,7 @@ function wpautoterms_country_translations_it () {
   "PG-WHM": "Altopiani occidentali", 
   "PG-WPD": "Occidentale", 
   "PH": "Filippine", 
+  "PH-00": "Regione Capitale Nazionale", 
   "PH-ABR": "Abra", 
   "PH-AGN": "Agusan del Nord", 
   "PH-AGS": "Agusan del Sud", 

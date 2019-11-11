@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use wpautoterms\admin\action\Recheck_License;
 
 ?>
