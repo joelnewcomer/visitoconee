@@ -75,7 +75,7 @@
 								if ($start_date != $end_date && $end_date != '' && $current_month == $start_month && $end_month == $start_month) {
 									$two_dates = 'two-dates';
 								}
-								if ($current_month != $start_month && $current_month != $end_month) {
+								if ($start_date_past && $current_month != $end_month) {
 									$two_dates = 'no-dates';
 								}
 								?>
