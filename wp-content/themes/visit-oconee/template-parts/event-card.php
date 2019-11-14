@@ -80,7 +80,7 @@
 								}
 								?>
 								<div class="date-range <?php echo $two_dates; ?>">
-										<?php if ($start_month == $current_month) : ?><?php echo date('j', $start_date); ?><?php endif; ?><?php if ($start_date != $end_date && $end_date != '' && $current_month == $end_month) : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
+										<?php if (!$start_date_past) : ?><?php echo date('j', $start_date); ?><?php endif; ?><?php if ($start_date != $end_date && $end_date != '' && $current_month == $end_month) : ?>- <?php echo date('j', $end_date); ?><?php endif; ?>
 								</div>
 								<a href="<?php echo $link; ?>" <?php echo $target; ?>>
 									<h3><?php the_title(); ?></h3>
