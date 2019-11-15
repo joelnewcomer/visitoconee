@@ -18,7 +18,16 @@ get_header(); ?>
 
 <div class="featured-container">
 	<div class="featured-image blog-landing-featured">
-		<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/events-featured.jpg" alt="Events Image">
+		<?php
+		$events_featured = get_field('featured_image', 'option');
+		if ($events_featured == '') {
+			$featured_url = get_template_directory_uri() . '/assets/images/events-featured.jpg';
+		} else {
+			$featured_array = wp_get_attachment_image_src($events_featured, 'featured');
+			$featured_url = $featured_array[0];
+		}
+		?>
+		<img src="<?php echo $featured_url; ?>" alt="Events Image">
 		<div class="overlay">
 			<div class="blog-header blog-header-1 text-center">
 				<div style="display:table;width:100%;height:100%;">

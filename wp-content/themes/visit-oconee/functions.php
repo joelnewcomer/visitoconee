@@ -437,3 +437,13 @@ function wpmandrill_auto_add_breaks($message) {
     }
     return $message;
 }
+
+if( function_exists('acf_add_options_page') ) {
+  
+    acf_add_options_sub_page(array(
+        'page_title'     => 'Events Options',
+        'menu_title'    => 'Events Options',
+        'parent_slug'    => 'edit.php?post_type=events',
+    ));
+
+}
