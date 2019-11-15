@@ -2,8 +2,8 @@
 Contributors: FlorianBrinkmann, MarcDK
 Tags: lazysizes, lazy loading, performance, images
 Requires at least: 4.9.8
-Tested up to: 5.2.2
-Stable tag: 5.0.0
+Tested up to: 5.3
+Stable tag: 5.1.2
 Requires PHP: 5.3
 
 == Description ==
@@ -28,6 +28,7 @@ Lazy loads (without the need of any manually modifications):
 * Include the [lazysizes unveilhooks plugin](https://github.com/aFarkas/lazysizes/tree/gh-pages/plugins/unveilhooks) that adds support for more elements, for example, video and audio elements.*
 * Enable lazy loading for the poster frame of video elements.
 * Enable lazy loading for audio elements.
+* Enable lazy loading for inline background images.
 * Include [lazysizes aspectratio plugin](https://github.com/aFarkas/lazysizes/tree/gh-pages/plugins/aspectratio). This plugin calculates the needed space for images before they are loaded. That avoids content jumping when the images are loaded and makes the lazy loading work with masonry grids.
 * Display a loading spinner.
 * Disable the plugin on specific posts/pages (this shows a checkbox in the edit view of all public post types (except attachments) to disable lazy loading for an entire post).
@@ -101,6 +102,35 @@ The CSS from the example are the default styles that are used by the plugin (wit
 There is a textarea in the plugin settings where you can insert custom settings for the lazysizes config.
 
 == Changelog ==
+
+= 5.1.2 – 12.11.2019 =
+
+**Changed**
+
+* Updated background image option text.
+
+= 5.1.1 – 11.11.2019 =
+
+**Changed**
+
+* Updated readme.
+
+= 5.1.0 – 11.11.2019 =
+
+**Added**
+
+* Lazy loading of background images.
+* Lazy loading of videos with autoplay.
+
+**Changed**
+
+* Updated lazysizes and its extensions to 5.1.2.
+* Updated tested up to version to 5.3.
+
+**Fixed**
+
+* Handle rest api requests with edit context as admin requests (thanks @websupporter!).
+* Check if a post type supports `custom-fields` before loading block editor script.
 
 = 5.0.0 – 28.06.2019 =
 

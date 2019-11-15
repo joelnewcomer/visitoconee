@@ -59,6 +59,13 @@ class Settings {
 	public $load_unveilhooks_plugin;
 
 	/**
+	 * Value of settings for enabling lazy loading for background images.
+	 *
+	 * @var string
+	 */
+	public $enable_for_background_images;
+
+	/**
 	 * Value of settings for enabling lazy loading for videos.
 	 *
 	 * @var string
@@ -168,6 +175,21 @@ class Settings {
 					'sanitize_checkbox',
 				),
 			),
+			'lazy_load_responsive_images_enable_for_background_images'     => array(
+				'value'             => get_option( 'lazy_load_responsive_images_enable_for_background_images', '0' ),
+				'label'             => __( 'Enable lazy loading for inline background images', 'lazy-loading-responsive-images' ),
+				'description'       => __( 'This feature needs the unveilhooks plugin and will automatically load it, regardless of the option to load the unveilhooks plugin is enabled or not. 
+				<strong>It is possible that this setting causes issues, because:</strong> To also support multiple background images and to provide a 
+				fallback for disabled JavaScript, the plugin removes the background rules from the element and adds a style element instead.
+				The CSS selector is <code>.unique-class.lazyloaded</code> for the JS case, respective <code>.unique-class.lazyload</code> for the case that JS is disabled.
+				If you have CSS background rules with a higher specifity that match the element, they will overwrite the rules
+				that were extracted by Lazy Loader.', 'lazy-loading-responsive-images' ),
+				'field_callback'    => array( $this, 'checkbox_field_cb' ),
+				'sanitize_callback' => array(
+					$this->helpers,
+					'sanitize_checkbox',
+				),
+			),
 			'lazy_load_responsive_images_enable_for_videos'     => array(
 				'value'             => get_option( 'lazy_load_responsive_images_enable_for_videos', '0' ),
 				'label'             => __( 'Enable lazy loading for videos', 'lazy-loading-responsive-images' ),
@@ -221,7 +243,7 @@ class Settings {
 			'lazy_load_responsive_images_granular_disable_option' => array(
 				'value'             => get_option( 'lazy_load_responsive_images_granular_disable_option', '0' ),
 				'label'             => __( 'Enable option to disable plugin per page/post', 'lazy-loading-responsive-images' ),
-				'description'       => __( 'Displays a checkbox in the publish area of all post types (pages/posts/CPTs) that lets you disable the plugin on that specific post.', 'lazy-loading-responsive-images' ),
+				'description'       => __( 'Displays a checkbox in the publish area of all post types (pages/posts/CPTs) that lets you disable the plugin on that specific post. To make it work for CPTs, they must support <code>custom-fields</code>.', 'lazy-loading-responsive-images' ),
 				'field_callback'    => array( $this, 'checkbox_field_cb' ),
 				'sanitize_callback' => array(
 					$this->helpers,
@@ -255,6 +277,7 @@ class Settings {
 		$this->loading_spinner_color   = $this->options['lazy_load_responsive_images_loading_spinner_color']['value'];
 		$this->granular_disable_option = $this->options['lazy_load_responsive_images_granular_disable_option']['value'];
 		$this->lazysizes_config = $this->options['lazy_load_responsive_images_lazysizes_config']['value'];
+		$this->enable_for_background_images = $this->options['lazy_load_responsive_images_enable_for_background_images']['value'];
 
 		// Register settings on media options page.
 		add_action( 'admin_init', array( $this, 'settings_init' ), 12 );
