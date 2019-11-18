@@ -116,7 +116,7 @@ register_post_type('events', array(	'label' => 'Events','description' => '','pub
 
 register_taxonomy('events_cats',array (
   0 => 'events',
-),array( 'hierarchical' => true, 'label' => 'Events Categories','show_ui' => true,'query_var' => true,'rewrite' => array('slug' => ''),'singular_label' => 'Category') );
+),array( 'hierarchical' => true, 'label' => 'Events Categories','show_ui' => true,'query_var' => true,'rewrite' => array('slug' => 'event-category'),'singular_label' => 'Category') );
 
 // Add featured to filter by category in points of interest
 function pippin_add_taxonomy_filters() {
@@ -155,19 +155,21 @@ add_action( 'pre_get_posts', 'order_poi' );
 
 // Display events in date order and exclude past events
 function order_events( $query ) {
-	if ( !is_admin() && $query->is_main_query() && is_post_type_archive('events') ) {	
-    	$query->set( 'orderby', 'meta_value_num' );
-    	$query->set( 'meta_key', 'start_date' );
-    	$query->set( 'order', 'ASC' );
-    	$query->set( 'posts_per_page', -1);
-		$query->set( 'meta_query', array(
-		    array(
-		        'key' => 'end_date',
-		        'value' => strtotime('today midnight'),
-		        'compare' => '>=',
-		        	'type' => 'numeric'
-		        )
-		));    
+	if ( !is_admin() && $query->is_main_query()) {
+		if (is_post_type_archive('events') || is_tax('events_cats')) {	
+    		$query->set( 'orderby', 'meta_value_num' );
+    		$query->set( 'meta_key', 'start_date' );
+    		$query->set( 'order', 'ASC' );
+    		$query->set( 'posts_per_page', -1);
+			$query->set( 'meta_query', array(
+			    array(
+			        'key' => 'end_date',
+			        'value' => strtotime('today midnight'),
+			        'compare' => '>=',
+			        	'type' => 'numeric'
+			        )
+			));
+		}
   	}
 }
 add_action( 'pre_get_posts', 'order_events' );
