@@ -148,7 +148,7 @@ class Update_Notice_Box extends Box {
 			$this->id() . '_disable_logged' => 'yes',
 			$this->id() . '_duration' => '3',
 			$this->id() . '_message' => __( 'Our <a href="[wpautoterms page_link]">[wpautoterms page_title]</a> has been updated on [wpautoterms last_updated_date].', WPAUTOTERMS_SLUG ),
-			$this->id() . '_message_multiple' => __( 'Our <a href="[wpautoterms page_links]">[wpautoterms page_titles]</a> have been updated on [wpautoterms last_updated_date].', WPAUTOTERMS_SLUG ),
+			$this->id() . '_message_multiple' => __( 'Our [wpautoterms page_links] have been updated on [wpautoterms last_updated_date].', WPAUTOTERMS_SLUG ),
 			$this->id() . '_close_message' => __( 'Close', WPAUTOTERMS_SLUG ),
 			$this->id() . '_bg_color' => '',
 			$this->id() . '_font' => '',

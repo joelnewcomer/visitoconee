@@ -4,7 +4,7 @@ Tags: gdpr, privacy policy, terms and conditions, cookie consent, terms of servi
 Requires at least: 4.2
 Tested up to: 5.3
 Requires PHP: 5.3
-Stable tag: 2.2.8
+Stable tag: 2.3.1
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -118,6 +118,20 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.3.1 =
+* Dec 9, 2019
+* Fix: Removed the Category template query due to WP Query limitation
+
+= Version 2.3.0 =
+* Nov 27, 2019
+* Fix: Fixed the E_ERROR type error
+
+= Version 2.2.9 =
+* Nov 25, 2019
+* Fix: Fixed the E_ERROR type error
+* Fix: Remove the "Caching Plugins Detect" banner appearing incorrectly
+* Fix: "Revert to default message" functionality for the Updates Notices Compliance Kit
 
 = Version 2.2.8 =
 * Nov 10, 2019

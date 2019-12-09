@@ -67,12 +67,12 @@ abstract class Frontend {
 				if ( $passed > $total * static::OB_PASSED_LIMIT ) {
 					Options::set_option( Options::CACHE_PLUGINS_DETECTION, false );
 					Options::set_option( Options::CACHE_PLUGINS_DETECTED, true );
-					Notices::$instance->add(
-						__( 'Cache plugins detected. Please review ' .
-						    '<a href="' . admin_url( 'edit.php?post_type=' . CPT::type() . '&page=' . WPAUTOTERMS_SLUG .
-						                             '_' . Menu::PAGE_SETTINGS_ADVANCED ) .
-						    '">WPAutoTerms settings</a> and enable the Caching Plugins compatibility mode.',
-							WPAUTOTERMS_SLUG ), Notices::CLASS_ERROR, true, static::CACHE_PLUGIN_NOTICE_ID );
+//					Notices::$instance->add(
+//						__( 'Cache plugins detected. Please review ' .
+//						    '<a href="' . admin_url( 'edit.php?post_type=' . CPT::type() . '&page=' . WPAUTOTERMS_SLUG .
+//						                             '_' . Menu::PAGE_SETTINGS_ADVANCED ) .
+//						    '">WPAutoTerms settings</a> and enable the Caching Plugins compatibility mode.',
+//							WPAUTOTERMS_SLUG ), Notices::CLASS_ERROR, true, static::CACHE_PLUGIN_NOTICE_ID );
 				}
 			} elseif ( static::_is_html_content() ) {
 				Options::set_option( Options::OB_TOTAL, $total + 1 );

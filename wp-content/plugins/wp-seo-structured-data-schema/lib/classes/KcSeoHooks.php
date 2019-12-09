@@ -9,7 +9,7 @@ class KcSeoHooks {
 	}
 
 	public static function plugins_loaded() {
-		$settings = get_option( kcseo()->options['main_settings'] );
+		$settings = get_option( 'kcseo_wp_schema_settings' );
 		if ( KcSeoFunctions::isYoastActive() ) {
 			if ( isset( $settings['yoast_wpseo_json_ld_search'] ) && $settings['yoast_wpseo_json_ld_search'] ) {
 				add_filter( 'disable_wpseo_json_ld_search', '__return_true' );

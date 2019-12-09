@@ -3,9 +3,9 @@ Contributors: podpirate
 Donate link: https://www.msf.org/donate
 Tags: acf, quickedit, columns, bulk edit
 Requires at least: 4.7
-Tested up to: 5.2
-Requires PHP: 5.4
-Stable tag: 3.0.4
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: 3.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,12 @@ Please post an issue in the [GitHub-Repository](https://github.com/mcguffin/acf-
 On the whole upgrading is always a good idea.
 
 == Changelog ==
+
+= 3.0.5 =
+ - Feature: Support Post Object Bulk and Quick Edit (thanks to [@m0n0mind](https://github.com/m0n0mind))
+ - Fix: Column for Post object with multiple values not displaying
+ - Fix: ACF Field Location rules applied incorrectly
+ - Fix: JS Error with link fields
 
 = 3.0.4 =
  - Fix: Quick/Bulk Edit not showing when list table filter is used
