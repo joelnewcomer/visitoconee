@@ -441,11 +441,18 @@ function wpmandrill_auto_add_breaks($message) {
 }
 
 if( function_exists('acf_add_options_page') ) {
-  
     acf_add_options_sub_page(array(
         'page_title'     => 'Events Options',
         'menu_title'    => 'Events Options',
         'parent_slug'    => 'edit.php?post_type=events',
     ));
+}
 
+/* @link https://anythinggraphic.net/paste-as-text-by-default-in-wordpress
+/* Use Paste As Text by default in the editor
+----------------------------------------------------------------------------------------*/
+add_filter('tiny_mce_before_init', 'ag_tinymce_paste_as_text');
+function ag_tinymce_paste_as_text( $init ) {
+	$init['paste_as_text'] = true;
+	return $init;
 }
