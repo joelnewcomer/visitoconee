@@ -2996,6 +2996,9 @@ a.read-more, .no-wrap, .no-break {
 .clear {
   clear: left; }
 
+figure {
+  max-width: 100%; }
+
 .transition, a, input.button {
   transition: all .4s ease; }
 
