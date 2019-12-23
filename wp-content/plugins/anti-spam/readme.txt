@@ -1,38 +1,35 @@
 === Anti-spam ===
-Contributors: webvitaly
-Donate link: http://web-profile.net/donate/
-Tags: spam, spammer, comment, comments, comment-spam, antispam, anti-spam, block-spam, spam-free, spambot, spam-bot, bot
-Requires at least: 3.3
-Tested up to: 5.2
-Stable tag: 5.5
+Contributors: creativemotion
+Tags: antispam, spam, protection, comments, comment, antispam, anti-spam, block-spam, spam-free, spambot, spam-bot, bot
+Requires at least: 4.9
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
-No spam in comments. No captcha.
+Anti-spam plugin blocks automatic spam in comments section. No captcha.
 
 == Description ==
+= Anti-spam checks your comments and contact form submissions against our global database, Once comments are checked on the spam database, a self-learning neural network re-checks unfiltered comments, of spam to prevent your site from publishing malicious content. =
 
-* **[Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro")**
-* **[Anti-spam](http://web-profile.net/wordpress/plugins/anti-spam/ "Plugin page")**
-* **[Donate](http://web-profile.net/donate/ "Support the development")**
-* **[GitHub](https://github.com/webvitalii/anti-spam "Fork")**
-
-
-Anti-spam plugin blocks automatic spam in comments section. No captcha. 
-
-Plugin is easy to use: just install it and it just works.
-
-Blocked comments can be stored in the Spam area if needed. This can be enabled/disabled via Settings page. This is useful for testing and debug purpose. Blocked spam comments can be easily converted to regular comments if needed.
-
-Anti-spam plugin is GDPR compliant and does not store any other user data except of the behavior mentioned above.
-
-**Plugin blocks spam only in comments section**.
+### Features ###
+* Imperceptible spam protection on your site helps you give visitors a convenient and easy way to create an account or post a comment. You'll be able to get growth of comments, registrations and increase conversion rates. Have a think about the user experience of your product because users do not like to fill out the captcha.
+* Simple installation and easy to use - no need to change the code or study instructions. Connecting the site to the service takes less than a minute, just install anti-spam plugins and your website is protected.
+* We have created algorithms to ensure reliability and accuracy against spam bots. It will save your time and resources, allowing you to focus on developing and improving your website and business. Antispam provides logs of all the processed requests that allows you to check the results of spam filters. Regular analysis of parameters allows you to find new spam patterns of behavior.
+* A comment posted by a user appears on the site right away. The background check marks spam comments as spam and does not display them on a site. This helps to avoid user disturbance and increase engagement.
+* One of the distinctive features of the AntiSpam PRO is the ability to check the already existing comments and users for spam. Comment spam checker with a few of the checks by spam activity of IP and email on date and time, check for spam links and text of messages.* Anti-spam plugin is GDPR compliant and does not store any other user data except of the behavior mentioned above.
+* We provide 24/7 technical support, giving you an assurance that you will get a quick response, decision or advice on all your questions. It is our pleasure to be of service to you, don’t hesitate to let us know if you have any questions or comments. Customer support is one of our top priority. We’re here to help you acquire the best experience with AntiSpam service.
+* For more info visit [anti-spam.space](https://anti-spam.space/)
 
 
-
-After installing the Anti-spam plugin **try to submit a comment on your site being logged out**.
-If you get an error - you may check the solution in the [Support section](http://wordpress.org/support/plugin/anti-spam) or submit a new topic with detailed description of your problem.
-
+### PRO Version ###
+To maintain the free version and provide prompt, effective &amp; free support, we offer the Pro version. 
+In the Pro version, you can:
+* To identify and block spam bots AntiSpamPro uses a series of tests, invisible to the visitor of the website. This allows 100% protection from spam bots to be provided, without the need to install extra protection.
+* Technical Support 24/7 to help you use the anti-spam service. If you have specific needs, you can contact our AntiSpam Pro customer support team at any time, day or night. We strive to answer all emails within 12 hours, and most are answered in substantially less time.
+* Antispam Pro a transparent anti-spam protection. We provide detailed statistics of all entered comments and logins. You can always be sure that there are no errors. We have developed a mobile app for you to see anti-spam statistics, wherever and whenever.
+* We regularly release updates to the anti-spam module. Our modules always meet new versions of CMS and we are constantly expanding supported CMS.
 
 == Installation ==
 
@@ -52,7 +49,6 @@ Saving spam comments can help you to keep all the comments saved and review them
 
 Anti-spam plugin blocks 100% of automatic spam messages (sent by spam-bots via post requests).
 Plugin does not block manual spam (submitted by spammers manually via browser).
-You can use [Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro") plugin if you need to block manual spam.
 
 = Incompatible with: =
 
@@ -96,9 +92,7 @@ If you installed and activated the plugin and you still receiving spam - probabl
 
 Users rarely use trackbacks because it is manual and requires extra input. Spammers uses trackbacks because it is easy to cheat here.
 Users use pingbacks very often because they work automatically. Spammers does not use pingbacks because backlinks are checked.
-So trackbacks are blocked but pingbacks are enabled. 
-You may use [Anti-spam Pro](http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii "Upgrade to Pro") plugin if you need to enable trackbacks.
-You may read more about the [difference between trackbacks and pingbacks](http://web-profile.net/web/trackback-vs-pingback/)
+So trackbacks are blocked but pingbacks are enabled.
 
 = What browsers are supported? =
 
@@ -121,6 +115,16 @@ The plugin is pretty small and easy to read.
 
 
 == Changelog ==
+= 6.5.1 - 16.12.2019 =
+* Added: Multisite support.
+* Fixed: Bug with redirection loop in multisite mode.
+* Fixed: Readme. GDPR compatibility is ready. Plugin doesn't send any data to the remote server.
+* Removed: Dashboard widget with annoy ads.
+
+= 6.5 - 12.12.2019 =
+* Updated: Plugin interface.
+* Added: Compatibility with Wordpress 5.3
+* Added: Compatibility Anti-spam Pro.
 
 = 5.5 =
 * Code cleanup

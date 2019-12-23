@@ -1,0 +1,29 @@
+#WBCR .factory-checkbox.wantispam-checkbox-premium-label:after {
+  display: inline-block;
+  position: relative;
+  content: 'PRO';
+  background: #ff5722;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  font-style: normal;
+  padding: 4px 6px;
+  margin-left: 4px;
+  vertical-align: top;
+  top: -8px;
+  left: -10px;
+  right: auto;
+  z-index: 11;
+  cursor: pointer;
+}
+#WBCR .factory-checkbox--disabled input,
+#WBCR .factory-checkbox--disabled button {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/*# sourceMappingURL=settings.css.map */

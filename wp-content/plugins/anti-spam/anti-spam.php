@@ -1,94 +1,152 @@
 <?php
 /*
-Plugin Name: Anti-spam
+Plugin Name: Anti-Spam
 Plugin URI: http://wordpress.org/plugins/anti-spam/
 Description: No spam in comments. No captcha.
-Version: 5.5
-Author: webvitaly
+Version: 6.5.1
+Author: CreativeMotion
 Text Domain: anti-spam
-Author URI: http://web-profile.net/wordpress/plugins/
+Author URI: https://cm-wp.com/
 License: GPLv3
 */
 
-if ( ! defined( 'ABSPATH' ) ) { // Avoid direct calls to this file and prevent full path disclosure
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define('ANTISPAM_PLUGIN_VERSION', '5.5');
+/**
+ * Developers who contributions in the development plugin:
+ *
+ * Alexander Kovalev
+ * ---------------------------------------------------------------------------------
+ * Full plugin development.
+ *
+ * Email:         alex.kovalevv@gmail.com
+ * Personal card: https://alexkovalevv.github.io
+ * Personal repo: https://github.com/alexkovalevv
+ * ---------------------------------------------------------------------------------
+ */
 
-include('anti-spam-functions.php');
-include('anti-spam-settings.php');
-include('anti-spam-info.php');
+/**
+ * -----------------------------------------------------------------------------
+ * CHECK REQUIREMENTS
+ * Check compatibility with php and wp version of the user's site. As well as checking
+ * compatibility with other plugins from Webcraftic.
+ * -----------------------------------------------------------------------------
+ */
+
+require_once( dirname( __FILE__ ) . '/libs/factory/core/includes/class-factory-requirements.php' );
+
+// @formatter:off
+$cm_antspam_plugin_info = array(
+	'prefix'         => 'wantispam_',
+	'plugin_name'    => 'wantispam',
+	'plugin_title'   => __( 'Anti-Spam', 'anti-spam' ),
+
+	// PLUGIN SUPPORT
+	'support_details'      => array(
+		'url'       => 'https://anti-spam.space',
+		'pages_map' => array(
+			'support'  => 'support',           // {site}/support
+			'docs'     => 'docs'               // {site}/docs
+		)
+	),
+
+	// PLUGIN PREMIUM SETTINGS
+	'has_premium'            => true,
+	'license_settings'       => array(
+		'provider'           => 'freemius',
+		'slug'               => 'antispam-premium',
+		'plugin_id'          => '5079',
+		'public_key'         => 'pk_98a99846a14067246257d4f43c04a',
+		'price'              => 15,
+		'has_updates'        => true,
+		'updates_settings' => array(
+			'maybe_rollback'    => true,
+			'rollback_settings' => array(
+				'prev_stable_version' => '0.0.0'
+			)
+		)
+	),
+
+	// PLUGIN ADVERTS
+	'render_adverts' => true,
+	'adverts_settings'    => array(
+		'dashboard_widget' => true, // show dashboard widget (default: false)
+		'right_sidebar'    => true, // show adverts sidebar (default: false)
+		'notice'           => true, // show notice message (default: false)
+	),
+
+	// FRAMEWORK MODULES
+	'load_factory_modules' => array(
+		array( 'libs/factory/bootstrap', 'factory_bootstrap_425', 'admin' ),
+		array( 'libs/factory/forms', 'factory_forms_422', 'admin' ),
+		array( 'libs/factory/pages', 'factory_pages_424', 'admin' ),
+		array( 'libs/factory/clearfy', 'factory_clearfy_216', 'all' ),
+		array( 'libs/factory/freemius', 'factory_freemius_112', 'all')
+	)
+);
+
+$cm_antspam_compatibility = new Wbcr_Factory424_Requirements( __FILE__, array_merge( $cm_antspam_plugin_info, array(
+	'plugin_already_activate'          => defined( 'WANTISPAM_PLUGIN_ACTIVE' ),
+	'required_php_version'             => '5.4',
+	'required_wp_version'              => '4.2.0',
+	'required_clearfy_check_component' => false
+) ) );
 
 
-function antispam_enqueue_script() {
-	global $withcomments; // WP flag to show comments on all pages
-	if ((is_singular() || $withcomments) && comments_open()) { // load script only for pages with comments form
-		wp_enqueue_script('anti-spam-script', plugins_url('/js/anti-spam-5.5.js', __FILE__), null, null, true);
-	}
+/**
+ * If the plugin is compatible, then it will continue its work, otherwise it will be stopped,
+ * and the user will throw a warning.
+ */
+if ( ! $cm_antspam_compatibility->check() ) {
+	return;
 }
-add_action('wp_enqueue_scripts', 'antispam_enqueue_script');
+
+/**
+ * -----------------------------------------------------------------------------
+ * CONSTANTS
+ * Install frequently used constants and constants for debugging, which will be
+ * removed after compiling the plugin.
+ * -----------------------------------------------------------------------------
+ */
+
+// This plugin is activated
+define( 'WANTISPAM_PLUGIN_ACTIVE', true );
+define( 'WANTISPAM_PLUGIN_VERSION', $cm_antspam_compatibility->get_plugin_version() );
+define( 'WANTISPAM_PLUGIN_DIR', dirname( __FILE__ ) );
+define( 'WANTISPAM_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+define( 'WANTISPAM_PLUGIN_URL', plugins_url( null, __FILE__ ) );
 
 
-function antispam_form_part() {
-	$rn = "\r\n"; // .chr(13).chr(10)
 
-	if ( ! is_user_logged_in()) { // add anti-spam fields only for not logged in users
-		echo $rn.'<!-- Anti-spam plugin v.'.ANTISPAM_PLUGIN_VERSION.' wordpress.org/plugins/anti-spam/ -->'.$rn;
-		echo '		<p class="antispam-group antispam-group-q" style="clear: both;">
-			<label>Current ye@r <span class="required">*</span></label>
-			<input type="hidden" name="antspm-a" class="antispam-control antispam-control-a" value="'.date('Y').'" />
-			<input type="text" name="antspm-q" class="antispam-control antispam-control-q" value="'.ANTISPAM_PLUGIN_VERSION.'" autocomplete="off" />
-		</p>'.$rn; // question (hidden with js)
-		echo '		<p class="antispam-group antispam-group-e" style="display: none;">
-			<label>Leave this field empty</label>
-			<input type="text" name="antspm-e-email-url-website" class="antispam-control antispam-control-e" value="" autocomplete="off" />
-		</p>'.$rn; // empty field (hidden with css); trap for spammers because many bots will try to put email or url here
-	}
+
+/**
+ * -----------------------------------------------------------------------------
+ * PLUGIN INIT
+ * -----------------------------------------------------------------------------
+ */
+
+require_once( WANTISPAM_PLUGIN_DIR . '/libs/factory/core/boot.php' );
+require_once( WANTISPAM_PLUGIN_DIR . '/includes/functions.php' );
+require_once( WANTISPAM_PLUGIN_DIR . '/includes/class-anti-spam-plugin.php' );
+
+try {
+	new \WBCR\Antispam\Plugin( __FILE__, array_merge( $cm_antspam_plugin_info, array(
+		'plugin_version'     => WANTISPAM_PLUGIN_VERSION,
+		'plugin_text_domain' => $cm_antspam_compatibility->get_text_domain(),
+	) ) );
+} catch( Exception $e ) {
+	// Plugin wasn't initialized due to an error
+	define( 'WANTISPAM_PLUGIN_THROW_ERROR', true );
+
+	$cm_antspam_plugin_error_func = function () use ( $e ) {
+		$error = sprintf( "The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'CreativeMotion Antispam', $e->getMessage(), $e->getCode() );
+		echo '<div class="notice notice-error"><p>' . $error . '</p></div>';
+	};
+
+	add_action( 'admin_notices', $cm_antspam_plugin_error_func );
+	add_action( 'network_admin_notices', $cm_antspam_plugin_error_func );
 }
-add_action('comment_form', 'antispam_form_part'); // add anti-spam inputs to the comment form
-
-
-function antispam_check_comment($commentdata) {
-	$antispam_settings = antispam_get_settings();
-	
-	extract($commentdata);
-
-	if ( ! is_user_logged_in() && $comment_type != 'pingback' && $comment_type != 'trackback') { // logged in user is not a spammer
-		if( antispam_check_for_spam() ) {
-			if( $antispam_settings['save_spam_comments'] ) {
-				antispam_store_comment($commentdata);
-			}
-			antispam_counter_stats();
-			wp_die('Comment is a spam.'); // die - do not send comment and show error message
-		}
-	}
-	
-	if ($comment_type == 'trackback') {
-		if( $antispam_settings['save_spam_comments'] ) {
-			antispam_store_comment($commentdata);
-		}
-		antispam_counter_stats();
-		wp_die('Trackbacks are disabled.'); // die - do not send trackback and show error message
-	}
-
-	return $commentdata; // if comment does not looks like spam
-}
-
-if ( ! is_admin()) { // without this check it is not possible to add comment in admin section
-	add_filter('preprocess_comment', 'antispam_check_comment', 1);
-}
-
-
-function antispam_plugin_meta($links, $file) { // add some links to plugin meta row
-	if ( $file == plugin_basename( __FILE__ ) ) {
-		$row_meta = array(
-			'support' => '<a href="http://web-profile.net/wordpress/plugins/anti-spam/" target="_blank">' . __( 'Anti-spam', 'anti-spam' ) . '</a>',
-			'donate' => '<a href="http://web-profile.net/donate/" target="_blank">' . __( 'Donate', 'anti-spam' ) . '</a>',
-			'upgrage' => '<a href="http://codecanyon.net/item/antispam-pro/6491169?ref=webvitalii" target="_blank">' . __( 'Anti-spam Pro', 'anti-spam' ) . '</a>'
-		);
-		$links = array_merge( $links, $row_meta );
-	}
-	return (array) $links;
-}
-add_filter('plugin_row_meta', 'antispam_plugin_meta', 10, 2);
+// @formatter:on

@@ -3,7 +3,7 @@ Contributors: smashballoon, craig-at-smash-balloon
 Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 3.4
 Tested up to: 5.3
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -324,6 +324,11 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Plus more customization options added all the time!
 
 == Changelog ==
+= 2.1.4 =
+* Tweak: If sb_instagram_js_options is not defined, a default object is set.
+* Tweak: Added a text link in the settings page footer to our new free [YouTube plugin](https://wordpress.org/plugins/feeds-for-youtube/)
+* Fix: Local images not being used when available in certain circumstances.
+
 = 2.1.3 =
 * New: Added filter "sbi_settings_pages_capability" to change what permission is needed to access settings pages.
 * Tweak: Updated language files for version 2.0+.
