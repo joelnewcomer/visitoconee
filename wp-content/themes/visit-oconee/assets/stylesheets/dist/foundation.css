@@ -3095,7 +3095,7 @@ h1.entry-title {
       font-size: 72px; } }
   @media only screen and (max-width: 40.063em) {
     h1.entry-title {
-      font-size: 60px; } }
+      font-size: 42px; } }
   @media print {
     h1.entry-title {
       display: inline-block;
@@ -4809,11 +4809,14 @@ section.instagram {
     margin-bottom: 60px; }
 
 #single-post .single-title-ul {
-  /* font-size: 64px; */
   position: relative;
   margin-bottom: 60px;
   max-width: 1010px;
   display: inline-block; }
+  @media only screen and (max-width: 40em) {
+    #single-post .single-title-ul {
+      margin-bottom: 0;
+      padding: 0 16px; } }
 
 #single-post .single-cats-container {
   display: inline-block;
@@ -4822,16 +4825,17 @@ section.instagram {
 #single-post header .single-cats-container {
   margin-bottom: 40px; }
 
-#single-post .single-title-ul:after {
-  content: '';
-  display: block;
-  position: absolute;
-  bottom: -28px;
-  left: 50%;
-  height: 1px;
-  width: 472px;
-  margin-left: -236px;
-  background: #fff; }
+@media only screen and (min-width: 40.063em) {
+  #single-post .single-title-ul:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    height: 1px;
+    width: 472px;
+    margin-left: -236px;
+    background: #fff; } }
 
 #single-post .single-container {
   display: block;

@@ -1,4 +1,4 @@
-<div class="single-cats-container">
+<div class="single-cats-container hide-for-small">
 	<?php
 	global $post;
 	$args = array(
