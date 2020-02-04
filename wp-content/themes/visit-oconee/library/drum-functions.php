@@ -49,7 +49,7 @@ add_filter('excerpt_more', 'new_excerpt_more');
 // Drum custom excerpt length
 function drum_excerpt($length) {
 	$excerpt = get_the_content('');
-	if ($excerpt == '') {
+	if ($excerpt == '' || has_excerpt()) {
 		$excerpt = get_the_excerpt();
 	}
 	$excerpt = strip_shortcodes( $excerpt );
