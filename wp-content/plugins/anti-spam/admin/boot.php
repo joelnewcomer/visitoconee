@@ -25,12 +25,44 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return string
  */
-add_filter( 'wbcr_factory_pages_424_imppage_rating_widget_url', function ( $page_url, $plugin_name ) {
+add_filter( 'wbcr_factory_pages_425_imppage_rating_widget_url', function ( $page_url, $plugin_name ) {
 	if ( $plugin_name == \WBCR\Antispam\Plugin::app()->getPluginName() ) {
 		return 'https://wordpress.org/support/plugin/anti-spam/reviews/';
 	}
 
 	return $page_url;
+}, 10, 2 );
+
+/**
+ * Print admin notice: "Would you like to send them for spam checking?"
+ *
+ * If user clicked button "Yes, do it", plugin will exec action,
+ * that put all unapproved comments to spam check queue.
+ */
+add_action( 'wbcr/factory/admin_notices', function ( $notices, $plugin_name ) {
+	if ( $plugin_name != \WBCR\Antispam\Plugin::app()->getPluginName() ) {
+		return $notices;
+	}
+	$review_link = "https://wordpress.org/support/plugin/anti-spam/reviews/";
+	$notice_text = sprintf( __( 'Hey, You\'ve using Anti-spam – that\'s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation! <a href="%s" target="_blank" rel="noopener">Review</a>', "anti-spam" ), $review_link );
+
+	$notices[] = [
+		'id'              => 'wantispam_give_me_review',
+		'type'            => 'success',
+		'where'           => [
+			'edit-comments',
+			'plugins',
+			'themes',
+			'dashboard',
+			'edit',
+			'settings'
+		],
+		'dismissible'     => true,
+		'dismiss_expires' => 0,
+		'text'            => '<p><strong>Anti-spam:</strong><br>' . $notice_text . '</p>'
+	];
+
+	return $notices;
 }, 10, 2 );
 
 /**
@@ -45,6 +77,10 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 		unset( $widgets['business_suggetion'] );
 		unset( $widgets['rating_widget'] );
 		unset( $widgets['info_widget'] );
+
+		if ( ! \WBCR\Antispam\Plugin::app()->premium->is_activate() ) {
+			$widgets['premium_suggetion'] = wantispam_get_sidebar_premium_widget();
+		}
 	}
 
 	return $widgets;
@@ -67,12 +103,16 @@ add_filter( 'wbcr/factory/pages/impressive/plugin_title', function ( $title, $pl
  * Этот хук реализует условную логику, при которой пользователь переодически будет
  * видет страницу "О плагине", а конкретно при активации и обновлении плагина.
  */
-add_action( 'admin_init', function () {
+/*add_action( 'admin_init', function () {
+	if ( ! current_user_can( 'manage_option' ) ) {
+		return;
+	}
+
 	$plugin = \WBCR\Antispam\Plugin::app();
 
 	// If the user has updated the plugin or activated it for the first time,
 	// you need to show the page "What's new?"
-	//if ( ! $plugin->isNetworkAdmin() ) {
+	//-------------------------
 	$about_page_viewed = $plugin->request->get( 'wantispam_about_page_viewed', null );
 
 	if ( is_null( $about_page_viewed ) ) {
@@ -96,5 +136,5 @@ add_action( 'admin_init', function () {
 			}
 		}
 	}
-	//}
-} );
+} );*/
+

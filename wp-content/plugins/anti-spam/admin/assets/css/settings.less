@@ -31,6 +31,35 @@
     }
   }
 
+  .wantispam-checkbox-warning-message {
+    position: relative;
+    padding: 15px;
+    background: #fff5de;
+    color: #9c6e6e;
+    border-radius: 3px;
 
+    &:after, &:before {
+      bottom: 100%;
+      left: 20px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #fff5de;
+      border-width: 10px;
+    }
+
+    &:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #fff5de;
+      border-width: 10px;
+    }
+  }
 }
 

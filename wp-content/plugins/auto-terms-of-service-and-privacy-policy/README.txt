@@ -1,10 +1,10 @@
-=== WP AutoTerms: GDPR Privacy Policy, Cookie Consent Banner, Terms & Conditions ===
+=== WP AutoTerms: Privacy Policy Generator, Cookie Notice Banner, Terms & Conditions Generator ===
 Contributors: wpautoterms
 Tags: gdpr, privacy policy, terms and conditions, cookie consent, terms of service, disclosure, disclaimer, affiliates, legal
 Requires at least: 4.2
 Tested up to: 5.3
 Requires PHP: 5.3
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPL version 3 or any later version
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -118,6 +118,11 @@ Installing the plugin is easy. Just follow these steps:
 5. When the upload is finished, activate the plugin via the prompt. A message will show confirming a successful activation.
 
 == Changelog ==
+
+= Version 2.3.2 =
+* Jan 27, 2020
+* Fix: Disable plugin if page is AMP endpoint (AMP does not allow JS scripts)
+* Fix: Chrome prevents "Create" button from working due to validation (hidden field)
 
 = Version 2.3.1 =
 * Dec 9, 2019

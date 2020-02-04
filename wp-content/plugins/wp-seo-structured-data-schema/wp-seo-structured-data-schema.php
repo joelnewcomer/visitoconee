@@ -3,7 +3,7 @@
  * Plugin Name: WP SEO Structured Data Schema
  * Plugin URI: https://wpsemplugins.com/
  * Description: Comprehensive JSON-LD based Structured Data solution for WordPress for adding schema for organizations, businesses, blog posts, ratings & more.
- * Version: 2.6.10
+ * Version: 2.6.11
  * Author: WPSEMPlugins
  * Author URI: https://wpsemplugins.com/
  * Text Domain:  wp-seo-structured-data-schema
@@ -41,26 +41,28 @@ define( 'KCSEO_WP_SCHEMA_LANGUAGE_PATH', dirname( plugin_basename( __FILE__ ) ) 
 require( 'lib/init.php' );
 register_uninstall_hook( __FILE__, 'KCSEO_uninstall' );
 
-function KCSEO_uninstall() {
-	$settings = get_option( kcseo()->options['main_settings'] );
-	if ( ! empty( $settings['delete-data'] ) ) {
-		$schemaFields = KcSeoOptions::getSchemaTypes();
+if ( ! function_exists( 'KCSEO_uninstall' ) ) {
+	function KCSEO_uninstall() {
+		$settings = get_option( kcseo()->options['main_settings'] );
+		if ( ! empty( $settings['delete-data'] ) ) {
+			$schemaFields = KcSeoOptions::getSchemaTypes();
 
-		$args  = array(
-			'post_type'      => array( 'page', 'post' ),
-			'posts_per_page' => '-1'
-		);
-		$pages = new WP_Query ( $args );
-		if ( $pages->have_posts() ) {
+			$args  = array(
+				'post_type'      => array( 'page', 'post' ),
+				'posts_per_page' => '-1'
+			);
+			$pages = new WP_Query ( $args );
+			if ( $pages->have_posts() ) {
 
-			while ( $pages->have_posts() ) {
-				$pages->the_post();
-				foreach ( $schemaFields as $schemaID => $schema ) {
-					delete_post_meta( get_the_ID(), '_schema_' . $schemaID );
+				while ( $pages->have_posts() ) {
+					$pages->the_post();
+					foreach ( $schemaFields as $schemaID => $schema ) {
+						delete_post_meta( get_the_ID(), '_schema_' . $schemaID );
+					}
 				}
+				wp_reset_postdata();
 			}
-			wp_reset_postdata();
 		}
-	}
 
+	}
 }

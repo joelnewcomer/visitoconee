@@ -1,5 +1,8 @@
 jQuery(document).ready(function ($) {
     var CREATE_SELECTOR = $("#legal-page-create-selector").show();
+    
+    $('#post').attr('novalidate', true);
+    console.log('#post novalidate');
 
     $("[data-type='dismiss-button']").click(function (e) {
         var el = $(e.target);
@@ -57,7 +60,8 @@ jQuery(document).ready(function ($) {
         }
 
         function updateSectionRequirements(sectionId, visible) {
-            jQuery("#" + sectionId + " input[type=radio]").prop("required", visible);
+            // jQuery("#" + sectionId + " input[type=radio]").prop("required", visible);
+            console.log('updateSectionRequirements: ' + sectionId + ' ' + visible);
         }
 
         var hidden = wpautotermsPostNew.hidden[PAGE_ID];
@@ -65,7 +69,10 @@ jQuery(document).ready(function ($) {
             return "#" + x;
         }).join(",")).hide();
         CONTAINER.find("input[type=radio],input[type=checkbox]").click(updateDependencies);
-        CONTAINER.find("input[type=radio]:visible").prop("required", true);
+        
+        // CONTAINER.find("input[type=radio]:visible").prop("required", true);
+        console.log('CONTAINER input[type=radio]:visible');
+        
         CONTAINER.find("input[type='submit'],button[type='submit']").click(function (e) {
             CONTAINER.find("input[type=radio]").each(function () {
                 var t = $(this);

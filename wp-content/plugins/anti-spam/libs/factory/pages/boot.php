@@ -19,25 +19,25 @@ if ( ! is_admin() ) {
 	return;
 }
 
-if ( defined( 'FACTORY_PAGES_424_LOADED' ) ) {
+if ( defined( 'FACTORY_PAGES_425_LOADED' ) ) {
 	return;
 }
 
-define( 'FACTORY_PAGES_424_LOADED', true );
+define( 'FACTORY_PAGES_425_LOADED', true );
 
-define( 'FACTORY_PAGES_424_VERSION', '4.2.4' );
+define( 'FACTORY_PAGES_425_VERSION', '4.2.5' );
 
-define( 'FACTORY_PAGES_424_DIR', dirname( __FILE__ ) );
-define( 'FACTORY_PAGES_424_URL', plugins_url( null, __FILE__ ) );
+define( 'FACTORY_PAGES_425_DIR', dirname( __FILE__ ) );
+define( 'FACTORY_PAGES_425_URL', plugins_url( null, __FILE__ ) );
 
 if ( ! defined( 'FACTORY_FLAT_ADMIN' ) ) {
 	define( 'FACTORY_FLAT_ADMIN', true );
 }
 
-load_plugin_textdomain( 'wbcr_factory_pages_424', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
+load_plugin_textdomain( 'wbcr_factory_pages_425', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
 
-require( FACTORY_PAGES_424_DIR . '/pages.php' );
-require( FACTORY_PAGES_424_DIR . '/includes/page.class.php' );
-require( FACTORY_PAGES_424_DIR . '/includes/admin-page.class.php' );
-require( FACTORY_PAGES_424_DIR . '/templates/impressive-page.class.php' );
+require( FACTORY_PAGES_425_DIR . '/pages.php' );
+require( FACTORY_PAGES_425_DIR . '/includes/page.class.php' );
+require( FACTORY_PAGES_425_DIR . '/includes/admin-page.class.php' );
+require( FACTORY_PAGES_425_DIR . '/templates/impressive-page.class.php' );
 

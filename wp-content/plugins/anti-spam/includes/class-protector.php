@@ -16,7 +16,7 @@ class Protector {
 		add_action( 'comment_form', [ $this, 'form_part' ] ); // add anti-spam inputs to the comment form
 
 		if ( \WBCR\Antispam\Plugin::app()->premium->is_activate() ) {
-			add_action( 'comment_form_after', [ $this, 'display_comment_form_privacy_notice' ] );
+			add_action( 'comment_form_after', 'wantispam_display_comment_form_privacy_notice' );
 		}
 
 		if ( ! is_admin() ) { // without this check it is not possible to add comment in admin section
@@ -24,36 +24,31 @@ class Protector {
 		}
 	}
 
+	/**
+	 * We enqueue js script required for the plugin to work. The script overwrites the values
+	 * of hidden fields or determines whether the user uses javascript or not.
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.1.1
+	 */
 	public function enqueue_script() {
 		global $withcomments; // WP flag to show comments on all pages
+		wp_register_script( 'anti-spam-script', WANTISPAM_PLUGIN_URL . '/assets/js/anti-spam.js', [ 'jquery' ], \WBCR\Antispam\Plugin::app()->getPluginVersion(), true );
+
 		if ( ( is_singular() || $withcomments ) && comments_open() ) { // load script only for pages with comments form
-			wp_enqueue_script( 'anti-spam-script', WANTISPAM_PLUGIN_URL . '/assets/js/anti-spam-5.5.js', null, null, true );
+			wp_enqueue_script( 'anti-spam-script' );
 		}
 	}
 
+	/**
+	 * Renders required fields into the comment form on the page.
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.1
+	 */
 	public function form_part() {
-		$rn = "\r\n"; // .chr(13).chr(10)
-
-		echo $rn . '<!-- Anti-spam plugin wordpress.org/plugins/anti-spam/ -->' . $rn;
-		echo '
-        <input type="hidden" name="antspm-j" class="antispam-control antispam-control-j" value="off" />
-        ' . $rn; // trap for simple bots that do not emulate the browser
-
-		echo '
-		<input type="hidden" name="antspm-t" class="antispam-control antispam-control-t" value="' . time() . '" />
-		' . $rn; // Start time of form filling
-
 		if ( ! is_user_logged_in() ) { // add anti-spam fields only for not logged in users
-
-			echo '		<p class="antispam-group antispam-group-q" style="clear: both;">
-			<label>Current ye@r <span class="required">*</span></label>
-			<input type="hidden" name="antspm-a" class="antispam-control antispam-control-a" value="' . date( 'Y' ) . '" />
-			<input type="text" name="antspm-q" class="antispam-control antispam-control-q" value="' . \WBCR\Antispam\Plugin::app()->getPluginVersion() . '" autocomplete="off" />
-		</p>' . $rn; // question (hidden with js)
-			echo '		<p class="antispam-group antispam-group-e" style="display: none;">
-			<label>Leave this field empty</label>
-			<input type="text" name="antspm-e-email-url-website" class="antispam-control antispam-control-e" value="" autocomplete="off" />
-		</p>' . $rn; // empty field (hidden with css); trap for spammers because many bots will try to put email or url here
+			echo wantispam_get_required_fields();
 		}
 	}
 
@@ -96,20 +91,9 @@ class Protector {
 	public function check_for_spam() {
 		$spam_flag = false;
 
-		$antspm_q = '';
-		if ( isset( $_POST['antspm-q'] ) ) {
-			$antspm_q = trim( $_POST['antspm-q'] );
-		}
-
-		$antspm_d = '';
-		if ( isset( $_POST['antspm-d'] ) ) {
-			$antspm_d = trim( $_POST['antspm-d'] );
-		}
-
-		$antspm_e = '';
-		if ( isset( $_POST['antspm-e-email-url-website'] ) ) {
-			$antspm_e = trim( $_POST['antspm-e-email-url-website'] );
-		}
+		$antspm_q = \WBCR\Antispam\Plugin::app()->request->post( "wantispam_q", '', 'trim' );
+		$antspm_d = \WBCR\Antispam\Plugin::app()->request->post( "wantispam_d", '', 'trim' );
+		$antspm_e = \WBCR\Antispam\Plugin::app()->request->post( "wantispam_e_email_url_website", '', 'trim' );
 
 		if ( $antspm_q != date( 'Y' ) ) { // year-answer is wrong - it is spam
 			if ( $antspm_d != date( 'Y' ) ) { // extra js-only check: there is no js added input - it is spam
@@ -193,17 +177,6 @@ class Protector {
 		}
 
 		wp_set_comment_status( $comment_ID, 'spam' );
-	}
-
-	/**
-	 * Controls the display of a privacy related notice underneath the comment form using the `akismet_comment_form_privacy_notice` option and filter respectively.
-	 * Default is top not display the notice, leaving the choice to site admins, or integrators.
-	 */
-	public function display_comment_form_privacy_notice() {
-		if ( ! \WBCR\Antispam\Plugin::app()->getPopulateOption( 'comment_form_privacy_notice' ) ) {
-			return;
-		}
-		echo '<p class="wantispam-comment-form-privacy-notice" style="margin-top:10px;">' . sprintf( __( 'This site uses Antispam to reduce spam. <a href="%s" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.', 'anti-spam' ), 'https://anti-spam.space/antispam-privacy/' ) . '</p>';
 	}
 }
 

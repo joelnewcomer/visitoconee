@@ -53,7 +53,7 @@ class Bulkedit extends EditFeature {
 
 		if ( $this->is_active() ) {
 
-			add_action( 'bulk_edit_custom_box', array( $this , 'display_bulk_edit' ), 200, 2 );
+			add_action( 'bulk_edit_custom_box', [ $this , 'display_bulk_edit' ], 200, 2 );
 
 		}
 
@@ -70,12 +70,19 @@ class Bulkedit extends EditFeature {
 
 		$column = str_replace(' qef-thumbnail','', $wp_column_slug );
 		foreach ( $this->fieldsets as $field_group_key => $fields ) {
+
 			$field_group = acf_get_field_group( $field_group_key );
 			// we need a div here because WP is prepending tags input to the fieldset:last in the editor
-			echo "<!-- BEGIN ACF Quick Edit Fields - Bulk <{$field_group_key}> -->\n";
+			printf(
+				"<!-- BEGIN ACF Quick Edit Fields - Bulk <%s> -->\n",
+				sanitize_key( $field_group_key )
+			);
 			echo '<div>' . "\n";
-			printf( '<fieldset class="inline-edit-col-qed inline-edit-%s acf-quick-edit">', $post_type );
-			printf( '<legend>%s</legend>', $field_group['title'] );
+			printf(
+				'<fieldset class="inline-edit-col-qed inline-edit-%s acf-quick-edit">',
+				sanitize_key( $post_type )
+			);
+			printf( '<legend>%s</legend>', esc_html( $field_group['title'] ) );
 			echo '<div class="qed-fields">';
 
 			foreach ( $fields as $sub_field_object ) {
@@ -85,7 +92,10 @@ class Bulkedit extends EditFeature {
 			echo '</div>';
 			echo '</fieldset>';
 			echo '</div>' . "\n";
-			echo "<!-- END ACF Quick Edit Fields - Bulk {$field_group_key} -->\n";
+			printf(
+				"<!-- END ACF Quick Edit Fields - Bulk {$field_group_key} -->\n",
+				sanitize_key( $field_group_key )
+			);
 		}
 
 		$this->did_render = true;
@@ -98,7 +108,7 @@ class Bulkedit extends EditFeature {
 		// remove do-not-change vaues from $_GET['acf']
 		$data = null;
 		if ( isset( $_GET['acf'] ) && is_array( $_GET['acf'] ) ) {
-			$data = $_GET['acf'];
+			$data = wp_unslash( $_GET['acf'] );
 			$this->strip_dont_change( $data );
 		}
 		return $data;
@@ -110,9 +120,9 @@ class Bulkedit extends EditFeature {
 	 */
 	private function strip_dont_change( &$data ) {
 		if ( is_array( $data ) ) {
-			$data = array_filter( $data, array( $this, 'filter_do_not_change' ) );
-			array_walk( $data, array( $this, 'strip_dont_change' ) );
-			$data = array_filter( $data, array( $this, 'filter_ampty_array' ) );
+			$data = array_filter( $data, [ $this, 'filter_do_not_change' ] );
+			array_walk( $data, [ $this, 'strip_dont_change' ] );
+			$data = array_filter( $data, [ $this, 'filter_ampty_array' ] );
 		}
 	}
 

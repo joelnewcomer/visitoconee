@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class About extends \Wbcr_FactoryClearfy216_PageBase {
+class About extends \Wbcr_FactoryClearfy217_PageBase {
 
 	/**
 	 * {@inheritdoc}
@@ -47,26 +47,83 @@ class About extends \Wbcr_FactoryClearfy216_PageBase {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 *
-	 * @param \Wbcr_Factory424_Plugin $plugin
+	 * @param \Wbcr_Factory425_Plugin $plugin
 	 */
-	public function __construct( \Wbcr_Factory424_Plugin $plugin ) {
+	public function __construct( \Wbcr_Factory425_Plugin $plugin ) {
 		$this->plugin = $plugin;
 
 		$this->menu_title                  = __( 'Premium', 'anti-spam' );
 		$this->page_menu_short_description = sprintf( __( 'What is new in %s?', 'anti-spam' ), $this->plugin->getPluginVersion() );
 
 		parent::__construct( $plugin );
+
+		add_action( 'admin_footer', [ $this, 'print_confirmation_modal_tpl' ] );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @since 6.5.2
+	 * @return void
+	 */
+	public function assets( $scripts, $styles ) {
+		parent::assets( $scripts, $styles );
+
+		$this->styles->add( WANTISPAM_PLUGIN_URL . '/admin/assets/css/about-premium.css' );
+
+		if ( ! $this->plugin->premium->is_activate() ) {
+			$this->styles->add( WANTISPAM_PLUGIN_URL . '/admin/assets/css/libs/sweetalert2.css' );
+			$this->styles->add( WANTISPAM_PLUGIN_URL . '/admin/assets/css/sweetalert-custom.css' );
+
+			$this->scripts->add( WANTISPAM_PLUGIN_URL . '/admin/assets/js/libs/sweetalert3.min.js' );
+			$this->scripts->add( WANTISPAM_PLUGIN_URL . '/admin/assets/js/trial-popup.js' );
+		}
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @since 6.5.2
+	 * @return void
+	 */
+	public function print_confirmation_modal_tpl() {
+		if ( isset( $_GET['page'] ) && $this->getResultId() === $_GET['page'] ) {
+			$terms_url   = "https://anti-spam.space/terms-of-use/";
+			$privacy_url = "https://anti-spam.space/privacy/";
+
+			?>
+            <script type="text/html" id="wantispam-tmpl-confirmation-modal">
+                <h2 class="swal2-title">
+					<?php _e( 'Confirmation', 'anti-spam' ) ?>
+                </h2>
+                <div class="wantispam-swal-content">
+                    <ul class="wantispam-list-infos">
+                        <li>
+							<?php _e( 'We are using some personal data, like admin\'s e-mail', 'anti-spam' ) ?>
+                        </li>
+                        <li>
+							<?php printf( __( 'By agreeing to the trial, you confirm that you have read <a href="%s" target="_blank" rel="noreferrer noopener">Terms of Service</a> and the
+           					 <a href="%s" target="_blank" rel="noreferrer noopener">Privacy Policy (GDPR compilant)</a>', 'anti-spam' ), $terms_url, $privacy_url ) ?>
+                        </li>
+                    </ul>
+                </div>
+            </script>
+			<?php
+		}
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function showPageContent() {
-		global $wp_version;
+		$activate_trial_url = wp_nonce_url( $this->plugin->getPluginPageUrl( 'license', [
+			'action' => 'activate-trial'
+		] ), 'activate_trial' );
+
 		?>
-        <div class="wrap about-wrap full-width-layout" id="wbcr-inp-about">
+        <div class="wrap about-wrap full-width-layout wantispam-about-premium">
         <!-- News Title !-->
-        <h1>Meet with <?php echo $this->plugin->getPluginTitle() ?>
+        <h1 class="wantispam-about-premium__title">Meet with <?php echo $this->plugin->getPluginTitle() ?>
             Pro in <?php echo $this->plugin->getPluginVersion() ?></h1>
         <!-- News Subtext !-->
         <div class="about-text">
@@ -74,31 +131,47 @@ class About extends \Wbcr_FactoryClearfy216_PageBase {
         </div>
         <!-- Latest News !-->
         <div class="headline">
-            <h3 class="headline-title">
-                You’ve probably noticed how much our plugin has changed! Now, it’s a
-                fully-functional cloud anti-spam
-                service: easy to use and without captcha or complex settings.
-            </h3>
-            <div class="featured-image">
-                <img src="<?php echo WANTISPAM_PLUGIN_URL ?>/admin/assets/img/about-preview.jpg" alt="">
+            <div class="is-fullwidth has-3-columns wantispam-about-premium__columns">
+                <div class="col wantispam-about-premium__column">
+                    <span class="dashicons dashicons-chart-line"></span>
+                    <h3>Statistic widget</h3>
+                    <p>The statistics widget on the dashboard page will provide you with statistics on the number of
+                        blocked spam.</p>
+                </div>
+                <div class="col wantispam-about-premium__column">
+                    <span class="dashicons dashicons-shield"></span>
+                    <h3>Protect forms</h3>
+                    <p>Allows you to protect contact and comment forms. At the moment, we support the Contact form 7
+                        plugin and Wordpress native comments.</p>
+                </div>
+                <div class="col wantispam-about-premium__column">
+                    <span class="dashicons dashicons-sos"></span>
+                    <h3>Perfect support</h3>
+                    <p>We provide the best support for premium users.</p>
+                </div>
             </div>
-            <p>&nbsp;</p>
             <p class="introduction">
                 A new way of checking comments and registrations for spam. Once you install the plugin, all messages
                 pass a three-step verification:
             </p>
             <ul>
-                <li>- match with the constantly updated spam base;</li>
-                <li>- check by a neural network;</li>
-                <li>- filter comments posted on a website before the plugin installation.</li>
+                <li>match with the constantly updated spam base;</li>
+                <li>check by a neural network;</li>
+                <li>filter comments posted on a website before the plugin installation.</li>
             </ul>
             <p>Besides, now you have a handy control panel with various settings and analytics section. The result of
                 our work is a great plugin that protects your site from spam much better! Check how it works. If you
                 like it, don’t forget to post a review – that motivates us the best!</p>
+            <div class="wantispam-about-premium__activate-trial">
+                <a href="" data-url="<?php echo esc_url( $activate_trial_url ) ?>" id="js-wantispam-activate-trial-button" class="button button-default button-hero wantispam-about-premium__activate-trial-button"><?php _e( 'Try all premium features now, activate 30 days trial', 'anti-spam' ); ?></a>
+                <p>The free trial edition (no credit card) contains all of the features included in the paid-for
+                    version of the product.</p>
+            </div>
         </div>
         <div class="feature-section one-col">
             <div class="col">
-                <h2>Useful features scheduled for future releases:</h2>
+                <h2 class="wantispam-about-premium__title wantispam-about-premium__title--h2">Useful features scheduled
+                    for future releases</h2>
             </div>
         </div>
         <div class="feature-section one-col">

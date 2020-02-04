@@ -14,11 +14,11 @@ use wpautoterms\admin\form\Section;
 	<h1><?php _e('Terms and Conditions', WPAUTOTERMS_SLUG); ?></h1>
 
 	<?php Section::begin('website_url_section', __('What is your website URL?', WPAUTOTERMS_SLUG)); ?>
-	<input type="text" name="website_url" class="regular-text" value="<?php echo do_shortcode('[wpautoterms site_url]'); ?>" placeholder="Enter your website URL" required="required" />
+	<input type="text" name="website_url" class="regular-text" value="<?php echo do_shortcode('[wpautoterms site_url]'); ?>" placeholder="Enter your website URL" />
 	<?php Section::end(); ?>
 
 	<?php Section::begin('website_name_section', __('What is your website name?', WPAUTOTERMS_SLUG)); ?>
-	<input type="text" name="website_name" class="regular-text" value="<?php echo do_shortcode('[wpautoterms site_name]'); ?>" placeholder="Enter your website name" required="required" />
+	<input type="text" name="website_name" class="regular-text" value="<?php echo do_shortcode('[wpautoterms site_name]'); ?>" placeholder="Enter your website name" />
 	<?php Section::end(); ?>
 
 	<?php
@@ -27,7 +27,7 @@ use wpautoterms\admin\form\Section;
 
 	<?php Section::begin('company_name_section', __('What is your company name?', WPAUTOTERMS_SLUG)); ?>
 		<p class="text-muted text-small text-note">If this WordPress website is not operated/owned by a registered company or entity, please enter the website name instead.</p>
-		<input type="text" name="company_name" class="regular-text" value="<?php echo do_shortcode('[wpautoterms company_name]'); ?>" placeholder="Enter your company name" required="required" />
+		<input type="text" name="company_name" class="regular-text" value="<?php echo do_shortcode('[wpautoterms company_name]'); ?>" placeholder="Enter your company name" />
 	<?php Section::end(); ?>
 
 	<?php Section::begin('user_accounts_section', __('Can users create an account on your website?', WPAUTOTERMS_SLUG)); ?>

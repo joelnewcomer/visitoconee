@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author        Alexander Kovalev <alex.kovalevv@gmail.com>, Github: https://github.com/alexkovalevv
  * @copyright (c) 20.10.2019, Webcraftic
  */
-class Plugin extends \Wbcr_Factory424_Plugin {
+class Plugin extends \Wbcr_Factory425_Plugin {
 
 	/**
 	 * Number of comments that will be sent for verification
@@ -24,7 +24,7 @@ class Plugin extends \Wbcr_Factory424_Plugin {
 
 	/**
 	 * @see self::app()
-	 * @var \Wbcr_Factory424_Plugin
+	 * @var \Wbcr_Factory425_Plugin
 	 */
 	private static $app;
 
@@ -70,7 +70,7 @@ class Plugin extends \Wbcr_Factory424_Plugin {
 	 * классам.
 	 *
 	 * @since  6.0
-	 * @return \Wbcr_Factory424_Plugin|\WBCR\Antispam\Plugin
+	 * @return \Wbcr_Factory425_Plugin|\WBCR\Antispam\Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -97,7 +97,10 @@ class Plugin extends \Wbcr_Factory424_Plugin {
 
 		self::app()->registerPage( '\WBCR\Antispam\Page\License', WANTISPAM_PLUGIN_DIR . '/admin/pages/class-pages-license.php' );
 		self::app()->registerPage( '\WBCR\Antispam\Page\Logs', WANTISPAM_PLUGIN_DIR . '/admin/pages/class-pages-logs.php' );
-		self::app()->registerPage( '\WBCR\Antispam\Page\About', WANTISPAM_PLUGIN_DIR . '/admin/pages/class-pages-about.php' );
+
+		if ( ! $this->premium->is_activate() ) {
+			self::app()->registerPage( '\WBCR\Antispam\Page\About', WANTISPAM_PLUGIN_DIR . '/admin/pages/class-pages-about.php' );
+		}
 	}
 
 	/**

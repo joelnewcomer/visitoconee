@@ -3,7 +3,7 @@
 Plugin Name: Anti-Spam
 Plugin URI: http://wordpress.org/plugins/anti-spam/
 Description: No spam in comments. No captcha.
-Version: 6.5.1
+Version: 6.5.4
 Author: CreativeMotion
 Text Domain: anti-spam
 Author URI: https://cm-wp.com/
@@ -40,28 +40,30 @@ require_once( dirname( __FILE__ ) . '/libs/factory/core/includes/class-factory-r
 
 // @formatter:off
 $cm_antspam_plugin_info = array(
-	'prefix'         => 'wantispam_',
-	'plugin_name'    => 'wantispam',
-	'plugin_title'   => __( 'Anti-Spam', 'anti-spam' ),
+	'prefix'               => 'wantispam_',
+	'plugin_name'          => 'wantispam',
+	'plugin_title'         => __( 'Anti-Spam', 'anti-spam' ),
 
 	// PLUGIN SUPPORT
 	'support_details'      => array(
 		'url'       => 'https://anti-spam.space',
 		'pages_map' => array(
-			'support'  => 'support',           // {site}/support
-			'docs'     => 'docs'               // {site}/docs
+			'support' => 'support',           // {site}/support
+			'docs'    => 'docs'               // {site}/docs
 		)
 	),
 
 	// PLUGIN PREMIUM SETTINGS
-	'has_premium'            => true,
-	'license_settings'       => array(
-		'provider'           => 'freemius',
-		'slug'               => 'antispam-premium',
-		'plugin_id'          => '5079',
-		'public_key'         => 'pk_98a99846a14067246257d4f43c04a',
-		'price'              => 15,
-		'has_updates'        => true,
+	'has_premium'          => true,
+	'license_settings'     => array(
+		'provider'         => 'freemius',
+		'slug'             => 'antispam-premium',
+		'plugin_id'        => '5079',
+		'public_key'       => 'pk_98a99846a14067246257d4f43c04a',
+		//'plugin_id'          => '4865',
+		//'public_key'         => 'pk_05cbde6c0f9c96814c3b3cbff2259',
+		'price'            => 15,
+		'has_updates'      => true,
 		'updates_settings' => array(
 			'maybe_rollback'    => true,
 			'rollback_settings' => array(
@@ -71,8 +73,8 @@ $cm_antspam_plugin_info = array(
 	),
 
 	// PLUGIN ADVERTS
-	'render_adverts' => true,
-	'adverts_settings'    => array(
+	'render_adverts'       => true,
+	'adverts_settings'     => array(
 		'dashboard_widget' => true, // show dashboard widget (default: false)
 		'right_sidebar'    => true, // show adverts sidebar (default: false)
 		'notice'           => true, // show notice message (default: false)
@@ -80,21 +82,21 @@ $cm_antspam_plugin_info = array(
 
 	// FRAMEWORK MODULES
 	'load_factory_modules' => array(
-		array( 'libs/factory/bootstrap', 'factory_bootstrap_425', 'admin' ),
-		array( 'libs/factory/forms', 'factory_forms_422', 'admin' ),
-		array( 'libs/factory/pages', 'factory_pages_424', 'admin' ),
-		array( 'libs/factory/clearfy', 'factory_clearfy_216', 'all' ),
-		array( 'libs/factory/freemius', 'factory_freemius_112', 'all')
+		array( 'libs/factory/bootstrap', 'factory_bootstrap_426', 'admin' ),
+		array( 'libs/factory/forms', 'factory_forms_423', 'admin' ),
+		array( 'libs/factory/pages', 'factory_pages_425', 'admin' ),
+		array( 'libs/factory/clearfy', 'factory_clearfy_217', 'all' ),
+		array( 'libs/factory/freemius', 'factory_freemius_113', 'all' ),
+		array( 'libs/factory/feedback', 'factory_feedback_102', 'admin' )
 	)
 );
 
-$cm_antspam_compatibility = new Wbcr_Factory424_Requirements( __FILE__, array_merge( $cm_antspam_plugin_info, array(
+$cm_antspam_compatibility = new Wbcr_Factory425_Requirements( __FILE__, array_merge( $cm_antspam_plugin_info, array(
 	'plugin_already_activate'          => defined( 'WANTISPAM_PLUGIN_ACTIVE' ),
 	'required_php_version'             => '5.4',
 	'required_wp_version'              => '4.2.0',
 	'required_clearfy_check_component' => false
 ) ) );
-
 
 /**
  * If the plugin is compatible, then it will continue its work, otherwise it will be stopped,
@@ -118,7 +120,6 @@ define( 'WANTISPAM_PLUGIN_VERSION', $cm_antspam_compatibility->get_plugin_versio
 define( 'WANTISPAM_PLUGIN_DIR', dirname( __FILE__ ) );
 define( 'WANTISPAM_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 define( 'WANTISPAM_PLUGIN_URL', plugins_url( null, __FILE__ ) );
-
 
 
 

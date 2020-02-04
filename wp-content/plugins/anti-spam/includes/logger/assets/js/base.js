@@ -28,10 +28,10 @@
 
 				jQuery('#js-wlogger-viewer').html('');
 				jQuery('#js-wlogger-size').text('0B');
-				jQuery.wbcr_factory_clearfy_216.app.showNotice(data.message, data.type);
+				jQuery.wbcr_factory_clearfy_217.app.showNotice(data.message, data.type);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				jQuery.wbcr_factory_clearfy_216.app.showNotice('Error: ' + errorThrown + ', status: ' + textStatus, 'danger');
+				jQuery.wbcr_factory_clearfy_217.app.showNotice('Error: ' + errorThrown + ', status: ' + textStatus, 'danger');
 				btn.html(currentBtnText);
 			}
 		});

@@ -51,7 +51,7 @@ class Admin extends Core\Singleton {
 
 		$this->css = Asset\Asset::get('css/acf-quickedit.css');
 
-		add_action( 'after_setup_theme', array( $this , 'setup' ) );
+		add_action( 'after_setup_theme', [ $this , 'setup' ] );
 
 		// init field group admin
 		add_action( 'acf/field_group/admin_head', [ 'ACFQuickEdit\Admin\FieldGroup', 'instance' ] );
@@ -76,7 +76,7 @@ class Admin extends Core\Singleton {
 		// early return if conditions not met
 		if ( ! function_exists('acf') || ! class_exists('acf') || version_compare( acf()->version, '5.7', '<' ) ) {
 			if ( current_user_can( 'activate_plugins' ) ) {
-				add_action( 'admin_notices', array( $this, 'print_no_acf_notice' ) );
+				add_action( 'admin_notices', [ $this, 'print_no_acf_notice' ] );
 			}
 			return;
 		}
@@ -84,19 +84,19 @@ class Admin extends Core\Singleton {
 		$this->columns		= Columns::instance();
 		$this->quickedit	= Quickedit::instance();
 		$this->bulkedit		= Bulkedit::instance();
-		$this->ajax_handler = new Ajax\AjaxHandler( 'get_acf_post_meta', array(
+		$this->ajax_handler = new Ajax\AjaxHandler( 'get_acf_post_meta', [
 			'public'			=> false,
 			'use_nonce'			=> true,
 			'capability'		=> 'edit_posts',
-			'callback'			=> array( $this, 'ajax_get_acf_post_meta' ),
-			'sanitize_callback'	=> array( $this, 'sanitize_ajax_get_acf_post_meta' ),
-		));
+			'callback'			=> [ $this, 'ajax_get_acf_post_meta' ],
+			'sanitize_callback'	=> [ $this, 'sanitize_ajax_get_acf_post_meta' ],
+		]);
 
 		//
-		add_action( 'load-edit.php',  array( $this , 'enqueue_edit_assets' ) );
-		add_action( 'load-edit-tags.php',  array( $this , 'enqueue_edit_assets' ) );
-		add_action( 'load-users.php',  array( $this , 'enqueue_columns_assets' ) );
-		add_action( 'acf/field_group/admin_enqueue_scripts', array( $this, 'enqueue_fieldgroup_assets' ) );
+		add_action( 'load-edit.php', [ $this , 'enqueue_edit_assets' ] );
+		add_action( 'load-edit-tags.php', [ $this , 'enqueue_edit_assets' ] );
+		add_action( 'load-users.php', [ $this, 'enqueue_columns_assets' ] );
+		add_action( 'acf/field_group/admin_enqueue_scripts', [ $this, 'enqueue_fieldgroup_assets' ] );
 
 	}
 
@@ -118,11 +118,11 @@ class Admin extends Core\Singleton {
 
 			$field_keys = array_unique( (array) $params['acf_field_keys'] );
 
-			$object_ids = array_filter( $object_ids, array( $this, 'can_edit_object') );
+			$object_ids = array_filter( $object_ids, [ $this, 'can_edit_object' ] );
 
 			$success = true;
 
-			$data = array();
+			$data = [];
 
 			foreach ( $object_ids as $object_id ) {
 
@@ -152,11 +152,11 @@ class Admin extends Core\Singleton {
 			}
 
 		}
-		return array(
-			'success'				=> $success,
-			'message'				=> $message,
-			'data'					=> $data,
-		);
+		return [
+			'success'	=> $success,
+			'message'	=> $message,
+			'data'		=> $data,
+		];
 	}
 
 	/**
@@ -189,12 +189,18 @@ class Admin extends Core\Singleton {
 		<div class="notice notice-error is-dismissible">
 			<p><?php
 				printf(
-					/* Translators: 1: ACF Pro URL, 2: plugins page url */
-					__( 'The <strong>ACF QuickEdit Fields</strong> plugin requires <a href="%1$s">ACF version 5.6 or later</a>. You can disable and uninstall it on the <a href="%2$s">plugins page</a>.',
-						'acf-quickedit-fields'
+					wp_kses(
+						/* Translators: 1: ACF Pro URL, 2: plugins page url */
+						__( 'The <strong>ACF QuickEdit Fields</strong> plugin requires <a href="%1$s" target="_blank" rel="noopener noreferrer">ACF version 5.6 or later</a>. You can disable and uninstall it on the <a href="%2$s">plugins page</a>.',
+							'acf-quickedit-fields'
+						),
+						[
+							'strong' => [],
+							'a'	=> [ 'href' => [], 'target' => [], 'rel' => '' ]
+						]
 					),
-					'http://www.advancedcustomfields.com/',
-					admin_url('plugins.php' )
+					esc_url( 'https://www.advancedcustomfields.com/' ),
+					esc_url( admin_url('plugins.php' ) )
 
 				);
 			?></p>
@@ -218,16 +224,16 @@ class Admin extends Core\Singleton {
 	public function enqueue_edit_assets() {
 
 		$bulk = Bulkedit::instance();
-
+		$acf_version = acf()->version;
 		wp_enqueue_media();
 		acf_enqueue_scripts();
 
 		// register assets
-		wp_register_style('acf-datepicker', acf_get_url('assets/inc/datepicker/jquery-ui.min.css') );
+		wp_register_style( 'acf-datepicker', acf_get_url( 'assets/inc/datepicker/jquery-ui.min.css' ), [], $acf_version );
 
 		// timepicker. Contains some usefull parsing mathods even for dates.
-		wp_register_script('acf-timepicker', acf_get_url('assets/inc/timepicker/jquery-ui-timepicker-addon.min.js'), array('jquery-ui-datepicker') );
-		wp_register_style('acf-timepicker', acf_get_url('assets/inc/timepicker/jquery-ui-timepicker-addon.min.css') );
+		wp_register_script('acf-timepicker', acf_get_url( 'assets/inc/timepicker/jquery-ui-timepicker-addon.min.js' ), [ 'jquery-ui-datepicker' ], $acf_version );
+		wp_register_style('acf-timepicker', acf_get_url( 'assets/inc/timepicker/jquery-ui-timepicker-addon.min.css' ), [], $acf_version );
 
 
 
@@ -237,13 +243,13 @@ class Admin extends Core\Singleton {
 			->footer()
 			->add_dep( 'acf-input' )
 			->add_dep( 'wp-backbone' )
-			->localize( array(
+			->localize( [
 				/* Script Localization */
-				'options'	=> array(
+				'options'	=> [
 					'request'	=> $this->ajax_handler->request,
 					'do_not_change_value'	=> $bulk->get_dont_change_value(),
-				),
-			), 'acf_qef' )
+				],
+			], 'acf_qef' )
 			->enqueue();
 		// 3rd party integration backwards compatibility
 		wp_add_inline_script( $this->js->handle, 'window.acf_quickedit = window.acf_qef;', 'after' );
@@ -270,7 +276,7 @@ class Admin extends Core\Singleton {
 	 *	@return array
 	 */
 	private function unique_values( $values ) {
-		$ret = array();
+		$ret = [];
 		foreach ( $values as $i => $value ) {
 			if ( ! in_array( $value, $ret ) ) {
 				$ret[] = $value;

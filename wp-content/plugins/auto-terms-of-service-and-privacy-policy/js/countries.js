@@ -42,11 +42,11 @@ jQuery(document).ready(function () {
                 stateRow.hide();
                 STATE_INPUT.html("");
                 STATE_INPUT.val("");
-                STATE_INPUT.removeAttr("required");
+                // STATE_INPUT.removeAttr("required");
                 return;
             }
             stateRow.show();
-            STATE_INPUT.attr("required", "required");
+            // STATE_INPUT.attr("required", "required");
             var options = states.map(function (x) {
                 return '<option value="' + x + '">' + wpautotermsStates.translations[x] + '</option>';
             });

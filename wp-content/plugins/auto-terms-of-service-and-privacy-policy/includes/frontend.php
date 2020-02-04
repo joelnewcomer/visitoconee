@@ -45,7 +45,7 @@ abstract class Frontend {
 			add_filter( 'cache_enabler_before_store', $body_handler );
 			ob_start( array( __CLASS__, '_out_head' ) );
 		}
-		add_action( WPAUTOTERMS_SLUG . '_registered_cpt', array( __CLASS__, 'action_registered_cpt' ), 20 );
+		add_action( 'wp', array( __CLASS__, 'action_wp' ), 20 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 		add_action( 'wp_footer', array( __CLASS__, 'footer' ), 100002 );
 		$a = Update_Notice::create();
@@ -80,7 +80,10 @@ abstract class Frontend {
 		}
 	}
 
-	public static function action_registered_cpt() {
+	public static function action_wp() {
+		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ) {
+			static::$_compat = true;
+		}
 		if ( ! static::$_compat ) {
 			static::$_body_top = static::top_container( true );
 		}

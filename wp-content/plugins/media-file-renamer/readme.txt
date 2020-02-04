@@ -5,7 +5,7 @@ Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a95
 Requires at least: 4.8
 Tested up to: 5.3
 Requires PHP: 7.0
-Stable tag: 4.6.3
+Stable tag: 4.6.5
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -56,6 +56,10 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 5. Options for the automatic renaming (there are more options than just this).
 
 == Changelog ==
+
+= 4.6.5 =
+* Fix: Little (i18n) fixes in the admin.
+* Note: If you like it, please review the plugin [by clicking here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). It's important for us - we need motivation for all the work we want to put in the next version :)
 
 = 4.6.3 =
 * Add: Doesn't show the button to the Dashboard if Auto is disabled.

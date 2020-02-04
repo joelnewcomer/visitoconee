@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class Logs extends \Wbcr_FactoryClearfy216_PageBase {
+class Logs extends \Wbcr_FactoryClearfy217_PageBase {
 
 	/**
 	 * {@inheritdoc}
@@ -38,9 +38,9 @@ class Logs extends \Wbcr_FactoryClearfy216_PageBase {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 *
-	 * @param \Wbcr_Factory424_Plugin $plugin
+	 * @param \Wbcr_Factory425_Plugin $plugin
 	 */
-	public function __construct( \Wbcr_Factory424_Plugin $plugin ) {
+	public function __construct( \Wbcr_Factory425_Plugin $plugin ) {
 
 		$this->menu_title                  = __( 'Error Log', 'anti-spam' );
 		$this->page_menu_short_description = __( 'Plugin debug report', 'anti-spam' );

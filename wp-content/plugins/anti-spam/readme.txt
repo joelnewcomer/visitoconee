@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Anti-spam plugin blocks automatic spam in comments section. No captcha.
 
 == Description ==
-= Anti-spam checks your comments and contact form submissions against our global database, Once comments are checked on the spam database, a self-learning neural network re-checks unfiltered comments, of spam to prevent your site from publishing malicious content. =
+= Anti-spam checks your comments against our global database, Once comments are checked on the spam database, a self-learning neural network re-checks unfiltered comments, of spam to prevent your site from publishing malicious content. =
 
 ### Features ###
 * Imperceptible spam protection on your site helps you give visitors a convenient and easy way to create an account or post a comment. You'll be able to get growth of comments, registrations and increase conversion rates. Have a think about the user experience of your product because users do not like to fill out the captcha.
@@ -115,6 +115,16 @@ The plugin is pretty small and easy to read.
 
 
 == Changelog ==
+= 6.5.4 - 24.01.2020 =
+* Fixed: Minor bugs.
+* Fixed: Compatibility Anti-spam Pro.
+
+= 6.5.3 - 08.01.2020 =
+* Removed: Admin redirect to the premium page.
+* Updated: Premium page.
+* Added: Activate trial suggestion.
+* Fixed: Minor bugs.
+
 = 6.5.1 - 16.12.2019 =
 * Added: Multisite support.
 * Fixed: Bug with redirection loop in multisite mode.

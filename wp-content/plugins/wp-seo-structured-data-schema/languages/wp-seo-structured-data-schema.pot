@@ -1,4 +1,4 @@
-# Copyright (C) 2019 WP SEO Structured Data Schema
+# Copyright (C) 2020 WP SEO Structured Data Schema
 # This file is distributed under the same license as the WP SEO Structured Data Schema package.
 msgid ""
 msgstr ""

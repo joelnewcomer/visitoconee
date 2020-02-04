@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright (c) 2019 Webraftic Ltd
  * @version       1.0
  */
-class Settings extends \Wbcr_FactoryClearfy216_PageBase {
+class Settings extends \Wbcr_FactoryClearfy217_PageBase {
 
 	/**
 	 * {@inheritDoc}
@@ -71,9 +71,10 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 *
-	 * @param \Wbcr_Factory424_Plugin $plugin
+	 * @param \Wbcr_Factory425_Plugin $plugin
+	 *
 	 */
-	public function __construct( \Wbcr_Factory424_Plugin $plugin ) {
+	public function __construct( \Wbcr_Factory425_Plugin $plugin ) {
 		$this->menu_title                  = __( 'Anti-spam', 'anti-spam' );
 		$this->page_menu_short_description = __( 'All settings', 'anti-spam' );
 
@@ -92,7 +93,7 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 	 *
 	 * @since 6.2
 	 * @return void
-	 * @see   Wbcr_FactoryPages424_AdminPage
+	 * @see   Wbcr_FactoryPages425_AdminPage
 	 *
 	 */
 	public function assets( $scripts, $styles ) {
@@ -101,7 +102,7 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 		$this->styles->add( WANTISPAM_PLUGIN_URL . '/admin/assets/css/settings.css' );
 		$this->scripts->add( WANTISPAM_PLUGIN_URL . '/admin/assets/js/settings.js', [
 			'jquery',
-			'wbcr-factory-clearfy-216-global'
+			'wbcr-factory-clearfy-217-global'
 		], 'wantispam-settings' );
 	}
 
@@ -112,11 +113,19 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 	 * @return mixed[]
 	 */
 	public function getPageOptions() {
-		$is_premium = \WBCR\Antispam\Plugin::app()->premium->is_activate();
+		$is_premium = $this->plugin->premium->is_activate();
+		//$upgrade_premium_url = $this->plugin->get_support()->get_pricing_url();
+
+		$blocked_total  = 0; // show 0 by default
+		$antispam_stats = get_option( 'antispam_stats', [] );
+
+		if ( isset( $antispam_stats['blocked_total'] ) ) {
+			$blocked_total = $antispam_stats['blocked_total'];
+		}
 
 		$options[] = [
 			'type' => 'html',
-			'html' => '<div class="wbcr-factory-page-group-header">' . '<strong>' . __( 'Base options.', 'anti-spam' ) . '</strong>' . '<p>' . __( 'More 1 000 000 spam comments were blocked by Anti-spam plugin so far. Upgrade to Anti-spam Pro for advanced protection.', 'anti-spam' ) . '</p>' . '</div>'
+			'html' => '<div class="wbcr-factory-page-group-header">' . '<strong>' . __( 'Base options.', 'anti-spam' ) . '</strong>' . '<p>' . sprintf( __( '%s spam comments were blocked by Anti-spam plugin so far.', 'anti-spam' ), $blocked_total ) . '</p>' . '</div>'
 		];
 
 		$options[] = [
@@ -166,16 +175,53 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 			'default'  => false,
 			'cssClass' => ! $is_premium ? [ 'factory-checkbox--disabled wantispam-checkbox-premium-label' ] : [],
 		];
-		/*$options[] = [
-			'type'     => 'checkbox',
-			'way'      => 'buttons',
-			'name'     => 'protect_contacts_form',
-			'title'    => __( 'Protect Contact Forms (Beta)', 'anti-spam' ),
-			'layout'   => [ 'hint-type' => 'icon', 'hint-icon-color' => 'red' ],
-			'hint'     => __( 'Job Spam-Free for WordPress Contact Forms.', 'anti-spam' ),
-			'default'  => false,
-			'cssClass' => ! $is_premium ? [ 'factory-checkbox--disabled wantispam-checkbox-premium-label' ] : [],
-		];*/
+		if ( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+			$options[] = [
+				'type'     => 'checkbox',
+				'way'      => 'buttons',
+				'name'     => 'protect_contacts_form7',
+				'title'    => __( 'Protect Contact Forms 7', 'anti-spam' ),
+				'layout'   => [ 'hint-type' => 'icon', 'hint-icon-color' => 'green' ],
+				'hint'     => __( 'Job Spam-Free for WordPress Contact Forms.', 'anti-spam' ),
+				'default'  => false,
+				'cssClass' => ! $is_premium ? [ 'factory-checkbox--disabled wantispam-checkbox-premium-label' ] : [],
+			];
+		}
+		if ( is_plugin_active( 'ninja-forms/ninja-forms.php' ) ) {
+			$options[] = [
+				'type'     => 'checkbox',
+				'way'      => 'buttons',
+				'name'     => 'protect_ninja_forms',
+				'title'    => __( 'Protect Ninja Forms', 'anti-spam' ),
+				'layout'   => [ 'hint-type' => 'icon', 'hint-icon-color' => 'green' ],
+				'hint'     => __( 'Protects contact forms of the Ninja Forms plugin from spam.', 'anti-spam' ),
+				'default'  => false,
+				'cssClass' => ! $is_premium ? [ 'factory-checkbox--disabled wantispam-checkbox-premium-label' ] : [],
+			];
+		}
+		if ( is_plugin_active( 'caldera-forms/caldera-core.php' ) ) {
+			$options[] = [
+				'type'      => 'checkbox',
+				'way'       => 'buttons',
+				'name'      => 'protect_caldera_forms',
+				'title'     => __( 'Protect Caldera Forms', 'anti-spam' ),
+				'layout'    => [ 'hint-type' => 'icon', 'hint-icon-color' => 'green' ],
+				'hint'      => __( 'Caldera Forms has powerful anti-spam by default. The Anti-spam plugin provides additional anti-spam protection for your Caldera Forms.', 'anti-spam' ),
+				'default'   => false,
+				'cssClass'  => ! $is_premium ? [ 'factory-checkbox--disabled wantispam-checkbox-premium-label' ] : [],
+				'eventsOn'  => [
+					'show' => '#wantispam-protect-caldera-forms-message'
+				],
+				'eventsOff' => [
+					'hide' => '#wantispam-protect-caldera-forms-message'
+				]
+			];
+
+			$options[] = [
+				'type' => 'html',
+				'html' => [ $this, 'protect_caldera_forms_warning' ]
+			];
+		}
 
 		$form_options = [];
 
@@ -186,5 +232,21 @@ class Settings extends \Wbcr_FactoryClearfy216_PageBase {
 		];
 
 		return apply_filters( 'wantispam/settings_form/options', $form_options, $this );
+	}
+
+	/**
+	 * Adds an html warning notification html markup.
+	 */
+	public function protect_caldera_forms_warning() {
+		?>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label>
+            <div class="control-group col-sm-8">
+                <div id="wantispam-protect-caldera-forms-message" class="wantispam-checkbox-warning-message">
+					<?php printf( __( '<b>You have to make additional settings in the Caldera Forms plugin!</b><br> Please create an Anti-spam processor for each of your forms that you want to protect. You can read this <a href="%s" target="_blank" rel="noopener">manual</a> to learn more about how to create an Anti-spam processor in the Caldera Forms plugin.', 'clearfy' ), 'https://anti-spam.space/docs/anti-spam-processor-for-caldera-forms/' ) ?>
+                </div>
+            </div>
+        </div>
+		<?php
 	}
 }

@@ -9,7 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 use wpautoterms\frontend\Styles;
 
 abstract class Base_Notice {
-
 	protected $_where;
 	protected $_type;
 	protected $_message;
@@ -24,6 +23,10 @@ abstract class Base_Notice {
 		$this->_tag = str_replace( '_', '-', $this->_id );
 		$this->_container = $container_class;
 		$this->_element = $element_class;
+	}
+
+	public static function is_amp() {
+		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
 	}
 
 	public function init() {
@@ -50,7 +53,13 @@ abstract class Base_Notice {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_script( WPAUTOTERMS_SLUG . '_js', WPAUTOTERMS_PLUGIN_URL . 'js/wpautoterms.js', array( 'jquery', 'wp-util' ), WPAUTOTERMS_VERSION, true );
+		if ( static::is_amp() ) {
+			return;
+		}
+		wp_enqueue_script( WPAUTOTERMS_SLUG . '_js', WPAUTOTERMS_PLUGIN_URL . 'js/wpautoterms.js', array(
+			'jquery',
+			'wp-util'
+		), WPAUTOTERMS_VERSION, true );
 		wp_localize_script( WPAUTOTERMS_SLUG . '_js', 'wpautoterms_js_' . $this->id(), $this->_localize_args() );
 	}
 
@@ -67,11 +76,14 @@ abstract class Base_Notice {
 	}
 
 	public function print_styles() {
+		if ( static::is_amp() ) {
+			return;
+		}
 		Styles::print_styles( $this->_id, $this->_element );
 	}
 
 	public function container( $where, $type ) {
-		if ( ( $this->_where == $where ) && ( $this->_type == $type ) ) {
+		if ( ! static::is_amp() && ( $this->_where == $where ) && ( $this->_type == $type ) ) {
 			$this->_print_box();
 		}
 	}
