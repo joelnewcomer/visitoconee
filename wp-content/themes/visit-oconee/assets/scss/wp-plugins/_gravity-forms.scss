@@ -61,6 +61,7 @@ $field-border: solid 2px #848484;
 }
 
 /* Base for label styling */
+/* 
 
 [type="checkbox"] {
   &:not(:checked), &:checked {
@@ -123,6 +124,19 @@ $field-border: solid 2px #848484;
   &:checked:focus + label:before, &:not(:checked):focus + label:before {
     border: 1px dotted $medium-gray;
   }
+} */
+
+.gfield_checkbox br {
+	display: none;
+}
+
+.gfield_checkbox input {
+	margin-top: 10px !important;
+	margin-right: 8px !important;
+}
+
+.gfield_checkbox li {
+	margin-bottom: 0 !important;
 }
 
 /* checkbox aspect */

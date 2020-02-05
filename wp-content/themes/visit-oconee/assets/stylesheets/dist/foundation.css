@@ -7307,61 +7307,79 @@ div.datedropper .null {
     text-align: right; }
 
 /* Base for label styling */
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
-  position: absolute;
-  left: -9999px; }
+/* 
 
-[type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 35px !important;
-  cursor: pointer; }
+[type="checkbox"] {
+  &:not(:checked), &:checked {
+    position: absolute;
+    left: -9999px;
+  }
+  &:not(:checked) + label, &:checked + label {
+    position: relative;
+    padding-left: 35px !important;
+    cursor: pointer;
+  }
+  &:not(:checked) + label:before, &:checked + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 17px;
+    height: 17px;
+    border: $input-border;
+    background: #fff;
+  }
+  &:not(:checked) + label:after, &:checked + label:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 17px;
+    height: 17px;
+    background: #848484;
+    transition: all .2s;
+  }
+  &:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+  }
+  &:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &:disabled {
+    &:not(:checked) + label:before {
+      box-shadow: none;
+      border-color: #bbb;
+      background-color: #ddd;
+    }
+    &:checked + label {
+      &:before {
+        box-shadow: none;
+        border-color: #bbb;
+        background-color: #ddd;
+      }
+      &:after {
+        color: #999;
+      }
+    }
+    + label {
+      color: #aaa;
+    }
+  }
+  &:checked:focus + label:before, &:not(:checked):focus + label:before {
+    border: 1px dotted $medium-gray;
+  }
+} */
+.gfield_checkbox br {
+  display: none; }
 
-[type="checkbox"]:not(:checked) + label:before, [type="checkbox"]:checked + label:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 2px;
-  width: 17px;
-  height: 17px;
-  border: 1px solid #cacaca;
-  background: #fff; }
+.gfield_checkbox input {
+  margin-top: 10px !important;
+  margin-right: 8px !important; }
 
-[type="checkbox"]:not(:checked) + label:after, [type="checkbox"]:checked + label:after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 0;
-  width: 17px;
-  height: 17px;
-  background: #848484;
-  transition: all .2s; }
-
-[type="checkbox"]:not(:checked) + label:after {
-  opacity: 0;
-  transform: scale(0); }
-
-[type="checkbox"]:checked + label:after {
-  opacity: 1;
-  transform: scale(1); }
-
-[type="checkbox"]:disabled:not(:checked) + label:before {
-  box-shadow: none;
-  border-color: #bbb;
-  background-color: #ddd; }
-
-[type="checkbox"]:disabled:checked + label:before {
-  box-shadow: none;
-  border-color: #bbb;
-  background-color: #ddd; }
-
-[type="checkbox"]:disabled:checked + label:after {
-  color: #999; }
-
-[type="checkbox"]:disabled + label {
-  color: #aaa; }
-
-[type="checkbox"]:checked:focus + label:before, [type="checkbox"]:not(:checked):focus + label:before {
-  border: 1px dotted #cacaca; }
+.gfield_checkbox li {
+  margin-bottom: 0 !important; }
 
 /* checkbox aspect */
 /* checked mark aspect */
