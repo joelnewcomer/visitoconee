@@ -7475,8 +7475,7 @@ select, textarea {
   font-size: 16px !important;
   padding-left: 12px !important;
   border: 1px solid #cacaca;
-  height: 44px;
-  color: #cacaca; }
+  height: 44px; }
 
 select {
   /*for firefox*/
