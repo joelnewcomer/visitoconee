@@ -360,7 +360,7 @@ class GW_Minimum_Characters {
 
 new GW_Minimum_Characters( array( 
     'form_id' => 5,
-    'field_id' => 10,
+    'field_id' => 27,
     'min_chars' => 80,
     'max_chars' => 120,
     'min_validation_message' => __( 'Oops! You need to enter at least %s characters.' ),
