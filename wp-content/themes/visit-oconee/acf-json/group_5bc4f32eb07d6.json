@@ -29,7 +29,7 @@
             "label": "End Date",
             "name": "end_date",
             "type": "date_picker",
-            "instructions": "If different than start date.",
+            "instructions": "If different than start date. NOTE: If this is a user-submitted event with an end date, DO NOT edit this field if it is blank. When you Save\/Publish this event, the End Date will automatically be populated with the end date submitted by the user.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -51,7 +51,7 @@
             "label": "Short Description",
             "name": "short_description",
             "type": "textarea",
-            "instructions": "Must be between 80 and 120 characters.",
+            "instructions": "Must be between 80 and 150 characters.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -61,7 +61,7 @@
             },
             "default_value": "",
             "placeholder": "",
-            "maxlength": 120,
+            "maxlength": 150,
             "rows": 2,
             "new_lines": "",
             "show_column": 0,
@@ -190,5 +190,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1547740556
+    "modified": 1581608128
 }
