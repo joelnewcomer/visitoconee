@@ -186,8 +186,14 @@ function update_end_date( $post_id ) {
     if ($post_type == 'events') {
 	    $end_date = get_post_meta($post_id, "end_date", true);
 	    if ($end_date == '') {
-	        $start_date = get_post_meta($post_id, "start_date", true);
-	        update_post_meta( $post_id, 'end_date', $start_date );
+		    $submitted_end_date = get_post_meta($post_id, "submitted_end_date", true);
+		    if ($submitted_end_date == '') {
+		        $start_date = get_post_meta($post_id, "start_date", true);
+				update_post_meta( $post_id, 'end_date', $start_date );
+			} else {
+				$end_date = strtotime($submitted_end_date);
+				update_post_meta( $post_id, 'end_date', $end_date );
+			}
 	    }   		    
     }
 }
