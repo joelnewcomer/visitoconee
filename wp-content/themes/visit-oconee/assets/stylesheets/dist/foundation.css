@@ -5244,7 +5244,7 @@ body.single-poi #page, body.single-events #page {
     display: block;
     position: absolute;
     float: left;
-    max-width: 40px;
+    max-width: 48px;
     margin-right: 16px;
     font-size: 32px;
     font-weight: bold;
