@@ -72,7 +72,7 @@
 								
 								<?php
 								$two_dates = '';
-								if ($start_date != $end_date && $end_date != '' && $current_month == $start_month && $end_month == $start_month && !$start_date_past) {
+								if ($start_date != $end_date && $end_date != '' && $end_month == $start_month && !$start_date_past) {
 									$two_dates = 'two-dates';
 								}
 								if ($start_date_past && $current_month != $end_month) {
