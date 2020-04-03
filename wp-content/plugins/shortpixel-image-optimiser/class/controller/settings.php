@@ -90,16 +90,29 @@ class SettingsController extends shortPixelController
               $this->keyModel->resetTried();
               $this->keyModel->checkKey($this->postData['apiKey']);
             }
-            /*if (isset($this->postData['verifiedKey']) && $this->postData['verifiedKey'])
-            {
-              $this->model->apiKey = $this->postData['apiKey'];
-              $this->model->verifiedKey = $this->postData['verifiedKey'];
-            } */
         }
 
         $this->doRedirect();
-        //exit();
+      }
 
+      /* Custom Media, refresh a single Folder */
+      public function action_refreshfolder()
+      {
+         $folder_id = isset($_REQUEST['folder_id']) ? intval($_REQUEST['folder_id']) : false;
+
+         if ($folder_id)
+         {
+            $otherMediaController = new OtherMediaController();
+            $folder = $otherMediaController->getFolderByID($folder_id);
+
+            if ($folder)
+            {
+               $otherMediaController->refreshFolder($folder, true);
+            }
+
+         }
+
+         $this->load();
       }
 
       public function action_debug_medialibrary()
@@ -114,14 +127,15 @@ class SettingsController extends shortPixelController
 
       public function processSave()
       {
-          Log::addDebug('after process postData', $this->postData);
           // Split this in the several screens. I.e. settings, advanced, Key Request IF etc.
-
           if ($this->postData['includeNextGen'] == 1)
           {
               $nextgen = new NextGen();
               $previous = $this->model->includeNextGen;
               $nextgen->nextGenEnabled($previous);
+
+              // Reset any integration notices when updating settings.
+              adminNoticesController::resetIntegrationNotices();
           }
 
           $check_key = false;
@@ -195,9 +209,7 @@ class SettingsController extends shortPixelController
           $this->has_nextgen = $env->has_nextgen;
 
           $this->display_part = isset($_GET['part']) ? sanitize_text_field($_GET['part']) : 'settings';
-
       }
-
 
       /* Temporary function to check if HTaccess is writable.
       * HTaccess is writable if it exists *and* is_writable, or can be written if directory is writable.
@@ -261,28 +273,36 @@ class SettingsController extends shortPixelController
 
       protected function loadCustomFolders()
       {
-        $notice = null;
-        $customFolders = $this->shortPixel->refreshCustomFolders();
+      
+        $otherMedia = new OtherMediaController();
 
-        if (! is_null($notice))
-        {
-          $message = $notice['msg'];
-          if ($notice['status'] == 'error')
-            Notice::addError($message);
-          else
-            Notice::addNormal($message);
+        $otherMedia->refreshFolders();
+        $customFolders = $otherMedia->getActiveFolders();
+        $fs = \wpSPIO()->filesystem();
 
-        }
+        $customFolderBase = $fs->getWPFileBase();
+        $this->view->customFolderBase = $customFolderBase->getPath();
 
         if ($this->has_nextgen)
         {
-          $ngg = array_map(array('ShortPixelNextGenAdapter','pathToAbsolute'), \ShortPixelNextGenAdapter::getGalleries());
-          for($i = 0; $i < count($customFolders); $i++) {
-              if(in_array($customFolders[$i]->getPath(), $ngg )) {
-                  $customFolders[$i]->setType("NextGen");
-                }
+          $ng = NextGen::getInstance();
+          $NGfolders = $ng->getGalleries();
+          $foldersArray = array();
+
+          foreach($NGfolders as $folder)
+          {
+            $fsFolder = $fs->getDirectory($folder->getPath());
+            $foldersArray[] = $fsFolder->getPath();
+          }
+
+          foreach($customFolders as $index => $folder)
+          {
+            if(in_array($folder->getPath(), $foldersArray )) {
+                $folder->setNextGen(true);
               }
+          }
         }
+
         return $customFolders;
       }
 
@@ -327,32 +347,29 @@ class SettingsController extends shortPixelController
             unset($post['validate']);
           }
 
+          // when adding a new custom folder
           if (isset($post['addCustomFolder']) && strlen($post['addCustomFolder']) > 0)
           {
-            $folder = sanitize_text_field(stripslashes($post['addCustomFolder']));
-            $uploadPath = realpath(SHORTPIXEL_UPLOADS_BASE);
+            $folderpath = sanitize_text_field(stripslashes($post['addCustomFolder']));
 
-            $metaDao = $this->shortPixel->getSpMetaDao();
-            $folderMsg = $metaDao->newFolderFromPath($folder, $uploadPath, \WPShortPixel::getCustomFolderBase());
-            $is_warning = true;
-            if(!$folderMsg) {
-                //$notice = array("status" => "success", "msg" => __('Folder added successfully.','shortpixel-image-optimiser'));
-                $folderMsg = __('Folder added successfully.','shortpixel-image-optimiser');
-                $is_warning = false;
+            $otherMedia = new OtherMediaController();
+            $result = $otherMedia->addDirectory($folderpath);
+            if ($result)
+            {
+              Notice::addSuccess(__('Folder added successfully.','shortpixel-image-optimiser'));
             }
-            if ($is_warning)
-              Notice::addWarning($folderMsg);
-            else
-              Notice::addNormal($folderMsg);
-
-            $this->model->hasCustomFolders = time();
           }
           unset($post['addCustomFolder']);
 
-          if(isset($post['removeFolder']) && strlen( trim($post['removeFolder'])) > 0) {
-              $metaDao = $this->shortPixel->getSpMetaDao();
-              Log::addDebug('Removing folder ' . $post['removeFolder']);
-              $metaDao->removeFolder( sanitize_text_field($post['removeFolder']) );
+          if(isset($post['removeFolder']) && intval($post['removeFolder']) > 0) {
+              //$metaDao = $this->shortPixel->getSpMetaDao();
+              $folder_id = intval($post['removeFolder']);
+              $otherMedia = new OtherMediaController();
+              $folder = $otherMedia->getFolderByID($folder_id);
+
+            //  Log::addDebug('Removing folder ' . $post['removeFolder']);
+              $folder->delete();
+              //$metaDao->removeFolder( sanitize_text_field($post['removeFolder']) );
 
           }
           unset($post['removeFolder']);
@@ -487,19 +504,5 @@ class SettingsController extends shortPixelController
         exit();
       }
 
-      /*
-      protected function NoticeApiKeyLength($key)
-      {
-        $KeyLength = strlen($key);
 
-        $notice =  sprintf(__("The key you provided has %s characters. The API key should have 20 characters, letters and numbers only.",'shortpixel-image-optimiser'), $KeyLength)
-                   . "<BR> <b>"
-                   . __('Please check that the API key is the same as the one you received in your confirmation email.','shortpixel-image-optimiser')
-                   . "</b><BR> "
-                   . __('If this problem persists, please contact us at ','shortpixel-image-optimiser')
-                   . "<a href='mailto:help@shortpixel.com?Subject=API Key issues' target='_top'>help@shortpixel.com</a>"
-                   . __(' or ','shortpixel-image-optimiser')
-                   . "<a href='https://shortpixel.com/contact' target='_blank'>" . __('here','shortpixel-image-optimiser') . "</a>.";
-        Notice::addError($notice);
-      } */
 }

@@ -136,12 +136,16 @@ class Meow_MFRH_UI {
 		$checkFiles = null;
 		if ( isset( $_GET ) && isset( $_GET['mfrh_scancheck'] ) )
 			$checkFiles = $this->core->check_text();
-		// FLAGGING
-		// if ( get_option( 'mfrh_flagging' ) ) {
-		// 	$this->core->file_counter( $flagged, $total, true );
-		// }
-		$all_media = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts p WHERE post_status = 'inherit' AND post_type = 'attachment'" );
-		$manual_media = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->postmeta WHERE meta_key = '_manual_file_renaming' AND meta_value = 1" );
+
+		$all_media = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts p 
+			WHERE post_status = 'inherit' AND post_type = 'attachment'" );
+		$manual_media = $wpdb->get_var( "SELECT COUNT(*) 
+			FROM $wpdb->postmeta pm, $wpdb->posts p
+			WHERE pm.meta_key = '_manual_file_renaming' AND pm.meta_value = 1 AND p.ID = pm.post_id
+			AND p.post_status = 'inherit' AND p.post_type = 'attachment'" );
+
+		// error_log( 'ALL: ' . $all_media );
+		// error_log( 'RENAMED MANUALLY: ' . $manual_media );
 
 		echo $this->render_view( 'menu-screen', array(
 			'wpdb'  => $wpdb,
@@ -231,6 +235,11 @@ class Meow_MFRH_UI {
 			if ( $file['case_issue'] ) {
 				echo '<br />' . $smallDiv .
 					sprintf( __( 'Rename in lowercase, to %s. You can also <a href="%s">edit this media</a>.', 'media-file-renamer' ),
+					$file['desired_filename'], $modify_url ) . "</div>";
+			}
+			else if ( $file['original_image'] ) {
+				echo '<br />' . $smallDiv .
+					sprintf( __( 'Rename to %s. The original image will be also be renamed. You can also <a href="%s">EDIT THIS MEDIA</a>.', 'media-file-renamer' ),
 					$file['desired_filename'], $modify_url ) . "</div>";
 			}
 			else {
@@ -423,6 +432,7 @@ class Meow_MFRH_UI {
 
 	function admin_notices() {
 		$screen = get_current_screen();
+		$output = array();
 		if ( ( $screen->base == 'post' && $screen->post_type == 'attachment' ) ||
 			( $screen->base == 'media' && isset( $_GET['attachment_id'] ) ) ) {
 			$id = isset( $_GET['post'] ) ? $_GET['post'] : $_GET['attachment_id'];
@@ -442,6 +452,7 @@ class Meow_MFRH_UI {
 	}
 
 	function media_send_to_editor( $html, $id, $attachment ) {
+		$output = array();
 		$this->core->check_attachment( get_post( $id, ARRAY_A ), $output );
 		return $html;
 	}

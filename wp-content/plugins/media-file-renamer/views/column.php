@@ -66,9 +66,13 @@ else
 <div style="line-height: 12px; font-size: 10px; margin-top: 5px;">
 	<?php printf( __( 'Rename in lowercase, to %s. You can also <a href="%s">edit this media</a>.', 'media-file-renamer' ), $file['desired_filename'], $modify_url ); ?>
 </div>
+<?php elseif ( $file['original_image'] ): // iii ?>
+<div style="line-height: 12px; font-size: 10px; margin-top: 5px;">
+	<?php printf( __( 'Rename in lowercase, to %s. The original image will be also be renamed. You can also <a href="%s">edit this media</a>.', 'media-file-renamer' ), $file['desired_filename'], $modify_url ); ?>
+</div>
 <?php else: // iii ?>
 <div style="line-height: 12px; font-size: 10px; margin-top: 5px;">
-	<?php printf( __( 'Rename to %s. You can also <a href="%s">EDIT THIS MEDIA</a>.', 'media-file-renamer' ), $file['desired_filename'], $modify_url ); ?>
+	<?php printf( __( 'Rename to %s. You can also <a href="%s">edit this media</a>.', 'media-file-renamer' ), $file['desired_filename'], $modify_url ); ?>
 </div>
 <?php endif; // iii ?>
 <?php if ( !$isNew ): // iii ?>

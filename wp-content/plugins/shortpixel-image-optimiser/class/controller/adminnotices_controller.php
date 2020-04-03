@@ -18,12 +18,15 @@ class adminNoticesController extends ShortPixelController
     const MSG_UNLISTED_FOUND = 'Error102'; // SPIO found unlisted images, but this setting is not on
 
     //const MSG_NO_
+    const MSG_QUOTA_REACHED = 'QuotaReached100';
     const MSG_UPGRADE_MONTH = 'UpgradeNotice200';  // When processing more than the subscription allows on average..
     const MSG_UPGRADE_BULK = 'UpgradeNotice201'; // when there is no enough for a bulk run.
 
     const MSG_NO_APIKEY = 'ApiNotice300'; // API Key not found
     const MSG_NO_APIKEY_REPEAT = 'ApiNotice301';  // First Repeat.
     const MSG_NO_APIKEY_REPEAT_LONG = 'ApiNotice302'; // Last Repeat.
+
+    const MSG_INTEGRATION_NGGALLERY = 'IntNotice400';
 
     public function __construct()
     {
@@ -55,6 +58,22 @@ class adminNoticesController extends ShortPixelController
     {
       Notices::removeNoticeByID(self::MSG_UPGRADE_MONTH);
       Notices::removeNoticeByID(self::MSG_UPGRADE_BULK);
+      Notices::removeNoticeBYID(self::MSG_QUOTA_REACHED);
+    }
+
+    public static function resetIntegrationNotices()
+    {
+      Notices::removeNoticeByID(self::MSG_INTEGRATION_NGGALLERY);
+    }
+
+    /** ReInstates A Persistent Notice manually */
+    public static function reInstateQuotaExceeded()
+    {
+      $noticeControl = Notices::getInstance();
+      $notice = $noticeControl->getNoticeByID(self::MSG_QUOTA_REACHED);
+      $notice->unDismiss();
+
+      $noticeControl->update();
     }
 
     /* General function to check on Hook for admin notices if there is something to show globally */
@@ -65,6 +84,28 @@ class adminNoticesController extends ShortPixelController
        $this->doCompatNotices();
        $this->doUnlistedNotices();
        $this->doQuotaNotices();
+
+
+       $this->doIntegrationNotices();
+    }
+
+
+    protected function doIntegrationNotices()
+    {
+        $settings= \wpSPIO()->settings();
+        if (! \wpSPIO()->settings()->verifiedKey)
+        {
+          return; // no key, no integrations.
+        }
+
+        if (\wpSPIO()->env()->has_nextgen && ! $settings->includeNextGen  )
+        {
+            $url = admin_url('options-general.php?page=wp-shortpixel-settings&part=adv-settings');
+            $message = sprintf(__('It seems you are using NextGen Gallery. You can optimize your galleries with ShortPixel, but this is currently not enabled. To enable, %sgo to settings and enable%s it!', 'shortpixel_image_optimiser'), '<a href="' . $url . '">', '</a>');
+            $notice = Notices::addNormal($message);
+            Notices::makePersistent($notice, self::MSG_INTEGRATION_NGGALLERY, YEAR_IN_SECONDS);
+        }
+
     }
 
     /** Load the various messages about the lack of API-keys in the plugin */
@@ -193,6 +234,7 @@ class adminNoticesController extends ShortPixelController
           $shortpixel->getQuotaInformation();
       }
 
+
       /**  Comment for historical reasons, this seems strange in the original, excluding.
       * isset($this->_settings->currentStats['optimizePdfs'])
       * && $this->_settings->currentStats['optimizePdfs'] == $this->_settings->optimizePdfs )
@@ -235,6 +277,10 @@ class adminNoticesController extends ShortPixelController
 
          $message = $this->getQuotaExceededMessage($quotaData);
          $notice = Notices::addError($message);
+         Notices::makePersistent($notice, self::MSG_QUOTA_REACHED, WEEK_IN_SECONDS);
+
+         Notices::removeNoticeByID(self::MSG_UPGRADE_MONTH); // get rid of doubles. reset
+         Notices::removeNoticeByID(self::MSG_UPGRADE_BULK);
       }
 
     }
@@ -287,6 +333,7 @@ class adminNoticesController extends ShortPixelController
     {
       $message = '<p>' . sprintf(__("You currently have <strong>%d images and thumbnails to optimize</strong> but you only have <strong>%d images</strong> available in your current plan."
             . " You might need to upgrade your plan in order to have all your images optimized.", 'shortpixel-image-optimiser'), $extra['filesTodo'], $extra['quotaAvailable']) . '</p>';
+      $message .= '  <button class="button button-primary" id="shortpixel-upgrade-advice" onclick="ShortPixel.proposeUpgrade()" style="margin-right:10px;"><strong>' .  __('Show me the best available options', 'shortpixel-image-optimiser') . '</strong></button>';
       $message .= $this->proposeUpgradePopup();
       //self::includeProposeUpgradePopup();
       return $message;
@@ -296,6 +343,7 @@ class adminNoticesController extends ShortPixelController
     {
       $message = '<p>' . sprintf(__("You are adding an average of <strong>%d images and thumbnails every month</strong> to your Media Library and you have <strong>a plan of %d images/month</strong>."
             . " You might need to upgrade your plan in order to have all your images optimized.", 'shortpixel-image-optimiser'), $extra['monthAvg'], $extra['monthlyQuota']) . '</p>';
+      $message .= '  <button class="button button-primary" id="shortpixel-upgrade-advice" onclick="ShortPixel.proposeUpgrade()" style="margin-right:10px;"><strong>' .  __('Show me the best available options', 'shortpixel-image-optimiser') . '</strong></button>';
       $message .= $this->proposeUpgradePopup();
       return $message;
     }
@@ -303,7 +351,6 @@ class adminNoticesController extends ShortPixelController
     protected function getQuotaExceededMessage($quotaData)
     {
       $averageCompression = \wpSPIO()->getShortPixel()->getAverageCompression();
-      $recheck = isset($_GET['checkquota']) ? true : false;
       \wpSPIO()->loadModel('apikey');
 
       $keyModel = new apiKeyModel();
@@ -341,6 +388,8 @@ class adminNoticesController extends ShortPixelController
                class='short-pixel-notice-icon'> */
 
         $message .= '<h3>' . __('Quota Exceeded','shortpixel-image-optimiser') . '</h3>';
+
+        $recheck = isset($_GET['checkquota']) ? true : false;
 
         if($recheck) {
              $message .= '<p style="color: red">' . __('You have no available image credits. If you just bought a package, please note that sometimes it takes a few minutes for the payment confirmation to be sent to us by the payment processor.','shortpixel-image-optimiser') . '</p>';

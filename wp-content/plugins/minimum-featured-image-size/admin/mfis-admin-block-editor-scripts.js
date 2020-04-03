@@ -1,4 +1,4 @@
-jQuery(function ($) {
+jQuery(function($) {
 
     /**
      * Initialise some variables
@@ -14,16 +14,16 @@ jQuery(function ($) {
     /**
      * Reset all things mfis in the block editor
      */
-    function mfis_reset_block_editor() {
+    function mfis_reset_block_editor () {
 
         // Renable publishing
-        if (mfis.disable_publishing == 'publishing_disabled') {
+        if(mfis.disable_publishing == 'publishing_disabled') {
             $('.editor-post-publish-button').removeAttr('disabled').show();
             wp.data.dispatch('core/editor').unlockPostSaving('mfis_lock');
         }
 
         // Remove error message from below image
-        $('.mfis_publishing_disabled_block_editor').fadeOut(500, function () {
+        $('.mfis_publishing_disabled_block_editor').fadeOut(500, function() {
             $('.mfis_publishing_disabled_block_editor').remove();
             $('.editor-post-featured-image img').removeClass('mfis_is_disabled');
         });
@@ -41,9 +41,9 @@ jQuery(function ($) {
      * Check the image via ajax
      * @param {number} image_id
      */
-    function mfis_do_ajax_block_editor(image_id) {
+    function mfis_do_ajax_block_editor (image_id) {
 
-        if (image_id != -1) {
+        if(image_id > 0) {
 
             var data = {
                 action: 'mfis_get_size_from_id',
@@ -52,16 +52,18 @@ jQuery(function ($) {
                 editor: 'block',
             };
 
-            $.post(ajaxurl, data, function (response) {
+            $.post(ajaxurl, data, function(response) {
+
+                response += ""; // Make sure this is a string we're dealing with
 
                 var json = JSON.parse(response);
 
-                if (json.image_check == 'fail') {
+                if(json.image_check == 'fail') {
 
                     // Add error message
                     mfis_publishing_disabled_message = '<div class="mfis_publishing_disabled_block_editor"><span class="mfis_icon">!</span><span class="mfis_error_message">' + json.error_message + '</span></div>';
 
-                    if (!$('.editor-post-featured-image img').hasClass('mfis_is_disabled')) {
+                    if(!$('.editor-post-featured-image img').hasClass('mfis_is_disabled')) {
 
                         $('.editor-post-featured-image img').after(mfis_publishing_disabled_message).addClass('mfis_is_disabled');
                         $('.mfis_publishing_disabled_block_editor').hide().fadeIn();
@@ -69,7 +71,7 @@ jQuery(function ($) {
                     }
 
                     // Display an error message at top of editor
-                    if (!mfis_dismiss_error_messages) {
+                    if(!mfis_dismiss_error_messages) {
 
                         wp.data.dispatch('core/notices').createInfoNotice(json.error_message, {
                             id: 'mfis_dismissible_error_message'
@@ -80,7 +82,7 @@ jQuery(function ($) {
                     }
 
                     // Disable publishing
-                    if (mfis.disable_publishing == 'publishing_disabled') {
+                    if(mfis.disable_publishing == 'publishing_disabled') {
 
                         // Disable the Publish button
                         $('.editor-post-publish-button').attr('disabled', 'disabled').show();
@@ -105,15 +107,20 @@ jQuery(function ($) {
 
         }
 
+        else {
+            // There is no image, so let's reset things
+            mfis_reset_block_editor();
+        }
+
     }
 
 
     /**
      * Perform the image check
      */
-    function mfis_check_image_block_editor() {
+    function mfis_check_image_block_editor () {
 
-        if (mfis_do_check) {
+        if(mfis_do_check) {
             mfis_do_ajax_block_editor(mfis_value);
         }
 
@@ -123,12 +130,11 @@ jQuery(function ($) {
     /**
      * Subscribe to the featured_image data, to detect changes
      */
-    wp.data.subscribe(function () {
+    wp.data.subscribe(function() {
 
-        wp.domReady(function () {
+        wp.domReady(function() {
 
-            mfis_value = (wp.data.select('core/editor').getEditedPostAttribute('featured_media')) ? wp.data.select('core/editor').getEditedPostAttribute('featured_media') : mfis_value;
-
+            mfis_value = wp.data.select('core/editor').getEditedPostAttribute('featured_media');
             mfis_do_check = true;
 
         });

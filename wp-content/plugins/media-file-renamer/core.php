@@ -211,7 +211,8 @@ SQL;
 
 	/****************************************************************************/
 
-	// Return false if everything is fine, otherwise return true with an output.
+	// Return false if everything is fine, otherwise return true with an output
+	// which details the conditions and results about the renaming.
 	function check_attachment( $post, &$output = array(), $manual_filename = null ) {
 		$id = $post['ID'];
 		$old_filepath = get_attached_file( $id );
@@ -278,8 +279,6 @@ SQL;
 			}
 			$new_filename = $this->new_filename( $post, $base_title );
 			if ( is_null( $new_filename ) ) return false; // Leave it as it is
-
-			//$this->log( "New title: $base_title, New filename: $new_filename" );
 		}
 
 		// If a filename has a counter, and the ideal is without the counter, let's ignore it
@@ -324,10 +323,22 @@ SQL;
 		$output['case_issue'] = $case_issue;
 		$output['manual'] = !empty( $manual_filename );
 		$output['locked'] = get_post_meta( $id, '_manual_file_renaming', true );
-		$output['desired_filename_exists'] = false;
+		$output['desired_filename_exists'] = !!$existing_file;
+		$output['original_image'] = null;
+		
+		// If the ideal filename already exists
+		// Maybe that's the original_image! If yes, we should let it go through
+		// as the original_rename will be renamed into another filename anyway.
+		if ( !!$existing_file ) {
+			$meta = wp_get_attachment_metadata( $id );
+			if ( isset( $meta['original_image'] ) && $new_filename === $meta['original_image'] ) {
+				$output['original_image'] = $meta['original_image'];
+				$output['desired_filename_exists'] = false;
+			}
+		}
 
-		// It seems it could be renamed :)
-		if ( !get_post_meta( $post['ID'], '_require_file_renaming' ) ) {
+		// Set the '_require_file_renaming', even though it's not really used at this point.
+		if ( !get_post_meta( $post['ID'], '_require_file_renaming' ) && $output['desired_filename_exists'] && !$output['locked']) {
 			add_post_meta( $post['ID'], '_require_file_renaming', true, true );
 		}
 		return true;
@@ -536,6 +547,32 @@ SQL;
 	}
 
 	/**
+	 * Transform full width hyphens and other variety hyphens in half size into simple hyphen,
+	 * and avoid consecutive hyphens and also at the beginning and end as well.
+	 */
+	function format_hyphens( $str ) {
+		$hyphen = '-';
+		$hyphens = [
+			'﹣', '－', '−', '⁻', '₋',
+			'‐', '‑', '‒', '–', '—',
+			'―', '﹘', 'ー','ｰ',
+		];
+		$str = str_replace( $hyphens, $hyphen, $str );
+		// remove at the beginning and end.
+		$beginning = mb_substr( $str, 0, 1 );
+		if ( $beginning === $hyphen ) {
+			$str = mb_substr( $str, 1 );
+		}
+		$end = mb_substr( $str, -1 );
+		if ( $end === $hyphen ) {
+			$str = mb_strcut( $str, 0, mb_strlen( $str ) - 1 );
+		}
+		$str = preg_replace( '/-{2,}/u', '-', $str );
+		$str = trim( $str, implode( '', $hyphens ) );
+		return $str;
+	}
+
+	/**
 	 * Computes the ideal filename based on a text
 	 * @param array $media
 	 * @param string $text
@@ -575,9 +612,15 @@ SQL;
 			// Filename is generated from $text, without an extension.
 			$text = str_replace( ".jpg", "", $text );
 			$text = str_replace( ".png", "", $text );
+			$text = str_replace( ['.','…'], "", $text );
+			$text = str_replace( "'s", "", $text );
 			$text = str_replace( "'", "-", $text );
-			$text = strtolower( $this->replace_chars( $text ) );
-			$new_filename = sanitize_file_name( $text );
+			$text = $this->replace_chars( $text );
+			// Changed strolower to mb_strtolower... 
+			$text = mb_strtolower( $text );
+			$text = sanitize_file_name( $text );
+			$new_filename = $this->format_hyphens( $text );
+			$new_filename = trim( $new_filename, '-.' );
 		}
 
 		// Convert all accent characters to ASCII characters
@@ -730,7 +773,7 @@ SQL;
 							&& ( ( !file_exists( $wr2x_new_filepath ) ) || is_writable( $wr2x_new_filepath ) ) ) {
 
 							// Rename retina file
-							if ( !$this->rename_file( $wr2x_old_filepath, $wr2x_new_filepath, $case_issue ) && !$force_rename ) {
+							if ( !$this->rename_file( $wr2x_old_filepath, $wr2x_new_filepath ) ) {
 								$this->log( "[!] Retina $wr2x_old_filepath -> $wr2x_new_filepath" );
 								return $post;
 							}
@@ -822,8 +865,18 @@ SQL;
 		$new_filename = $output['desired_filename'];
 		$manual = $output['manual'] || !empty( $manual_filename );
 		$path_parts = mfrh_pathinfo( $old_filepath );
-		$directory = $path_parts['dirname']; // '2011/01'
+		$directory = $path_parts['dirname']; // Directory where the files are, under 'uploads', such as '2011/01'
 		$old_filename = $path_parts['basename']; // 'whatever.jpeg'
+		// Get old extension and new extension
+		$old_ext = $path_parts['extension'];
+		$new_ext = $old_ext;
+		if ( $manual_filename ) {
+			$pp = mfrh_pathinfo( $manual_filename );
+			$new_ext = $pp['extension'];
+		}
+		$noext_old_filename = $this->str_replace( '.' . $old_ext, '', $old_filename ); // Old filename without extension
+		$noext_new_filename = $this->str_replace( '.' . $old_ext, '', $new_filename ); // New filename without extension
+
 
 		$this->log( "** Rename Media: " . $old_filename );
 		$this->log( "New file should be: " . $new_filename );
@@ -833,15 +886,48 @@ SQL;
 			$this->log( "The original file ($old_filepath) cannot be found." );
 			return $post;
 		}
-		if ( !$case_issue && !$force_rename && file_exists( $new_filepath ) ) {
+
+		// Get the attachment meta
+		$meta = wp_get_attachment_metadata( $id );
+
+		// Get the information about the original image
+		// (which means the current file is a rescaled version of it)
+		$has_original_image = isset( $meta['original_image'] ) && !empty( $meta['original_image'] );
+		$original_is_ideal = $has_original_image ? $new_filename === $meta['original_image'] : false;
+
+		if ( !$original_is_ideal && !$case_issue && !$force_rename && file_exists( $new_filepath ) ) {
 			$this->log( "The new file already exists ($new_filepath). It is not a case issue. Renaming cancelled." );
 			return $post;
 		}
 
-		// Keep the original filename
+		// Keep the original filename (that's for the "Undo" feature)
 		$original_filename = get_post_meta( $id, '_original_filename', true );
 		if ( empty( $original_filename ) )
 			add_post_meta( $id, '_original_filename', $old_filename, true );
+
+		// Support for the original image if it was "-rescaled".
+		// We should rename the -rescaled image first, as it could cause an issue
+		// if renamed after the main file. In fact, the original file might have already
+		// the best filename and evidently, the "-rescaled" one not.
+		if ( $has_original_image ) {
+			$meta_old_filename = $meta['original_image'];
+			$meta_old_filepath = trailingslashit( $directory ) . $meta_old_filename;
+			// In case of the undo, since we do not have the actual real original filename for that un-scaled image,
+			// we make sure the -scaled part of the original filename is not used (that could bring some confusion otherwise).
+			$meta_new_filename = str_replace( '-scaled', '', $noext_new_filename ) . '-mfrh-original.' . $new_ext;
+			$meta_new_filepath = trailingslashit( $directory ) . $meta_new_filename;
+			if ( !$this->rename_file( $meta_old_filepath, $meta_new_filepath, $case_issue ) && !$force_rename ) {
+				$this->log( "[!] File $meta_old_filepath -> $meta_new_filepath" );
+				return $post;
+			}
+			// Manual Rename also uses the new extension (if it was not stripped to avoid user mistake)
+			if ( $force_rename && !empty( $new_ext ) ) {
+				$meta_new_filename = $this->str_replace( $old_ext, $new_ext, $meta_new_filename );
+			}
+			$this->log( "Original File\t$old_filepath -> $new_filepath" );
+			//do_action( 'mfrh_path_renamed', $post, $old_filepath, $new_filepath );
+			$meta['original_image'] = $meta_new_filename;
+		}
 
 		// Rename the main media file.
 		if ( !$this->rename_file( $old_filepath, $new_filepath, $case_issue ) && !$force_rename ) {
@@ -851,20 +937,16 @@ SQL;
 		$this->log( "File\t$old_filepath -> $new_filepath" );
 		do_action( 'mfrh_path_renamed', $post, $old_filepath, $new_filepath );
 
-		// The new extension (or maybe it's just the old one)
-		$old_ext = $path_parts['extension'];
-		$new_ext = $old_ext;
-		if ( $manual_filename ) {
-			$pp = mfrh_pathinfo( $manual_filename );
-			$new_ext = $pp['extension'];
-		}
-
-		// Filenames without extensions
-		$noext_old_filename = $this->str_replace( '.' . $old_ext, '', $old_filename );
-		$noext_new_filename = $this->str_replace( '.' . $old_ext, '', $new_filename );
-
-		// Update the attachment meta
-		$meta = wp_get_attachment_metadata( $id );
+		// Rename the main media file in WebP if it exists.
+		$this->rename_webp_file_if_exist(
+			$old_filepath,
+			$old_ext,
+			$new_filepath,
+			$new_ext,
+			$case_issue,
+			$force_rename,
+			$post
+		);
 
 		if ( $meta ) {
 			if ( isset( $meta['file'] ) && !empty( $meta['file'] ) )
@@ -901,14 +983,8 @@ SQL;
 				$orig_image_urls[$size] = $orig_image_data[0];
 
 				// Double check files exist before trying to rename.
-				if (
-					$force_rename || (
-						file_exists( $meta_old_filepath ) && (
-							( !file_exists( $meta_new_filepath ) ) ||
-							is_writable( $meta_new_filepath )
-						)
-					)
-				) {
+				if ( $force_rename || ( file_exists( $meta_old_filepath ) && 
+						( ( !file_exists( $meta_new_filepath ) ) || is_writable( $meta_new_filepath ) ) ) ) {
 					// WP Retina 2x is detected, let's rename those files as well
 					if ( function_exists( 'wr2x_get_retina' ) ) {
 						$wr2x_old_filepath = $this->str_replace( '.' . $old_ext, '@2x.' . $old_ext, $meta_old_filepath );
@@ -925,6 +1001,16 @@ SQL;
 							do_action( 'mfrh_path_renamed', $post, $wr2x_old_filepath, $wr2x_new_filepath );
 						}
 					}
+					// If webp file existed, that one as well.
+					$this->rename_webp_file_if_exist(
+						$meta_old_filepath,
+						$old_ext,
+						$meta_new_filepath,
+						$new_ext,
+						$case_issue,
+						$force_rename,
+						$post
+					);
 
 					// Rename meta file
 					if ( !$this->rename_file( $meta_old_filepath, $meta_new_filepath, $case_issue ) && !$force_rename ) {
@@ -1008,6 +1094,46 @@ SQL;
 
 		do_action( 'mfrh_media_renamed', $post, $old_filepath, $new_filepath );
 		return $post;
+	}
+
+	/**
+	 * Rename webp file only if existed.
+	 */
+	function rename_webp_file_if_exist(
+		$old_filepath,
+		$old_ext,
+		$new_finepath,
+		$new_ext,
+		$case_issue,
+		$force_rename,
+		$post
+	) {
+		// 2 patterns exist.
+		// - filename.webp
+		// - filename.ext.webp
+		$webp_files = [
+			[
+				'old' => $this->str_replace( '.' . $old_ext, '.webp', $old_filepath ),
+				'new' => $this->str_replace( '.' . $new_ext, '.webp', $new_finepath ),
+			],
+			[
+				'old' => $this->str_replace( '.' . $old_ext, '.' . $old_ext . '.webp', $old_filepath ),
+				'new' => $this->str_replace( '.' . $new_ext, '.' . $new_ext . '.webp', $new_finepath ),
+			],
+		];
+		foreach ($webp_files as $webp_file) {
+			if ( file_exists( $webp_file['old'] )
+				&& ( ( !file_exists( $webp_file['new'] ) ) || is_writable( $webp_file['new'] ) ) ) {
+
+				// Rename webp file
+				if ( !$this->rename_file( $webp_file['old'], $webp_file['new'], $case_issue ) && !$force_rename ) {
+					$this->log( "[!] Retina $webp_file[old] -> $webp_file[new]" );
+					return $post;
+				}
+				$this->log( "Retina\t$webp_file[old] -> $webp_file[new]" );
+				do_action( 'mfrh_path_renamed', $post, $webp_file['old'], $webp_file['new'] );
+			}
+		}
 	}
 
 	/**

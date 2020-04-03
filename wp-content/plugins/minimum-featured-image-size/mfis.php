@@ -2,7 +2,7 @@
 /*
 Plugin Name: Minimum Featured Image Size
 Description: Set the minimum size required for featured images used in standard and custom posts.
-Version:     2.0.2
+Version:     2.0.3
 Author:      Martin Stewart
 Author URI:  https://corgmo.github.io/
 License:     GPL2
@@ -123,6 +123,7 @@ function mfis_plugin_options()
 
             # Get previously set options
             $mfis_min_width  = get_option('mfis_min_width');
+            $mfis_exclude_pages  = get_option('mfis_exclude_pages');
             $mfis_min_height = get_option('mfis_min_height');
             $mfis_error_message = get_option('mfis_error_message'); ?>
 
@@ -176,6 +177,16 @@ function mfis_plugin_options()
                         <label for="mfis_ajax_disable">
                             <input type="checkbox" id="mfis_ajax_disable" name="mfis_ajax_disable" class="mfis_ajax_disable" value="ajax_disabled" <?php checked('ajax_disabled', get_option('mfis_ajax_disable')); ?> />
                             Disable Ajax? <small><em>Classic editor only</em></small>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr valign="top">
+                    <th scope="row">Pages</th>
+                    <td>
+                        <label for="mfis_exclude_pages">
+                            <input type="checkbox" id="mfis_exclude_pages" name="mfis_exclude_pages" class="mfis_exclude_pages" value="exclude_pages" <?php checked('exclude_pages', get_option('mfis_exclude_pages')); ?> />
+                            Disable on pages? <small><em>Don't check featured images on pages</em></small>
                         </label>
                     </td>
                 </tr>
@@ -329,6 +340,7 @@ function mfis_register_settings()
     register_setting('mfis_option_group', 'mfis_disable_publishing');
     register_setting('mfis_option_group', 'mfis_error_message');
     register_setting('mfis_option_group', 'mfis_ajax_disable');
+    register_setting('mfis_option_group', 'mfis_exclude_pages');
     register_setting('mfis_option_group', 'mfis_custom_post_types');
 
     $post_types = get_post_types(array('_builtin' => false), 'names');
@@ -364,6 +376,10 @@ function mfis_image_size_ok($image_id, $post_type = 'post')
 
     if (!$image_data)
         return true; # bail if no image at all,
+
+
+    if( $post_type == 'page' && get_option('mfis_exclude_pages') === 'exclude_pages')
+        return true; # bail if pages are excluded
 
     $image_width = $image_data[1];
     $image_height = $image_data[2];
@@ -604,8 +620,7 @@ function mfis_settings_screen()
 
             <span class="mfis_footer"> <?php
 
-                                        $me_url = 'https://www.corgdesign.com?utm_source=plugin&utm_campaign=mfis';
-                                        $plugin_url = 'https://www.corgdesign.com/wordpress-plugins/?utm_source=plugin&utm_campaign=mfis';
+                                        $me_url = 'https://corgmo.github.io/';
                                         $beer_url = 'https://www.paypal.me/corgdesign/5';
 
                                         $allowed = array(
@@ -619,7 +634,7 @@ function mfis_settings_screen()
                                             )
                                         );
 
-                                        $text = sprintf(wp_kses(__('Made with <span class="dashicons dashicons-heart"><span>love</span></span> by <a href="%s" target="_blank" rel="noopener noreferrer">Martin Stewart</a>, for the WordPress community. View my other <a href="%s" target="_blank" rel="noopener noreferrer">WordPress plugins</a>. If you\'re feeling generous you can <a href="%s" target="_blank" rel="noopener noreferrer">buy me a beer</a>. Hic!', 'woohoo'), $allowed), esc_url($me_url), esc_url($plugin_url), esc_url($beer_url));
+                                        $text = sprintf(wp_kses(__('Made with <span class="dashicons dashicons-heart"><span>love</span></span> by <a href="%s" target="_blank" rel="noopener noreferrer">Martin Stewart</a> for the WordPress community.', 'woohoo'), $allowed), esc_url($me_url));
 
 
                                         echo $text;    ?>

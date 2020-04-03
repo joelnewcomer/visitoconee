@@ -50,8 +50,11 @@ function relevanssi_query( $posts, $query = false ) {
 		$search_ok = false; // No search term.
 	}
 
-	// Disable Relevanssi in the media library search.
-	if ( $search_ok ) {
+	$indexed_post_types = array_flip(
+		get_option( 'relevanssi_index_post_types', array() )
+	);
+	$images_indexed     = get_option( 'relevanssi_index_image_files', 'off' );
+	if ( $search_ok && ( false === isset( $indexed_post_types['attachment'] ) || 'off' === $images_indexed ) ) {
 		if ( 'attachment' === $query->query_vars['post_type'] && 'inherit,private' === $query->query_vars['post_status'] ) {
 			$search_ok = false;
 		}
@@ -130,6 +133,9 @@ function relevanssi_search( $args ) {
 	$query_join         = $query_data['query_join'];
 	$q                  = $query_data['query_query'];
 	$q_no_synonyms      = $query_data['query_no_synonyms'];
+	$phrase_queries     = $query_data['phrase_queries'];
+
+	$min_length = get_option( 'relevanssi_min_word_length' );
 
 	/**
 	 * Filters whether stopwords are removed from titles.
@@ -138,7 +144,7 @@ function relevanssi_search( $args ) {
 	 */
 	$remove_stopwords = apply_filters( 'relevanssi_remove_stopwords_in_titles', true );
 
-	$terms = relevanssi_tokenize( $q, $remove_stopwords );
+	$terms = relevanssi_tokenize( $q, $remove_stopwords, $min_length );
 	$terms = array_keys( $terms ); // Don't care about tf in query.
 
 	if ( function_exists( 'relevanssi_process_terms' ) ) {
@@ -227,8 +233,6 @@ function relevanssi_search( $args ) {
 
 	}
 
-	$min_length = get_option( 'relevanssi_min_word_length' );
-
 	$search_again = false;
 
 	$content_boost = floatval( get_option( 'relevanssi_content_boost', 1 ) ); // Default value, because this option was added late.
@@ -269,9 +273,17 @@ function relevanssi_search( $args ) {
 			if ( null === $term_cond ) {
 				continue;
 			}
+
+			$this_query_restrictions = relevanssi_add_phrase_restrictions(
+				$query_restrictions,
+				$phrase_queries,
+				$term,
+				$operator
+			);
+
 			$query = "SELECT COUNT(DISTINCT(relevanssi.doc)) FROM $relevanssi_table AS relevanssi
-				$query_join WHERE $term_cond $query_restrictions";
-			// Clean: $query_restrictions is escaped, $term_cond is escaped.
+				$query_join WHERE $term_cond $this_query_restrictions";
+			// Clean: $this_query_restrictions is escaped, $term_cond is escaped.
 			/**
 			 * Filters the DF query.
 			 *
@@ -306,13 +318,20 @@ function relevanssi_search( $args ) {
 		foreach ( $df_counts as $term => $df ) {
 			$term_cond = relevanssi_generate_term_where( $term, $search_again, $no_terms );
 
+			$this_query_restrictions = relevanssi_add_phrase_restrictions(
+				$query_restrictions,
+				$phrase_queries,
+				$term,
+				$operator
+			);
+
 			$query = "SELECT DISTINCT(relevanssi.doc), relevanssi.*, relevanssi.title * $title_boost +
 				relevanssi.content * $content_boost + relevanssi.comment * $comment_boost +
 				relevanssi.tag * $tag + relevanssi.link * $link_boost +
 				relevanssi.author + relevanssi.category * $cat + relevanssi.excerpt +
 				relevanssi.taxonomy + relevanssi.customfield + relevanssi.mysqlcolumn AS tf
-				FROM $relevanssi_table AS relevanssi $query_join WHERE $term_cond $query_restrictions";
-			/** Clean: $query_restrictions is escaped, $term_cond is escaped. */
+				FROM $relevanssi_table AS relevanssi $query_join WHERE $term_cond $this_query_restrictions";
+			/** Clean: $this_query_restrictions is escaped, $term_cond is escaped. */
 
 			/**
 			 * Filters the Relevanssi MySQL query.
@@ -1302,8 +1321,8 @@ function relevanssi_compile_search_args( $query, $q ) {
 	}
 
 	$parent_query = array();
-	if ( isset( $query->query_vars['post_parent'] ) ) {
-		$parent_query = array( 'parent in' => array( $query->query_vars['post_parent'] ) );
+	if ( isset( $query->query_vars['post_parent'] ) && '' !== $query->query_vars['post_parent'] ) {
+		$parent_query = array( 'parent in' => array( (int) $query->query_vars['post_parent'] ) );
 	}
 	if ( isset( $query->query_vars['post_parent__in'] ) && is_array( $query->query_vars['post_parent__in'] ) && ! empty( $query->query_vars['post_parent__in'] ) ) {
 		$parent_query = array( 'parent in' => $query->query_vars['post_parent__in'] );

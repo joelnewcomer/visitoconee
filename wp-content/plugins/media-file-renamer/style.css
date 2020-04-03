@@ -19,13 +19,13 @@
 }
 .mfrh_column .button-primary,
 .mfrh_column .button-primary .dashicons {
-	line-height: 26px;
+	line-height: 24px;
 }
 .mfrh_column .button-primary {
-	width: 50px;
-	padding-left: 0;
-	padding-right: 0;
+	padding: 4px 8px;
 	text-align: center;
+	min-height: auto;
+	line-height: unset;
 }
 .mfrh_column .button-primary.updating-message:before {
 	margin: 3px 0 0 0;

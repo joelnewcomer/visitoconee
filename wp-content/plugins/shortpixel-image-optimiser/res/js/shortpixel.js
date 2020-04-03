@@ -3,7 +3,7 @@
  */
 
 // init checks bulkProcess on each page. initSettings is when the settings View is being loaded.
-jQuery(document).ready(function(){ShortPixel.init();});
+jQuery(document).ready(function(){ShortPixel.init(); });
 
 var ShortPixel = function() {
 
@@ -189,10 +189,11 @@ var ShortPixel = function() {
 
     function setupAdvancedTab() {
         jQuery("input.remove-folder-button").click(function(){
-            var path = jQuery(this).data("value");
+            var id = jQuery(this).data("value");
+            var path = jQuery(this).data('name');
             var r = confirm( SPstringFormat(_spTr.areYouSureStopOptimizing, path) );
             if (r == true) {
-                jQuery("#removeFolder").val(path);
+                jQuery("#removeFolder").val(id);
                 jQuery('#wp_shortpixel_options').submit();
             }
         });
@@ -577,7 +578,8 @@ var ShortPixel = function() {
 
             if(subPath) {
                 var fullPath = jQuery("#customFolderBase").val() + subPath;
-                if(fullPath.slice(-1) == '/') fullPath = fullPath.slice(0, -1);
+                fullPath = fullPath.replace(/\/\//,'/');
+                console.debug('FullPath' + fullPath);
                 jQuery("#addCustomFolder").val(fullPath);
                 jQuery("#addCustomFolderView").val(fullPath);
                 jQuery(".sp-folder-picker-shade").fadeOut(100);
@@ -680,6 +682,7 @@ var ShortPixel = function() {
 
     function recheckQuota() {
         var parts = window.location.href.split('#');
+
         window.location.href=parts[0]+(parts[0].indexOf('?')>0?'&':'?')+'checkquota=1' + (typeof parts[1] === 'undefined' ? '' : '#' + parts[1]);
     }
 
@@ -876,7 +879,7 @@ function showToolBarAlert($status, $message, id) {
         case ShortPixel.STATUS_QUOTA_EXCEEDED:
             if(  window.location.href.search("wp-short-pixel-bulk") > 0
               && jQuery(".sp-quota-exceeded-alert").length == 0) { //if we're in bulk and the alert is not displayed reload to see all options
-                location.reload();
+
                 return;
             }
             robo.addClass("shortpixel-alert");
@@ -1074,6 +1077,7 @@ function checkBulkProcessingCallApi(){
                             jQuery("a.bulk-cancel").attr("disabled", "disabled");
                             hideSlider();
                             //showStats();
+
                             setTimeout(function(){
                                 window.location.reload();
                             }, 3000);
@@ -1106,8 +1110,10 @@ function checkBulkProcessingCallApi(){
                         // [BS] Only update date on Custom Media Page.
                         if (ShortPixel.isCustomImageId(id) && data['TsOptimized'] && data['TsOptimized'].length > 0)
                         {
-                          console.log(id);
-                          jQuery('.date-' + id).text(data['TsOptimized']);
+                          var row = jQuery('.list-overview .item-' + id);
+
+                          jQuery(row).children('.date').text(data['TsOptimized']);
+                          jQuery(row).find('.row-actions .action-optimize').remove(); // gets complicated
                         }
 
 
@@ -1178,7 +1184,19 @@ function checkBulkProcessingCallApi(){
                     default:
                         ShortPixel.retry("Unknown status " + data["Status"] + ". Retrying...");
                         break;
+                } // switch
+
+                // If custom, if has ID ( returned something about image )
+                if (typeof id != 'undefined' && ShortPixel.isCustomImageId(id))
+                {
+                  var row = jQuery('.list-overview .item-' + id);
+                  jQuery(row).find('.row-actions .action-optimize').remove(); // gets complicated
+                  if (data['actions'])
+                  {
+                    jQuery(row).children('.actions').html(data['actions']);
+                  }
                 }
+
             }
         },
         error: function(response){
@@ -1297,7 +1315,7 @@ function dismissShortPixelNoticeExceed(e) {
     e.preventDefault();
 } */
 
-/*
+/* @todo Must go, still in use in some parts */
 function dismissShortPixelNotice(id) {
     jQuery("#short-pixel-notice-" + id).hide();
     var data = { action  : 'shortpixel_dismiss_notice',
@@ -1308,7 +1326,7 @@ function dismissShortPixelNotice(id) {
             console.log("dismissed");
         }
     });
-} */
+}
 
 function dismissFileError() {
     jQuery('.shortpixel-alert').hide();

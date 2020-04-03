@@ -548,7 +548,7 @@ class GFMadMimi extends GFFeedAddOn {
 		$settings = $this->get_plugin_settings();
 		
 		/* If the API key or email address is not set, do not run a validation check. */
-		if ( rgblank( $settings['api_key'] ) || rgblank( $settings['email_address'] ) ) {
+		if ( empty( $settings['api_key'] ) || empty( $settings['email_address'] ) ) {
 			return null;
 		}
 

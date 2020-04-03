@@ -109,15 +109,15 @@ class ShortPixelMetaFacade {
     //  Update MetaData of Image.
     public function updateMeta($newMeta = null, $replaceThumbs = false) {
 
-        $this->deleteItemCache();
-
         if($newMeta) {
             $this->meta = $newMeta;
         }
         if($this->type == self::CUSTOM_TYPE) {
             $this->spMetaDao->update($this->meta);
             if($this->meta->getExtMetaId()) {
-                ShortPixelNextGenAdapter::updateImageSize($this->meta->getExtMetaId(), $this->meta->getPath());
+                $ng = \ShortPixel\NextGen::getInstance(); // @todo This needs reversing. Nextgen should listen to a filter to be implemented here.
+                if ($ng->has_nextGen()) // prevent fatal error when Nextgen is not activated
+                  $ng->updateImageSize($this->meta->getExtMetaId(), $this->meta->getPath());
             }
         }
         elseif($this->type == ShortPixelMetaFacade::MEDIA_LIBRARY_TYPE) {
@@ -223,6 +223,8 @@ class ShortPixelMetaFacade {
                 }
             } // duplicates loop
         }
+
+        $this->deleteItemCache();
     }
 
 
@@ -896,6 +898,7 @@ class ShortPixelMetaFacade {
         return array_unique($duplicates);
     }
 
+/*  @todo . Was only in use by now defunct shortpixel-list-table */
     public static function pathToWebPath($path) {
         //$upl = wp_upload_dir();
         //return str_replace($upl["basedir"], $upl["baseurl"], $path);
@@ -909,6 +912,7 @@ class ShortPixelMetaFacade {
         $path = implode('/', $pathParts);
         return self::filenameToRootRelative($path);
     }
+
 
     public static function filenameToRootRelative($path) {
         return self::replaceHomePath($path, "");

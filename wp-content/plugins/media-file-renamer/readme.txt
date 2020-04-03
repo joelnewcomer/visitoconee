@@ -5,7 +5,7 @@ Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a95
 Requires at least: 4.8
 Tested up to: 5.3
 Requires PHP: 7.0
-Stable tag: 4.6.5
+Stable tag: 4.6.7
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -57,11 +57,13 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 
 == Changelog ==
 
-= 4.6.5 =
-* Fix: Little (i18n) fixes in the admin.
+= 4.6.7 =
+* Add: Better handling of dots and hyphens (especially the non-standard ones).
+* Add: Support for WebP.
 * Note: If you like it, please review the plugin [by clicking here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). It's important for us - we need motivation for all the work we want to put in the next version :)
 
-= 4.6.3 =
+= 4.6.5 =
+* Fix: Little (i18n) fixes in the admin.
 * Add: Doesn't show the button to the Dashboard if Auto is disabled.
 * Update: Admin refreshed to 2.4.
 

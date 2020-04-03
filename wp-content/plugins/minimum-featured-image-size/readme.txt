@@ -53,3 +53,6 @@ None yet!
 
 = 2.0.2 =
 * Add support for pages
+
+= 2.0.3 =
+* Bug fix - removing featured image in block editor

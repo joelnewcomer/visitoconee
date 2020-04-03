@@ -446,7 +446,7 @@ class ShortPixelView {
             </div>
             <p><?php printf(__('Go to the ShortPixel <a href="%soptions-general.php?page=wp-shortpixel-settings&part=stats">Stats</a>
                                and see all your websites\' optimized stats. Download your detailed <a href="https://%s/v2/report.php?key=%s">Optimization Report</a>
-                               to check your image optimization statistics for the last 40 days.','shortpixel-image-optimiser'),
+                               to check your image optimization statistics for the last 30 days.','shortpixel-image-optimiser'),
                               get_admin_url(), SHORTPIXEL_API, (defined("SHORTPIXEL_HIDE_API_KEY") ? '' : $this->ctrl->getApiKey()) );?></p>
             <?php
             $failed = $this->ctrl->getPrioQ()->getFailed();
@@ -607,15 +607,33 @@ class ShortPixelView {
             <h1><?php _e('Bulk Image Optimization by ShortPixel','shortpixel-image-optimiser');?></h1>
             <?php $this->displayBulkProgressBar(true, $percent, $message, $remainingQuota, $averageCompression, $type);?>
 
-            <!-- Partners: SQUIRLY -->
-            <?php if(!isset($dismissed['squirrly']) && $quotaData['APICallsQuotaOneTimeNumeric']<10000 && $quotaData['APICallsQuotaNumeric']<5000) { ?>
+            <!-- Partners: WSO Website Speed Optimization -->
+            <?php
+              if(!isset($dismissed['squirrly'])) // keep the same dismiss option
+              {
+            ?>
             <div id="short-pixel-notice-squirrly" class="sp-notice sp-notice-info bulk-progress bulk-progress-partners sp-floating-block sp-full-width">
-                <div style="float:right"><a href="javascript:dismissShortPixelNotice('squirrly')"><?php _e('Dismiss','shortpixel-image-optimiser');?></a></div>
-                <a href="https://my.squirrly.co/go120073/squirrly.co/short-pixel-seo" target="_blank">
-                    <img src="<?php echo(wpSPIO()->plugin_url('res/img/squirrly.png' ));?>" height="50">
-                    <div><?php _e('While you wait for your images to optimize, check out Squirrly, a great plugin for further boosting your SEO.','shortpixel-image-optimiser');?></div>
-                </a>
+                <div style="float:right"><a href="javascript:dismissShortPixelNotice('squirrly')"><?php _e('Dismiss','shortpixel-image-optimiser'); ?></a></div>
+                    <div style="display: flex; align-items: center;">
+                      <span class='icon' style="margin-right: 25px;"><img src="<?php echo(wpSPIO()->plugin_url('res/img/robo-winky.png' ));?>" ></span>
+                      <span class='content'>
+                       <p><?php _e('After you optimized all your images your site speed might still be improved. Allow ShortPixel Specialists to tell you how.', 'shortpixel-image-optimiser');  ?><p>
+                        <p style='font-size: 16px;'><a href="https://shortpixel.com/lp/wso/?utm_source=SPIO" target="_blank" style='font-weight: 700;'><?php _e('Get Your Site Assessment','shortpixel-image-optimiser'); ?></a></p>
+                      </span>
+                  </div>
             </div>
+            <?php } ?>
+            <?php
+            // deactivated for the moment, because of the WSO notice above
+            if(false && !isset($dismissed['squirrly']) && $quotaData['APICallsQuotaOneTimeNumeric']<10000 && $quotaData['APICallsQuotaNumeric']<5000) { ?>
+                <!-- Partners: SQUIRLY -->
+                <div id="short-pixel-notice-squirrly" class="sp-notice sp-notice-info bulk-progress bulk-progress-partners sp-floating-block sp-full-width">
+                    <div style="float:right"><a href="javascript:dismissShortPixelNotice('squirrly')"><?php _e('Dismiss','shortpixel-image-optimiser');?></a></div>
+                    <a href="https://my.squirrly.co/go120073/squirrly.co/short-pixel-seo" target="_blank">
+                        <img src="<?php echo(wpSPIO()->plugin_url('res/img/squirrly.png' ));?>" height="50">
+                        <div><?php _e('While you wait for your images to optimize, check out Squirrly, a great plugin for further boosting your SEO.','shortpixel-image-optimiser');?></div>
+                    </a>
+                </div>
             <?php } ?>
 
             <div class="sp-floating-block sp-notice bulk-notices-parent">
@@ -1641,7 +1659,7 @@ class ShortPixelView {
                     </tr>
                     <tr>
                         <th><a href="https://<?php echo(SHORTPIXEL_API);?>/v2/report.php?key=<?php echo(defined("SHORTPIXEL_HIDE_API_KEY") ? '' : $this->ctrl->getApiKey());?>" target="_blank">
-                                <?php _e('See report (last 40 days)','shortpixel-image-optimiser');?>
+                                <?php _e('See report (last 30 days)','shortpixel-image-optimiser');?>
                             </a></th>
                         <td>&nbsp;</td>
                     </tr>
