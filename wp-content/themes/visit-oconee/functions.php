@@ -465,3 +465,53 @@ function ag_tinymce_paste_as_text( $init ) {
 	$init['paste_as_text'] = true;
 	return $init;
 }
+
+function cptui_register_my_taxes_place_tag() {
+
+	/**
+	 * Taxonomy: Tags.
+	 */
+
+	$labels = [
+		"name" => __( "Tags", "custom-post-type-ui" ),
+		"singular_name" => __( "Tag", "custom-post-type-ui" ),
+		"menu_name" => __( "Tags", "custom-post-type-ui" ),
+		"all_items" => __( "All Tags", "custom-post-type-ui" ),
+		"edit_item" => __( "Edit Tag", "custom-post-type-ui" ),
+		"view_item" => __( "View Tag", "custom-post-type-ui" ),
+		"update_item" => __( "Update Tag name", "custom-post-type-ui" ),
+		"add_new_item" => __( "Add new Tag", "custom-post-type-ui" ),
+		"new_item_name" => __( "New Tag name", "custom-post-type-ui" ),
+		"parent_item" => __( "Parent Tag", "custom-post-type-ui" ),
+		"parent_item_colon" => __( "Parent Tag:", "custom-post-type-ui" ),
+		"search_items" => __( "Search Tags", "custom-post-type-ui" ),
+		"popular_items" => __( "Popular Tags", "custom-post-type-ui" ),
+		"separate_items_with_commas" => __( "Separate Tags with commas", "custom-post-type-ui" ),
+		"add_or_remove_items" => __( "Add or remove Tags", "custom-post-type-ui" ),
+		"choose_from_most_used" => __( "Choose from the most used Tags", "custom-post-type-ui" ),
+		"not_found" => __( "No Tags found", "custom-post-type-ui" ),
+		"no_terms" => __( "No Tags", "custom-post-type-ui" ),
+		"items_list_navigation" => __( "Tags list navigation", "custom-post-type-ui" ),
+		"items_list" => __( "Tags list", "custom-post-type-ui" ),
+	];
+
+	$args = [
+		"label" => __( "Tags", "custom-post-type-ui" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => [ 'slug' => 'tags', 'with_front' => false, ],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "place_tag",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		];
+	register_taxonomy( "place_tag", [ "poi" ], $args );
+}
+add_action( 'init', 'cptui_register_my_taxes_place_tag' );
