@@ -250,6 +250,9 @@ function load_itinerary() {
 						<?php endif; ?>
 						    <?php echo $address; ?>
 						</a>
+						<?php if (get_field('more_info', $post_id)) : ?>
+							<p><?php echo get_field('more_info', $post_id); ?></p>
+						<?php endif; ?>
 						<div class="poi-links hide-for-print">
 							<a href="<?php echo get_field('google_business_url', $post_id); ?>" target="_blank" class="poi-link poi-more">More Info</a>
 							<?php if ($website != '') : ?>
