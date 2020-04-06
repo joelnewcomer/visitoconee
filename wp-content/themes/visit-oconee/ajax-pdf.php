@@ -19,6 +19,7 @@ foreach ($itinerary as $post_id) {
 	$content .= '<img src="' . get_the_post_thumbnail_url( $post_id, 'thumbnail' ) . '" width="200" style="float: left; margin-top: -4px; margin-right: 20px;">';
 	$content .= '<h3 style="margin-top: 10px">' . get_the_title($post_id). '</h3>';
 	$content .= '<p>' . get_field('address', $post_id) . '</p>';
+	$content .= '<p>' . get_field('more_info', $post_id) . '</p>';
 	$content .= '</div>';
 }
 $content .= '</body></html>';
