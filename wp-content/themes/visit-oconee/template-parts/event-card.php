@@ -102,6 +102,12 @@
 									?>
 								<?php endforeach; ?>
 								</div> <!-- event-social -->
+								
+								<div class="poi-itinerary" data-itinerary="<?php echo $post->ID; ?>">
+									<?php get_template_part('assets/images/itinerary', 'icon.svg'); ?>
+									<div><span class="caps">Add<span class="added">ed</span></span> to My Itinerary</div>
+								</div>
+								
 								<a class="corner-link" href="<?php echo $link; ?>" <?php echo $target; ?>></a>
 							</div> <!-- event-card-content -->
 						</div> <!-- event-card -->

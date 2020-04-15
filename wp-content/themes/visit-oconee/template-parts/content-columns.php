@@ -48,7 +48,7 @@ if( have_rows('content') ):
         
         if( get_row_layout() == 'one_column' ): ?>
 			<!-- One Column -->
-        	<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>" <?php echo $section_parallax; ?>">
+        	<section <?php echo $section_id; ?> class="<?php echo $section_classes; ?>" <?php echo $section_parallax; ?>>
 	        	<div class="grid-container">
     	    		<div class="grid-x grid-padding-x">
 						<?php if ($section_header != null) : ?>

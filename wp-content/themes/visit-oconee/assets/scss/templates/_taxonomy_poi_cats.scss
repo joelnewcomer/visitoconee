@@ -151,49 +151,7 @@
 			margin-right: 10px;
 		}
 	}
-	.poi-itinerary {
-		cursor: pointer;
-		float: left;
-		margin-top: 15px;
-		width: 138px;
-		@media only screen and (max-width: 1090px) {
-			width: 100px;	
-		}
-		font-weight: bold;
-		span {
-			text-transform: uppercase;
-		}
-		div {
-			display: inline-block;
-			width: 98px;
-			line-height: 1;
-			font-size: 18px;
-		}
-		svg {
-			width: 25px;
-			height: 39px;
-			margin-right: 8px;
-			vertical-align: top;
-			@media only screen and (max-width: 1090px) {
-				display: none;	
-			}
-		}
-		.added {
-			display: none;
-		}
-		&.added .added {
-			display: inline;
-		}
-		&.added {
-			pointer-events: none;
-			cursor: default;
-			color: $orange !important;
-			svg path {
-				fill: $orange;
-				stroke: $orange;
-			}
-		}
-	}
+
 	.poi-shade {
 		background: $brown;
 		display: block;
@@ -376,3 +334,47 @@ body.single-poi #page, body.single-events #page {
 .poi-photo-wrapper {
 	position: relative;
 }
+
+	.poi-itinerary {
+		cursor: pointer;
+		float: left;
+		margin-top: 15px;
+		width: 138px;
+		@media only screen and (max-width: 1090px) {
+			width: 100px;	
+		}
+		font-weight: bold;
+		span {
+			text-transform: uppercase;
+		}
+		div {
+			display: inline-block;
+			width: 98px;
+			line-height: 1;
+			font-size: 18px;
+		}
+		svg {
+			width: 25px;
+			height: 39px;
+			margin-right: 8px;
+			vertical-align: top;
+			@media only screen and (max-width: 1090px) {
+				display: none;	
+			}
+		}
+		.added {
+			display: none;
+		}
+		&.added .added {
+			display: inline;
+		}
+		&.added {
+			pointer-events: none;
+			cursor: default;
+			color: $orange !important;
+			svg path {
+				fill: $orange;
+				stroke: $orange;
+			}
+		}
+	}

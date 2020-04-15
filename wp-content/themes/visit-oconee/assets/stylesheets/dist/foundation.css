@@ -5093,41 +5093,6 @@ body.error404 .entry-content h2 {
     float: right; }
     .poi-card .poi-social a, .blog-card .poi-social a {
       margin-right: 10px; }
-  .poi-card .poi-itinerary, .blog-card .poi-itinerary {
-    cursor: pointer;
-    float: left;
-    margin-top: 15px;
-    width: 138px;
-    font-weight: bold; }
-    @media only screen and (max-width: 1090px) {
-      .poi-card .poi-itinerary, .blog-card .poi-itinerary {
-        width: 100px; } }
-    .poi-card .poi-itinerary span, .blog-card .poi-itinerary span {
-      text-transform: uppercase; }
-    .poi-card .poi-itinerary div, .blog-card .poi-itinerary div {
-      display: inline-block;
-      width: 98px;
-      line-height: 1;
-      font-size: 18px; }
-    .poi-card .poi-itinerary svg, .blog-card .poi-itinerary svg {
-      width: 25px;
-      height: 39px;
-      margin-right: 8px;
-      vertical-align: top; }
-      @media only screen and (max-width: 1090px) {
-        .poi-card .poi-itinerary svg, .blog-card .poi-itinerary svg {
-          display: none; } }
-    .poi-card .poi-itinerary .added, .blog-card .poi-itinerary .added {
-      display: none; }
-    .poi-card .poi-itinerary.added .added, .blog-card .poi-itinerary.added .added {
-      display: inline; }
-    .poi-card .poi-itinerary.added, .blog-card .poi-itinerary.added {
-      pointer-events: none;
-      cursor: default;
-      color: #E67002 !important; }
-      .poi-card .poi-itinerary.added svg path, .blog-card .poi-itinerary.added svg path {
-        fill: #E67002;
-        stroke: #E67002; }
   .poi-card .poi-shade, .blog-card .poi-shade {
     background: #664D39;
     display: block;
@@ -5213,6 +5178,42 @@ body.single-poi #page, body.single-events #page {
 
 .poi-photo-wrapper {
   position: relative; }
+
+.poi-itinerary {
+  cursor: pointer;
+  float: left;
+  margin-top: 15px;
+  width: 138px;
+  font-weight: bold; }
+  @media only screen and (max-width: 1090px) {
+    .poi-itinerary {
+      width: 100px; } }
+  .poi-itinerary span {
+    text-transform: uppercase; }
+  .poi-itinerary div {
+    display: inline-block;
+    width: 98px;
+    line-height: 1;
+    font-size: 18px; }
+  .poi-itinerary svg {
+    width: 25px;
+    height: 39px;
+    margin-right: 8px;
+    vertical-align: top; }
+    @media only screen and (max-width: 1090px) {
+      .poi-itinerary svg {
+        display: none; } }
+  .poi-itinerary .added {
+    display: none; }
+  .poi-itinerary.added .added {
+    display: inline; }
+  .poi-itinerary.added {
+    pointer-events: none;
+    cursor: default;
+    color: #E67002 !important; }
+    .poi-itinerary.added svg path {
+      fill: #E67002;
+      stroke: #E67002; }
 
 .event-card {
   background: #EBF0F3 url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuNzc0IDEwMS43NzMiPjxkZWZzPjxzdHlsZT4uYXtmaWxsOiNjYmQ0ZDg7fTwvc3R5bGU+PC9kZWZzPjxwYXRoIGNsYXNzPSJhIiBkPSJNMjEzLjM3NCwxMjMuNCwxMTEuNiwyMjUuMTc0di03My41NkEyOC4zODUsMjguMzg1LDAsMCwxLDEzOS44MTUsMTIzLjRaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTExLjYgLTEyMy40MDEpIi8+PC9zdmc+) bottom right no-repeat;
