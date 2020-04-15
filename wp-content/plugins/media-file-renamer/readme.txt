@@ -3,9 +3,9 @@ Contributors: TigrouMeow, amekusa
 Tags: rename, seo, file, files, media, renamer, optimize, library
 Donate link: https://commerce.coinbase.com/checkout/d047546a-77a8-41c8-9ea9-4a950f61832f
 Requires at least: 4.8
-Tested up to: 5.3
+Tested up to: 5.4
 Requires PHP: 7.0
-Stable tag: 4.6.7
+Stable tag: 4.6.8
 
 Physically renames your files nicely for a cleaner system and for a better SEO. Please read the description.
 
@@ -57,10 +57,14 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 
 == Changelog ==
 
+= 4.6.8 =
+* Add: New filter 'mfrh_allow_rename'. Developers can now allow/reject the renaming (useful for bulk).
+* Fix: The file numbering wasn't working fine in a few specific cases.
+* Note: If you like it, please review the plugin [by clicking here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). It's important for us - we need motivation for all the work we want to put in the next version :)
+
 = 4.6.7 =
 * Add: Better handling of dots and hyphens (especially the non-standard ones).
 * Add: Support for WebP.
-* Note: If you like it, please review the plugin [by clicking here](https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post). It's important for us - we need motivation for all the work we want to put in the next version :)
 
 = 4.6.5 =
 * Fix: Little (i18n) fixes in the admin.
@@ -79,7 +83,6 @@ Check the FAQ on the official website, [here](https://meowapps.com/media-file-re
 * Fix: The WooCommerce add-on file was missing.
 * Fix: Search was sometimes not working properly in the Media Library.
 * Info: We are working on a bunch of updates concerning the usage of dots, hyphens and other characters, so expect the renaming rules to change a bit (for the best).
-* Note: If you like it, please review the plugin here: https://wordpress.org/support/plugin/media-file-renamer/reviews/?rate=5#new-post. It's important for us :) Thank you!
 
 = 4.5.2 =
 * Update: Code cleaning, Youtube video.

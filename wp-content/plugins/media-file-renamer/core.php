@@ -39,7 +39,13 @@ class Meow_MFRH_Core {
 
 	// Check if the file exists, if it is, return the real path for it
 	// https://stackoverflow.com/questions/3964793/php-case-insensitive-version-of-file-exists
-	static function sensitive_file_exists( $filename, $fullpath = true, $caseInsensitive = true ) {
+	static function sensitive_file_exists( $filename, $caseInsensitive = true ) {
+
+		$sensitive_check = get_option( 'mfrh_case_sensitive_check', true );
+		if ( !$sensitive_check ) {
+			return file_exists( $filename );
+		}
+
 		$output = false;
 		$directoryName = mfrh_dirname( $filename );
 		$fileArray = glob( $directoryName . '/*', GLOB_NOSORT );
@@ -309,6 +315,7 @@ SQL;
 					return false;
 				}
 				$new_filepath = trailingslashit( $directory ) . $new_filename;
+				$existing_file = Meow_MFRH_Core::sensitive_file_exists( $new_filepath );
 			}
 		}
 
@@ -834,6 +841,12 @@ SQL;
 	function rename( $media, $manual_filename = null, $fromMediaLibrary = true ) {
 		$id = null;
 		$post = null;
+
+		// This filter permits developers to allow or not the renaming of certain files.
+		$allowed = apply_filters( 'mfrh_allow_rename', true, $media, $manual_filename );
+		if ( !$allowed ) {
+			return $post;
+		}
 
 		// Check the arguments
 		if ( is_numeric( $media ) ) {

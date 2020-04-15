@@ -145,11 +145,15 @@ class Meow_MFRH_Admin extends MeowApps_Admin {
 			add_settings_field( 'mfrh_rename_guid', "Sync GUID",
 				array( $this, 'admin_rename_guid_callback' ),
 				'mfrh_developer_settings-menu', 'mfrh_developer_settings' );
+			add_settings_field( 'mfrh_case_sensitive_check', "Case Sensitive",
+				array( $this, 'admin_case_sensitive_callback' ),
+				'mfrh_developer_settings-menu', 'mfrh_developer_settings' );
 			add_settings_field( 'mfrh_rename_on_save', "Rename on Post Save",
 				array( $this, 'admin_rename_on_save_callback' ),
 				'mfrh_developer_settings-menu', 'mfrh_developer_settings' );
 
 			register_setting( 'mfrh_developer_settings', 'mfrh_rename_guid' );
+			register_setting( 'mfrh_developer_settings', 'mfrh_case_sensitive_check' );
 			register_setting( 'mfrh_developer_settings', 'mfrh_force_rename' );
 			register_setting( 'mfrh_developer_settings', 'mfrh_log' );
 			register_setting( 'mfrh_developer_settings', 'mfrh_logsql' );
@@ -295,6 +299,14 @@ class Meow_MFRH_Admin extends MeowApps_Admin {
 			checked( 1, get_option( 'mfrh_rename_guid' ), false ) . '/>';
 		$html .= '<label>' .esc_html__( 'Update GUID with Filename', 'media-file-renamer' ). '</label><br />';
 		$html .= '<small>' .esc_html__( 'The GUID will be renamed like the new filename. Better to keep this un-checked.', 'media-file-renamer' ). '</small>';
+    echo $html;
+	}
+	
+	function admin_case_sensitive_callback( $args ) {
+		$html = '<input type="checkbox" id="mfrh_case_sensitive_check" name="mfrh_case_sensitive_check" value="1" ' .
+			checked( 1, get_option( 'mfrh_case_sensitive_check', true ), false ) . '/>';
+		$html .= '<label>' .esc_html__( 'Enable', 'media-file-renamer' ). '</label><br />';
+		$html .= '<small>' .esc_html__( 'This will check and detect as different such files as "abc.jpg" and "ABC.jpg". PHP itself recognize it as a same file, but probably not your system.', 'media-file-renamer' ). '</small>';
     echo $html;
   }
 
