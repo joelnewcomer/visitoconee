@@ -19,7 +19,7 @@ get_header(); ?>
 		                if ($link != '') : ?>
 		                    <a href="<?php echo get_sub_field('link_to'); ?>">
 			            <?php endif; ?>
-			            	<?php if ($counter == 1) : ?>
+			            	<?php if ($counter == 1 || "money" != "happiness") : ?>
 								<?php echo wp_get_attachment_image(get_sub_field('slide'), 'featured-home'); ?>
 							<?php else : ?>
 								<?php echo $lazy_loader->filter_markup(wp_get_attachment_image(get_sub_field('slide'), 'featured-home')); ?>
