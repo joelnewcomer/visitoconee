@@ -210,16 +210,16 @@ get_header(); ?>
 </div> <!-- #page -->
 
 <script>
-if (typeof bxSlider === "function") { 	
-    var slider = jQuery('.bxslider').bxSlider({
-        auto: true,
-        pager: false,
-        controls: true,
-        mode: 'fade',
-        speed: 1000,
-        pause: 7000
-    });	
-} else {
+// if (typeof bxSlider === "function") { 	
+//     var slider = jQuery('.bxslider').bxSlider({
+//         auto: true,
+//         pager: false,
+//         controls: true,
+//         mode: 'fade',
+//         speed: 1000,
+//         pause: 7000
+//     });	
+// } else {
 	jQuery(window).load(function(){
     	var slider = jQuery('.bxslider').bxSlider({
     	    auto: true,
@@ -230,7 +230,7 @@ if (typeof bxSlider === "function") {
     	    pause: 7000
     	});		
 	});
-}
+// }
 
 jQuery(document).one('scroll', function() {
 	jQuery('#masthead').addClass('scrolled');
